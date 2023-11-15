@@ -3,8 +3,8 @@
 ## Les composants 
 
 - app
-  - Exports+
-  - Helpers+
+  - Exports
+  - Helpers
   - Http
     - Controllers
     - Root
