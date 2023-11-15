@@ -19,26 +19,16 @@
 
 - config
   - app.php
-  - brodcasting.php
-  - cache.php
   - excel.php+
-  - hashing.php
-  - mail.php
-  - queue.php
-  - sanctum.php
 
 - database
   - factories
   - migrations
   - seeders
 
-- lang+
-  
-- public
-  - assets+
-  
+- lang
+    
 - resources
-  - model_schemas+
   - views
   
 - Routes
@@ -46,7 +36,6 @@
 
 - composer.json
   -  "require": {
-        "infyomlabs/adminlte-templates": "^6.0",
         "maatwebsite/excel": "^3.1"
     },
   -  "autoload": {
