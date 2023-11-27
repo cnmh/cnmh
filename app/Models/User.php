@@ -44,8 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin()
-    {
-        return $this->name === 'admin'; 
-    }
+    // public static $rules = [
+    //     'name' => 'required|string|max:255',
+    //     'email' => 'required|string|email|max:255|unique:users',
+    //     'password' => 'required'
+    // ];
 }

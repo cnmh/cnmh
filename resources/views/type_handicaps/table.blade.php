@@ -45,15 +45,11 @@
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            @can('edit',$typeHandicap)
                             <a href="{{ route('typeHandicaps.edit', [$typeHandicap->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
-                            @endcan
-                            @can('delete',$typeHandicap)
                               {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>

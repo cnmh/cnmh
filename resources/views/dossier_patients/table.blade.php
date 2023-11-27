@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th>N° dossier</th>
-                    <th>Patient</th>
+                    <th>Bénéficiaire</th>
                     {{-- <th>Couverture Medical</th> --}}
                     <th>État de processus</th>
                     {{-- <th>Date Enregsitrement</th> --}}
@@ -21,8 +21,8 @@
                     {{-- <td>{{ $dossierPatient->date_enregsitrement }}</td> --}}
 
                     <td style="width: 120px">
-                        {{-- {!! Form::open(['route' => ['dossierPatients.destroy', $dossierPatient->id], 'method' =>
-                        'delete']) !!} --}}
+                        {!! Form::open(['route' => ['dossier-patients.destroy', $dossierPatient->id], 'method' =>
+                        'delete']) !!} 
 
                         <div class='btn-group'>
                             <a href="{{ route('dossier-patients.show', [$dossierPatient->id]) }}"

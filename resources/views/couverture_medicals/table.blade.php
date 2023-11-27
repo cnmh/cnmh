@@ -20,15 +20,11 @@
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            @can('edit',$couvertureMedical)
                             <a href="{{ route('couvertureMedicals.edit', [$couvertureMedical->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
-                            @endcan
-                            @can('delete',$couvertureMedical)
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
@@ -46,11 +42,9 @@
                                 <a href="{{ route('couvertureMedicals.export') }}" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> Exporter
                                 </a>
-                                @can('create',App\Models\CouvertureMedical::class)
                                 <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                                     <i class="fas fa-file-import"></i> Importer
                                 </button>
-                                @endcan
         </div>
     </div>
 </div>

@@ -12,6 +12,11 @@ use App\Http\Controllers\DossierPatientController;
 use App\Http\Controllers\NiveauScolaireController;
 use App\Http\Controllers\CouvertureMedicalController;
 use App\Http\Controllers\RendezVousController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\RolePermissionController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -117,3 +122,23 @@ Route::get('/entretien/{query}',[DossierPatientController::class,'entretien'])->
 Route::post('/storeEntetien',[DossierPatientController::class,'storeEntetien'])->name('dossier-patients.storeEntetien');
 Route::get('/export',[DossierPatientController::class,'export'] )->name('dossier-patients.export');
 });
+
+/**
+ * Roles links
+ */
+
+Route::resource('roles', App\Http\Controllers\RoleController::class); // ressource
+Route::get('roles_export', [App\Http\Controllers\RoleController::class, 'export'])->name('roles.export'); // Export
+
+/**
+ * Permission links
+ */
+Route::resource('permissions', App\Http\Controllers\PermissionController::class);
+Route::get('/ajouter/permission', [App\Http\Controllers\PermissionController::class,'addPermissionsAuto'])->name('auto-create-permissions');
+Route::get('permissions_export', [App\Http\Controllers\PermissionController::class, 'export'])->name('permissions.export'); // Export
+Route::post('/import_permissions', [App\Http\Controllers\PermissionController::class, 'import'])->name('permissions.import'); // Import
+
+
+Route::resource('users', App\Http\Controllers\UserController::class);
+Route::get('/manage/permissions-roles/{id}', [App\Http\Controllers\PermissionController::class, 'showRolePermission'])->name('manage.role.permission');
+Route::post('/assign-role-permission', [App\Http\Controllers\PermissionController::class, 'assignRolePermission'])->name('assign.role.permission');

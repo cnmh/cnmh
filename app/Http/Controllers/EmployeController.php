@@ -42,7 +42,7 @@ class EmployeController extends AppBaseController
 
         return view('employes.index')
             ->with('employes', $employes);
-        }
+    }
 
         /**
          * Show the form for creating a new Employe.
@@ -52,7 +52,7 @@ class EmployeController extends AppBaseController
 
             $fonction = Fonction::all();
             return view('employes.create',compact("fonction"));
-    }
+     }
 
     /**
      * Store a newly created Employe in storage.

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'singular' => 'Patient',
-    'plural' => 'Patients',
+    'singular' => 'bénéficiaire',
+    'plural' => 'bénéficiaires',
     'fields' => [
         'id' => 'ID',
         'tuteur_id' => 'Tuteur',

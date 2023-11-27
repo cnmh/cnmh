@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('rendez-vous.list_dossier') }}">
-                         @lang('crud.add_new') Rendez Vous
+                         @lang('crud.add_new')
                     </a>
                 </div>
             </div>

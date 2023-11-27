@@ -21,7 +21,16 @@ use App\Repositories\DossierPatientRepository;
 use App\Http\Requests\CreateDossierPatientRequest;
 use App\Http\Requests\UpdateDossierPatientRequest;
 use App\Models\DossierPatientConsultation;
+use App\Models\OrientationExterne;
 
+
+
+
+
+
+/**
+ * @author CodeCampers, Boukhar Soufiane
+ */
 class DossierPatientController extends AppBaseController
 {
     /** @var DossierPatientRepository $dossierPatientRepository*/
@@ -67,9 +76,20 @@ class DossierPatientController extends AppBaseController
     public function store(CreateDossierPatientRequest $request)
     {
         $input = $request->all();
+
+        $latestDossier = DossierPatient::where('numero_dossier', 'like', 'A-%')
+            ->whereRaw('CAST(SUBSTRING(numero_dossier, 3) AS SIGNED) IS NOT NULL')
+            ->max('numero_dossier');
+    
+        $counter = $latestDossier ? (int)substr($latestDossier, 2) + 1 : 1802;
+    
+        $numeroDossier = 'A-' . $counter;
+    
+        $input['numero_dossier'] = $numeroDossier;
+    
         $dossierPatient = $this->dossierPatientRepository->create($input);
         $dossierPatient->save();
-
+        
         $dossierPatient::where('numero_dossier', $request->numero_dossier)->get();
         $DossierPatient_typeHandycape = new DossierPatient_typeHandycape;
         $DossierPatient_typeHandycape->type_handicap_id = $request->type_handicap_id;
@@ -158,7 +178,18 @@ class DossierPatientController extends AppBaseController
             return redirect(route('dossier-patients.index'));
         }
 
-        return view('dossier_patients.edit')->with('dossierPatient', $dossierPatient);
+        $type_handicap = TypeHandicap::all();
+        $couverture_medical = CouvertureMedical::all();
+        $dossierPatientID = $dossierPatient['id'];
+
+        $DossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)->first()->id;
+        $type_handicap_patient =TypeHandicap::find($DossierPatient_typeHandycape);
+
+        $patientId = $dossierPatient['patient_id'];
+
+
+
+        return view('dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient'));
     }
 
     /**
@@ -166,15 +197,23 @@ class DossierPatientController extends AppBaseController
      */
     public function update($id, UpdateDossierPatientRequest $request)
     {
+        $data = $request->all();
         $dossierPatient = $this->dossierPatientRepository->find($id);
-
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('dossier-patients.index'));
         }
+        
+        $DossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatient['id'])->first();
 
-        $dossierPatient = $this->dossierPatientRepository->update($request->all(), $id);
+
+        $DossierPatient_typeHandycape->update(
+            ['type_handicap_id' => $data['type_handicap_id']]
+        );
+        
+        $dossierPatient = $this->dossierPatientRepository->update($data, $id);
+
 
         Flash::success(__('messages.updated', ['model' => __('models/dossierPatients.singular')]));
 
@@ -190,18 +229,35 @@ class DossierPatientController extends AppBaseController
     {
         $dossierPatient = $this->dossierPatientRepository->find($id);
 
+        if ($dossierPatient) {
+            $dossierPatientID = $dossierPatient->id;
+            $OrientationExterne = OrientationExterne::where('dossier_patient_id', $dossierPatientID)->first();
+            $dossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $dossierPatientID)->first();
+            $DossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)->first();
+
+            if ($OrientationExterne) {
+                Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
+            } else {
+                if ($dossierPatientConsultation) {
+                    $dossierPatientConsultation->delete();
+                    if ($DossierPatient_typeHandycape) {
+                        $DossierPatient_typeHandycape->delete();
+                    }
+                    $this->dossierPatientRepository->delete($id);
+                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
+                } else {
+                    Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                }
+            }
+            
+        }
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
-
-            return redirect(route('dossier-patients.index'));
         }
-
-        $this->dossierPatientRepository->delete($id);
-
-        Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
 
         return redirect(route('dossier-patients.index'));
     }
+
     public function parent(Request $request)
     {
         $query = $request->input('query');

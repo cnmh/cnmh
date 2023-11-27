@@ -9,7 +9,6 @@
                         {{ strtolower(__('models/etatCivils.plural')) }}
                     </h1>
                 </div>
-                @can('create',App\Models\EtatCivil::class)
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right" href="{{ route('etatCivils.create') }}">
                         @lang('crud.create') @if (app()->getLocale() == 'fr')
@@ -20,7 +19,6 @@
                         @endif
                     </a>
                 </div>
-                @endcan
             </div>
         </div>
     </section>

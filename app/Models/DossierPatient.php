@@ -27,7 +27,7 @@ class DossierPatient extends Model
         'user_id',
         'patient_id' => 'required',
         'couverture_medical_id' => 'required',
-        'numero_dossier' => 'required',
+        'numero_dossier' => '',
         'etat' => 'required|string|max:255',
         'date_enregsitrement' => 'required',
         'created_at' => 'nullable',

@@ -52,19 +52,15 @@
                                     class='btn btn-default btn-sm'>
                                     <i class="far fa-eye"></i>
                                 </a>
-                                @can('edit',$etatCivil)
                                 <a href="{{ route('etatCivils.edit', [$etatCivil->id]) }}"
                                     class='btn btn-default btn-sm'>
                                     <i class="far fa-edit"></i>
                                 </a>
-                                @endcan
-                                @can('delete',$etatCivil)
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'onclick' => "return confirm('Est vous sure de supprimer ce champ?')",
                                 ]) !!}
-                                @endcan
                             </div>
                             {!! Form::close() !!}
                         </td>
@@ -82,11 +78,9 @@
             <a href="{{ route('etatCivils.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
-            @can('create',App\Models\EtatCivil::class)
             <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> Importer
             </button>
-            @endcan
         </div>
     </div>
 </div>

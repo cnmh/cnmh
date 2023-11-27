@@ -16,18 +16,32 @@ class UserSeeder extends Seeder
     {
         $now = \Carbon\Carbon::now();
 
-        $admin = Hash::make("admin");
+        $password = Hash::make("admin");
         $social = Hash::make("social");
         $medecin = Hash::make("medecin");
 
+        $admin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password'=> $password,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+        $admin->assignRole('admin');
+
+        $permissionAdmin = [
+            'index-EtatCivilController',
+            'index-PermissionController',
+            'addPermissionsAuto-PermissionController',
+            'index-UserController',
+            'showRolePermission-PermissionController',
+            'assignRolePermission-PermissionController',
+
+        ];
+
+        $admin->givePermissionTo($permissionAdmin);
         $user = User::insert([
-            [
-                'name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password'=> $admin,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
+           
             [
                 'name' => 'service social',
                 'email' => 'social@gmail.com',
@@ -42,9 +56,6 @@ class UserSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
-
-
-
 
         ]);
 

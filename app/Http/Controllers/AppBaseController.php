@@ -18,24 +18,16 @@ class AppBaseController extends Controller
 {
 
 
-    // public function callAction($method, $parameters)
-    // {
+    public function callAction($method, $parameters)
+    {
 
-    //     $controller = class_basename(get_class($this));
-    //     $action = $method;
-    //     $model = str_replace('Controller', '', $controller);
-    //     $modelPath = 'App\\Models\\'.$model;  
-
-    //     if($action === 'index' || $action === 'parent' || $action === 'patient' || $action === 'entretien'){
-    //         $this->authorize('view', new $modelPath);  
-    //     }elseif($action === 'store'){  
-    //         $this->authorize('create', new $modelPath);  
-    //     }else{ 
-    //         $this->authorize($action, new $modelPath); 
-    //     }
-        
-    //     return parent::callAction($method, $parameters);
-    // }
+        $controller = class_basename(get_class($this));
+        $action = $method;
+        $permissions = $action . '-' . $controller; 
+        // dd($permissions);
+        $this->authorize($permissions);  
+        return parent::callAction($method, $parameters);
+    }
 
     
    

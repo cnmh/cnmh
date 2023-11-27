@@ -28,15 +28,12 @@
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            @can('edit',$employe)
                             <a href="{{ route('employes.edit', [$employe->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
-                            @endcan
-                            @can('delete',$employe)
+                            
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
@@ -54,11 +51,9 @@
             <a href="{{ route('employes.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
-            @can('create',App\Models\Employe::class)
             <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModelEmploye">
                 <i class="fas fa-file-import"></i> Importer
             </button>
-            @endcan
         </div>
     </div>
 </div>
