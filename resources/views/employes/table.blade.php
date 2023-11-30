@@ -53,12 +53,12 @@
             @include('adminlte-templates::common.paginate', ['records' => $employes])
         </div>
         <div class="float-left">
-            @can('export-EmployeController')
+            @can('export-Employe')
             <a href="{{ route('employes.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
             @endcan
-            @can('import-EmployeController')
+            @can('import-Employe')
             <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModelEmploye">
                 <i class="fas fa-file-import"></i> Importer
             </button>
