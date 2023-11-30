@@ -17,13 +17,13 @@ if (isset($url['query'])) {
 <div class="form-group col-sm-6">
     {!! Form::label("type d'handycapé", __('models/dossierPatients.fields.type_handicap_id')) !!}
     {{ Form::select(
-    'type_handicap_id',
-    ['' => __('models/dossierPatients.fields.selecter.select_type_handicap_id')] + $type_handicap->pluck('nom', 'id')->toArray(),
-    isset($type_handicap_patient->id) ? $type_handicap_patient->id : null,
-    ['class' => 'form-control', 'required']
-) }}
-
+        'type_handicap_id[]',
+        ['' => __('models/dossierPatients.fields.selecter.select_type_handicap_id')] + $type_handicap->pluck('nom', 'id')->toArray(),
+        isset($type_handicap_patient) ? $type_handicap_patient->pluck('id')->toArray() : [],
+        ['class' => 'form-control', 'required', 'multiple' => 'multiple']
+    ) }}
 </div>
+
 
 <!-- Couverture Medical Id Field -->
 <div class="form-group col-sm-6">
