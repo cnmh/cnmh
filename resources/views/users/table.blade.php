@@ -22,18 +22,22 @@
                                 <i class="far fa-eye"></i>
                             </a> 
                             --}}
+                            @can('update-User')
 
                             <a href="{{ route('manage.role.permission', [$user->id]) }}" class='btn btn-default btn-sm d-flex'>
                                 <i class="far fa-edit mr-2 mt-1"></i>
                                 Parametre
                             </a>
+                            @endcan
                             {{-- 
                             <a href="{{ route('users.edit', [$user->id]) }}" class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             --}}
+                            @can('destroy-User')
 
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                             
 
                             
@@ -51,12 +55,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $users])
         </div>
         <div class="float-left">
+            @can('export-UserController')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> Exporter
                                 </button>
+                                @endcan
+                                @can('import-UserController')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-file-import"></i> Importer
                                 </button>
+                                @endcan
         </div>
     </div>
 </div>

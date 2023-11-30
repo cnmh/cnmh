@@ -9,10 +9,12 @@
                     <h1>@lang('models/roles.plural')</h1>
                 </div>
                 <div class="col-sm-6">
+                    @can('create-RoleController')
                     <a class="btn btn-primary float-right"
                        href="{{ route('roles.create') }}">
                          @lang('crud.add_new')
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>
