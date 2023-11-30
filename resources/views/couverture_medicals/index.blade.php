@@ -8,6 +8,7 @@
                     <h1>{{__('models/couvertureMedicals.plural')}}</h1>
                 </div>
                 <div class="col-sm-6">
+                    @can('create-CouvertureMedicalController')
                     <a class="btn btn-primary float-right" href="{{ route('couvertureMedicals.create') }}">
                         @lang('crud.create')
                         @if (app()->getLocale() == 'fr')
@@ -16,6 +17,7 @@
                         @lang(strtolower(__('models/models/service.singular')))
                     @endif
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

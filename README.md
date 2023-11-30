@@ -53,6 +53,8 @@
 
 ### Installation de l'application
 
+- Creer un fichier env
+  
 ```bash
   npm install
   composer install
