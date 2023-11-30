@@ -24,19 +24,19 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['employes.destroy', $employe->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            @can('show-EmployeController')
+                            @can('show-Employe')
                             <a href="{{ route('employes.show', [$employe->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
-                            @can('edit-EmployeController')
+                            @can('edit-Employe')
                             <a href="{{ route('employes.edit', [$employe->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('destroy-EmployeController')
+                            @can('destroy-Employe')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                         </div>
                         {!! Form::close() !!}

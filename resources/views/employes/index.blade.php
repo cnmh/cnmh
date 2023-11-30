@@ -9,7 +9,7 @@
                         {{ __('models/employes.plural') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    @can('create-EmployeController')
+                    @can('create-Employe')
                     <a class="btn btn-primary float-right" href="{{ route('employes.create') }}">
                         @lang('crud.add_new') {{ strtolower(__('models/employes.singular')) }}
                     </a>
