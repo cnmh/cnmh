@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@can('create-EtatCivilController')
     <section class="content-header">
         {{-- <div class="container-fluid">
             <div class="row mb-2">
@@ -53,6 +54,7 @@
         </div>
     </section>
 @endsection
+@endcan
 @push('page_scripts')
     <script>
         $(document).ready(function() {

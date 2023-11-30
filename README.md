@@ -1,4 +1,4 @@
-<!-- TODO : Changer le nom du projet -->
+<!-- TODO : Changer le nom du projet --> 
 # cnmh2 
 
 <!-- TODO : Introduction -->
@@ -53,6 +53,8 @@
 
 ### Installation de l'application
 
+- Creer un fichier env
+  
 ```bash
   npm install
   composer install

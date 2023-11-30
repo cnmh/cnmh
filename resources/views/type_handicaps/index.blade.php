@@ -10,10 +10,12 @@
                     <h1>@lang('models/typeHandicaps.plural')</h1>
                 </div>
                 <div class="col-sm-6">
+                    @can('create-TypeHandicapController')
                     <a class="btn btn-primary float-right"
                        href="{{ route('typeHandicaps.create') }}">
                          @lang('crud.create') {{strtolower(__('models/typeHandicaps.singular'))}}
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

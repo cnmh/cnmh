@@ -48,19 +48,25 @@
                         <td style="width: 120px">
                             {!! Form::open(['route' => ['etatCivils.destroy', $etatCivil->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
+                                @can('show-EtatCivilController')
                                 <a href="{{ route('etatCivils.show', [$etatCivil->id]) }}"
                                     class='btn btn-default btn-sm'>
                                     <i class="far fa-eye"></i>
                                 </a>
+                                @endcan
+                                @can('edit-EtatCivilController')
                                 <a href="{{ route('etatCivils.edit', [$etatCivil->id]) }}"
                                     class='btn btn-default btn-sm'>
                                     <i class="far fa-edit"></i>
                                 </a>
+                                @endcan
+                                @can('destroy-EtatCivilController')
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'onclick' => "return confirm('Est vous sure de supprimer ce champ?')",
                                 ]) !!}
+                                @endcan
                             </div>
                             {!! Form::close() !!}
                         </td>
@@ -75,12 +81,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $etatCivils])
         </div>
         <div class="float-left">
+        @can('export-EtatCivilController')
             <a href="{{ route('etatCivils.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
+            @endcan
+            @can('import-EtatCivilController')
             <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> Importer
             </button>
+            @endcan
         </div>
     </div>
 </div>

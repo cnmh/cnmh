@@ -16,12 +16,17 @@
                         <td style="width: 120px">
                             {!! Form::open(['route' => ['services.destroy', $service->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
+                                @can('show-ServiceController')
                                 <a href="{{ route('services.show', [$service->id]) }}" class='btn btn-default btn-sm'>
                                     <i class="far fa-eye"></i>
                                 </a>
+                                @endcan
+                                @can('edit-ServiceController')
                                 <a href="{{ route('services.edit', [$service->id]) }}" class='btn btn-default btn-sm'>
                                     <i class="far fa-edit"></i>
                                 </a>
+                                @endcan
+                                @can('destroy-ServiceController')
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
@@ -29,6 +34,7 @@
                                 ]) !!}
                             </div>
                             {!! Form::close() !!}
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
