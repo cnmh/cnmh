@@ -1,3 +1,4 @@
+@can('create-Permission')
 @extends('layouts.app')
 
 @section('content')
@@ -103,3 +104,4 @@
     </div>
 </div>
 @endsection
+@endcan

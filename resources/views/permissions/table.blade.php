@@ -16,17 +16,23 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['permissions.destroy', $permission->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
+                            @can('show-Permission')
                             <a href="{{ route('permissions.show', [$permission->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
+                            @endcan
+                            @can('edit-Permission')
                             <a href="{{ route('permissions.edit', [$permission->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
+                            @endcan
+                            @can('destroy-Permission')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                         </div>
                         {!! Form::close() !!}
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -39,12 +45,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $permissions])
         </div>
         <div class="float-left">
+        @can('export-Permission')
             <a href="{{ route('permissions.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
+            @endcan
+            @can('import-Permission')
             <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModelPermission">
                 <i class="fas fa-file-import"></i> Importer
             </button>
+            @endcan
         </div>
     </div>
 </div>

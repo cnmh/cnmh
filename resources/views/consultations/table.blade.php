@@ -6,7 +6,7 @@
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Téléphone</th>
-                <th>Date d'enregistrement</th>
+                <th>Date enregistrement</th>
                 <th>État</th>
                 <th>Orientation</th>
                 <th>Date consultation</th>
