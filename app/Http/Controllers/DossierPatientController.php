@@ -190,10 +190,9 @@ class DossierPatientController extends AppBaseController
 
         $DossierPatient_typeHandycap = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)->get();
 
-        $typeHandicapIDs = $DossierPatient_typeHandycap->pluck('id')->toArray();
+        $typeHandicapIDs = $DossierPatient_typeHandycap->pluck('type_handicap_id')->toArray();
 
         $type_handicap_patient = TypeHandicap::whereIn('id', $typeHandicapIDs)->get();
-
 
         $patientId = $dossierPatient->patient_id;
 
@@ -207,26 +206,31 @@ class DossierPatientController extends AppBaseController
     {
         $data = $request->all();
         $dossierPatient = $this->dossierPatientRepository->find($id);
-
+    
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
-
             return redirect(route('dossier-patients.index'));
         }
-
+    
         $dossierPatientID = $dossierPatient->id;
         $typeHandicapIDs = $data['type_handicap_id'];
+    
+        DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)
+            ->whereNotIn('type_handicap_id', $typeHandicapIDs)
+            ->delete();
+    
         foreach ($typeHandicapIDs as $typeHandicapID) {
-            DossierPatient_typeHandycape::updateOrInsert(
+            DossierPatient_typeHandycape::updateOrCreate(
                 ['dossier_patient_id' => $dossierPatientID, 'type_handicap_id' => $typeHandicapID],
                 ['type_handicap_id' => $typeHandicapID]
             );
         }
-
+    
         $dossierPatient = $this->dossierPatientRepository->update($data, $id);
         Flash::success(__('messages.updated', ['model' => __('models/dossierPatients.singular')]));
         return redirect(route('dossier-patients.index'));
     }
+    
     
 
     /**
