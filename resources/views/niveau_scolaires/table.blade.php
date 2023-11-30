@@ -17,19 +17,19 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['niveauScolaires.destroy', $niveauScolaire->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            @can('show-NiveauScolaireController')
+                            @can('show-NiveauScolaire')
                             <a href="{{ route('niveauScolaires.show', [$niveauScolaire->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
-                            @can('edit-NiveauScolaireController')
+                            @can('edit-NiveauScolaire')
                             <a href="{{ route('niveauScolaires.edit', [$niveauScolaire->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('destroy-NiveauScolaireController')
+                            @can('destroy-NiveauScolaire')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                         </div>
                         {!! Form::close() !!}
