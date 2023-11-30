@@ -48,19 +48,19 @@
                         <td style="width: 120px">
                             {!! Form::open(['route' => ['etatCivils.destroy', $etatCivil->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                @can('show-EtatCivilController')
+                                @can('show-EtatCivil')
                                 <a href="{{ route('etatCivils.show', [$etatCivil->id]) }}"
                                     class='btn btn-default btn-sm'>
                                     <i class="far fa-eye"></i>
                                 </a>
                                 @endcan
-                                @can('edit-EtatCivilController')
+                                @can('edit-EtatCivil')
                                 <a href="{{ route('etatCivils.edit', [$etatCivil->id]) }}"
                                     class='btn btn-default btn-sm'>
                                     <i class="far fa-edit"></i>
                                 </a>
                                 @endcan
-                                @can('destroy-EtatCivilController')
+                                @can('destroy-EtatCivil')
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
@@ -81,12 +81,12 @@
             @include('adminlte-templates::common.paginate', ['records' => $etatCivils])
         </div>
         <div class="float-left">
-        @can('export-EtatCivilController')
+        @can('export-EtatCivil')
             <a href="{{ route('etatCivils.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
             @endcan
-            @can('import-EtatCivilController')
+            @can('import-EtatCivil')
             <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> Importer
             </button>
