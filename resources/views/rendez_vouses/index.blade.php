@@ -8,12 +8,15 @@
                 <div class="col-sm-6">
                     <h1>@lang('models/rendezVouses.plural')</h1>
                 </div>
+                @can('create',App\Models\RendezVous::class)
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('rendez-vous.list_dossier') }}">
                          @lang('crud.add_new') Rendez Vous
                     </a>
                 </div>
+                @endcan
+
             </div>
         </div>
     </section>

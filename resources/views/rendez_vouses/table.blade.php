@@ -26,11 +26,15 @@
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            {{-- <a href="{{ route('rendez-vous.edit', [$rendezVous->id]) }}"
+                            @can('edit',$rendezVous)
+                            <a href="{{ route('rendez-vous.edit', [$rendezVous->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
-                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
+                            @endcan
+                            @can('delete',$rendezVous)
+                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
@@ -49,9 +53,11 @@
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> @lang('crud.export')
                                 </button>
+                                @can('create',App\Models\RendezVous::class)
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-file-import"></i> @lang('crud.import')
                                 </button>
+                                @endcan
         </div>
     </div>
 </div>
