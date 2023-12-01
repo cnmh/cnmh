@@ -16,17 +16,17 @@
                         <td style="width: 120px">
                             {!! Form::open(['route' => ['services.destroy', $service->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                @can('show-ServiceController')
+                                @can('show-Service')
                                 <a href="{{ route('services.show', [$service->id]) }}" class='btn btn-default btn-sm'>
                                     <i class="far fa-eye"></i>
                                 </a>
                                 @endcan
-                                @can('edit-ServiceController')
+                                @can('edit-Service')
                                 <a href="{{ route('services.edit', [$service->id]) }}" class='btn btn-default btn-sm'>
                                     <i class="far fa-edit"></i>
                                 </a>
                                 @endcan
-                                @can('destroy-ServiceController')
+                                @can('destroy-Service')
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
@@ -47,17 +47,21 @@
             @include('adminlte-templates::common.paginate', ['records' => $services])
         </div>
         <div class="float-left">
+            @can('export-Service')
             <a href="{{ route('services.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> @lang('crud.export')
+             @endcan
             </a>
+            @can('import-Service')
             <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
             </button>
+            @endcan
         </div>
     </div>
 </div>
 
-
+@can('import-Service')
 <!-- Modal Import -->
 <div class="modal fade" id="importModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
@@ -83,3 +87,4 @@
         </div>
     </div>
 </div>
+@endcan

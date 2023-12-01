@@ -8,7 +8,7 @@
                     <h1>{{__('models/couvertureMedicals.plural')}}</h1>
                 </div>
                 <div class="col-sm-6">
-                    @can('create-CouvertureMedicalController')
+                    @can('create-CouvertureMedical')
                     <a class="btn btn-primary float-right" href="{{ route('couvertureMedicals.create') }}">
                         @lang('crud.create')
                         @if (app()->getLocale() == 'fr')

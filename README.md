@@ -18,7 +18,7 @@
   php artisan db:seed
   npm run build
 ```
-# Démonstration de l'application  
+# Démonstration de l'application 
 
 - Email : admin@gmail.com
   - Password : admin
@@ -28,7 +28,7 @@
 
 - Email : medecin@gmail.com
   - Password : medecin
-
+  - 
 ## Les composants de l'application
 
 <!-- Introduction -->
@@ -76,4 +76,22 @@
         ]
     }
 
+
+### Installation de l'application
+
+- Creer un fichier env
+  
+```bash
+  npm install
+  composer install
+```
+
+<!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
+
+<!-- TODO : migrate:fresh -> This database does not exist -->
+```bash
+  php artisan migrate:fresh
+  php artisan db:seed
+  npm run build
+```
 

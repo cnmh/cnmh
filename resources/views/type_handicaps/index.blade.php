@@ -10,7 +10,7 @@
                     <h1>@lang('models/typeHandicaps.plural')</h1>
                 </div>
                 <div class="col-sm-6">
-                    @can('create-TypeHandicapController')
+                    @can('create-TypeHandicap')
                     <a class="btn btn-primary float-right"
                        href="{{ route('typeHandicaps.create') }}">
                          @lang('crud.create') {{strtolower(__('models/typeHandicaps.singular'))}}
@@ -55,7 +55,7 @@
         var searchQuery = ''
 
         const search = (query = '', page = 1) => {
-            $.ajax('{{ route('typeHandicaps.index') }}', {
+            $.ajax("{{ route('typeHandicaps.index') }}", {
                 data: {
                     query: query,
                     page: page
