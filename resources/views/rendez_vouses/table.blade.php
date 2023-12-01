@@ -22,17 +22,19 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['rendez-vous.destroy', $rendezVous->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
+                            @can('show-RendezVousController')
                             <a href="{{ route('rendez-vous.show', [$rendezVous->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            @can('edit',$rendezVous)
+                            @endcan
+                            @can('edit-RendezVousController')
                             <a href="{{ route('rendez-vous.edit', [$rendezVous->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('delete',$rendezVous)
+                            @can('destroy-RendezVousController')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                             @endcan
                         </div>
@@ -50,10 +52,12 @@
             @include('adminlte-templates::common.paginate', ['records' => $rendezVouses])
         </div>
         <div class="float-left">
+                                @can('export-RendezVousController')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> @lang('crud.export')
                                 </button>
-                                @can('create',App\Models\RendezVous::class)
+                                @endcan
+                                @can('import-RendezVousController')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-file-import"></i> @lang('crud.import')
                                 </button>
