@@ -61,7 +61,7 @@
     </div>
 </div>
 
-
+@can('import-Service')
 <!-- Modal Import -->
 <div class="modal fade" id="importModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
@@ -87,3 +87,4 @@
         </div>
     </div>
 </div>
+@endcan
