@@ -72,7 +72,7 @@ class DossierPatientController extends AppBaseController
 
     /**
      * Store a newly created DossierPatient in storage.
-     */
+    */
     public function store(CreateDossierPatientRequest $request)
     {
         $input = $request->all();
@@ -90,12 +90,18 @@ class DossierPatientController extends AppBaseController
         $dossierPatient = $this->dossierPatientRepository->create($input);
         $dossierPatient->save();
         
-        $dossierPatient::where('numero_dossier', $request->numero_dossier)->get();
+        $dossierPatient = DossierPatient::where('numero_dossier', $numeroDossier)->first();
         $DossierPatient_typeHandycape = new DossierPatient_typeHandycape;
-        $DossierPatient_typeHandycape->type_handicap_id = $request->type_handicap_id;
-        $DossierPatient_typeHandycape->dossier_patient_id  = $dossierPatient->id;
-        $DossierPatient_typeHandycape->save();
 
+        $typeHandycapeIDs = $request->input('type_handicap_id');
+        
+        foreach ($typeHandycapeIDs as $typeHandycapeID) {
+            $DossierPatient_typeHandycape = new DossierPatient_typeHandycape;
+            $DossierPatient_typeHandycape->type_handicap_id = $typeHandycapeID;
+            $DossierPatient_typeHandycape->dossier_patient_id = $dossierPatient->id;
+            $DossierPatient_typeHandycape->save();
+        }
+        
         $consultation = new Consultation();
         $consultation->date_enregistrement=$request->date_enregsitrement;
         $consultation->type="medecinGeneral";
@@ -180,14 +186,15 @@ class DossierPatientController extends AppBaseController
 
         $type_handicap = TypeHandicap::all();
         $couverture_medical = CouvertureMedical::all();
-        $dossierPatientID = $dossierPatient['id'];
+        $dossierPatientID = $dossierPatient->id; 
 
-        $DossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)->first()->id;
-        $type_handicap_patient =TypeHandicap::find($DossierPatient_typeHandycape);
+        $DossierPatient_typeHandycap = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)->get();
 
-        $patientId = $dossierPatient['patient_id'];
+        $typeHandicapIDs = $DossierPatient_typeHandycap->pluck('type_handicap_id')->toArray();
 
+        $type_handicap_patient = TypeHandicap::whereIn('id', $typeHandicapIDs)->get();
 
+        $patientId = $dossierPatient->patient_id;
 
         return view('dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient'));
     }
@@ -199,26 +206,32 @@ class DossierPatientController extends AppBaseController
     {
         $data = $request->all();
         $dossierPatient = $this->dossierPatientRepository->find($id);
+    
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
-
             return redirect(route('dossier-patients.index'));
         }
-        
-        $DossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatient['id'])->first();
-
-
-        $DossierPatient_typeHandycape->update(
-            ['type_handicap_id' => $data['type_handicap_id']]
-        );
-        
+    
+        $dossierPatientID = $dossierPatient->id;
+        $typeHandicapIDs = $data['type_handicap_id'];
+    
+        DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)
+            ->whereNotIn('type_handicap_id', $typeHandicapIDs)
+            ->delete();
+    
+        foreach ($typeHandicapIDs as $typeHandicapID) {
+            DossierPatient_typeHandycape::updateOrCreate(
+                ['dossier_patient_id' => $dossierPatientID, 'type_handicap_id' => $typeHandicapID],
+                ['type_handicap_id' => $typeHandicapID]
+            );
+        }
+    
         $dossierPatient = $this->dossierPatientRepository->update($data, $id);
-
-
         Flash::success(__('messages.updated', ['model' => __('models/dossierPatients.singular')]));
-
         return redirect(route('dossier-patients.index'));
     }
+    
+    
 
     /**
      * Remove the specified DossierPatient from storage.
