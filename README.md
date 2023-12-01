@@ -64,8 +64,6 @@
 
 <!-- TODO : migrate:fresh -> This database does not exist -->
 ```bash
-  npm install
-  composer install
   php artisan migrate:fresh
   php artisan db:seed
   npm run build
