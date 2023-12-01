@@ -3,6 +3,26 @@
 
 <!-- TODO : Introduction -->
 
+### Installation de l'application
+
+```bash
+  npm install
+  composer install
+```
+
+<!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
+
+<!-- TODO : migrate:fresh -> This database does not exist -->
+```bash
+  php artisan migrate:fresh
+  php artisan db:seed
+  npm run build
+```
+# Démonstration de l'application  
+
+<!-- TODO : Donnez les comptes à utiliser pour déployer l'application -->
+
+
 ## Les composants de l'application
 
 <!-- Introduction -->
@@ -51,6 +71,7 @@
         ]
     }
 
+
 ### Installation de l'application
 
 - Creer un fichier env
@@ -68,5 +89,4 @@
   php artisan db:seed
   npm run build
 ```
-
 
