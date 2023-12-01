@@ -5,9 +5,60 @@
         <i class="fa-solid fa-hospital-user"></i>
         <p>Dossier beneficiers</p>
     </a>
+
 </li>
 
+<li class="nav-item "> 
+    <a href="#" class="nav-link ">
+        <i class="fa-solid fa-gears"></i>
+        <p class="pl-2">
+            Service Social 
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="">
+        <li class="nav-item">
+            <a href="/consultations/liste-attente" class="nav-link {{ Route::is('users.index' . '*') ? 'active' : '' }}">
+                <p>Liste de attente </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('rendez-vous.index') }}" class="nav-link {{ Route::is('users.index' . '*') ? 'active' : '' }}">
+                <p>Rendez-vous </p>
+            </a>
+        </li>
+    </ul>
+
+    </li>   
+
 @endcan
+
+@can('index-Consultation')
+<li class="nav-item">
+    <a href="{{ route('dossier-patients.index') }}"
+        class="nav-link {{ Route::is('dossier-patients.index' . '*') ? 'active' : '' }}">
+        <i class="fa-solid fa-hospital-user"></i>
+        <p>Dossier beneficiers</p>
+    </a>
+
+</li>
+
+<li class="nav-item "> 
+    <a href="/consultations/MedecinGeneral" class="nav-link ">
+        <i class="fa-solid fa-gears"></i>
+        <p class="pl-2">
+            Consultation
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="">
+     
+    </ul>
+
+    </li>   
+
+@endcan
+
+
 @can('index-Permission')
 <li class="nav-item ">
     <a href="#" class="nav-link ">
