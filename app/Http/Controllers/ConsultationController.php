@@ -41,39 +41,30 @@ class ConsultationController extends AppBaseController
 
         $title = $modelName;
         $title  = ucFirst($title);
-        if($title == "Liste-attente"){
 
             $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
             ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+            ->join('patients', 'dossier_patients.id', '=', 'patients.id')
              ->where([
-                ["consultations.etat","enAttente"],
                 ["consultations.type","medecinGeneral"]
              ])
             ->select('*')
             ->paginate();
 
-        }else{
+       
 
 
-        // $model = "App\\Models\\".ucfirst($modelName);
-        $query = $request->input('query');
-        $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
-            ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
-            ->where('consultations.type', $modelName)
-            ->where("consultations.etat","enConsultation")
-            ->select('*')
-            ->paginate();
+       
         //  $consultations = $this->consultationRepository->where($model,'type',$modelName)->paginate();
         if ($request->ajax()) {
             return view('consultations.table')
                 ->with('consultations', $consultations);
         }
+        return view('consultations.index', compact('consultations', 'title',"titleApp"));
+
     }
 
-        return view('consultations.index', compact('consultations', 'title',"titleApp"));
-    }
+    
 
     /**
      * Show the form for creating a new Consultation.
@@ -125,6 +116,7 @@ class ConsultationController extends AppBaseController
     public function show($model, $id)
     {
         $title = $model;
+
         $consultation = $this->consultationRepository->find($id);
 
         if (empty($consultation)) {

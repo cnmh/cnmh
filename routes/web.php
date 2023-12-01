@@ -12,6 +12,11 @@ use App\Http\Controllers\DossierPatientController;
 use App\Http\Controllers\NiveauScolaireController;
 use App\Http\Controllers\CouvertureMedicalController;
 use App\Http\Controllers\RendezVousController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\RolePermissionController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,31 +48,30 @@ Route::resource('projects',App\Http\Controllers\ProjectController::class);
     Route::resource('couvertureMedicals', App\Http\Controllers\CouvertureMedicalController::class);
     Route::get('/export_couvertureMedicals', [CouvertureMedicalController::class, 'export'])->name('couvertureMedicals.export');
     Route::post('/import_couvertureMedicals', [CouvertureMedicalController::class, 'import'])->name('couvertureMedicals.import');
-    Route::resource('typeHandicaps', App\Http\Controllers\TypeHandicapController::class);
-    Route::resource('services', App\Http\Controllers\ServiceController::class);
-    Route::get('/export_service', [ServiceController::class, 'export'])->name('services.export');
-    Route::post('/import_service', [ServiceController::class, 'import'])->name('services.import');
-    //employes routes
-    Route::resource('employes', App\Http\Controllers\EmployeController::class);
-    Route::get('/export_employes',[EmployeController::class,'export'])->name('employes.export');
-    Route::post('/import_employes',[EmployeController::class,'import'])->name('employes.import');
 
-
-
-    Route::get('/export_typehandicap',[TypeHandicapController::class,'export'])->name('typehandicap.export');
-    Route::post('/import_typehandicap',[TypeHandicapController::class,'import'])->name('typehandicap.import');
-
-
-    Route::resource('niveauScolaires', App\Http\Controllers\NiveauScolaireController::class);
-    Route::get('/export_niveauScolaires',[NiveauScolaireController::class,'export'])->name('niveauScolaires.export');
-    Route::post('/import_niveauScolaires',[NiveauScolaireController::class,'import'])->name('niveauScolaires.import');
-
-    Route::resource('etatCivils', EtatCivilController::class);
-    // EtatCivil export and import
-    Route::get('/export_etatCivils',[EtatCivilController::class,'export'])->name('etatCivils.export');
-    Route::post('/import_etatCivils',[EtatCivilController::class,'import'])->name('etatCivils.import');
-
-
+        Route::resource('typeHandicaps', App\Http\Controllers\TypeHandicapController::class);
+    
+        Route::resource('services', App\Http\Controllers\ServiceController::class);
+        Route::get('/export_service', [App\Http\Controllers\ServiceController::class, 'export'])->name('services.export');
+        Route::post('/import_service', [App\Http\Controllers\ServiceController::class, 'import'])->name('services.import');
+    
+        // Employees routes
+        Route::resource('employes', App\Http\Controllers\EmployeController::class);
+        Route::get('/export_employes', [App\Http\Controllers\EmployeController::class, 'export'])->name('employes.export');
+        Route::post('/import_employes', [App\Http\Controllers\EmployeController::class, 'import'])->name('employes.import');
+    
+        Route::get('/export_typehandicap', [App\Http\Controllers\TypeHandicapController::class, 'export'])->name('typehandicap.export');
+        Route::post('/import_typehandicap', [App\Http\Controllers\TypeHandicapController::class, 'import'])->name('typehandicap.import');
+    
+        Route::resource('niveauScolaires', App\Http\Controllers\NiveauScolaireController::class);
+        Route::get('/export_niveauScolaires', [App\Http\Controllers\NiveauScolaireController::class, 'export'])->name('niveauScolaires.export');
+        Route::post('/import_niveauScolaires', [App\Http\Controllers\NiveauScolaireController::class, 'import'])->name('niveauScolaires.import');
+    
+        Route::resource('etatCivils', App\Http\Controllers\EtatCivilController::class);
+        // EtatCivil export and import
+        Route::get('/export_etatCivils', [App\Http\Controllers\EtatCivilController::class, 'export'])->name('etatCivils.export');
+        Route::post('/import_etatCivils', [App\Http\Controllers\EtatCivilController::class, 'import'])->name('etatCivils.import');
+   
 
 
 
@@ -118,3 +122,23 @@ Route::get('/entretien/{query}',[DossierPatientController::class,'entretien'])->
 Route::post('/storeEntetien',[DossierPatientController::class,'storeEntetien'])->name('dossier-patients.storeEntetien');
 Route::get('/export',[DossierPatientController::class,'export'] )->name('dossier-patients.export');
 });
+
+/**
+ * Roles links
+ */
+
+Route::resource('roles', App\Http\Controllers\RoleController::class); // ressource
+Route::get('roles_export', [App\Http\Controllers\RoleController::class, 'export'])->name('roles.export'); // Export
+
+/**
+ * Permission links
+ */
+Route::resource('permissions', App\Http\Controllers\PermissionController::class);
+Route::get('/ajouter/permission', [App\Http\Controllers\PermissionController::class,'addPermissionsAuto'])->name('auto-create-permissions');
+Route::get('permissions_export', [App\Http\Controllers\PermissionController::class, 'export'])->name('permissions.export'); // Export
+Route::post('/import_permissions', [App\Http\Controllers\PermissionController::class, 'import'])->name('permissions.import'); // Import
+
+
+Route::resource('users', App\Http\Controllers\UserController::class);
+Route::get('/manage/permissions-roles/{id}', [App\Http\Controllers\PermissionController::class, 'showRolePermission'])->name('manage.role.permission');
+Route::post('/assign-role-permission', [App\Http\Controllers\PermissionController::class, 'assignRolePermission'])->name('assign.role.permission');

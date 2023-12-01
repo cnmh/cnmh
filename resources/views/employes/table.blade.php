@@ -24,21 +24,23 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['employes.destroy', $employe->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
+                            @can('show-EmployeController')
                             <a href="{{ route('employes.show', [$employe->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            @can('edit',$employe)
+                            @endcan
+                            @can('edit-EmployeController')
                             <a href="{{ route('employes.edit', [$employe->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('delete',$employe)
+                            @can('destroy-EmployeController')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            @endcan
                         </div>
                         {!! Form::close() !!}
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -51,10 +53,12 @@
             @include('adminlte-templates::common.paginate', ['records' => $employes])
         </div>
         <div class="float-left">
+            @can('export-EmployeController')
             <a href="{{ route('employes.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
-            @can('create',App\Models\Employe::class)
+            @endcan
+            @can('import-EmployeController')
             <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModelEmploye">
                 <i class="fas fa-file-import"></i> Importer
             </button>

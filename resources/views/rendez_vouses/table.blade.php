@@ -15,7 +15,7 @@
 
             @foreach($rendezVouses as $rendezVous)
                 <tr>
-                    <td>{{ $rendezVous->consultation_id }}</td>
+                    <td>{{ $rendezVous->numero_dossier }}</td>
                     <td>{{ $rendezVous->date_rendez_vous }}</td>
                     <td><span class="badge bg-info">{{  $rendezVous->etat  }}</span></td>
                     <td>{!! $rendezVous->remarques !!}</td>

@@ -3,3 +3,19 @@
 
 // Bootstrap
 @import '~admin-lte/build/scss/adminlte';
+
+
+.scrollable-dropdown {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.close-dropdown {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.required-field{
+    color: rgb(173, 25, 25);
+}

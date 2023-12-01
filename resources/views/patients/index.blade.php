@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('patients.create') }}">
-                         @lang('crud.add_new') Patient
+                         @lang('crud.add_new') @lang('models/patients.singular')
                     </a>
                 </div>
             </div>

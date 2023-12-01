@@ -159,10 +159,15 @@
     const page1 = "{{ url('/parentForm') }}";
     const page2 = "{{ url('/patientForm') }}";
     const page3 = "{{ url('/entretien/') }}";
-    if (window.location.href.includes(page1)) {
+    const page4 = "{{ url('/patients/create') }}";
+    const page5 = "{{ url('/tuteurs/create') }}";
+
+
+    
+    if (window.location.href.includes(page1) || window.location.href.includes(page5)) {
         let button = document.getElementById('step1');
         button.style.backgroundColor = '#0275d8';
-    } else if (window.location.href.includes(page2)) {
+    } else if (window.location.href.includes(page2) || window.location.href.includes(page4)) {
         let button = document.getElementById('step2');
         button.style.backgroundColor = '#0275d8';
     } else if (window.location.href.startsWith(page3)) {

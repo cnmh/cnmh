@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($dossierPatient, ['route' => ['dossierPatients.update', $dossierPatient->id], 'method' => 'patch']) !!}
+            {!! Form::model($dossierPatient, ['route' => ['dossier-patients.update', $dossierPatient->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Enregistrer', ['class' => 'btn btn-primary']) !!}
                 <a href="{{ route('dossier-patients.index') }}" class="btn btn-default"> @lang('crud.cancel') </a>
             </div>
 

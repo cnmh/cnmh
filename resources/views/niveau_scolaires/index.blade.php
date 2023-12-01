@@ -13,14 +13,14 @@
                     
                         
                 </div>
-                @can('create',App\Models\NiveauScolaire::class)
                 <div class="col-sm-6">
+                    @can('create-NiveauScolaireController')
                     <a class="btn btn-primary float-right"
                        href="{{ route('niveauScolaires.create') }}">
                          @lang('crud.add_new')  {{strtolower(__('models/niveauScolaires.singular'))}}
                     </a>
+                    @endcan
                 </div>
-                @endcan
             </div>
         </div>
     </section>

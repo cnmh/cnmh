@@ -19,13 +19,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        'App\Models\TypeHandicap' => 'App\Policies\TypeHandicapPolicy',
-        'App\Models\Service' => 'App\Policies\ServicePolicy',
-        'App\Models\CouvertureMedical' => 'App\Policies\CouvertureMedicalPolicy',
-        'App\Models\Employe' => 'App\Policies\EmployePolicy',
-        'App\Models\NiveauScolaire' => 'App\Policies\NiveauScolairePolicy',
-        'App\Models\EtatCivil' => 'App\Policies\EtatCivilPolicy',
-        'App\Models\DossierPatient' => 'App\Policies\DossierPatientPolicy',
+  
+        
+
+        
+
 
 
     ];

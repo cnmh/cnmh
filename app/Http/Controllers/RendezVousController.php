@@ -8,6 +8,8 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Consultation;
 use App\Models\DossierPatientConsultation;
 use App\Models\RendezVous;
+use App\Models\DossierPatient;
+
 use App\Repositories\RendezVousRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -27,17 +29,28 @@ class RendezVousController extends AppBaseController
      */
     public function index(Request $request)
     {
-
         $query = $request->input('query');
         $rendezVouses = $this->rendezVousRepository->paginate($query);
 
-        if ($request->ajax()) {
-            return view('rendez_vouses.table')
-                ->with('rendezVouses', $rendezVouses);
+        foreach ($rendezVouses as $rendezVous) {
+            $consultation_id = $rendezVous->consultation_id;
+            $dossierConsultation = DossierPatientConsultation::where('consultation_id', $consultation_id)->first();
+            
+            if ($dossierConsultation) {
+                $dossier_patient_id = $dossierConsultation->dossier_patient_id;
+                $dossierPatient = DossierPatient::find($dossier_patient_id);
+                if ($dossierPatient) {
+                    $dossier_numero = $dossierPatient->numero_dossier;
+                    $rendezVous->numero_dossier = $dossier_numero;
+                }
+            }
         }
 
-        return view('rendez_vouses.index')
-            ->with('rendezVouses', $rendezVouses);
+        if ($request->ajax()) {
+            return view('rendez_vouses.table')->with('rendezVouses', $rendezVouses);
+        }
+
+        return view('rendez_vouses.index')->with('rendezVouses', $rendezVouses);
     }
 
     /**
@@ -90,12 +103,25 @@ class RendezVousController extends AppBaseController
      */
     public function show($id)
     {
-        // $rendezVous = $this->rendezVousRepository->find($id);
+        $rendezVous = $this->rendezVousRepository->find($id);
+
+        $consultation_id = $rendezVous->consultation_id;
+        $dossierConsultation = DossierPatientConsultation::where('consultation_id', $consultation_id)->first();
+            
+        if ($dossierConsultation) {
+            $dossier_patient_id = $dossierConsultation->dossier_patient_id;
+            $dossierPatient = DossierPatient::find($dossier_patient_id);
+            if ($dossierPatient) {
+                $dossier_numero = $dossierPatient->numero_dossier;
+                $rendezVous->numero_dossier = $dossier_numero;
+            }
+        }
+        
 
         if (empty($rendezVous)) {
             Flash::error(__('models/rendezVouses.singular').' '.__('messages.not_found'));
 
-            return redirect(route('rendez-vouses.index'));
+            return redirect(route('rendez-vous.index'));
         }
 
         return view('rendez_vouses.show')->with('rendezVous', $rendezVous);

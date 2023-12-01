@@ -1,7 +1,7 @@
 <!-- Id Consultation Field -->
 <div class="col-sm-12">
-    {!! Form::label('id_consultation', __('models/rendezVouses.fields.id_consultation').':') !!}
-    <p>{{ $rendezVous->id_consultation }}</p>
+    {!! Form::label('N° de dossier', __('models/rendezVouses.fields.numero_dossier').':') !!}
+    <p>{{ $rendezVous->numero_dossier }}</p>
 </div>
 
 <!-- Date Rendez Vous Field -->
@@ -21,4 +21,3 @@
     {!! Form::label('remarques', __('models/rendezVouses.fields.remarques').':') !!}
     <p>{{ $rendezVous->remarques }}</p>
 </div>
-
