@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 use Flash;
 use Maatwebsite\Excel\Facades\Excel;
 
+/**
+ * @author codeCampers, Boukhar Soufiane
+ */
+
 class EmployeController extends AppBaseController
 {
     /** @var EmployeRepository $employeRepository*/
@@ -38,18 +42,17 @@ class EmployeController extends AppBaseController
 
         return view('employes.index')
             ->with('employes', $employes);
-        }
+    }
 
         /**
          * Show the form for creating a new Employe.
          */
         public function create()
         {
-            $this->authorizeCnmh('create','Employe');
 
             $fonction = Fonction::all();
             return view('employes.create',compact("fonction"));
-    }
+     }
 
     /**
      * Store a newly created Employe in storage.
@@ -57,7 +60,6 @@ class EmployeController extends AppBaseController
     public function store(CreateEmployeRequest $request)
     {
 
-        $this->authorizeCnmh('create','Employe');
 
         $input = $request->all();
 
@@ -93,7 +95,6 @@ class EmployeController extends AppBaseController
     public function edit($id)
     {
 
-        $this->authorizeCnmh('edit','Employe');
 
         $employe = $this->employeRepository->find($id);
         $fonction = $employe->fonction;
@@ -114,7 +115,6 @@ class EmployeController extends AppBaseController
     public function update($id, UpdateEmployeRequest $request)
     {
 
-        $this->authorizeCnmh('update','Employe');
 
         $employe = $this->employeRepository->find($id);
 
@@ -139,7 +139,6 @@ class EmployeController extends AppBaseController
     public function destroy($id)
     {
 
-        $this->authorizeCnmh('delete','Employe');
 
         $employe = $this->employeRepository->find($id);
 
@@ -160,7 +159,6 @@ class EmployeController extends AppBaseController
     }
     public function import(Request $request){
         
-        $this->authorizeCnmh('create','Employe');
 
         Excel::import(new ImportEmployes, $request->file('file')->store('files'));
         return redirect()->back();

@@ -1,7 +1,7 @@
 <!-- Date Enregistrement Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('date_enregistrement', __('models/consultations.fields.date_enregistrement').':') !!}
-    {!! Form::date('date_enregistrement', null, ['class' => 'form-control','id'=>'date_enregistrement']) !!}
+    {!! Form::datetimeLocal('date_enregistrement', null, ['class' => 'form-control', 'id' => 'date_enregistrement']) !!}
 </div>
 
 @push('page_scripts')

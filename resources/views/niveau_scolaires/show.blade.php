@@ -10,10 +10,12 @@
                     </h1>
                 </div>
                 <div class="col-sm-6">
+@can('show-NiveauScolaireController')
                     <a class="btn btn-default float-right"
                        href="{{ route('niveauScolaires.index') }}">
                                                     @lang('crud.back')
                                             </a>
+@endcan
                 </div>
             </div>
         </div>

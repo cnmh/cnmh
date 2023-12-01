@@ -40,7 +40,7 @@ class Patient extends Model
         'telephone' => 'nullable|string|max:255',
         'cin' => 'nullable|string|max:255',
         'email' => 'nullable|string|max:255',
-        'image' => 'required|file|max:255',
+        'image' => 'nullable|file|max:255',
         'adresse' => 'nullable|string|max:255',
         'remarques' => 'nullable|string|max:65535',
         'created_at' => 'nullable',

@@ -1,10 +1,11 @@
 <?php
 
 return [
-    'add_new' => 'Ajouter un nouveau',
+'add_new' => 'Ajouter',
 'cancel' => 'Annuler',
 'create' => 'Ajouter',
 'edit' => 'Modifier',
+'assign' => 'Attribuer',
 'save' => 'Enregistrer',
 'detail' => 'Détail',
 'details' => 'Détails',
@@ -24,4 +25,9 @@ return [
 'import' => 'Importer',
 'next' => 'Suivant',
 'previous' => 'Précédent',
+'selectUser' => 'Sélectionnez un utilisateur',
+'selectRole' => 'Sélectionnez un rôle',
+'selectPermissions' => 'Sélectionnez des permissions',
+'requiredFields' => 'Les champs indiqués par * sont obligatoires.'
+
 ];

@@ -16,12 +16,22 @@ use InfyOm\Generator\Utils\ResponseUtil;
  */
 class AppBaseController extends Controller
 {
-    
-    public function authorizeCnmh($action, $modelName)
+
+
+    public function callAction($method, $parameters)
     {
-        $modelPath = 'App\\Models\\'.$modelName;    
-        $this->authorize($action,new $modelPath);
+
+        $controller = class_basename(get_class($this));
+        $action = $method;
+        $changeName = str_replace(['Controller', '@'], ['', '-'], $controller);
+        $permissions = $action . '-' . $changeName; 
+        // dd($permissions);
+        $this->authorize($permissions);  
+        return parent::callAction($method, $parameters);
     }
+
+    
+   
 
     public function sendResponse($result, $message)
     {

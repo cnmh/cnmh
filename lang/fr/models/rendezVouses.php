@@ -7,7 +7,7 @@ return [
     "schedule"=>"Planifier",
     'fields' => [
         'id' => 'ID',
-        'consultation_id' => 'N° consultation',
+        'numero_dossier' => 'N° de dossier',
         'date_rendez_vous' => 'Date rendez-vous',
         'etat' => 'État',
         'remarques' => 'Remarques',

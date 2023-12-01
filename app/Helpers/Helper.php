@@ -19,7 +19,7 @@ if (!function_exists('is_male_localisation')) {
 if (!function_exists('app_menu')) {
     function app_menu()
     {
-        if (Auth::check() && Auth::user()->name !== "admin") {
+        if (Auth::check()) {
             return App\Models\MenuItem::where("description", Auth::user()->name)
                 ->orWhere("description", null)
                 ->get()

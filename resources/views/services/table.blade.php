@@ -16,23 +16,25 @@
                         <td style="width: 120px">
                             {!! Form::open(['route' => ['services.destroy', $service->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
+                                @can('show-ServiceController')
                                 <a href="{{ route('services.show', [$service->id]) }}" class='btn btn-default btn-sm'>
                                     <i class="far fa-eye"></i>
                                 </a>
-                                @can('delete',$service)
+                                @endcan
+                                @can('edit-ServiceController')
                                 <a href="{{ route('services.edit', [$service->id]) }}" class='btn btn-default btn-sm'>
                                     <i class="far fa-edit"></i>
                                 </a>
                                 @endcan
-                                @can('delete',$service)
+                                @can('destroy-ServiceController')
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'onclick' => "return confirm('Are you sure?')",
                                 ]) !!}
-                                @endcan
                             </div>
                             {!! Form::close() !!}
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -48,11 +50,9 @@
             <a href="{{ route('services.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> @lang('crud.export')
             </a>
-            @can('create',App\Models\Service::class)
             <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
             </button>
-            @endcan
         </div>
     </div>
 </div>

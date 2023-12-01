@@ -53,15 +53,6 @@
                     <tr>
                         <td></td>
                         <td>
-                            Sexe:
-                        </td>
-                        <td>
-                            {{ $patient->telephone }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
                             Date de naissance:
                         </td>
                         <td>

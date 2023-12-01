@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th>N° dossier</th>
-                    <th>Patient</th>
+                    <th>Bénéficiaire</th>
                     {{-- <th>Couverture Medical</th> --}}
                     <th>État de processus</th>
                     {{-- <th>Date Enregsitrement</th> --}}
@@ -21,20 +21,26 @@
                     {{-- <td>{{ $dossierPatient->date_enregsitrement }}</td> --}}
 
                     <td style="width: 120px">
-                        {{-- {!! Form::open(['route' => ['dossierPatients.destroy', $dossierPatient->id], 'method' =>
-                        'delete']) !!} --}}
+                        {!! Form::open(['route' => ['dossier-patients.destroy', $dossierPatient->id], 'method' =>
+                        'delete']) !!} 
 
                         <div class='btn-group'>
+                            @can('show-DossierPatient')
                             <a href="{{ route('dossier-patients.show', [$dossierPatient->id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
+                            @endcan
+                            @can('edit-DossierPatient')
                             <a href="{{ route('dossier-patients.edit', [$dossierPatient->id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
+                            @endcan
+                            @can('destroy-DossierPatient')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn
                             btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} 
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
@@ -49,11 +55,14 @@
             @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
         </div>
         <div class="float-left">
+            @can('export-DossierPatientController')
             <a class="btn btn-default swalDefaultQuestion" href="{{ route('dossier-patients.export') }}"><i class="fas fa-download"></i>@lang('crud.export')</a>
-
+            @endcan
+            @can('import-DossierPatientController')
             <button type="button" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
             </button>
+            @endcan
         </div>
     </div>
 </div>

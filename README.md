@@ -1,4 +1,4 @@
-<!-- TODO : Changer le nom du projet -->
+<!-- TODO : Changer le nom du projet --> 
 # cnmh2 
 
 <!-- TODO : Introduction -->
@@ -62,7 +62,8 @@
 <!-- TODO : Vérifiez que maatwebsite/excel est installé dans lab-laraver-starter -->
 - composer.json
   -  "require": {
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "infyomlabs/adminlte-templates": "^6.0",
     },
   -  "autoload": {
         "files": [
@@ -70,4 +71,22 @@
         ]
     }
 
+
+### Installation de l'application
+
+- Creer un fichier env
+  
+```bash
+  npm install
+  composer install
+```
+
+<!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
+
+<!-- TODO : migrate:fresh -> This database does not exist -->
+```bash
+  php artisan migrate:fresh
+  php artisan db:seed
+  npm run build
+```
 
