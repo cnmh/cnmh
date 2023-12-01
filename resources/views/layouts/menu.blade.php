@@ -36,20 +36,16 @@
 
 @endcan
 
-@can('create-Consultation')
+@can('create-Consultation') 
 
-<li class="nav-item "> 
-    <a href="/consultations/MedecinGeneral" class="nav-link ">
-        <i class="fa-solid fa-gears"></i>
-        <p class="pl-2">
-            Consultation
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="">
-     
-    </ul>
-
-    </li>   
+    <li class="nav-item">
+        <a href="/consultations/MedecinGeneral"
+            class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+            <i class="fa-solid fa-hospital-user"></i>
+            <p>Consultation</p>
+        </a>
+    
+    </li>
 
 @endcan
 
