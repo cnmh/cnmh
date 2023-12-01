@@ -14,7 +14,7 @@
                         
                 </div>
                 <div class="col-sm-6">
-                    @can('create-NiveauScolaireController')
+                    @can('create-NiveauScolaire')
                     <a class="btn btn-primary float-right"
                        href="{{ route('niveauScolaires.create') }}">
                          @lang('crud.add_new')  {{strtolower(__('models/niveauScolaires.singular'))}}
