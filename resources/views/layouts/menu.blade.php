@@ -5,9 +5,56 @@
         <i class="fa-solid fa-hospital-user"></i>
         <p>Dossier beneficiers</p>
     </a>
+
 </li>
+@endcan
+
+@can('index-RendezVous')
+
+<li class="nav-item "> 
+    <a href="#" class="nav-link ">
+        <i class="fa-solid fa-gears"></i>
+        <p class="pl-2">
+            Service Social 
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="">
+        <li class="nav-item">
+            <a href="/consultations/liste-attente" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+                <p>Liste de attente </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('rendez-vous.index') }}" class="nav-link {{ Route::is('rendez-vous.index' . '*') ? 'active' : '' }}">
+                <p>Rendez-vous </p>
+            </a>
+        </li>
+    </ul>
+
+    </li>   
 
 @endcan
+
+@can('create-Consultation') 
+
+    <li class="nav-item">
+        <a href="/consultations/MedecinGeneral"
+            class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+            <i class="fa-solid fa-hospital-user"></i>
+            <p>Consultation</p>
+        </a>
+    
+    </li>
+
+@endcan
+
+
+
+
+
+
+
 @can('index-Permission')
 <li class="nav-item ">
     <a href="#" class="nav-link ">
