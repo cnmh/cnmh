@@ -60,6 +60,7 @@
 </div>
 
 <!-- Modal Import -->
+@can('import-CouvertureMedical')
 <div class="modal fade" id="importModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -85,3 +86,4 @@
     </div>
 </div>
 {{-- end Model --}}
+@endcan
