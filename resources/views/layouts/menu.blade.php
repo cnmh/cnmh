@@ -7,6 +7,9 @@
     </a>
 
 </li>
+@endcan
+
+@can('index-RendezVous')
 
 <li class="nav-item "> 
     <a href="#" class="nav-link ">
@@ -33,15 +36,7 @@
 
 @endcan
 
-@can('index-Consultation')
-<li class="nav-item">
-    <a href="{{ route('dossier-patients.index') }}"
-        class="nav-link {{ Route::is('dossier-patients.index' . '*') ? 'active' : '' }}">
-        <i class="fa-solid fa-hospital-user"></i>
-        <p>Dossier beneficiers</p>
-    </a>
-
-</li>
+@can('create-Consultation')
 
 <li class="nav-item "> 
     <a href="/consultations/MedecinGeneral" class="nav-link ">
@@ -57,6 +52,11 @@
     </li>   
 
 @endcan
+
+
+
+
+
 
 
 @can('index-Permission')
