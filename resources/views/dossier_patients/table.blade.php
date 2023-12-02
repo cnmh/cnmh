@@ -55,10 +55,10 @@
             @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
         </div>
         <div class="float-left">
-            @can('export-DossierPatientController')
+            @can('export-DossierPatient')
             <a class="btn btn-default swalDefaultQuestion" href="{{ route('dossier-patients.export') }}"><i class="fas fa-download"></i>@lang('crud.export')</a>
             @endcan
-            @can('import-DossierPatientController')
+            @can('import-DossierPatient')
             <button type="button" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
             </button>
