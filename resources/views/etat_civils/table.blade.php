@@ -7,11 +7,13 @@
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </select>
+            @can('create-EtatCivil')
             <div class="col-sm-6">
                 <a class="btn btn-primary float-right" href="{{ route('etatCivils.create') }}">
                     @lang('crud.add_new') @lang('models/etatCivils.singular')
                 </a>
             </div>
+            @endcan
             <a href="{{ route('etatCivils.create') }}" class="btn btn-primary">
                 <i class="fa fa-plus"></i>
             </a>
