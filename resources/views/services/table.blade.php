@@ -32,9 +32,9 @@
                                     'class' => 'btn btn-danger btn-xs',
                                     'onclick' => "return confirm('Are you sure?')",
                                 ]) !!}
+                                @endcan
                             </div>
                             {!! Form::close() !!}
-                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -50,8 +50,8 @@
             @can('export-Service')
             <a href="{{ route('services.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> @lang('crud.export')
-             @endcan
             </a>
+            @endcan
             @can('import-Service')
             <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
@@ -61,7 +61,6 @@
     </div>
 </div>
 
-@can('import-Service')
 <!-- Modal Import -->
 <div class="modal fade" id="importModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
@@ -87,4 +86,3 @@
         </div>
     </div>
 </div>
-@endcan
