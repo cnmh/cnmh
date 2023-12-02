@@ -30,9 +30,9 @@
                             @endcan
                             @can('destroy-CouvertureMedical')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
-                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -46,19 +46,19 @@
         </div>
         <div class="float-left">
             @can('export-CouvertureMedical')
-                                <a href="{{ route('couvertureMedicals.export') }}" class="btn btn-default swalDefaultQuestion">
-                                    <i class="fas fa-download"></i> Exporter
-                                </a>
-                                @endcan
-                                @can('import-CouvertureMedical')
-                                <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
-                                    <i class="fas fa-file-import"></i> Importer
-                                </button>
-                                @endcan
+                <a href="{{ route('couvertureMedicals.export') }}" class="btn btn-default swalDefaultQuestion">
+                    <i class="fas fa-download"></i> Exporter
+                </a>
+            @endcan
+            @can('import-CouvertureMedical')
+                <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
+                    <i class="fas fa-file-import"></i> Importer
+                </button>
+            @endcan
         </div>
     </div>
 </div>
-@can('import-CouvertureMedical')
+
 <!-- Modal Import -->
 <div class="modal fade" id="importModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
@@ -85,4 +85,3 @@
     </div>
 </div>
 {{-- end Model --}}
-@endcan

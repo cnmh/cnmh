@@ -16,15 +16,21 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['fonctions.destroy', $fonction->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
+                            @can('show-Service')
                             <a href="{{ route('fonctions.show', [$fonction->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
+                            @endcan
+                            @can('edit-Service')
                             <a href="{{ route('fonctions.edit', [$fonction->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
+                            @endcan
+                            @can('destroy-Service')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
@@ -39,12 +45,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $fonctions])
         </div>
         <div class="float-left">
-                                <button type="button" class="btn btn-default swalDefaultQuestion">
-                                    <i class="fas fa-download"></i> Exporter
-                                </button>
-                                <button type="button" class="btn btn-default swalDefaultQuestion">
-                                    <i class="fas fa-file-import"></i> Importer
-                                </button>
+            @can('export-Service')
+                <button type="button" class="btn btn-default swalDefaultQuestion">
+                    <i class="fas fa-download"></i> Exporter
+                </button>
+                @endcan
+            @can('import-Service')
+                <button type="button" class="btn btn-default swalDefaultQuestion">
+                    <i class="fas fa-file-import"></i> Importer
+                </button>
+            @endcan
         </div>
     </div>
 </div>

@@ -9,10 +9,12 @@
                     <h1>@lang('models/fonctions.plural')</h1>
                 </div>
                 <div class="col-sm-6">
+                    @can('create-Service')
                     <a class="btn btn-primary float-right"
                        href="{{ route('fonctions.create') }}">
                          @lang('crud.add_new') Fonction
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>
