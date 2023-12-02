@@ -14,23 +14,24 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['roles.destroy', $role->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            @can('show-RoleController')
+                            @can('show-Role')
                             <a href="{{ route('roles.show', [$role->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
-                            @can('edit-RoleController')
+                            @can('edit-Role')
                             <a href="{{ route('roles.edit', [$role->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('destroy-RoleController')
+                            @can('destroy-Role')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                        </div>
-                        {!! Form::close() !!}
                         @endcan
+                    </div>
+                        {!! Form::close() !!}
+                        
                     </td>
                 </tr>
             @endforeach
@@ -43,16 +44,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $roles])
         </div>
         <div class="float-left">
-            @can('export-RoleController')
+            @can('export-Role')
             <a href="{{ route('roles.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
             @endcan
-            @can('import-RoleController')
-                                <button type="button" class="btn btn-default swalDefaultQuestion">
-                                    <i class="fas fa-file-import"></i> Importer
-                                </button>
-                                @endcan
+            @can('import-Role')
+                <button type="button" class="btn btn-default swalDefaultQuestion">
+                    <i class="fas fa-file-import"></i> Importer
+                </button>
+            @endcan
         </div>
     </div>
 </div>
