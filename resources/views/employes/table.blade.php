@@ -38,9 +38,9 @@
                             @endcan
                             @can('destroy-Employe')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
-                        @endcan
                     </td>
                 </tr>
             @endforeach
