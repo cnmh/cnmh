@@ -39,9 +39,11 @@
                         <div class="card-header">
                             <div class="col-sm-12 d-flex justify-content-between ">
                                 <div class="col-sm-6">
+                                @can('create-DossierPatient')
                                     <a class="btn btn-primary " href="{{ route('patients.create') }}?parentRadio={{request()->query("parentRadio")}}">
                                         @lang('crud.add_new') {{strtolower(__('models/patients.singular'))}}
                                     </a>
+                                @endcan
                                 </div>
 
                                 <!-- SEARCH FORM -->
