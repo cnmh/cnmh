@@ -38,10 +38,12 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['consultations.destroy', $consultation->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
+                            @can('show-Consultation')
                             <a href="{{ route('consultations.show', [$title,$consultation->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
+                            @endcan
                             {{-- <a href="{{ route('consultations.edit', [$consultation->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
