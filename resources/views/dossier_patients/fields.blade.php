@@ -21,9 +21,11 @@ if (isset($url['query'])) {
         'type_handicap_id[]',
         $type_handicap->pluck('nom', 'id')->toArray(),
         isset($type_handicap_patient) ? $type_handicap_patient->pluck('id')->toArray() : [],
-        ['class' => 'form-control', 'required', 'multiple' => 'multiple']
+        ['class' => 'form-control', 'id'=> 'type_handicap_select' ,'required', 'multiple' => 'multiple']
     ) }}
 </div>
+
+
 
 
 
