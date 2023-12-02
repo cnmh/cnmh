@@ -9,7 +9,7 @@
                     <h1>@lang('models/users.plural')</h1>
                 </div>
                 <div class="col-sm-6">
-                    @can('create-UserController')
+                    @can('create-User')
                     <a class="btn btn-primary float-right"
                        href="{{ route('users.create') }}">
                          @lang('crud.add_new') User

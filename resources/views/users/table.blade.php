@@ -55,16 +55,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $users])
         </div>
         <div class="float-left">
-            @can('export-UserController')
-                                <button type="button" class="btn btn-default swalDefaultQuestion">
-                                    <i class="fas fa-download"></i> Exporter
-                                </button>
-                                @endcan
-                                @can('import-UserController')
-                                <button type="button" class="btn btn-default swalDefaultQuestion">
-                                    <i class="fas fa-file-import"></i> Importer
-                                </button>
-                                @endcan
+            @can('export-User')
+                <button type="button" class="btn btn-default swalDefaultQuestion">
+                    <i class="fas fa-download"></i> Exporter
+                </button>
+            @endcan
+            @can('import-User')
+                <button type="button" class="btn btn-default swalDefaultQuestion">
+                    <i class="fas fa-file-import"></i> Importer
+                </button>
+            @endcan
         </div>
     </div>
 </div>
