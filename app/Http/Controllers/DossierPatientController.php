@@ -50,12 +50,20 @@ class DossierPatientController extends AppBaseController
     public function index(Request $request)
     {
 
-        $query = $request->input('query');
-        $dossierPatients = $this->dossierPatientRepository->paginate($query);
+        $dossierPatients = $this->dossierPatientRepository->paginate();
 
         if ($request->ajax()) {
+            $search = $request->get('search');
+            $search = str_replace(" ", "%", $search);
+        
+            $dossierPatients = DossierPatient::join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+                ->where('patients.nom', 'like', '%' . $search . '%')
+                ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')
+                ->paginate();
+        
             return view('dossier_patients.table')
-                ->with('dossierPatients', $dossierPatients);
+                ->with('dossierPatients', $dossierPatients)
+                ->render();
         }
 
         return view('dossier_patients.index')
