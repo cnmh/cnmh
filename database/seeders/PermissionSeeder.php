@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+
 class PermissionSeeder extends Seeder
 {
     /**
@@ -19,6 +20,9 @@ class PermissionSeeder extends Seeder
         ]);
         Permission::create([
             'name' => 'create-EtatCivil',
+        ]);
+        Permission::create([
+            'name' => 'store-EtatCivil',
         ]);
         Permission::create([
             'name' => 'edit-EtatCivil',
@@ -49,6 +53,9 @@ class PermissionSeeder extends Seeder
         ]);
         Permission::create([
             'name' => 'show-Permission',
+        ]);
+        Permission::create([
+            'name' => 'store-Permission',
         ]);
         Permission::create([
             'name' => 'edit-Permission',
@@ -97,7 +104,7 @@ class PermissionSeeder extends Seeder
         ]);
 
         // Admin , Adding Niveau Scolaire permission
-        
+
         Permission::create([
             'name' => 'index-NiveauScolaire'
         ]);
@@ -106,6 +113,9 @@ class PermissionSeeder extends Seeder
         ]);
         Permission::create([
             'name' => 'create-NiveauScolaire'
+        ]);
+        Permission::create([
+            'name' => 'store-NiveauScolaire'
         ]);
         Permission::create([
             'name' => 'edit-NiveauScolaire'
@@ -135,6 +145,9 @@ class PermissionSeeder extends Seeder
             'name' => 'show-Employe',
         ]);
         Permission::create([
+            'name' => 'store-Employe',
+        ]);
+        Permission::create([
             'name' => 'edit-Employe',
         ]);
         Permission::create([
@@ -150,13 +163,16 @@ class PermissionSeeder extends Seeder
             'name' => 'import-Employe',
         ]);
 
-         // Adding Couverture Médicale crud permission
+        // Adding Couverture Médicale crud permission
 
-         Permission::create([
+        Permission::create([
             'name' => 'index-CouvertureMedical',
         ]);
         Permission::create([
             'name' => 'create-CouvertureMedical',
+        ]);
+        Permission::create([
+            'name' => 'store-CouvertureMedical',
         ]);
         Permission::create([
             'name' => 'show-CouvertureMedical',
@@ -177,13 +193,16 @@ class PermissionSeeder extends Seeder
             'name' => 'import-CouvertureMedical',
         ]);
 
-         // Adding Type Handicap crud permission
+        // Adding Type Handicap crud permission
 
-         Permission::create([
+        Permission::create([
             'name' => 'index-TypeHandicap',
         ]);
         Permission::create([
             'name' => 'create-TypeHandicap',
+        ]);
+        Permission::create([
+            'name' => 'store-TypeHandicap',
         ]);
         Permission::create([
             'name' => 'show-TypeHandicap',
@@ -204,13 +223,16 @@ class PermissionSeeder extends Seeder
             'name' => 'import-TypeHandicap',
         ]);
 
-           // Adding Services (prestations) crud permission
+        // Adding Services (prestations) crud permission
 
-           Permission::create([
+        Permission::create([
             'name' => 'index-Service',
         ]);
         Permission::create([
             'name' => 'create-Service',
+        ]);
+        Permission::create([
+            'name' => 'store-Service',
         ]);
         Permission::create([
             'name' => 'show-Service',
@@ -282,10 +304,43 @@ class PermissionSeeder extends Seeder
             'name' => 'create-DossierPatient',
         ]);
         Permission::create([
+            'name' => 'parent-DossierPatient',
+        ]);
+        Permission::create([
             'name' => 'show-DossierPatient',
         ]);
         Permission::create([
+            'name' => 'create-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'patient-DossierPatient',
+        ]);
+        Permission::create([
             'name' => 'edit-DossierPatient',
+        ]);
+        Permission::create([
+            'name' => 'store-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'show-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'export-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'import-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'edit-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'destroy-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'index-Tuteur',
+        ]);
+        Permission::create([
+            'name' => 'update-Tuteur',
         ]);
         Permission::create([
             'name' => 'update-DossierPatient',
@@ -302,6 +357,86 @@ class PermissionSeeder extends Seeder
         Permission::create([
             'name' => 'import-DossierPatient',
         ]);
+        Permission::create([
+            'name' => 'create-Patient',
+        ]);
+        Permission::create([
+            'name' => 'store-Patient',
+        ]);
+        Permission::create([
+            'name' => 'entretien-DossierPatient',
+        ]);
+
+        // Adding consultation permissions 
+
+        Permission::create([
+            'name' => 'index-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'create-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'show-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'edit-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'update-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'store-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'destroy-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'export-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'import-Consultation',
+        ]);
+        Permission::create([
+            'name' => 'patient-Consultation',
+        ]);
+
+
+        // Adding Rendez-vous permissions 
+
+        Permission::create([
+            'name' => 'index-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'create-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'show-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'edit-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'update-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'store-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'destroy-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'export-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'import-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'list_dossier-RendezVous',
+        ]);
+        Permission::create([
+            'name' => 'Ajouter_RendezVous-Consultation',
+        ]);
+
 
     }
 }
