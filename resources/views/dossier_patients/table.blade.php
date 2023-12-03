@@ -25,22 +25,22 @@
                         'delete']) !!} 
 
                         <div class='btn-group'>
-                            @can('show-DossierPatient')
+                            
                             <a href="{{ route('dossier-patients.show', [$dossierPatient->id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            @endcan
+                           
                             @can('edit-DossierPatient')
                             <a href="{{ route('dossier-patients.edit', [$dossierPatient->id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('destroy-DossierPatient')
+                            <!-- @can('destroy-DossierPatient')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn
                             btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} 
-                            @endcan
+                            @endcan -->
                         </div>
                         {!! Form::close() !!}
                     </td>
