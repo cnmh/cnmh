@@ -36,23 +36,26 @@
 
 @endcan
 
-@can('create-Consultation') 
+@can('Ajouter_RendezVous-Consultation')
 
-    <li class="nav-item">
-        <a href="/consultations/MedecinGeneral"
-            class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
-            <i class="fa-solid fa-hospital-user"></i>
-            <p>Consultation</p>
-        </a>
-    
-    </li>
+<li class="nav-item "> 
+    <a href="#" class="nav-link ">
+    <i class="fa-solid fa-hospital-user"></i>
+        <p class="pl-2">
+        Medcine générale
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="">
+        <li class="nav-item">
+            <a href="/consultations/MedecinGeneral" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+                <p>Consultation </p>
+            </a>
+        </li>
+    </ul>
+
+    </li>   
 
 @endcan
-
-
-
-
-
 
 
 @can('index-Permission')
