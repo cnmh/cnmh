@@ -94,16 +94,17 @@ class TuteurController extends AppBaseController
     public function edit($id)
     {
         $tuteur = $this->tuteurRepository->find($id);
-
+    
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
-
             return redirect(route('tuteurs.index'));
         }
-
-        return view('tuteurs.edit')->with('tuteur', $tuteur);
+    
+        $etat_civil = EtatCivil::find($tuteur->etat_civil_id);
+    
+        return view('tuteurs.edit', compact('tuteur', 'etat_civil'));
     }
-
+    
     /**
      * Update the specified Tuteur in storage.
      */

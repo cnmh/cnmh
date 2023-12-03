@@ -21,9 +21,11 @@ if (isset($url['query'])) {
         'type_handicap_id[]',
         $type_handicap->pluck('nom', 'id')->toArray(),
         isset($type_handicap_patient) ? $type_handicap_patient->pluck('id')->toArray() : [],
-        ['class' => 'form-control', 'required', 'multiple' => 'multiple']
+        ['class' => 'form-control', 'id'=> 'type_handicap_select' ,'required', 'multiple' => 'multiple']
     ) }}
 </div>
+
+
 
 
 
@@ -39,10 +41,11 @@ if (isset($url['query'])) {
 </div>
 
 <!-- Date Enregsitrement Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-6 d-none">
     {!! Form::label('date_enregsitrement', __('models/dossierPatients.fields.date_enregsitrement')) !!}
-    {!! Form::datetimeLocal('date_enregsitrement', null, ['class' => 'form-control','id'=>'date_enregsitrement']) !!}
+    {!! Form::datetimeLocal('date_enregsitrement', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control','id'=>'date_enregsitrement']) !!}
 </div>
+
 
 
 <!-- Patient Id Field -->

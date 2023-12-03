@@ -105,6 +105,8 @@ Route::delete('rendez-vous/destroy/{id}',[RendezVousController::class,'destroy']
 Route::get('rendez-vous/show/{id}',[RendezVousController::class,'show'])->name('rendez-vous.show');
 Route::get('rendez-vous/edit/{id}',[RendezVousController::class,'edit'])->name('rendez-vous.edit');
 Route::post('rendez-vous/store',[RendezVousController::class,'store'])->name('rendez-vous.store');
+Route::PUT('rendez-vous/update/{id}', [RendezVousController::class, 'update'])->name('rendez-vous.update');
+
 
 Route::prefix('/root')->group(function() {
     Route::controller(RootController::class)->group(function() {

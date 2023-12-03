@@ -99,17 +99,28 @@
                                                     <td>{{ $tuteur->etatCivil->nom }}</td>
                                                     {{-- <td>{{ $tuteur->cin }}</td>
                                                 <td>{{ $tuteur->remarques }}</td> --}}
-                                                    <td style="width: 120px">
+                                                <td style="width: 120px">
+                                                    <div class='btn-group'>
+                                                        @can('show-Tuteur')
+                                                        <a href="{{ route('tuteurs.show', [$tuteur->id]) }}" class='btn btn-default btn-sm'>
+                                                            <i class="far fa-eye"></i>
+                                                        </a>
+                                                        @endcan
 
-                                                        <div class='btn-group'>
-                                                            <a href="{{ route('tuteurs.show', [$tuteur->id]) }}"
-                                                                class='btn btn-default btn-sm'>
-                                                                <i class="far fa-eye"></i>
-                                                            </a>
+                                                        @can('edit-Tuteur')
+                                                        <a href="{{ route('tuteurs.edit', [$tuteur->id]) }}" class='btn btn-default btn-sm'>
+                                                            <i class="far fa-edit"></i>
+                                                        </a>
+                                                        @endcan
 
-                                                        </div>
+                                                        @can('destroy-Tuteur')
+                                                        <a href="{{ route('tuteurs.destroy', [$tuteur->id]) }}" class='btn btn-danger btn-xs' onclick="return confirm('Are you sure?')">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </a>
+                                                        @endcan
+                                                    </div>
+                                                </td>
 
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

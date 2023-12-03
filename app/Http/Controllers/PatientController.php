@@ -100,14 +100,20 @@ class PatientController extends AppBaseController
     {
         $patient = $this->patientRepository->find($id);
 
+        $tuteur = Tuteur::find($patient->tuteur_id);
+        $niveauScolaire = NiveauScolaire::find($patient->niveau_scolaire_id);
+
         if (empty($patient)) {
             Flash::error(__('models/patients.singular').' '.__('messages.not_found'));
 
             return redirect(route('patients.index'));
         }
 
-        return view('patients.edit')->with('patient', $patient);
+        return view('patients.edit')->with(['patient' => $patient, 'tuteur' => $tuteur , 'niveau_s' => $niveauScolaire]);
     }
+
+
+    
 
     /**
      * Update the specified Patient in storage.
