@@ -103,10 +103,13 @@
                                                     <td style="width: 120px">
 
                                                         <div class='btn-group'>
-                                                            <a href="{{ route('patients.show', [$patient->id]) }}"
-                                                                class='btn btn-default btn-sm'>
+                                                            <a href="{{ route('patients.show', [$patient->id]) }}" class='btn btn-default btn-sm'>
                                                                 <i class="far fa-eye"></i>
                                                             </a>
+                                                            <a href="{{ route('patients.edit', [$patient->id]) }}" class='btn btn-default btn-sm'>
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
 
                                                         </div>
 
