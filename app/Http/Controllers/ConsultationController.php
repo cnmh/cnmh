@@ -9,6 +9,10 @@ use App\Models\Consultation;
 use App\Models\DossierPatient;
 use App\Models\DossierPatientConsultation;
 use App\Models\RendezVous;
+use App\Models\DossierPatient_typeHandycape;
+use App\Models\TypeHandicap;
+use App\Models\Service;
+use App\Models\Consultation_service;
 use App\Repositories\ConsultationRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -69,11 +73,25 @@ class ConsultationController extends AppBaseController
     /**
      * Show the form for creating a new Consultation.
      */
-    public function create($model)
+    public function create(Request $request, $model)
     {
         $title = $model;
-        return view('consultations.create', compact('title'));
+    
+        $consultationID = $request->get('consultation_id');
+    
+        $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultationID)->first();
+    
+        $type_handicap_patients = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)->get();
+    
+        $type_handicap_ids = $type_handicap_patients->pluck('type_handicap_id')->toArray();
+    
+        $type_handicap = TypeHandicap::all();
+
+        $services = Service::all();
+    
+        return view('consultations.create', compact('title', 'type_handicap_ids', 'type_handicap', 'services'));
     }
+    
 
     /**
      * Store a newly created Consultation in storage.
@@ -83,6 +101,29 @@ class ConsultationController extends AppBaseController
 
         $input = $request->all();
 
+        $typeHandicapIDs = $request->type_handicap_id;
+        $service_ids = $request->services_id;
+        $consultationID = $request->consultation_id;
+
+        foreach($service_ids as $service_id){
+            $service = new Consultation_service;
+            $service->service_id = $service_id;
+            $service->consultation_id = $consultationID;
+            $service->save();
+        }
+
+        $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultationID)->first();
+
+        DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)
+        ->whereNotIn('type_handicap_id', $typeHandicapIDs)
+        ->delete();
+
+        foreach ($typeHandicapIDs as $typeHandicapID) {
+            DossierPatient_typeHandycape::updateOrCreate(
+                ['dossier_patient_id' =>$dossierPatientConsultation->dossier_patient_id, 'type_handicap_id' => $typeHandicapID],
+                ['type_handicap_id' => $typeHandicapID]
+            );
+        }
 
         $Model = "App\\Models\\" . ucfirst($model);
         $callModel = new $Model;

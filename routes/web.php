@@ -39,9 +39,6 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('projects',App\Http\Controllers\ProjectController::class);
-// Route::resource('tasks',App\Http\Controllers\TaskController::class);
-// Route::resource('members',App\Http\Controllers\MemberController::class);
 // couvertureMedicals
 
 
