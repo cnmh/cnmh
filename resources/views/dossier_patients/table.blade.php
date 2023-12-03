@@ -25,12 +25,12 @@
                         'delete']) !!} 
 
                         <div class='btn-group'>
-                            @can('show-DossierPatient')
+                            
                             <a href="{{ route('dossier-patients.show', [$dossierPatient->id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            @endcan
+                           
                             @can('edit-DossierPatient')
                             <a href="{{ route('dossier-patients.edit', [$dossierPatient->id]) }}"
                                 class='btn btn-default btn-sm'>
