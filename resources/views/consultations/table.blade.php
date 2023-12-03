@@ -44,11 +44,11 @@
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
-                            {{-- <a href="{{ route('consultations.edit', [$consultation->id]) }}"
+                            <a href="{{ route('consultations.edit', [$consultation->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
-                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
+                            {{--{!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}--}}
                         </div>
                         {!! Form::close() !!}
                     </td>

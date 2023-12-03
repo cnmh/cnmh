@@ -30,7 +30,7 @@
     {{ Form::select(
         'services_id[]',
         $services->pluck('nom', 'id')->toArray(),
-        null,  // This was missing
+        isset($service_patient) ? $service_patient : [],
         ['class' => 'form-control', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>

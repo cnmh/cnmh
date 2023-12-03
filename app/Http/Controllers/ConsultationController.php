@@ -176,13 +176,29 @@ class ConsultationController extends AppBaseController
     {
         $consultation = $this->consultationRepository->find($id);
 
+        $consultationID = $consultation->id;
+    
+        $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultationID)->first();
+    
+        $type_handicap_patients = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)->get();
+    
+        $type_handicap_ids = $type_handicap_patients->pluck('type_handicap_id')->toArray();
+
+        $consultation_service = Consultation_service::where('consultation_id',$consultationID)->get();
+
+        $service_patient = $consultation_service->pluck('service_id')->toArray();
+    
+        $type_handicap = TypeHandicap::all();
+
+        $services = Service::all();
+
         if (empty($consultation)) {
             Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('consultations.index'));
         }
 
-        return view('consultations.edit')->with('consultation', $consultation);
+        return view('consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient'));
     }
 
     /**
@@ -192,17 +208,46 @@ class ConsultationController extends AppBaseController
     {
         $consultation = $this->consultationRepository->find($id);
 
+        $typeHandicapIDs = $request->type_handicap_id;
+        $service_ids = $request->services_id;
+
         if (empty($consultation)) {
             Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('consultations.index'));
         }
 
+        $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultation->id)->first();
+
+        DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)
+        ->whereNotIn('type_handicap_id', $typeHandicapIDs)
+        ->delete();
+
+        foreach ($typeHandicapIDs as $typeHandicapID) {
+            DossierPatient_typeHandycape::updateOrCreate(
+                ['dossier_patient_id' =>$dossierPatientConsultation->dossier_patient_id, 'type_handicap_id' => $typeHandicapID],
+                ['type_handicap_id' => $typeHandicapID]
+            );
+        }
+
+        Consultation_service::where('consultation_id',$consultation->id)
+        ->whereNotIn('service_id',$service_ids)
+        ->delete();
+
+
+        foreach($service_ids as $service_id){
+            Consultation_service::updateOrCreate(
+                ['consultation_id' =>$consultation->id, 'service_id' => $service_id],
+                ['service_id' => $service_id]
+            );
+        }
+
+
         $consultation = $this->consultationRepository->update($request->all(), $id);
 
         Flash::success(__('messages.updated', ['model' => __('models/consultations.singular')]));
 
-        return redirect(route('consultations.index'));
+        return redirect('/consultations/liste-attente');
     }
 
     /**

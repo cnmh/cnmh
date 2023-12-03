@@ -28,8 +28,8 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('consultations.index') }}" class="btn btn-default"> @lang('crud.cancel') </a>
+                {!! Form::submit('Enregistrer', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('consultations.index', $consultation->id) }}" class="btn btn-default"> @lang('crud.cancel') </a>
             </div>
 
             {!! Form::close() !!}
