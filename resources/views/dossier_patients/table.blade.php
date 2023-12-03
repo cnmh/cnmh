@@ -22,7 +22,7 @@
 
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['dossier-patients.destroy', $dossierPatient->id], 'method' =>
-                        'delete']) !!} 
+                        'delete']) !!}
 
                         <div class='btn-group'>
                             @can('show-DossierPatient')
@@ -39,30 +39,35 @@
                             @endcan
                             @can('destroy-DossierPatient')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn
-                            btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} 
+                            btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                             @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
                 </tr>
                 @endforeach
+                <tr>
+                    <td>
+                        @can('export-DossierPatient')
+                        <a class="btn btn-default swalDefaultQuestion" href="{{ route('dossier-patients.export') }}"><i
+                                class="fas fa-download"></i>@lang('crud.export')</a>
+                        @endcan
+                        @can('import-DossierPatient')
+                        <button type="button" class="btn btn-default swalDefaultQuestion">
+                            <i class="fas fa-file-import"></i> @lang('crud.import')
+                        </button>
+                        @endcan
+                    </td>
+                    <td></td>
+                    <td></td>
+
+                    <td>
+                        @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="card-footer clearfix">
-        <div class="float-right">
-            @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
-        </div>
-        <div class="float-left">
-            @can('export-DossierPatient')
-            <a class="btn btn-default swalDefaultQuestion" href="{{ route('dossier-patients.export') }}"><i class="fas fa-download"></i>@lang('crud.export')</a>
-            @endcan
-            @can('import-DossierPatient')
-            <button type="button" class="btn btn-default swalDefaultQuestion">
-                <i class="fas fa-file-import"></i> @lang('crud.import')
-            </button>
-            @endcan
-        </div>
-    </div>
+
 </div>
