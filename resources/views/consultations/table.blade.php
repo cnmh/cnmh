@@ -61,15 +61,47 @@
     </div>
 </div>
 <div class="card-footer clearfix">
-    <div class="float-left">
-        <button type="button" class="btn btn-default swalDefaultQuestion">
-            <i class="fas fa-download"></i> @lang('crud.export')
-        </button>
-        <button type="button" class="btn btn-default swalDefaultQuestion">
-            <i class="fas fa-file-import"></i> @lang('crud.import')
+    <div class="float-left d-flex">
+        <form action="{{ route('consultations.export') }}" method="post">
+            @csrf 
+            <button type="submit" class="btn btn-default swalDefaultQuestion">
+                <i class="fas fa-download"></i> @lang('crud.export')
+            </button>
+        </form>
+        
+        <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
+                <i class="fas fa-file-import"></i> @lang('crud.import')
         </button>
     </div>
     <div class="float-right">
         @include('adminlte-templates::common.paginate', ['records' => $consultations])
+    </div>
+</div>
+
+
+
+<!-- Modal Import -->
+<div class="modal fade" id="importModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">@lang('crud.print') </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('consultations.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file" class="form-control">
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('crud.cancel')</button>
+                        <button class="btn btn-success">@lang('crud.import')</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

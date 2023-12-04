@@ -17,6 +17,11 @@ use App\Repositories\ConsultationRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Database\Eloquent\Model;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportConsultation;
+use App\Imports\ImportConsultation;
+
+
 
 class ConsultationController extends AppBaseController
 {
@@ -298,5 +303,23 @@ class ConsultationController extends AppBaseController
     {
         $dossier_patient = DossierPatient::find($request->dossier_patients);
         return view('consultations.patient',compact("dossier_patient"));
+    }
+
+    public function export(){
+        return Excel::download(new ExportConsultation, 'consultations.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+        
+        if ($file) {
+            $path = $file->store('files');
+            Excel::import(new ImportConsultation, $path);
+        }
+
+        Flash::success(__('messages.updated', ['model' => __('models/consultations.singular')]));
+        
+        return redirect()->back();
     }
 }

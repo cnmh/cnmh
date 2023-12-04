@@ -91,6 +91,10 @@ Route::patch('/consultations/update/{id}',[ConsultationController::class,'update
 Route::get('/consultations/rendezVous/{model}', [ConsultationController::class, 'Ajouter_RendezVous'])->middleware(['ModelExists'])->name('consultations.rendezVous');
 Route::get('/consultations/patient/{model}', [ConsultationController::class, 'patient'])->middleware(['ModelExists'])->name('consultations.patient');
 
+Route::post('/consultations/patient/import', [ConsultationController::class, 'import'])->name('consultations.import');
+Route::post('/consultations/patient/export', [ConsultationController::class, 'export'])->name('consultations.export');
+
+
 
 
 
