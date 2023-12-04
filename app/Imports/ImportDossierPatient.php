@@ -2,73 +2,40 @@
 
 namespace App\Imports;
 
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
-use App\Models\Tuteur;
-use App\Models\Patient;
 use App\Models\DossierPatient;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
-class ImportDossierPatient implements ToCollection
+class ImportDossierPatient implements ToModel
 {
-    private $tuteurData = [];
-    private $patientData = [];
-    private $dossierPatientData = [];
-
-    public function collection($sheets)
+    /**
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function model(array $row)
     {
-        $this->importTuteur($sheets[0]);
-        $this->importPatient($sheets[1]);
-        $this->importDossierPatient($sheets[2]);
+        $user = Auth::user();
+        $userID = $user ? $user->id : null;
 
-    }
-    private function importTuteur($dataRows)
-    {
-        foreach ($dataRows as $data) {
-            $tuteurData = [
-                'id' => $data[0] ?? null,
-                'etat_civil_id' => $data[1] ?? null,
-                'nom' => $data[2] ?? null,
-                'prenom' => $data[3] ?? null,
-                'sexe' => $data[4] ?? null,
-                'telephone' => $data[5] ?? null,
-                'email' => $data[6] ?? null,
-                'adresse' => $data[7] ?? null,
-                'cin' => $data[8] ?? null,
-                'remarques' => $data[9] ?? null,
-            ];
-            // Tuteur::create($tuteurData);
+        if ($row[0] === 'Id') {
+            return null;
         }
+
+        $dateTime = Carbon::now();
+
+        $dossierPatient = new DossierPatient([
+            'id' => $row[0],
+            'patient_id' => $row[1],
+            'couverture_medical_id' => $row[2],
+            'numero_dossier' => $row[3],
+            'etat' => $row[4],
+            'user_id' => $row[6],
+        ]);
+
+        $dossierPatient->date_enregsitrement = $dateTime;
+
+        return $dossierPatient;
     }
-
-    private function importPatient($dataRows)
-    {
-        foreach ($dataRows as $data) {
-            $patientData = [
-                'id' => $data[0] ?? null,
-                'tuteur_id' => $data[1] ?? null,
-                'niveau_scolaire_id' => $data[2] ?? null,
-                'nom' => $data[3] ?? null,
-                'prenom' => $data[4] ?? null,
-                'telephone' => $data[5] ?? null,
-                'cin' => $data[6] ?? null,
-                'email' => $data[7] ?? null,
-                'adresse' => $data[8] ?? null,
-                'remarques' => $data[9] ?? null,
-            ];
-
-
-            // Patient::create($patientData);
-        }
-    }
-
-    private function importDossierPatient($dataRows)
-    {
-        foreach ($dataRows as $data) {
-            $dossierPatientData = [
-                
-            ];
-            // DossierPatient::create($dossierPatientData);
-        }
-    }
-
 }

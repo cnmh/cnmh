@@ -22,7 +22,7 @@ use App\Http\Requests\CreateDossierPatientRequest;
 use App\Http\Requests\UpdateDossierPatientRequest;
 use App\Models\DossierPatientConsultation;
 use App\Models\OrientationExterne;
-use App\Imports\ImportDossierPatient;
+use App\Imports\ImportDossierPatientGlobal;
 
 
 
@@ -319,9 +319,11 @@ class DossierPatientController extends AppBaseController
         
         if ($file) {
             $path = $file->store('files');
-            Excel::import(new ImportDossierPatient, $path);
+            Excel::import(new ImportDossierPatientGlobal, $path);
         }
         
+        Flash::success(__('messages.saved', ['model' => __('models/dossierPatients.singular')]));
+
         return redirect()->back();
     }
 }
