@@ -45,8 +45,9 @@
                         {!! Form::close() !!}
                     </td>
                 </tr>
+               
                 @endforeach
-                <tr>
+                <tr class="bg-light">
                     <td>
                         @can('export-DossierPatient')
                         <a class="btn btn-default swalDefaultQuestion" href="{{ route('dossier-patients.export') }}"><i
@@ -60,10 +61,10 @@
                     </td>
                     <td></td>
                     <td></td>
-
                     <td>
-                        @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
+                    @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
                     </td>
+                   
                 </tr>
             </tbody>
         </table>

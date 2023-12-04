@@ -41,7 +41,7 @@
                 <!-- SEARCH FORM -->
                 <form class="form-inline ml-3">
                     <div class="input-group input-group-sm">
-                        <input type="search" class="form-control form-control-lg" placeholder="Recherche">
+                        <input type="search" class="form-control form-control-lg" id="searchConsultation" placeholder="Recherche">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-lg btn-default">
                                 <i class="fa fa-search"></i>
@@ -57,44 +57,43 @@
         </div>
     </div>
 
+    <script>
+$(document).ready(function() {
+    function fetch_data(page, search) {
+        var modelName = "liste-attente"; 
+        $.ajax({
+            url: "/consultations/" + modelName + "/?page=" + page + "&query=" + search.trim(),
+            success: function(data) {
+            //    $('table').html('');
+            console.log(data);
+            }
+        });
+    }
+
+    $('body').on('click', '.pagination li', function(event) {
+        event.preventDefault();
+        var pageButton = $(this).find('.page-link');
+        if (pageButton.length) {
+            var page = pageButton.attr('page-number');
+            var search = $('#searchConsultation').val();
+            fetch_data(page, search);
+        }
+    });
+
+    $('body').on('keyup', '#searchConsultation', function() {
+        var search = $('#searchConsultation').val();
+        var page = 1;
+        fetch_data(page, search);
+    });
+
+    fetch_data(1, '');
+});
+
+
+</script>
+
 @endsection
 @push('page_scripts')
-    <script>
-        const tableContainer = $('#table-container')
-        var searchQuery = ''
 
-        const search = (query = '', page = 1) => {
-            $.ajax('{{ route('consultations.index',$title) }}', {
-                data: {
-                    query: query,
-                    page: page
-                },
-                success: (data) => updateTable(data)
-            })
-            history.pushState(null, null, '?query=' + query + '&page=' + page)
-        }
-
-        const updateTable = (html) => {
-            tableContainer.html(html)
-            updatePaginationLinks()
-        }
-
-        const updatePaginationLinks = () => {
-            $('button[page-number]').each(function() {
-                $(this).on('click', function() {
-                    pageNumber = $(this).attr('page-number')
-                    search(searchQuery, pageNumber)
-                })
-            })
-        }
-
-        $(document).ready(() => {
-            $('[type="search"]').on('input', function() {
-                searchQuery = $(this).val()
-                search(searchQuery)
-            })
-            updatePaginationLinks()
-        })
-    </script>
 @endpush
 
