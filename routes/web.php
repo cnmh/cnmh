@@ -124,6 +124,8 @@ Route::get('/patientForm',[DossierPatientController::class,'patient'])->name('do
 Route::get('/entretien/{query}',[DossierPatientController::class,'entretien'])->name('dossier-patients.entretien');
 Route::post('/storeEntetien',[DossierPatientController::class,'storeEntetien'])->name('dossier-patients.storeEntetien');
 Route::get('/export',[DossierPatientController::class,'export'] )->name('dossier-patients.export');
+Route::post('/import',[DossierPatientController::class,'import'] )->name('dossier-patients.import');
+
 });
 
 /**

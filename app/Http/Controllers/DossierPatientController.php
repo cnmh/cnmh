@@ -22,6 +22,12 @@ use App\Http\Requests\CreateDossierPatientRequest;
 use App\Http\Requests\UpdateDossierPatientRequest;
 use App\Models\DossierPatientConsultation;
 use App\Models\OrientationExterne;
+use App\Imports\ImportDossierPatient;
+
+
+
+
+
 
 
 
@@ -304,5 +310,18 @@ class DossierPatientController extends AppBaseController
     public function export()
     {
     return Excel::download(new ExportDossierPatient, 'dossierpatients.xlsx');
+    }
+
+
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+        
+        if ($file) {
+            $path = $file->store('files');
+            Excel::import(new ImportDossierPatient, $path);
+        }
+        
+        return redirect()->back();
     }
 }

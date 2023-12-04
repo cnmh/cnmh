@@ -61,12 +61,40 @@
                 class="fas fa-download"></i>@lang('crud.export')</a>
         @endcan
         @can('import-DossierPatient')
-        <button type="button" class="btn btn-default swalDefaultQuestion">
-            <i class="fas fa-file-import"></i> @lang('crud.import')
+        <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
+                <i class="fas fa-file-import"></i> @lang('crud.import')
         </button>
         @endcan
     </div>
     <div class="float-right">
         @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
+    </div>
+</div>
+
+
+
+<!-- Modal Import -->
+<div class="modal fade" id="importModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">@lang('crud.print') </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('dossier-patients.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file" class="form-control">
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('crud.cancel')</button>
+                        <button class="btn btn-success">@lang('crud.import')</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
