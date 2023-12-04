@@ -61,8 +61,15 @@ $(document).ready(function() {
         $.ajax({
             url: "dossier-patients/?page=" + page + "&search=" + search,
             success: function(data) {
-                $('table').html('');
-                $('table').html(data);
+                var newData = $(data);
+                $('#dossier-patients-table').html(newData.find('#dossier-patients-table').html());
+                $('.card-footer').html(newData.find('.card-footer').html());
+                var paginationHtml = newData.find('.pagination').html();
+                if (paginationHtml) {
+                    $('.pagination').html(paginationHtml);
+                } else {
+                    $('.pagination').html('');
+                }
             }
         });
     }

@@ -53,7 +53,7 @@ class ConsultationController extends AppBaseController
                 ["consultations.type","medecinGeneral"]
              ])
             ->select('*')
-            ->paginate();
+            ->paginate(1);
 
     
         if ($request->ajax()) {
@@ -65,11 +65,10 @@ class ConsultationController extends AppBaseController
             ->join('patients', 'dossier_patients.id', '=', 'patients.id')
             ->where('patients.nom', 'like', '%' . $search . '%')
             ->orWhere('patients.prenom', 'like', '%' . $search . '%')
-            ->orWhere('consultations.etat', 'like', '%' . $search . '%')->paginate();
+            ->orWhere('consultations.etat', 'like', '%' . $search . '%')->paginate(1);
                 
         
-            return view('consultations.table')
-                ->with('consultations', $consultations)->render();
+            return view('consultations.table',compact('consultations', 'title',"titleApp"))->render();
         }
         return view('consultations.index', compact('consultations', 'title',"titleApp"));
 
