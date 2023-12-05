@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Fonction;
+use App\Models\User;
+
 
  /**
  * Sprint 2
@@ -58,7 +61,7 @@ class Employe extends BaseModel
 
     public function fonction(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\fonction::class, 'fonction_id');
+        return $this->belongsTo(\App\Models\Fonction::class, 'fonction_id');
     }
     function user()
     {

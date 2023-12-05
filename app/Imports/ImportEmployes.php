@@ -8,32 +8,31 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ImportEmployes implements ToModel,WithStartRow
+class ImportEmployes implements ToModel, WithStartRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     * @throws \Exception
+     */
     public function model(array $row)
     {
         $date_naissance = date('Y-m-d', strtotime($row[5]));
         $date_embauche = date('Y-m-d', strtotime($row[7]));
-        $fonction = Fonction::where('nom',$row[8])->get();
-        if(empty($fonction->nom)){
-            // $validator = Validator::make(['nom' => $row[8]], [
-            //     'nom' => 'required|string|max:255|unique:fonctions,nom',
-            // ]);
 
-            // if ($validator->fails()) {
-            //     // Handle validation errors
-            //     throw new \Exception($validator->errors()->first());
-            // }
-            Fonction::create([
-                'nom'=>$row[8]
+        $fonction = Fonction::where('nom', $row[8])->first();
+
+        if (!$fonction) {
+            $fonction = Fonction::create([
+                'nom' => $row[8]
             ]);
+        }
 
-            $fonction = Fonction::where('nom',$row[8])->get();
+        $existingEmployee = Employe::where('email', $row[2])->first();
+
+        if ($existingEmployee) {
+            return null;
         }
 
         return new Employe([
@@ -45,11 +44,12 @@ class ImportEmployes implements ToModel,WithStartRow
             'date_naissance' => $date_naissance,
             'cin' => $row[6],
             'date_embauche' => $date_embauche,
-            'fonction_id' => $fonction[0]->id,
+            'fonction_id' => $fonction->id,
         ]);
     }
+
     public function startRow(): int
     {
-        return 2; // Start importing from row 2, skipping the first row
+        return 2; 
     }
 }
