@@ -22,6 +22,12 @@ use App\Http\Requests\CreateDossierPatientRequest;
 use App\Http\Requests\UpdateDossierPatientRequest;
 use App\Models\DossierPatientConsultation;
 use App\Models\OrientationExterne;
+use App\Imports\ImportDossierPatientGlobal;
+
+
+
+
+
 
 
 
@@ -50,12 +56,20 @@ class DossierPatientController extends AppBaseController
     public function index(Request $request)
     {
 
-        $query = $request->input('query');
-        $dossierPatients = $this->dossierPatientRepository->paginate($query);
+        $dossierPatients = $this->dossierPatientRepository->paginate();
 
         if ($request->ajax()) {
+            $search = $request->get('search');
+            $search = str_replace(" ", "%", $search);
+        
+            $dossierPatients = DossierPatient::join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+                ->where('patients.nom', 'like', '%' . $search . '%')
+                ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')
+                ->paginate();
+        
             return view('dossier_patients.table')
-                ->with('dossierPatients', $dossierPatients);
+                ->with('dossierPatients', $dossierPatients)
+                ->render();
         }
 
         return view('dossier_patients.index')
@@ -147,8 +161,8 @@ class DossierPatientController extends AppBaseController
         $listrendezvous=DossierPatient::join('dossier_patient_consultation', 'dossier_patients.patient_id', '=', 'dossier_patient_consultation.dossier_patient_id')
         ->join('consultations','consultations.id','=','dossier_patient_consultation.consultation_id')
         ->join('rendez_vous','rendez_vous.consultation_id','=','dossier_patient_consultation.consultation_id')
-        ->join('consultation_service','consultation_service.consultation_id','=','dossier_patient_consultation.consultation_id')
-        ->join('services','services.id','=','consultation_service.service_id')
+        ->join('consultation_services','consultation_services.consultation_id','=','dossier_patient_consultation.consultation_id')
+        ->join('services','services.id','=','consultation_services.service_id')
         ->where('dossier_patients.patient_id',$dossierPatient->patient_id)
         ->select(['rendez_vous.date_rendez_vous','rendez_vous.etat', 'services.nom','dossier_patients.patient_id'])
         ->groupBy('rendez_vous.date_rendez_vous', 'rendez_vous.etat','services.nom','dossier_patients.patient_id')
@@ -296,5 +310,20 @@ class DossierPatientController extends AppBaseController
     public function export()
     {
     return Excel::download(new ExportDossierPatient, 'dossierpatients.xlsx');
+    }
+
+
+    public function import(Request $request)
+    {
+        // $file = $request->file('file');
+        
+        // if ($file) {
+        //     $path = $file->store('files');
+        //     Excel::import(new ImportDossierPatientGlobal, $path);
+        // }
+        
+        // Flash::success(__('messages.saved', ['model' => __('models/dossierPatients.singular')]));
+        
+        return redirect()->back();
     }
 }

@@ -8,3 +8,14 @@ import 'admin-lte';
         multiple: true
     });
 });
+
+$(document).ready(function() {
+    $('#services_select').select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
+        multiple: true
+    });
+});
+
+
+

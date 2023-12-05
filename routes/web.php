@@ -39,9 +39,6 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('projects',App\Http\Controllers\ProjectController::class);
-// Route::resource('tasks',App\Http\Controllers\TaskController::class);
-// Route::resource('members',App\Http\Controllers\MemberController::class);
 // couvertureMedicals
 
 
@@ -88,11 +85,15 @@ Route::get('/consultations/create/{model}',[ConsultationController::class,'creat
 Route::post('/consultations/store/{model}',[ConsultationController::class,'store'])->middleware(['ModelExists'])->name('consultations.store');
 Route::delete('/consultations/{id}',[ConsultationController::class,'destroy'])->name('consultations.destroy');
 Route::get('/consultations/show/{model}/{id}',[ConsultationController::class,'show'])->middleware(['ModelExists'])->name('consultations.show');
-Route::get('/consultations/edit',[ConsultationController::class,'edit'])->name('consultations.edit');
-Route::post('/consultations/update',[ConsultationController::class,'update'])->name('consultations.update');
+Route::get('/consultations/edit/{id}',[ConsultationController::class,'edit'])->name('consultations.edit');
+Route::patch('/consultations/update/{id}',[ConsultationController::class,'update'])->name('consultations.update');
 
 Route::get('/consultations/rendezVous/{model}', [ConsultationController::class, 'Ajouter_RendezVous'])->middleware(['ModelExists'])->name('consultations.rendezVous');
 Route::get('/consultations/patient/{model}', [ConsultationController::class, 'patient'])->middleware(['ModelExists'])->name('consultations.patient');
+
+Route::post('/consultations/patient/import', [ConsultationController::class, 'import'])->name('consultations.import');
+Route::post('/consultations/patient/export', [ConsultationController::class, 'export'])->name('consultations.export');
+
 
 
 
@@ -123,6 +124,8 @@ Route::get('/patientForm',[DossierPatientController::class,'patient'])->name('do
 Route::get('/entretien/{query}',[DossierPatientController::class,'entretien'])->name('dossier-patients.entretien');
 Route::post('/storeEntetien',[DossierPatientController::class,'storeEntetien'])->name('dossier-patients.storeEntetien');
 Route::get('/export',[DossierPatientController::class,'export'] )->name('dossier-patients.export');
+Route::post('/import',[DossierPatientController::class,'import'] )->name('dossier-patients.import');
+
 });
 
 /**
