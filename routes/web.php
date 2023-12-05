@@ -145,5 +145,9 @@ Route::post('/import_permissions', [App\Http\Controllers\PermissionController::c
 
 
 Route::resource('users', App\Http\Controllers\UserController::class);
+Route::post('/user/export',[App\Http\Controllers\UserController::class,'export'])->name('users.export');
+Route::post('/user/import',[App\Http\Controllers\UserController::class,'import'])->name('users.import');
+
+
 Route::get('/manage/permissions-roles/{id}', [App\Http\Controllers\PermissionController::class, 'showRolePermission'])->name('manage.role.permission');
 Route::post('/assign-role-permission', [App\Http\Controllers\PermissionController::class, 'assignRolePermission'])->name('assign.role.permission');

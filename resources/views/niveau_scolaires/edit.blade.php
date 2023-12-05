@@ -37,9 +37,7 @@
             {!! Form::model($niveauScolaire, ['route' => ['niveauScolaires.update', $niveauScolaire->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
-                <div class="row">
                     @include('niveau_scolaires.fields')
-                </div>
             </div>
 
             <div class="card-footer">

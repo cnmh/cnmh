@@ -32,9 +32,7 @@
 
                 <div class="card-body">
 
-                    <div class="row">
                         @include('couverture_medicals.fields')
-                    </div>
 
                 </div>
 

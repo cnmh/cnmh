@@ -8,6 +8,10 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportUser;
+use App\Imports\ImportUser;
+
 use Flash;
 
 class UserController extends AppBaseController
@@ -49,10 +53,11 @@ class UserController extends AppBaseController
     /**
      * Store a newly created User in storage.
      */
-    public function store(CreateUserRequest $request)
+    public function store(Request $request)
     {
 
         $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
         $user = $this->userRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/users.singular')]));
@@ -137,4 +142,17 @@ class UserController extends AppBaseController
 
         return redirect(route('users.index'));
     }
+
+    public function export()
+    {
+        return Excel::download(new ExportUser, 'Users.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new ImportUser, $request->file('file')->store('files'));
+        return redirect()->back();
+    }
+
+
 }
