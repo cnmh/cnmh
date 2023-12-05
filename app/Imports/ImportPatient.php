@@ -16,7 +16,7 @@ class ImportPatient implements ToModel
 
     public function model(array $row)
     {
-        if ($row[0] === 'Id') {
+        if ($row[0] === 'Niveau Scolaire Id') {
             return null;
         }
 
@@ -36,23 +36,29 @@ class ImportPatient implements ToModel
 
         $validator = \Validator::make($row, $rules);
 
-        $tuteurId = $this->importTuteur->model($row);
+        if ($validator->fails()) {
+            return null;
+        }
 
-        if (!$tuteurId) {
+        $tuteur = $this->importTuteur->model($row);
+
+        if ($tuteur === null) {
             return null;
         }
 
         Patient::create([
-            'tuteur_id' => $tuteurId,
-            'niveau_scolaire_id' => $row[2],
-            'nom' => $row[3],
-            'prenom' => $row[4],
-            'telephone' => $row[5],
-            'cin' => $row[6],
-            'email' => $row[7],
+            'tuteur_id' => $tuteur->id,
+            'niveau_scolaire_id' => $row[0],
+            'nom' => $row[1],
+            'prenom' => $row[2],
+            'telephone' => $row[3],
+            'cin' => $row[4],
+            'email' => $row[5],
             'image' => null,
-            'adresse' => $row[8],
-            'remarques' => $row[9],
+            'adresse' => $row[6],
+            'remarques' => $row[7],
         ]);
+
+        return $tuteur;
     }
 }

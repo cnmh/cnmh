@@ -31,12 +31,12 @@ class ExportDossierPatient implements WithMultipleSheets
             'Tuteur' => new class implements FromQuery, WithTitle, WithHeadings {
                 public function query()
                 {
-                    return Tuteur::select('id', 'etat_civil_id', 'nom', 'prenom', 'sexe', 'telephone', 'email', 'adresse', 'cin', 'remarques');
+                    return Tuteur::select('etat_civil_id', 'nom', 'prenom', 'sexe', 'telephone', 'email', 'adresse', 'cin', 'remarques');
                 }
             
                 public function headings(): array
                 {
-                    return ['Id', 'Etat Civil Id', 'Nom', 'Prenom', 'Sexe', 'Telephone', 'Email', 'Adresse', 'CIN', 'Remarques'];
+                    return ['Etat Civil Id', 'Nom', 'Prenom', 'Sexe', 'Telephone', 'Email', 'Adresse', 'CIN', 'Remarques'];
                 }
             
                 public function title(): string
@@ -48,12 +48,12 @@ class ExportDossierPatient implements WithMultipleSheets
             'Patient' => new class implements FromQuery, WithTitle, WithHeadings {
                 public function query()
                 {
-                    return Patient::select('id', 'tuteur_id', 'niveau_scolaire_id', 'nom', 'prenom', 'telephone', 'cin', 'email', 'adresse', 'remarques');
+                    return Patient::select('niveau_scolaire_id', 'nom', 'prenom', 'telephone', 'cin', 'email', 'adresse', 'remarques');
                 }
             
                 public function headings(): array
                 {
-                    return ['Id', 'Tuteur Id', 'Niveau Scolaire Id', 'Nom', 'Prenom', 'Telephone', 'CIN', 'Email', 'Adresse', 'Remarques'];
+                    return ['Niveau Scolaire Id', 'Nom', 'Prenom', 'Telephone', 'CIN', 'Email', 'Adresse', 'Remarques'];
                 }
             
                 public function title(): string
