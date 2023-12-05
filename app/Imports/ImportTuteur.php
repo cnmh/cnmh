@@ -16,22 +16,21 @@ class ImportTuteur implements ToCollection
 
     public function collection(Collection $rows)
     {
-        // Skip the first row (heading)
         $rows = $rows->slice(1);
 
         foreach ($rows as $row) {
             $tuteur = Tuteur::create([
-                'etat_civil_id' => 1,
-                'nom' => 'John',
-                'prenom' => 'Doe',
-                'sexe' => 'Male',
-                'telephone' => '123456789',
-                'email' => 'john.doe@example.com',
-                'adresse' => '123 Main St',
-                'cin' => 'ABC123',
-                'remarques' => 'Some remarks',
+                'etat_civil_id' => $row[0] ?? null,
+                'nom' => $row[1] ?? null,
+                'prenom' => $row[2] ?? null,
+                'sexe' => $row[3] ?? null,
+                'telephone' => $row[4] ?? null,
+                'email' => $row[5] ?? null,
+                'adresse' => $row[6] ?? null,
+                'cin' => $row[7] ?? null,
+                'remarques' => $row[8] ?? null,
             ]);
-            
+
 
             if (!is_null($tuteur->id)) {
                 $this->parent->setTuteurId($tuteur->id);
