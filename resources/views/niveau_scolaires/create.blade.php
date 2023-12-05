@@ -35,10 +35,7 @@
                             <div class="card-body">
                                 {!! Form::open(['route' => 'niveauScolaires.store']) !!}
                                 <!-- Date -->
-                                <div class="row">
                                     @include('niveau_scolaires.fields')
-                                </div>
-
                             </div>
 
                             <div class="card-footer">
