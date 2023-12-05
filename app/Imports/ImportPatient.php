@@ -2,63 +2,38 @@
 
 namespace App\Imports;
 
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\Patient;
-use Maatwebsite\Excel\Concerns\ToModel;
 
-class ImportPatient implements ToModel
+class ImportPatient implements ToCollection
 {
-    private $importTuteur;
+    protected $tuteurId;
 
-    public function __construct(ImportTuteur $importTuteur)
+    public function __construct($tuteurId)
     {
-        $this->importTuteur = $importTuteur;
+        $this->tuteurId = $tuteurId;
     }
 
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        if ($row[0] === 'Niveau Scolaire Id') {
-            return null;
+        $rows = $rows->slice(1);
+
+        foreach ($rows as $cells) {
+            if (count($cells) > 0) {
+                Patient::create([
+                    'tuteur_id' => $this->tuteurId,
+                    'niveau_scolaire_id' => $cells[0],
+                    'nom' => $cells[1],
+                    'prenom' => $cells[2],
+                    'telephone' => $cells[3],
+                    'cin' => $cells[4],
+                    'email' => $cells[5],
+                    'image' => null,
+                    'adresse' => $cells[6],
+                    'remarques' => $cells[7],
+                ]);
+            }
         }
-
-        $rules = [
-            'niveau_scolaire_id' => 'nullable',
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'telephone' => 'nullable|string|max:255',
-            'cin' => 'nullable|string|max:255',
-            'email' => 'nullable|string|max:255',
-            'image' => 'nullable|file|max:255',
-            'adresse' => 'nullable|string|max:255',
-            'remarques' => 'nullable|string|max:65535',
-            'created_at' => 'nullable',
-            'updated_at' => 'nullable',
-        ];
-
-        $validator = \Validator::make($row, $rules);
-
-        if ($validator->fails()) {
-            return null;
-        }
-
-        $tuteur = $this->importTuteur->model($row);
-
-        if ($tuteur === null) {
-            return null;
-        }
-
-        Patient::create([
-            'tuteur_id' => $tuteur->id,
-            'niveau_scolaire_id' => $row[0],
-            'nom' => $row[1],
-            'prenom' => $row[2],
-            'telephone' => $row[3],
-            'cin' => $row[4],
-            'email' => $row[5],
-            'image' => null,
-            'adresse' => $row[6],
-            'remarques' => $row[7],
-        ]);
-
-        return $tuteur;
     }
 }

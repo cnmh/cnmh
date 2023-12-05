@@ -1,30 +1,41 @@
 <?php
-
 namespace App\Imports;
 
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\Tuteur;
-use Maatwebsite\Excel\Concerns\ToModel;
 
-class ImportTuteur implements ToModel
+class ImportTuteur implements ToCollection
 {
-    public function model(array $row)
+    protected $parent;
+
+    public function __construct($parent)
     {
-        if ($row[0] === 'Etat Civil Id') {
-            return null;
+        $this->parent = $parent;
+    }
+
+    public function collection(Collection $rows)
+    {
+        // Skip the first row (heading)
+        $rows = $rows->slice(1);
+
+        foreach ($rows as $row) {
+            $tuteur = Tuteur::create([
+                'etat_civil_id' => 1,
+                'nom' => 'John',
+                'prenom' => 'Doe',
+                'sexe' => 'Male',
+                'telephone' => '123456789',
+                'email' => 'john.doe@example.com',
+                'adresse' => '123 Main St',
+                'cin' => 'ABC123',
+                'remarques' => 'Some remarks',
+            ]);
+            
+
+            if (!is_null($tuteur->id)) {
+                $this->parent->setTuteurId($tuteur->id);
+            }
         }
-
-        $tuteur = Tuteur::create([
-            'etat_civil_id' => $row[0],
-            'nom' => $row[1],
-            'prenom' => $row[2],
-            'sexe' => $row[3],
-            'telephone' => $row[4],
-            'email' => $row[5],
-            'adresse' => $row[6],
-            'cin' => $row[7],
-            'remarques' => $row[8],
-        ]);
-
-        return $tuteur;
     }
 }

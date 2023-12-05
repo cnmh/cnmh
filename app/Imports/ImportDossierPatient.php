@@ -7,14 +7,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-class ImportDossierPatient implements ToModel
+class ImportDossierPatient
 {
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
-    public function model(array $row)
+    public function insertDossierPatient($patientId, array $row)
     {
         $user = Auth::user();
         $userID = $user ? $user->id : null;
@@ -23,18 +18,13 @@ class ImportDossierPatient implements ToModel
             return null;
         }
 
-        $dateTime = Carbon::now();
-
-        $dossierPatient = new DossierPatient([
-            'id' => $row[0],
-            'patient_id' => $row[1],
+        $dossierPatient = DossierPatient::create([
+            'patient_id' => $patientId, 
             'couverture_medical_id' => $row[2],
             'numero_dossier' => $row[3],
             'etat' => $row[4],
-            'user_id' => $row[6],
+            'user_id' => $userID,
         ]);
-
-        $dossierPatient->date_enregsitrement = $dateTime;
 
         return $dossierPatient;
     }
