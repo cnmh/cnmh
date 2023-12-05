@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\Models\Tuteur;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class ImportTuteur implements ToModel
@@ -28,13 +27,7 @@ class ImportTuteur implements ToModel
             'remarques' => $row[9],
         ]);
 
-        $this->tuteurs[$tuteur->id] = $tuteur;
-
-        return $tuteur;
+        return $tuteur->id;
     }
 
-    public function getTuteurs(): Collection
-    {
-        return collect($this->tuteurs);
-    }
 }
