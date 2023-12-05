@@ -11,16 +11,11 @@ use App\Imports\ImportDossierPatient;
 
 class ImportDossierPatientGlobal implements WithMultipleSheets
 {
-    /**
-     * @param  Collection  $collection
-     */
     public function sheets(): array
     {
         return [
-            0 => new ImportTuteur(),
-            1 => new ImportPatient(),
-            2 => new ImportDossierPatient(),
+            'Tuteur' => new ImportTuteur(),
+            'Patient' => new ImportPatient(new ImportTuteur()),
         ];
     }
 }
-

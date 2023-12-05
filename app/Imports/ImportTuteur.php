@@ -3,10 +3,12 @@
 namespace App\Imports;
 
 use App\Models\Tuteur;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class ImportTuteur implements ToModel
 {
+    private $tuteurs = [];
 
     public function model(array $row)
     {
@@ -14,8 +16,7 @@ class ImportTuteur implements ToModel
             return null;
         }
 
-        Tuteur::create([
-            'id' => $row[0],
+        $tuteur = Tuteur::create([
             'etat_civil_id' => $row[1],
             'nom' => $row[2],
             'prenom' => $row[3],
@@ -27,6 +28,13 @@ class ImportTuteur implements ToModel
             'remarques' => $row[9],
         ]);
 
+        $this->tuteurs[$tuteur->id] = $tuteur;
 
+        return $tuteur;
+    }
+
+    public function getTuteurs(): Collection
+    {
+        return collect($this->tuteurs);
     }
 }

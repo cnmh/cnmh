@@ -7,20 +7,33 @@ use Maatwebsite\Excel\Concerns\ToModel;
 
 class ImportPatient implements ToModel
 {
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
+    private $importTuteur;
+
+    public function __construct(ImportTuteur $importTuteur)
+    {
+        $this->importTuteur = $importTuteur;
+    }
+
     public function model(array $row)
     {
         if ($row[0] === 'Id') {
             return null;
         }
 
-        return new Patient([
-            'id' => $row[0],
-            'tuteur_id' => $row[1],
+        $tuteurId = $row[1];
+
+        $tuteurs = $this->importTuteur->getTuteurs();
+
+        if (!isset($tuteurs[$tuteurId])) {
+            return null;
+        }
+
+        dd($tuteurId);
+
+        $tuteur = $tuteurs[$tuteurId];
+
+        Patient::create([
+            'tuteur_id' => $tuteur->id,
             'niveau_scolaire_id' => $row[2],
             'nom' => $row[3],
             'prenom' => $row[4],
