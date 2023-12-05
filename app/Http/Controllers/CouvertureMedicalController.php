@@ -48,7 +48,6 @@ class CouvertureMedicalController extends AppBaseController
      */
     public function create()
     {
-        $this->authorizeCnmh('create','CouvertureMedical');
         return view('couverture_medicals.create');
     }
 
@@ -57,7 +56,6 @@ class CouvertureMedicalController extends AppBaseController
      */
     public function store(CreateCouvertureMedicalRequest $request)
     {
-        $this->authorizeCnmh('create','CouvertureMedical');
 
         $input = $request->all();
 
@@ -89,8 +87,6 @@ class CouvertureMedicalController extends AppBaseController
      */
     public function edit($id)
     {
-        $this->authorizeCnmh('edit','CouvertureMedical');
-
         $couvertureMedical = $this->couvertureMedicalRepository->find($id);
 
         if (empty($couvertureMedical)) {
@@ -107,8 +103,6 @@ class CouvertureMedicalController extends AppBaseController
      */
     public function update($id, UpdateCouvertureMedicalRequest $request)
     {
-        $this->authorizeCnmh('update','CouvertureMedical');
-
         $couvertureMedical = $this->couvertureMedicalRepository->find($id);
 
         if (empty($couvertureMedical)) {
@@ -131,8 +125,6 @@ class CouvertureMedicalController extends AppBaseController
      */
     public function destroy($id)
     {
-        $this->authorizeCnmh('delete','CouvertureMedical');
-
         $couvertureMedical = $this->couvertureMedicalRepository->find($id);
 
         if (empty($couvertureMedical)) {
@@ -152,9 +144,6 @@ class CouvertureMedicalController extends AppBaseController
         return Excel::download(new ExportCouvertureMedical, 'Couvertures-médicales.xlsx');
     }
     public function import(Request $request){
-        
-        $this->authorizeCnmh('create','CouvertureMedical');
-
         Excel::import(new ImportCouvertureMedical, $request->file('file')->store('files'));
         return redirect()->back();
     }
