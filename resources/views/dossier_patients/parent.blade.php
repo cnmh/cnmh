@@ -113,16 +113,23 @@
                                                             </a>
                                                         @endcan
 
-                                                        @can('destroy-Tuteur')
+                                                        {{--@can('destroy-Tuteur')
                                                         <form action="{{ route('tuteurs.destroy', [$tuteur->id]) }}" method="post">
                                                             @csrf 
-                                                            @method('delete')
+                                                            @method('POST')
                                                             <button type="submit" class='btn btn-danger btn-xs' onclick="return confirm('Are you sure?')">
-                                                              <i class="far fa-trash-alt"></i>
+                                                            <i class="far fa-trash-alt"></i>
                                                             </button>
                                                         </form>
                                                             
+                                                        @endcan --}}
+
+                                                        @can('destroy-Tuteur')
+                                                            <a href="#" class="btn btn-danger btn-xs" onclick="deleteTuteur({{ $tuteur->id }})">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </a>
                                                         @endcan
+
 
                                                     </div>
                                                 </td>
@@ -213,6 +220,34 @@
         $("input[name='parentRadio'][value='" + parentId + "']").prop('checked', true);
     }
         })
+
+
+
+        function deleteTuteur(tuteurId) {
+            const confirmDelete = confirm('Are you sure?');
+            if (confirmDelete) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ url("tuteurs") }}/' + tuteurId;
+                form.style.display = 'none';
+
+                const csrfTokenInput = document.createElement('input');
+                csrfTokenInput.type = 'hidden';
+                csrfTokenInput.name = '_token';
+                csrfTokenInput.value = '{{ csrf_token() }}';
+
+                const methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+
+                form.appendChild(csrfTokenInput);
+                form.appendChild(methodInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
 
     </script>
 
