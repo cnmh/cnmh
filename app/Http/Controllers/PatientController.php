@@ -7,6 +7,8 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\NiveauScolaire;
 use App\Models\Tuteur;
+use App\Models\Reclamation;
+
 use App\Repositories\PatientRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -148,6 +150,11 @@ class PatientController extends AppBaseController
             Flash::error(__('models/patients.singular').' '.__('messages.not_found'));
 
             return redirect(route('patients.index'));
+        }
+
+        if($patient){
+            $reclamation = Reclamation::where('patient_id',$patient->id)->first();
+            $reclamation->delete();
         }
 
         $this->patientRepository->delete($id);
