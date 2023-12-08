@@ -118,6 +118,8 @@ Route::prefix('/root')->group(function() {
 });
 
 Route::resource('tuteurs', App\Http\Controllers\TuteurController::class);
+Route::delete('/tuteurs/{id}', 'TuteursController@destroy')->name('tuteurs.destroy');
+
 
 Route::get('/parentForm',[DossierPatientController::class,'parent'])->name('dossier-patients.parent');
 Route::get('/patientForm',[DossierPatientController::class,'patient'])->name('dossier-patients.patient');

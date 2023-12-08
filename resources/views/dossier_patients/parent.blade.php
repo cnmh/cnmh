@@ -108,16 +108,22 @@
                                                         @endcan
 
                                                         @can('edit-Tuteur')
-                                                        <a href="{{ route('tuteurs.edit', [$tuteur->id]) }}" class='btn btn-default btn-sm'>
-                                                            <i class="far fa-edit"></i>
-                                                        </a>
+                                                            <a href="{{ route('tuteurs.edit', [$tuteur->id]) }}" class='btn btn-default btn-sm'>
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
                                                         @endcan
 
                                                         @can('destroy-Tuteur')
-                                                        <a href="{{ route('tuteurs.destroy', [$tuteur->id]) }}" class='btn btn-danger btn-xs' onclick="return confirm('Are you sure?')">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
+                                                        <form action="{{ route('tuteurs.destroy', [$tuteur->id]) }}" method="post">
+                                                            @csrf 
+                                                            @method('delete')
+                                                            <button type="submit" class='btn btn-danger btn-xs' onclick="return confirm('Are you sure?')">
+                                                              <i class="far fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                            
                                                         @endcan
+
                                                     </div>
                                                 </td>
 

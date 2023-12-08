@@ -6,6 +6,7 @@ use App\Http\Requests\CreateTuteurRequest;
 use App\Http\Requests\UpdateTuteurRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\EtatCivil;
+use App\Models\Patient;
 use App\Repositories\TuteurRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -134,10 +135,23 @@ class TuteurController extends AppBaseController
     {
         $tuteur = $this->tuteurRepository->find($id);
 
+        
+
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('tuteurs.index'));
+        }
+
+        if($tuteur){
+
+            $patient = Patient::where('tuteur_id',$tuteur->id)->first();
+
+            if($patient){
+                Flash::error(__("Le tuteur a des patients associés. Supprimez d'abord le patient"));
+                return redirect(route('tuteurs.index'));
+            }
+            
         }
 
         $this->tuteurRepository->delete($id);
