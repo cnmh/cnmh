@@ -105,6 +105,8 @@ class UserSeeder extends Seeder
             'addPermissionsAuto-Permission',
             'showRolePermission-Permission',
             'assignRolePermission-Permission',
+            'getPermissionsAction-Permission',
+            'userAssignedPermissions-Permission',
             'index-User',
             'create-User',
             'store-User',

@@ -142,3 +142,6 @@ Route::post('/import_permissions', [App\Http\Controllers\PermissionController::c
 Route::resource('users', App\Http\Controllers\UserController::class);
 Route::get('/manage/permissions-roles/{id}', [App\Http\Controllers\PermissionController::class, 'showRolePermission'])->name('manage.role.permission');
 Route::post('/assign-role-permission', [App\Http\Controllers\PermissionController::class, 'assignRolePermission'])->name('assign.role.permission');
+
+Route::get('/get-permissions-action',[App\Http\Controllers\PermissionController::class, 'getPermissionsAction'])->name('get.permissions.action');
+Route::get('/get-permissions-action/{id}',[App\Http\Controllers\PermissionController::class, 'userAssignedPermissions'])->name('get.role.permission');

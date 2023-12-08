@@ -264,6 +264,12 @@ class PermissionSeeder extends Seeder
         Permission::create([
             'name' => 'assignRolePermission-Permission',
         ]);
+        Permission::create([
+            'name' => 'getPermissionsAction-Permission',
+        ]);
+        Permission::create([
+            'name' => 'userAssignedPermissions-Permission',
+        ]);
 
         // Adding User crud permissions
 
