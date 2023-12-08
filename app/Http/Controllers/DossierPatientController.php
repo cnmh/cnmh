@@ -142,7 +142,7 @@ class DossierPatientController extends AppBaseController
     {
 
 
-        $dossierPatient = $this->dossierPatientRepository->find($id);
+        $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class, 'patient_id', $id)->first();
         $patient = Patient::find($dossierPatient->patient_id);
         $parent  = $patient->parent;
         // $consultation=Consultation::find($dossierPatient->patient_id);
