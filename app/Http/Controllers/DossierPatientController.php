@@ -315,14 +315,14 @@ class DossierPatientController extends AppBaseController
 
     public function import(Request $request)
     {
-        $file = $request->file('file');
+        // $file = $request->file('file');
         
-        if ($file) {
-            $path = $file->store('files');
-            Excel::import(new ImportDossierPatientGlobal, $path);
-        }
+        // if ($file) {
+        //     $path = $file->store('files');
+        //     Excel::import(new ImportDossierPatientGlobal, $path);
+        // }
         
-        Flash::success(__('messages.saved', ['model' => __('models/dossierPatients.singular')]));
+        // Flash::success(__('messages.saved', ['model' => __('models/dossierPatients.singular')]));
         
         return redirect()->back();
     }
