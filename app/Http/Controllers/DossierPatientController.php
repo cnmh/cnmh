@@ -62,10 +62,15 @@ class DossierPatientController extends AppBaseController
             $search = $request->get('search');
             $search = str_replace(" ", "%", $search);
         
-            $dossierPatients = DossierPatient::join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
-                ->where('patients.nom', 'like', '%' . $search . '%')
-                ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')
-                ->paginate();
+            $dossierPatients = DossierPatient::join('patients', function ($join) {
+                $join->on('dossier_patients.patient_id', '=', 'patients.id')
+                    ->select('patients.id as patientID', 'patients.*', 'dossier_patients.numero_dossier as dossier_id');
+            })
+            ->where('patients.nom', 'like', '%' . $search . '%')
+            ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')
+            ->paginate();
+        
+
         
             return view('dossier_patients.table')
                 ->with('dossierPatients', $dossierPatients)
@@ -254,30 +259,30 @@ class DossierPatientController extends AppBaseController
      */
     public function destroy($id)
     {
-        $dossierPatient = $this->dossierPatientRepository->find($id);
+        $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
 
+        $dossierPatientID = $dossierPatient->id;
         if ($dossierPatient) {
-            $dossierPatientID = $dossierPatient->id;
             $OrientationExterne = OrientationExterne::where('dossier_patient_id', $dossierPatientID)->first();
             $dossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $dossierPatientID)->first();
             $DossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)->first();
-
+        
             if ($OrientationExterne) {
                 Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
             } else {
                 if ($dossierPatientConsultation) {
-                    $dossierPatientConsultation->delete();
+                    Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                } else {
                     if ($DossierPatient_typeHandycape) {
                         $DossierPatient_typeHandycape->delete();
                     }
-                    $this->dossierPatientRepository->delete($id);
-                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
-                } else {
-                    Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                    
+                    $this->dossierPatientRepository->delete($dossierPatientID);
+                    Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
                 }
             }
-            
         }
+        
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
         }

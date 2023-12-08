@@ -59,41 +59,36 @@
 $(document).ready(function() {
     function fetch_data(page, search) {
         $.ajax({
-            url: "dossier-patients/?page=" + page + "&search=" + search,
+            url: "dossier-patients",
+            data: {
+                page: page,
+                search: search
+            },
             success: function(data) {
-                var newData = $(data);
-                $('#dossier-patients-table').html(newData.find('#dossier-patients-table').html());
-                $('.card-footer').html(newData.find('.card-footer').html());
-                var paginationHtml = newData.find('.pagination').html();
-                if (paginationHtml) {
-                    $('.pagination').html(paginationHtml);
-                } else {
-                    $('.pagination').html('');
-                }
+                $('#dossier-patients-table').html($(data).find('#dossier-patients-table').html());
+                $('.card-footer').html($(data).find('.card-footer').html());
+                var paginationHtml = $(data).find('.pagination').html();
+                $('.pagination').html(paginationHtml || '');
             }
         });
     }
 
     $('body').on('click', '.pagination li', function(event) {
         event.preventDefault();
-        var pageButton = $(this).find('.page-link');
-        if (pageButton.length) {
-            var page = pageButton.attr('page-number');
-            var search = $('#search').val();
-            fetch_data(page, search);
-        }
+        var page = $(this).find('.page-link').attr('page-number');
+        var search = $('#search').val();
+        fetch_data(page, search);
     });
 
-
     $('body').on('keyup', '#search', function() {
-        var search = $('#search').val();
+        var search = $(this).val();
         var page = 1;
         fetch_data(page, search);
     });
 
-
     fetch_data(1, '');
 });
+
 </script>
 @endpush
 
