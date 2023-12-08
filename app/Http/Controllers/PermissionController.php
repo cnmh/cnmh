@@ -34,10 +34,10 @@ class PermissionController extends AppBaseController
      */
     public function index(Request $request)
     {
-        
+
         $query = $request->input('query');
         $permissions = $this->permissionRepository->paginate($query);
-       
+
         if ($request->ajax()) {
             return view('permissions.table')
                 ->with('permissions', $permissions);
@@ -77,7 +77,7 @@ class PermissionController extends AppBaseController
         $permission = $this->permissionRepository->find($id);
 
         if (empty($permission)) {
-            Flash::error(__('models/permissions.singular').' '.__('messages.not_found'));
+            Flash::error(__('models/permissions.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('permissions.index'));
         }
@@ -93,7 +93,7 @@ class PermissionController extends AppBaseController
         $permission = $this->permissionRepository->find($id);
 
         if (empty($permission)) {
-            Flash::error(__('models/permissions.singular').' '.__('messages.not_found'));
+            Flash::error(__('models/permissions.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('permissions.index'));
         }
@@ -109,7 +109,7 @@ class PermissionController extends AppBaseController
         $permission = $this->permissionRepository->find($id);
 
         if (empty($permission)) {
-            Flash::error(__('models/permissions.singular').' '.__('messages.not_found'));
+            Flash::error(__('models/permissions.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('permissions.index'));
         }
@@ -131,7 +131,7 @@ class PermissionController extends AppBaseController
         $permission = $this->permissionRepository->find($id);
 
         if (empty($permission)) {
-            Flash::error(__('models/permissions.singular').' '.__('messages.not_found'));
+            Flash::error(__('models/permissions.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('permissions.index'));
         }
@@ -147,7 +147,7 @@ class PermissionController extends AppBaseController
      * Export the Permission data to an Excel file.
      *
      * @return BinaryFileResponse
-    */
+     */
 
     public function export()
     {
@@ -204,18 +204,68 @@ class PermissionController extends AppBaseController
 
     public function showRolePermission($id)
     {
-        
+
         $user = User::findOrFail($id);
-
         $userRole = $user->roles;
+        $userPermissions = $user->permissions()->pluck('id')->toArray();
+        // dd($userPermissions);
+        $roles = Role::pluck('name', 'id');
 
-        $userPermissions = $user->permissions()->pluck('id')->toArray(); 
-        $roles = Role::pluck('name','id');
-        
         $permissions = Permission::pluck('name', 'id');
 
-        return view('gestion_permissions.create', compact('userRole', 'roles', 'permissions', 'userPermissions', 'user'));
+        $actions = [];
+        $permissionsList = [];
+
+        foreach ($permissions as $permission) {
+            list($action, $permissionName) = explode('-', $permission);
+
+            // Adding unique values to the arrays
+            if (!in_array($action, $actions)) {
+                $actions[] = $action;
+            }
+
+            if (!in_array($permissionName, $permissionsList)) {
+                $permissionsList[] = $permissionName;
+            }
+        }
+
+        return view('gestion_permissions.create', compact('userRole', 'roles', 'permissionsList', 'actions', 'user'));
     }
+    public function userAssignedPermissions($id){
+        $user = User::findOrFail($id);
+        $userPermissions = $user->permissions()->pluck('id')->toArray();
+        $permissions = [];
+        foreach($userPermissions as $userPermission){
+        $permissions[] = Permission::where('id' , $userPermission)->pluck('name' , 'id');
+        }
+        
+        return response()->json($permissions);
+    }
+
+    public function getPermissionsAction(Request $request)
+    {
+        if ($request->ajax()) {
+            $permissionValue = $request->get('permissionValue');
+            
+            // Query permissions based on the 'name' column matching the provided value
+            $permissions = Permission::where('name', 'like', '%' . $permissionValue . '%')->pluck('name');
+            $actions = [];
+            foreach ($permissions as $permission) {
+                list($action, $permissionName) = explode('-', $permission);
+    
+                // Adding unique values to the arrays
+                if (!in_array($action, $actions)) {
+                    $actions[] = $action;
+                }
+            }
+            
+            // Return the permissions as a JSON response
+            return response()->json($actions);
+        }
+        // Handle non-AJAX request if needed
+    }
+    
+    
 
     public function assignRolePermission(Request $request)
     {
@@ -223,40 +273,53 @@ class PermissionController extends AppBaseController
         $user = User::where('name', $request->input('user'))->first();
         $removeAssignRoles = false;
         $removeAssignPermissions = false;
-
+        $assignedPermissionsId=[];
         if ($user) {
             $role = Role::find($request->input('role'));
-            $permissions = Permission::find($request->input('permissions', []));
-
+            $permissions = $request->input('assignedPrmissions');
+            foreach($permissions as $permissionName){
+                $permissionsList = Permission::where('name' , $permissionName)->pluck('id')->toArray();
+                
+                if (!empty($permissionsList)) {
+                    // Append the fetched IDs to the $permissionsId array
+                    foreach ($permissionsList as $permissionId) {
+                        $assignedPermissionsId[] = $permissionId;
+                    }
+                }
+                
+            }
+            // dd($assignedPermissionsId);
+           
             if ($role) {
                 $user->assignRole($role);
             } else {
                 $removeAssignRoles = $user->syncRoles([]);
             }
 
-            if ($permissions) {
-                $user->syncPermissions($permissions);
+            if (!empty($assignedPermissionsId)) {
+           
+                $user->syncPermissions($assignedPermissionsId);
             } else {
                 $removeAssignPermissions = $user->syncPermissions([]);
             }
 
             if ($removeAssignRoles) {
                 return back()->with('success', 'Rôle supprimé avec succès.');
-            }elseif($removeAssignPermissions){
+            } elseif ($removeAssignPermissions) {
                 return back()->with('success', 'Autorisation supprimée avec succès.');
-            }elseif($removeAssignRoles && $removeAssignPermissions){
+            } elseif ($removeAssignRoles && $removeAssignPermissions) {
                 return back()->with('success', 'Rôle et autorisation supprimés avec succès.');
             }
 
             return back()->with('success', 'Rôle et autorisation attribués avec succès.');
         } else {
-            return back()>with('error', 'Utilisateur non trouvé.');
+            return back() > with('error', 'Utilisateur non trouvé.');
         }
     }
 
-    
-    
-    
+
+
+
 
     // public function import(Request $request)
     // {
