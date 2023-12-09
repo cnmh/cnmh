@@ -169,20 +169,22 @@
         var permissionValue = $('#permissionName').val();
         var actionValue = $(this).val();
         var permission = actionValue + '-' + permissionValue;
-        permissionsArr.push(permission);
-       
-            var minWidth = permission.length * 10 + 50 ; 
-            permissionsHtml = `
-            <div class="input-group bg-light  p-2 m-1" style="width: ${minWidth}px;" >
-                <input type="text" class="form-control" name='assignedPrmissions[]' value="${permission}" readonly>
-                <div class="input-group-append">
-                    <button class="btn btn-danger" type="button" id="cancel">X</button>
-                </div>
-            </div>
-                       
-            `;
-        
-        $('#selectedPermissions').append(permissionsHtml);
+        if (!permissionsArr.includes(permission)) {
+            console.log(!permissionsArr.includes(permission));
+                    permissionsArr.push(permission);
+                    var minWidth = permission.length * 10 + 50;
+                    permissionsHtml = `
+                        <div class="input-group bg-light p-2 m-1" style="width: ${minWidth}px;">
+                            <input type="text" class="form-control" name='assignedPrmissions[]' value="${permission}" readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" type="button" class="cancel">X</button>
+                            </div>
+                        </div>
+                    `;
+                    $('#selectedPermissions').append(permissionsHtml);
+                }else{
+                    alert('Cette permission est déjà sélectionnée.');
+                }
         console.log(permissionsArr);
        
       }
