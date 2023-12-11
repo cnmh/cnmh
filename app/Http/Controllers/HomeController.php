@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Tuteur;
+use App\Models\Patient;
+use App\Models\DossierPatient;
+use App\Models\Consultation;
+use Illuminate\Support\Facades\View;
+
 class HomeController extends Controller
 {
     /**
@@ -21,8 +27,29 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    
+
     public function index()
     {
-        return view('home');
+        $dossierCount = DossierPatient::count();
+        $patientCount = Patient::count();
+        $tuteurCount = Tuteur::count();
+
+        $dossierEnAttend = Consultation::where('etat','enAttente')->count();
+        $dossierEnRendezVous = Consultation::where('etat','enRendezVous')->count();
+        $dossierEnConsultation = Consultation::where('etat','enConsultation')->count();
+
+        $reussirRendezVous = ($dossierEnConsultation/$dossierEnRendezVous)*100;
+
+        $chartData = [
+            ['Label', 'Dossiers bénéficiaires', 'Bénéficiaires', 'Tuteurs'],
+            ['Dossiers bénéficiaires', $dossierCount, 0, 0],
+            ['Bénéficiaires', 0, $patientCount, 0],
+            ['Tuteurs', 0, 0, $tuteurCount],
+        ];
+
+        $data = json_encode($chartData);
+
+        return View::make('home', compact('data','dossierEnAttend','dossierEnRendezVous','dossierEnConsultation','reussirRendezVous'));
     }
 }
