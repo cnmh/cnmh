@@ -290,6 +290,8 @@ class DossierPatientController extends AppBaseController
         $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
 
         $dossierPatientID = $dossierPatient->id;
+
+
         if ($dossierPatient) {
             $OrientationExterne = OrientationExterne::where('dossier_patient_id', $dossierPatientID)->first();
             $dossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $dossierPatientID)->first();
@@ -300,6 +302,8 @@ class DossierPatientController extends AppBaseController
             } else {
                 if ($dossierPatientConsultation) {
                     $consultation = $dossierPatientConsultation->consultation_id;
+
+
                     $consultations = Consultation::find($consultation);
                     $consultationEtat = $consultations->etat;
                     if($consultationEtat === 'enRendezVous' || $consultationEtat === 'enConsultation'){
@@ -307,10 +311,8 @@ class DossierPatientController extends AppBaseController
                     }
                     else {
                         $dossierPatientConsultation->delete();
-                        if ($DossierPatient_typeHandycape) {
-                            $DossierPatient_typeHandycape->delete();
-                        }
-                } 
+                        $DossierPatient_typeHandycape->delete();
+                    } 
                     
                     $this->dossierPatientRepository->delete($dossierPatientID);
                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));

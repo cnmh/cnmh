@@ -51,14 +51,14 @@ class ConsultationController extends AppBaseController
         $title = $modelName;
         $title  = ucFirst($title);
 
-            $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
-            ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-            ->join('patients', 'dossier_patients.id', '=', 'patients.id')
-             ->where([
-                ["consultations.type","medecinGeneral"]
-             ])
-            ->select('*')
-            ->paginate(1);
+        $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+        ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+        ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+        ->where('consultations.type', 'medecinGeneral')
+        ->select('*')
+        ->paginate();
+    
+
 
     
         if ($request->ajax()) {
@@ -67,10 +67,10 @@ class ConsultationController extends AppBaseController
         
             $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
             ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-            ->join('patients', 'dossier_patients.id', '=', 'patients.id')
+            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
             ->where('patients.nom', 'like', '%' . $search . '%')
             ->orWhere('patients.prenom', 'like', '%' . $search . '%')
-            ->orWhere('consultations.etat', 'like', '%' . $search . '%')->paginate(1);
+            ->orWhere('consultations.etat', 'like', '%' . $search . '%')->paginate();
                 
         
             return view('consultations.table',compact('consultations', 'title',"titleApp"))->render();
