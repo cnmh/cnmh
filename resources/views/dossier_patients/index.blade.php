@@ -33,7 +33,7 @@
                 <!-- SEARCH FORM -->
                 <form class="form-inline ml-3">
                     <div class="input-group input-group-sm">
-                        <input type="search" class="form-control form-control-lg" placeholder="Recherche">
+                        <input type="search" class="form-control form-control-lg" id="search" placeholder="Recherche">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-lg btn-default">
                                 <i class="fa fa-search"></i>
@@ -52,42 +52,43 @@
 @endsection
 
 @push('page_scripts')
-    <script>
-        const tableContainer = $('#table-container')
-        var searchQuery = ''
+    
 
-        const search = (query = '', page = 1) => {
-            $.ajax('{{ route('dossier-patients.index') }}', {
-                data: {
-                    query: query,
-                    page: page
-                },
-                success: (data) => updateTable(data)
-            })
-            history.pushState(null, null, '?query=' + query + '&page=' + page)
-        }
 
-        const updateTable = (html) => {
-            tableContainer.html(html)
-            updatePaginationLinks()
-        }
+<script>
+$(document).ready(function() {
+    function fetch_data(page, search) {
+        $.ajax({
+            url: "dossier-patients",
+            data: {
+                page: page,
+                search: search
+            },
+            success: function(data) {
+                $('#dossier-patients-table').html($(data).find('#dossier-patients-table').html());
+                $('.card-footer').html($(data).find('.card-footer').html());
+                var paginationHtml = $(data).find('.pagination').html();
+                $('.pagination').html(paginationHtml || '');
+            }
+        });
+    }
 
-        const updatePaginationLinks = () => {
-            $('button[page-number]').each(function() {
-                $(this).on('click', function() {
-                    pageNumber = $(this).attr('page-number')
-                    search(searchQuery, pageNumber)
-                })
-            })
-        }
+    $('body').on('click', '.pagination li', function(event) {
+        event.preventDefault();
+        var page = $(this).find('.page-link').attr('page-number');
+        var search = $('#search').val();
+        fetch_data(page, search);
+    });
 
-        $(document).ready(() => {
-            $('[type="search"]').on('input', function() {
-                searchQuery = $(this).val()
-                search(searchQuery)
-            })
-            updatePaginationLinks()
-        })
-    </script>
+    $('body').on('keyup', '#search', function() {
+        var search = $(this).val();
+        var page = 1;
+        fetch_data(page, search);
+    });
+
+    fetch_data(1, '');
+});
+
+</script>
 @endpush
 

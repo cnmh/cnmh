@@ -30,7 +30,7 @@ $params = $query[0];
     <label for="tuteur_id">{!! __('models/patients.fields.tuteur_id') !!} <span class="required-field">*</span></label>
     {{ Form::select(
             'tuteur_id',
-            ['' => '-- Sélectionner le tuteur --'] + $tuteur->pluck('nom', 'id')->toArray(),
+            ['' => "-- Sélectionner le tuteur  --"] + ($tuteur ? $tuteur->pluck('nom', 'id')->toArray() : []),
             old('tuteur_id'),
             ['class' => 'form-control', 'required'],
         ) }}

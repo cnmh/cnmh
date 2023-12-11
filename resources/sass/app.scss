@@ -19,3 +19,148 @@
 .required-field{
     color: rgb(173, 25, 25);
 }
+
+.select2-selection__choice {
+    background:#9BADBF !important;
+    color:#000 !important;
+}
+
+.select2-selection__choice__remove{
+    color: red !important;
+}
+
+
+.steps .md-stepper-horizontal {
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .50);
+}
+
+.steps .md-stepper-horizontal .md-step {
+    display: table-cell;
+    position: relative;
+    padding: 24px;
+}
+
+.steps .md-stepper-horizontal .md-step:hover,
+.steps .md-stepper-horizontal .md-step:active {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.steps .md-stepper-horizontal .md-step:active {
+    border-radius: 15% / 75%;
+}
+
+.steps .md-stepper-horizontal .md-step:first-child:active {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.steps .md-stepper-horizontal .md-step:last-child:active {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.steps .md-stepper-horizontal .md-step:hover .md-step-circle {
+    background-color: #757575;
+}
+
+.steps .md-stepper-horizontal .md-step:first-child .md-step-bar-left,
+.steps .md-stepper-horizontal .md-step:last-child .md-step-bar-right {
+    display: none;
+}
+
+.steps .md-stepper-horizontal .md-step .md-step-circle {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    background-color: #999999;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+
+.steps .md-stepper-horizontal.orange .md-step.active .md-step-circle {
+    background-color: #0275d8;
+}
+
+
+/* .md-stepper-horizontal .md-step.done .md-step-circle:before {
+
+    font-weight: 100;
+    content: "\f00c";
+} */
+
+.steps .md-stepper-horizontal .md-step.done .md-step-circle *,
+.steps .md-stepper-horizontal .md-step.editable .md-step-circle * {
+    display: block;
+}
+
+.steps .md-stepper-horizontal .md-step.editable .md-step-circle {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.steps .md-stepper-horizontal .md-step.editable .md-step-circle:before {
+    /* font-family:'FontAwesome'; */
+    font-weight: 100;
+    content: "\f040";
+}
+
+.steps .md-stepper-horizontal .md-step .md-step-title {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.steps .md-stepper-horizontal .md-step .md-step-title,
+.steps .md-stepper-horizontal .md-step .md-step-optional {
+    text-align: center;
+    color: rgba(0, 0, 0, .26);
+}
+
+.steps .md-stepper-horizontal .md-step.active .md-step-title {
+    font-weight: 600;
+    color: rgba(0, 0, 0, .87);
+}
+
+.steps .md-stepper-horizontal .md-step.active.done .md-step-title,
+.steps .md-stepper-horizontal .md-step.active.editable .md-step-title {
+    font-weight: 600;
+}
+
+.steps .md-stepper-horizontal .md-step .md-step-optional {
+    font-size: 12px;
+}
+
+.steps .md-stepper-horizontal .md-step.active .md-step-optional {
+    color: rgba(0, 0, 0, .54);
+}
+
+.steps .md-stepper-horizontal .md-step .md-step-bar-left,
+.steps .md-stepper-horizontal .md-step .md-step-bar-right {
+    position: absolute;
+    top: 36px;
+    height: 1px;
+    border-top: 1px solid #DDDDDD;
+}
+
+.steps .md-stepper-horizontal .md-step .md-step-bar-right {
+    right: 0;
+    left: 50%;
+    margin-left: 20px;
+}
+
+.steps .md-stepper-horizontal .md-step .md-step-bar-left {
+    left: 0;
+    right: 50%;
+    margin-right: 20px;
+}

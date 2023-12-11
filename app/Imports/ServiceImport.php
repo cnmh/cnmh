@@ -18,10 +18,13 @@ class ServiceImport implements ToModel,WithStartRow
 
     public function model(array $row)
     {
-        return new Service([
-            'nom' => $row[0],
-            'description' => $row[1],
-        ]);
+        $service = Service::firstOrNew(['nom' => $row[0]]);
+        
+        $service->description = $row[1];
+
+        $service->save();
+
+        return $service;
     }
     public function startRow():int{
         return 2;

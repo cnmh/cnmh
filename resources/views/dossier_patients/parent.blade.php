@@ -99,17 +99,41 @@
                                                     <td>{{ $tuteur->etatCivil->nom }}</td>
                                                     {{-- <td>{{ $tuteur->cin }}</td>
                                                 <td>{{ $tuteur->remarques }}</td> --}}
-                                                    <td style="width: 120px">
+                                                <td style="width: 120px">
+                                                    <div class='btn-group'>
+                                                        @can('show-Tuteur')
+                                                        <a href="{{ route('tuteurs.show', [$tuteur->id]) }}" class='btn btn-default btn-sm'>
+                                                            <i class="far fa-eye"></i>
+                                                        </a>
+                                                        @endcan
 
-                                                        <div class='btn-group'>
-                                                            <a href="{{ route('tuteurs.show', [$tuteur->id]) }}"
-                                                                class='btn btn-default btn-sm'>
-                                                                <i class="far fa-eye"></i>
+                                                        @can('edit-Tuteur')
+                                                            <a href="{{ route('tuteurs.edit', [$tuteur->id]) }}" class='btn btn-default btn-sm'>
+                                                                <i class="far fa-edit"></i>
                                                             </a>
+                                                        @endcan
 
-                                                        </div>
+                                                        {{--@can('destroy-Tuteur')
+                                                        <form action="{{ route('tuteurs.destroy', [$tuteur->id]) }}" method="post">
+                                                            @csrf 
+                                                            @method('POST')
+                                                            <button type="submit" class='btn btn-danger btn-xs' onclick="return confirm('Are you sure?')">
+                                                            <i class="far fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                            
+                                                        @endcan --}}
 
-                                                    </td>
+                                                        @can('destroy-Tuteur')
+                                                            <a href="#" class="btn btn-danger btn-xs" onclick="deleteTuteur({{ $tuteur->id }})">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </a>
+                                                        @endcan
+
+
+                                                    </div>
+                                                </td>
+
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -196,6 +220,34 @@
         $("input[name='parentRadio'][value='" + parentId + "']").prop('checked', true);
     }
         })
+
+
+
+        function deleteTuteur(tuteurId) {
+            const confirmDelete = confirm('Are you sure?');
+            if (confirmDelete) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ url("tuteurs") }}/' + tuteurId;
+                form.style.display = 'none';
+
+                const csrfTokenInput = document.createElement('input');
+                csrfTokenInput.type = 'hidden';
+                csrfTokenInput.name = '_token';
+                csrfTokenInput.value = '{{ csrf_token() }}';
+
+                const methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+
+                form.appendChild(csrfTokenInput);
+                form.appendChild(methodInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
 
     </script>
 

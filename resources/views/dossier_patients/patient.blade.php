@@ -103,10 +103,17 @@
                                                     <td style="width: 120px">
 
                                                         <div class='btn-group'>
-                                                            <a href="{{ route('patients.show', [$patient->id]) }}"
-                                                                class='btn btn-default btn-sm'>
+                                                            <a href="{{ route('patients.show', [$patient->id]) }}" class='btn btn-default btn-sm'>
                                                                 <i class="far fa-eye"></i>
                                                             </a>
+                                                            <a href="{{ route('patients.edit', [$patient->id]) }}" class='btn btn-default btn-sm'>
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            @can('destroy-Patient')
+                                                                <a href="#" class="btn btn-danger btn-xs" onclick="deletePatient({{ $patient->id }})">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </a>
+                                                            @endcan
 
                                                         </div>
 
@@ -194,5 +201,31 @@
         $("input[name='patientRadio'][value='" + patientId + "']").prop('checked', true);
     }
         })
+
+        function deletePatient(patientId) {
+            const confirmDelete = confirm('Are you sure?');
+            if (confirmDelete) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ url("patients") }}/' + patientId;
+                form.style.display = 'none';
+
+                const csrfTokenInput = document.createElement('input');
+                csrfTokenInput.type = 'hidden';
+                csrfTokenInput.name = '_token';
+                csrfTokenInput.value = '{{ csrf_token() }}';
+
+                const methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+
+                form.appendChild(csrfTokenInput);
+                form.appendChild(methodInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
     </script>
 @endpush

@@ -28,7 +28,7 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Enregistrer', ['class' => 'btn btn-primary']) !!}
                 <a href="{{ route('patients.index') }}" class="btn btn-default"> @lang('crud.cancel') </a>
             </div>
 

@@ -1,4 +1,4 @@
-<!-- TODO : Changer le nom du projet --> 
+<!-- TODO : Changer le nom du projet -->
 # cnmh2 
 
 <!-- TODO : Introduction -->
@@ -18,11 +18,17 @@
   php artisan db:seed
   npm run build
 ```
-# Démonstration de l'application  
+# Démonstration de l'application 
 
-<!-- TODO : Donnez les comptes à utiliser pour déployer l'application -->
+- Email : admin@gmail.com
+  - Password : admin
+  
+- Email : social@gmail.com
+  - Password : social
 
-
+- Email : medecin@gmail.com
+  - Password : medecin
+  - 
 ## Les composants de l'application
 
 <!-- Introduction -->
@@ -62,8 +68,7 @@
 <!-- TODO : Vérifiez que maatwebsite/excel est installé dans lab-laraver-starter -->
 - composer.json
   -  "require": {
-        "maatwebsite/excel": "^3.1",
-        "infyomlabs/adminlte-templates": "^6.0",
+        "maatwebsite/excel": "^3.1"
     },
   -  "autoload": {
         "files": [

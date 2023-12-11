@@ -2,12 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\TypeHandicap;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
-
-
-class importTypehandicap implements ToModel,WithStartRow
+use Illuminate\Support\Facades\Hash;
+class ImportUser implements ToModel,WithStartRow
 {
     /**
     * @param array $row
@@ -19,15 +18,13 @@ class importTypehandicap implements ToModel,WithStartRow
 
     public function model(array $row)
     {
-       $typeHandicap = TypeHandicap::firstOrNew(['nom' => $row[0]]);
-
-       $typeHandicap->description = $row[1];
-
-       $typeHandicap->save();
-
-       return $typeHandicap;
+        $user = User::firstOrNew(['email' => $row[1]]);
+        
+        $user->name = $row[0];
+        $user->password = Hash::make($row[2]);
+        $user->save();
+        return $user;
     }
-
     public function startRow():int{
         return 2;
     }
