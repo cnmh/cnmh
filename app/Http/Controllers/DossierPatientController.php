@@ -275,15 +275,17 @@ class DossierPatientController extends AppBaseController
             } else {
                 if ($dossierPatientConsultation) {
                     $consultation = $dossierPatientConsultation->consultation_id;
-                    dd($consultation);
-                    $consultationEtat = $consultation->etat;
+                    $consultations = Consultation::find($consultation);
+                    $consultationEtat = $consultations->etat;
                     if($consultationEtat === 'enRendezVous' || $consultationEtat === 'enConsultation'){
                         Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
                     }
-                } else {
-                    if ($DossierPatient_typeHandycape) {
-                        $DossierPatient_typeHandycape->delete();
-                    }
+                    else {
+                        $dossierPatientConsultation->delete();
+                        if ($DossierPatient_typeHandycape) {
+                            $DossierPatient_typeHandycape->delete();
+                        }
+                } 
                     
                     $this->dossierPatientRepository->delete($dossierPatientID);
                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
