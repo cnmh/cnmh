@@ -42,6 +42,8 @@ class ImportTuteur implements ToCollection,WithStartRow
             $tuteur = Tuteur::where('email', $emailTuteur)->first();
 
             if (!$tuteur) {
+
+                dd($row[1]);
                 $tuteur = new Tuteur;
                 $tuteur->etat_civil_id = $row[0];
                 $tuteur->nom = $row[1];
