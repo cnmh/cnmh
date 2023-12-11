@@ -225,7 +225,6 @@ class DossierPatientController extends AppBaseController
     {
         $data = $request->all();
 
-        dd($id);
         $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
 
         dd($dossierPatient);
