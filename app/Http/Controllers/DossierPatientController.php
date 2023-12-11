@@ -7,7 +7,13 @@ use App\Models\Patient;
 use App\Models\Service;
 use App\Models\RendezVous;
 use App\Models\Consultation;
+use App\Models\User;
 use App\Models\TypeHandicap;
+use App\Models\EtatCivil;
+use App\Models\NiveauScolaire;
+
+
+
 use Illuminate\Http\Request;
 use App\Models\DossierPatient;
 use App\Models\CouvertureMedical;
@@ -148,8 +154,27 @@ class DossierPatientController extends AppBaseController
 
 
         $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
+        $user = User::where('id',$dossierPatient->user_id)->first();
+        $responsableEntrotient = $user->name;
         $patient = Patient::find($dossierPatient->patient_id);
+
+        $NiveauScolaire = $patient->niveau_scolaire_id;
+
+        $NiveauScolairePatient = NiveauScolaire::find($NiveauScolaire);
+
+
         $parent  = $patient->parent;
+
+        $situationFamilial =EtatCivil::where('id',$parent->etat_civil_id)->first();
+        $couvertureMedical = CouvertureMedical::find($dossierPatient->couverture_medical_id);
+        $type_handicap = DossierPatient_typeHandycape::where('dossier_patient_id',$dossierPatient->id)->get();
+
+        foreach($type_handicap as $type_handicap_id){
+            $type_handicap_patient = TypeHandicap::find($type_handicap_id);
+        }
+
+       
+
         // $consultation=Consultation::find($dossierPatient->patient_id);
         // $pp=$consultation->id;
         // $rendevous=RendezVous::find($pp);
@@ -186,7 +211,7 @@ class DossierPatientController extends AppBaseController
             return redirect(route('dossier-patients.index'));
         }
 
-        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous"));
+        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous","responsableEntrotient","couvertureMedical","situationFamilial","type_handicap_patient","NiveauScolairePatient"));
     }
 
     /**

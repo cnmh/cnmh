@@ -6,7 +6,7 @@
                     Responsable d'entretien:
                 </td>
                 <td>
-                    AHOUZI Rania
+                    Service social
                 </td>
             </tr>
             <tr>
@@ -14,7 +14,7 @@
                     Date et heur d'entretien:
                 </td>
                 <td>
-                    2023-04-04 / 8:30AM
+                    {{$dossierPatient->created_at}}
                 </td>
             </tr>
             <tr>
@@ -22,7 +22,7 @@
                     Couverture médicale:
                 </td>
                 <td>
-                    CNOPS
+                    {{$couvertureMedical->nom}}
                 </td>
             </tr>
             <tr>
@@ -30,7 +30,7 @@
                     Situation familial:
                 </td>
                 <td>
-                    Célibataire
+                    {{$situationFamilial->nom}}
                 </td>
             </tr>
             <tr>
@@ -39,8 +39,9 @@
                 </td>
                 <td>
                     <ul>
-                        <li>RETARD DE LANGUAGE</li>
-                        <li>RETARD Mental</li>
+                        @foreach($type_handicap_patient as $item)
+                        <li>{{$item->nom}}</li>
+                        @endforeach
                     </ul>
                 </td>
             </tr>
@@ -49,7 +50,7 @@
                     Niveau scolaire:
                 </td>
                 <td>
-                    4ème année primaire
+                    {{$NiveauScolairePatient->nom}}
                 </td>
             </tr>
             <tr>
@@ -58,9 +59,7 @@
                 </td>
                 <td>
                     <ol>
-                        <li>service social</li>
-                        <li>service médical</li>
-                        <li>service éducatif</li>
+                       
                     </ol>
                 </td>
             </tr>
@@ -69,7 +68,7 @@
                     Remarques:
                 </td>
                 <td>
-                    remarques dites durant l'entretien social
+                   
                 </td>
             </tr>
         </tbody>
