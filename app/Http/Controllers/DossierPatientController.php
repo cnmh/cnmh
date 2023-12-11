@@ -226,8 +226,6 @@ class DossierPatientController extends AppBaseController
         $data = $request->all();
 
         $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
-
-        dd($dossierPatient);
     
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
