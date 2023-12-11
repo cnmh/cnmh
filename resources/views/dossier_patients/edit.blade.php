@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($dossierPatient, ['route' => ['dossier-patients.update', $dossierPatient->id], 'method' => 'patch']) !!}
+            {!! Form::model($dossierPatient, ['route' => ['dossier-patients.update', $dossierPatient->numero_dossier], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
