@@ -147,7 +147,7 @@ class DossierPatientController extends AppBaseController
     {
 
 
-        $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class, 'patient_id', $id)->first();
+        $dossierPatient = $this->dossierPatientRepository->where('numero_dossier',$id)->first();
         $patient = Patient::find($dossierPatient->patient_id);
         $parent  = $patient->parent;
         // $consultation=Consultation::find($dossierPatient->patient_id);
@@ -195,9 +195,13 @@ class DossierPatientController extends AppBaseController
     public function edit($id)
     {
 
-        $dossierPatient = $this->dossierPatientRepository->find($id);
+        $dossierPatient = $this->dossierPatientRepository->where('numero_dossier',$id)->first();
 
-        
+        if (empty($dossierPatient)) {
+            Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
+
+            return redirect(route('dossier-patients.index'));
+        }
 
         $type_handicap = TypeHandicap::all();
         $couverture_medical = CouvertureMedical::all();
@@ -220,7 +224,7 @@ class DossierPatientController extends AppBaseController
     public function update($id, UpdateDossierPatientRequest $request)
     {
         $data = $request->all();
-        $dossierPatient = $this->dossierPatientRepository->find($id);
+        $dossierPatient = $this->dossierPatientRepository->where('numero_dossier',$id)->first();
     
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));

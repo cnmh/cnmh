@@ -26,13 +26,13 @@
 
                         <div class='btn-group'>
                             
-                            <a href="{{ route('dossier-patients.show', [$dossierPatient->id]) }}"
+                            <a href="{{ route('dossier-patients.show', [$dossierPatient->numero_dossier]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                            
                             @can('edit-DossierPatient')
-                            <a href="{{ route('dossier-patients.edit', [$dossierPatient->id]) }}"
+                            <a href="{{ route('dossier-patients.edit', [$dossierPatient->numero_dossier]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
