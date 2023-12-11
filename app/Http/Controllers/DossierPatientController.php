@@ -224,7 +224,11 @@ class DossierPatientController extends AppBaseController
     public function update($id, UpdateDossierPatientRequest $request)
     {
         $data = $request->all();
+
+        dd($id);
         $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
+
+        dd($dossierPatient);
     
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
