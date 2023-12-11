@@ -2,7 +2,7 @@
 
 return [
     'singular' => 'Rendez-vous',
-    'plural' => 'Rendez-vous',
+    'plural' => 'Rendez-vous-médecin général',
     "isMale" => "true",
     "schedule"=>"Planifier",
     'fields' => [

@@ -9,7 +9,7 @@
     {!! Form::datetimeLocal('date_rendez_vous', isset($rendezVous) ? $rendezVous->date_rendez_vous : null, ['class' => 'form-control','id'=>'date_rendez_vous']) !!}
 </div>
 
-<input type="hidden" name="consultation_id" value="{{$rendezVous->consultation_id}}">
+<input type="hidden" name="consultation_id" value="{{isset($rendezVous) ? $rendezVous->consultation_id : $consultation_id}}">
 
 @push('page_scripts')
     <script type="text/javascript">

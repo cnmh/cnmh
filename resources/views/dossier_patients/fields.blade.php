@@ -42,8 +42,8 @@ if (isset($url['query'])) {
 
 <!-- Remarque fields -->
 <div class="form-group col-sm-12">
-    {!! Form::label('romarque', 'Remarque') !!}
-    {!! Form::textarea('romarque', null, ['class' => 'form-control', 'id' => 'romarque']) !!}
+    {!! Form::label('remarques', 'Remarque') !!}
+    {!! Form::textarea('romarque', null, ['class' => 'form-control', 'id' => 'remarques']) !!}
 </div>
 
 

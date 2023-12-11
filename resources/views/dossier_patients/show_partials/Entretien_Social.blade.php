@@ -68,7 +68,7 @@
                     Remarques:
                 </td>
                 <td>
-                   
+                   {!! $dossierPatient->romarque !!}
                 </td>
             </tr>
         </tbody>
