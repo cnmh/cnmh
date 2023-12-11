@@ -274,7 +274,12 @@ class DossierPatientController extends AppBaseController
                 Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
             } else {
                 if ($dossierPatientConsultation) {
-                    Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                    $consultation = $dossierPatientConsultation->consultation_id;
+                    dd($consultation);
+                    $consultationEtat = $consultation->etat;
+                    if($consultationEtat === 'enRendezVous' || $consultationEtat === 'enConsultation'){
+                        Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                    }
                 } else {
                     if ($DossierPatient_typeHandycape) {
                         $DossierPatient_typeHandycape->delete();
