@@ -73,7 +73,7 @@ class DossierPatientController extends AppBaseController
                     ->select('patients.id as patientID', 'patients.*', 'dossier_patients.numero_dossier as dossier_id');
             })
             ->where('patients.nom', 'like', '%' . $search . '%')
-            ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')
+            ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')->orderBy('dossier_patients.numero_dossier')
             ->paginate();
         
 
@@ -101,6 +101,7 @@ class DossierPatientController extends AppBaseController
     public function store(CreateDossierPatientRequest $request)
     {
         $input = $request->all();
+
 
         $latestDossier = DossierPatient::where('numero_dossier', 'like', 'A-%')
             ->whereRaw('CAST(SUBSTRING(numero_dossier, 3) AS SIGNED) IS NOT NULL')
@@ -181,6 +182,14 @@ class DossierPatientController extends AppBaseController
         // dd($consultation);
         // $consultation=Consultation::find($id);
         $consultation = $dossierPatient->dossierPatientConsultations;
+        $dossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id',$dossierPatient->id)->first();
+        $listAttent = Consultation::where('id',$dossierPatientConsultation->consultation_id)->where('etat','enAttente')->get();
+
+        $médecin = Consultation::where('id',$dossierPatientConsultation->consultation_id)->where('etat','enConsultation')->get();
+
+
+
+
         $service = $dossierPatient->dossierPatientServices;
         foreach ($consultation as $value) {
             $R = RendezVous::where('consultation_id', $value->id)->get();
@@ -211,7 +220,7 @@ class DossierPatientController extends AppBaseController
             return redirect(route('dossier-patients.index'));
         }
 
-        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous","responsableEntrotient","couvertureMedical","situationFamilial","type_handicap_patient","NiveauScolairePatient"));
+        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous","responsableEntrotient","couvertureMedical","situationFamilial","type_handicap_patient","NiveauScolairePatient","listAttent","médecin"));
     }
 
     /**

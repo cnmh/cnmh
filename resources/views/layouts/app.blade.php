@@ -83,6 +83,27 @@
             menubar: false,
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
         });
+        tinymce.init({
+            selector: 'textarea#observation',
+            plugins: 'autoresize',
+            autoresize_bottom_margin: 16,
+            menubar: false,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        });
+        tinymce.init({
+            selector: 'textarea#diagnostic',
+            plugins: 'autoresize',
+            autoresize_bottom_margin: 16,
+            menubar: false,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        });
+        tinymce.init({
+            selector: 'textarea#bilan',
+            plugins: 'autoresize',
+            autoresize_bottom_margin: 16,
+            menubar: false,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        });
     });
     </script>
 

@@ -11,11 +11,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td> Ergothérapie </td>
-                <td> 18 </td>
-                <td> 03/06/2019 </td>
-            </tr>
+           @foreach($listAttent as $item)
+           <tr>
+            <td></td>
+            <td>{{$item->id}}</td>
+            <td>{{$item->date_enregistrement}}</td>
+           </tr>
+           @endforeach
         </tbody>
     </table>
 </div>

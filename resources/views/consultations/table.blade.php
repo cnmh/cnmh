@@ -16,7 +16,7 @@
             <tbody>
                 @foreach($consultations as $consultation)
                 <tr>
-                    <td>{{ $consultation->nom }}</td>
+                    <td>{{ $consultation->id }}</td>
                     <td>{{ $consultation->prenom }}</td>
                     <td>{{ $consultation->telephone }}</td>
                     <td>{{ $consultation->date_enregistrement }}</td>
@@ -40,13 +40,13 @@
                         !!}
                         <div class='btn-group'>
                             @can('show-Consultation')
-                            <a href="{{ route('consultations.show', [$title,$consultation->id]) }}"
+                            <a href="{{ route('consultations.show', [$title,$consultation->consultation_id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
                             @can('edit-Consultation')
-                           <a href="{{ route('consultations.edit', [$consultation->id]) }}"
+                           <a href="{{ route('consultations.edit', [$consultation->consultation_id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
