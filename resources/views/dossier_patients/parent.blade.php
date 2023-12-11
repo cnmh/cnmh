@@ -149,6 +149,7 @@
 
                             </div>
                             </form>
+                            {{--
                             <div class="card-footer clearfix">
                                 <div class="float-right">
                                     @include('adminlte-templates::common.paginate', [
@@ -164,6 +165,7 @@
                                     </button>
                                 </div>
                             </div>
+                            --}}
                         </div>
                         <!-- /.card-body -->
 
