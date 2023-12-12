@@ -62,10 +62,6 @@ class ConsultationController extends AppBaseController
         'consultations.type',
         'consultations.date_consultation',
         'consultations.date_enregistrement',
-
-
-    
-
         'patients.nom',
         'patients.prenom',
         'patients.telephone',
@@ -74,27 +70,21 @@ class ConsultationController extends AppBaseController
     ->paginate();
 
 
-
-
-    
-
-
-    
-        // if ($request->ajax()) {
-        //     $search = $request->get('query');
-        //     $search = str_replace(" ", "%", $search);
+        if ($request->ajax()) {
+            $search = $request->get('query');
+            $search = str_replace(" ", "%", $search);
         
-        //     $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
-        //     ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-        //     ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
-        //     ->select('*','patients.id as patient_id')
-        //     ->where('patients.nom', 'like', '%' . $search . '%')
-        //     ->orWhere('patients.prenom', 'like', '%' . $search . '%')
-        //     ->orWhere('consultations.etat', 'like', '%' . $search . '%')->paginate();
+            $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+            ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+            ->select('*','patients.id as patient_id')
+            ->where('patients.nom', 'like', '%' . $search . '%')
+            ->orWhere('patients.prenom', 'like', '%' . $search . '%')
+            ->orWhere('consultations.etat', 'like', '%' . $search . '%')->paginate();
                 
         
-        //     return view('consultations.table',compact('consultations', 'title',"titleApp"))->render();
-        // }
+            return view('consultations.table',compact('consultations', 'title',"titleApp"))->render();
+        }
         return view('consultations.index', compact('consultations', 'title',"titleApp"));
 
     }
