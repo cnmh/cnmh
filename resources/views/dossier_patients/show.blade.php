@@ -36,10 +36,13 @@
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-two-settings3-tab" data-toggle="pill" href="#custom-tabs-two-settings3" role="tab" aria-controls="custom-tabs-two-settings3" aria-selected="false">Liste d’attente</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-five-normal-tab17" data-toggle="pill" href="#custom-tabs-five-normal7" role="tab" aria-controls="custom-tabs-five-normal" aria-selected="false"> Infirmière médecin générale</a>
+                    </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-two-settings1-tab" data-toggle="pill" href="#custom-tabs-two-settings1" role="tab" aria-controls="custom-tabs-two-settings1" aria-selected="false">Services</a>
                     </li> -->
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-five-normal-tab1" data-toggle="pill" href="#custom-tabs-five-normal1" role="tab" aria-controls="custom-tabs-five-normal" aria-selected="false">Psychomotricité</a>
                     </li>
                     <li class="nav-item">
@@ -57,9 +60,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-five-normal-tab6" data-toggle="pill" href="#custom-tabs-five-normal6" role="tab" aria-controls="custom-tabs-five-normal" aria-selected="false"> Infirmière dentiste</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-five-normal-tab17" data-toggle="pill" href="#custom-tabs-five-normal7" role="tab" aria-controls="custom-tabs-five-normal" aria-selected="false"> Infirmière médecin générale</a>
-                    </li>
+                   
                     <!-- <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-five-normal-tab8" data-toggle="pill" href="#custom-tabs-five-normal8" role="tab" aria-controls="custom-tabs-five-normal" aria-selected="false">Service social</a>
                     </li> -->
@@ -71,7 +72,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Réclamations</a>
-                    </li>
+                    </li>--}}
                 </ul>
             </div>
             <div class="card-body">

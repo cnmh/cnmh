@@ -39,9 +39,6 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('projects',App\Http\Controllers\ProjectController::class);
-// Route::resource('tasks',App\Http\Controllers\TaskController::class);
-// Route::resource('members',App\Http\Controllers\MemberController::class);
 // couvertureMedicals
 
 
@@ -88,11 +85,15 @@ Route::get('/consultations/create/{model}',[ConsultationController::class,'creat
 Route::post('/consultations/store/{model}',[ConsultationController::class,'store'])->middleware(['ModelExists'])->name('consultations.store');
 Route::delete('/consultations/{id}',[ConsultationController::class,'destroy'])->name('consultations.destroy');
 Route::get('/consultations/show/{model}/{id}',[ConsultationController::class,'show'])->middleware(['ModelExists'])->name('consultations.show');
-Route::get('/consultations/edit',[ConsultationController::class,'edit'])->name('consultations.edit');
-Route::post('/consultations/update',[ConsultationController::class,'update'])->name('consultations.update');
+Route::get('/consultations/edit/{id}',[ConsultationController::class,'edit'])->name('consultations.edit');
+Route::patch('/consultations/update/{id}',[ConsultationController::class,'update'])->name('consultations.update');
 
 Route::get('/consultations/rendezVous/{model}', [ConsultationController::class, 'Ajouter_RendezVous'])->middleware(['ModelExists'])->name('consultations.rendezVous');
 Route::get('/consultations/patient/{model}', [ConsultationController::class, 'patient'])->middleware(['ModelExists'])->name('consultations.patient');
+
+Route::post('/consultations/patient/import', [ConsultationController::class, 'import'])->name('consultations.import');
+Route::post('/consultations/patient/export', [ConsultationController::class, 'export'])->name('consultations.export');
+
 
 
 
@@ -105,6 +106,8 @@ Route::delete('rendez-vous/destroy/{id}',[RendezVousController::class,'destroy']
 Route::get('rendez-vous/show/{id}',[RendezVousController::class,'show'])->name('rendez-vous.show');
 Route::get('rendez-vous/edit/{id}',[RendezVousController::class,'edit'])->name('rendez-vous.edit');
 Route::post('rendez-vous/store',[RendezVousController::class,'store'])->name('rendez-vous.store');
+Route::PUT('rendez-vous/update/{id}', [RendezVousController::class, 'update'])->name('rendez-vous.update');
+
 
 Route::prefix('/root')->group(function() {
     Route::controller(RootController::class)->group(function() {
@@ -115,12 +118,16 @@ Route::prefix('/root')->group(function() {
 });
 
 Route::resource('tuteurs', App\Http\Controllers\TuteurController::class);
+Route::delete('/tuteurs/{id}', 'TuteursController@destroy')->name('tuteurs.destroy');
+
 
 Route::get('/parentForm',[DossierPatientController::class,'parent'])->name('dossier-patients.parent');
 Route::get('/patientForm',[DossierPatientController::class,'patient'])->name('dossier-patients.patient');
 Route::get('/entretien/{query}',[DossierPatientController::class,'entretien'])->name('dossier-patients.entretien');
 Route::post('/storeEntetien',[DossierPatientController::class,'storeEntetien'])->name('dossier-patients.storeEntetien');
 Route::get('/export',[DossierPatientController::class,'export'] )->name('dossier-patients.export');
+Route::post('/import',[DossierPatientController::class,'import'] )->name('dossier-patients.import');
+
 });
 
 /**
@@ -140,5 +147,12 @@ Route::post('/import_permissions', [App\Http\Controllers\PermissionController::c
 
 
 Route::resource('users', App\Http\Controllers\UserController::class);
+Route::post('/user/export',[App\Http\Controllers\UserController::class,'export'])->name('users.export');
+Route::post('/user/import',[App\Http\Controllers\UserController::class,'import'])->name('users.import');
+
+
 Route::get('/manage/permissions-roles/{id}', [App\Http\Controllers\PermissionController::class, 'showRolePermission'])->name('manage.role.permission');
 Route::post('/assign-role-permission', [App\Http\Controllers\PermissionController::class, 'assignRolePermission'])->name('assign.role.permission');
+
+Route::get('/get-permissions-action',[App\Http\Controllers\PermissionController::class, 'getPermissionsAction'])->name('get.permissions.action');
+Route::get('/get-permissions-action/{id}',[App\Http\Controllers\PermissionController::class, 'userAssignedPermissions'])->name('get.role.permission');

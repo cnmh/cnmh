@@ -6,6 +6,6 @@
 
 <!-- Description Field -->
 <div class="form-group col-md-12">
-    {!! Form::label('description', __('models/etatCivils.fields.description').':') !!}
-    {!! Form::textarea('description',old('description'), null, ['class' => 'form-control', 'required', 'maxlength' => 255, 'maxlength' => 255]) !!}
+    <label for="description" class="mb-2">{{ __('models/typeHandicaps.fields.description') }}:</label>
+    {!! Form::textarea('description', old('description'), ['id' => 'description', 'class' => 'form-control', 'required', 'maxlength' => 255]) !!}
 </div>

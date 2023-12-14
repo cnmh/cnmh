@@ -17,23 +17,23 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['niveauScolaires.destroy', $niveauScolaire->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            @can('show-NiveauScolaireController')
+                            @can('show-NiveauScolaire')
                             <a href="{{ route('niveauScolaires.show', [$niveauScolaire->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
-                            @can('edit-NiveauScolaireController')
+                            @can('edit-NiveauScolaire')
                             <a href="{{ route('niveauScolaires.edit', [$niveauScolaire->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('destroy-NiveauScolaireController')
+                            @can('destroy-NiveauScolaire')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
-                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -46,12 +46,12 @@
             @include('adminlte-templates::common.paginate', ['records' => $niveauScolaires])
         </div>
         <div class="float-left">
-            @can('export-NiveauScolaireController')
+            @can('export-NiveauScolaire')
             <a href="{{ route('niveauScolaires.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
             </a>
             @endcan
-            @can('import-NiveauScolaireController')
+            @can('import-NiveauScolaire')
             <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> Importer
             </button>

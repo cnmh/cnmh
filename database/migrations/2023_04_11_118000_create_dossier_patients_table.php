@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('numero_dossier');
             $table->string('etat');
             $table->date('date_enregsitrement');
+            $table->string('romarque')->nullable();
             $table->foreignId('user_id')->constrained('users');
 
 

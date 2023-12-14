@@ -42,7 +42,7 @@
     {!! Form::label('etat_civil_id', __('models/tuteurs.fields.etat_civil_id') . ':') !!}
     {{ Form::select(
         'etat_civil_id',
-        ['' => "-- Sélectionner l'état civil  --"] + $etat_civil->pluck('nom', 'id')->toArray(),
+        ['' => "-- Sélectionner l'état civil  --"] + ($etat_civil ? $etat_civil->pluck('nom', 'id')->toArray() : []),
         old('etat_civil_id'),
         ['class' => 'form-control', 'required'],
     ) }}
@@ -97,6 +97,7 @@
     {!! Form::label('remarques', __('models/tuteurs.fields.remarques') . ':') !!}
     {!! Form::textarea('remarques', old('remarques'), [
         'class' => 'form-control',
+        'id' => 'remarques', // Add the 'id' attribute
         'maxlength' => 65535,
         'maxlength' => 65535,
     ]) !!}

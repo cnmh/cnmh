@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@can('create-EtatCivilController')
+@can('create-EtatCivil')
     <section class="content-header">
         {{-- <div class="container-fluid">
             <div class="row mb-2">

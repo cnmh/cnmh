@@ -16,23 +16,23 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['couvertureMedicals.destroy', $couvertureMedical->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            @can('show-CouvertureMedicalController')
+                            @can('show-CouvertureMedical')
                             <a href="{{ route('couvertureMedicals.show', [$couvertureMedical->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
-                            @can('edit-CouvertureMedicalController')
+                            @can('edit-CouvertureMedical')
                             <a href="{{ route('couvertureMedicals.edit', [$couvertureMedical->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
                             @endcan
-                            @can('destroy-CouvertureMedicalController')
+                            @can('destroy-CouvertureMedical')
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
-                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -45,16 +45,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $couvertureMedicals])
         </div>
         <div class="float-left">
-            @can('export-CouvertureMedicalController')
-                                <a href="{{ route('couvertureMedicals.export') }}" class="btn btn-default swalDefaultQuestion">
-                                    <i class="fas fa-download"></i> Exporter
-                                </a>
-                                @endcan
-                                @can('import-CouvertureMedicalController')
-                                <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
-                                    <i class="fas fa-file-import"></i> Importer
-                                </button>
-                                @endcan
+            @can('export-CouvertureMedical')
+                <a href="{{ route('couvertureMedicals.export') }}" class="btn btn-default swalDefaultQuestion">
+                    <i class="fas fa-download"></i> Exporter
+                </a>
+            @endcan
+            @can('import-CouvertureMedical')
+                <button  class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
+                    <i class="fas fa-file-import"></i> Importer
+                </button>
+            @endcan
         </div>
     </div>
 </div>

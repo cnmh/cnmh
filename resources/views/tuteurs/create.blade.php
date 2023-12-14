@@ -4,8 +4,11 @@
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
+            <div class="p-2">
+                <h3 class="h3">Ajouter un tuteur</h3>
+            </div>
             <div class="col-sm-12">
-              @include('dossier_patients.stepper')
+                @include('dossier_patients.stepper')
             </div>
         </div>
     </div>
@@ -23,57 +26,56 @@
                         </h3>
                     </div>
 
-            <div class="card-body">
-                {!! Form::open(['route' => 'tuteurs.store']) !!}
+                    <div class="card-body">
+                        {!! Form::open(['route' => 'tuteurs.store']) !!}
 
-                <div class="row">
-                    @include('tuteurs.fields')
+                        <div class="row">
+                            @include('tuteurs.fields')
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="p-2 bd-highlight">
+                                {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
+                            </div>
+
+                            @if (request()->getRequestUri() == '/tuteurs/create?=parentForm')
+
+                            <div class="ml-auto p-2 bd-highlight">
+                                <a href="{{  url()->previous() }}" class="btn btn-secondary"> @lang('crud.cancel')
+                                </a>
+                            </div>
+                            @else
+                            <div class="ml-auto p-2 bd-highlight">
+                                <a href="{{ route('tuteurs.index') }}" class="btn btn-secondary"> @lang('crud.cancel')
+                                </a>
+                            </div>
+
+                            @endif
+
+
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
-
             </div>
-
-            <div class="card-footer">
-                <div class="d-flex bd-highlight mb-3">
-                    <div class="p-2 bd-highlight">
-                        {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
-                    </div>
-
-                    @if (request()->getRequestUri() == '/tuteurs/create?=parentForm')
-
-                    <div class="ml-auto p-2 bd-highlight">
-                        <a href="{{  url()->previous() }}" class="btn btn-secondary"> @lang('crud.cancel')
-                        </a>
-                    </div>
-                    @else
-                    <div class="ml-auto p-2 bd-highlight">
-                        <a href="{{ route('tuteurs.index') }}" class="btn btn-secondary"> @lang('crud.cancel')
-                        </a>
-                    </div>
-
-                    @endif
-
-
-                </div>
-            </div>
-            {!! Form::close() !!}
         </div>
+        <!-- /.col -->
     </div>
-</div>
-<!-- /.col -->
-</div>
-<!-- /.row -->
+    <!-- /.row -->
 </div>
 <!-- /.container-fluid -->
 @endsection
 
 @push('page_scripts')
-    <script>
-        $(document).ready(function() {
-            $('#remarques').summernote({
-                height: 100,
-            });
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
+<script>
+$(document).ready(function() {
+    $('#remarques').summernote({
+        height: 100,
+    });
+    $('.dropdown-toggle').dropdown();
+});
+</script>
 @endpush
-

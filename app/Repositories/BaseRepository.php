@@ -8,6 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 abstract class BaseRepository
 {
@@ -27,8 +28,6 @@ abstract class BaseRepository
     public function __construct()
     {
         $this->makeModel();
-        $this->connect_user = User::first();
-
     }
 
     /**
@@ -135,7 +134,10 @@ abstract class BaseRepository
 
     public function create(array $input): Model
     {
-        $input['user_id'] = $this->connect_user->id;
+        if (auth()->check()) {
+            $input['user_id'] = auth()->user()->id;
+        } 
+        
         $model = $this->model->newInstance($input);
 
         $model->save();

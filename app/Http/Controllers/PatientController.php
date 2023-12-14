@@ -7,6 +7,8 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\NiveauScolaire;
 use App\Models\Tuteur;
+use App\Models\Reclamation;
+
 use App\Repositories\PatientRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -100,14 +102,20 @@ class PatientController extends AppBaseController
     {
         $patient = $this->patientRepository->find($id);
 
+        $tuteur = Tuteur::find($patient->tuteur_id);
+        $niveauScolaire = NiveauScolaire::find($patient->niveau_scolaire_id);
+
         if (empty($patient)) {
             Flash::error(__('models/patients.singular').' '.__('messages.not_found'));
 
             return redirect(route('patients.index'));
         }
 
-        return view('patients.edit')->with('patient', $patient);
+        return view('patients.edit')->with(['patient' => $patient, 'tuteur' => $tuteur , 'niveau_s' => $niveauScolaire]);
     }
+
+
+    
 
     /**
      * Update the specified Patient in storage.
@@ -142,6 +150,11 @@ class PatientController extends AppBaseController
             Flash::error(__('models/patients.singular').' '.__('messages.not_found'));
 
             return redirect(route('patients.index'));
+        }
+
+        if($patient){
+            $reclamation = Reclamation::where('patient_id',$patient->id)->first();
+            $reclamation->delete();
         }
 
         $this->patientRepository->delete($id);

@@ -25,9 +25,7 @@
                     'patch']) !!}
 
                     <div class="card-body">
-                        <div class="row">
                             @include('type_handicaps.fields')
-                        </div>
                     </div>
 
                     <div class="card-footer">

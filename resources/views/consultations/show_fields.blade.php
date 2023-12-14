@@ -13,18 +13,18 @@
 <!-- Observation Field -->
 <div class="col-sm-12">
     {!! Form::label('observation', __('models/consultations.fields.observation').':') !!}
-    <p>{{ $consultation->observation }}</p>
+    <p>{!! $consultation->observation !!}</p>
 </div>
 
 <!-- Diagnostic Field -->
 <div class="col-sm-12">
     {!! Form::label('diagnostic', __('models/consultations.fields.diagnostic').':') !!}
-    <p>{{ $consultation->diagnostic }}</p>
+    <p>{!! $consultation->diagnostic !!}</p>
 </div>
 
 <!-- Bilan Field -->
 <div class="col-sm-12">
     {!! Form::label('bilan', __('models/consultations.fields.bilan').':') !!}
-    <p>{{ $consultation->bilan }}</p>
+    <p>{!! $consultation->bilan !!}</p>
 </div>
 

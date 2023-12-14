@@ -10,6 +10,7 @@ return [
 'detail' => 'Détail',
 'details' => 'Détails',
 'back' => 'Retour',
+'remarque' => 'Remarque',
 'search' => 'Rechercher',
 'export' => 'Exporter',
 'print' => 'Imprimer',
@@ -28,6 +29,7 @@ return [
 'selectUser' => 'Sélectionnez un utilisateur',
 'selectRole' => 'Sélectionnez un rôle',
 'selectPermissions' => 'Sélectionnez des permissions',
-'requiredFields' => 'Les champs indiqués par * sont obligatoires.'
+'requiredFields' => 'Les champs indiqués par * sont obligatoires.',
+'selectActions' => 'Sélectionnez des actions'
 
 ];

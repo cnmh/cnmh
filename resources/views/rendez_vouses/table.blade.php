@@ -22,15 +22,21 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['rendez-vous.destroy', $rendezVous->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
+                            @can('show-RendezVous')
                             <a href="{{ route('rendez-vous.show', [$rendezVous->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            {{-- <a href="{{ route('rendez-vous.edit', [$rendezVous->id]) }}"
+                            @endcan
+                            @can('edit-RendezVous')
+                            <a href="{{ route('rendez-vous.edit', [$rendezVous->id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>
-                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
+                            @endcan
+                            @can('destroy-RendezVous')
+                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
@@ -46,12 +52,16 @@
             @include('adminlte-templates::common.paginate', ['records' => $rendezVouses])
         </div>
         <div class="float-left">
+                                @can('export-RendezVous')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> @lang('crud.export')
                                 </button>
+                                @endcan
+                                @can('import-RendezVous')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-file-import"></i> @lang('crud.import')
                                 </button>
+                                @endcan
         </div>
     </div>
 </div>

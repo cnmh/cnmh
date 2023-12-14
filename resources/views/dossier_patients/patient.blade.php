@@ -39,9 +39,11 @@
                         <div class="card-header">
                             <div class="col-sm-12 d-flex justify-content-between ">
                                 <div class="col-sm-6">
+                                @can('create-DossierPatient')
                                     <a class="btn btn-primary " href="{{ route('patients.create') }}?parentRadio={{request()->query("parentRadio")}}">
                                         @lang('crud.add_new') {{strtolower(__('models/patients.singular'))}}
                                     </a>
+                                @endcan
                                 </div>
 
                                 <!-- SEARCH FORM -->
@@ -101,10 +103,17 @@
                                                     <td style="width: 120px">
 
                                                         <div class='btn-group'>
-                                                            <a href="{{ route('patients.show', [$patient->id]) }}"
-                                                                class='btn btn-default btn-sm'>
+                                                            <a href="{{ route('patients.show', [$patient->id]) }}" class='btn btn-default btn-sm'>
                                                                 <i class="far fa-eye"></i>
                                                             </a>
+                                                            <a href="{{ route('patients.edit', [$patient->id]) }}" class='btn btn-default btn-sm'>
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            @can('destroy-Patient')
+                                                                <a href="#" class="btn btn-danger btn-xs" onclick="deletePatient({{ $patient->id }})">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </a>
+                                                            @endcan
 
                                                         </div>
 
@@ -123,19 +132,25 @@
 
                             </div>
                             </form>
-                            <div class="card-footer clearfix">
-                                <div class="float-right">
-                                    {{-- @include('adminlte-templates::common.paginate', ['records' => $patients]) --}}
-                                </div>
-                                <div class="float-left">
-                                    <button type="button" class="btn btn-default swalDefaultQuestion">
-                                        <i class="fas fa-download"></i> @lang('crud.export')
-                                    </button>
-                                    <button type="button" class="btn btn-default swalDefaultQuestion">
-                                        <i class="fas fa-file-import"></i> @lang('crud.import')
-                                    </button>
-                                </div>
-                            </div>
+                            
+                           
+                                <div class="card-footer clearfix">
+                                    <div class="float-right">
+                                        {{-- @include('adminlte-templates::common.paginate', ['records' => $patients]) --}}
+                                    </div>
+                                    {{--
+                                    <div class="float-left">
+                                        <button type="button" class="btn btn-default swalDefaultQuestion">
+                                            <i class="fas fa-download"></i> @lang('crud.export')
+                                        </button>
+                                        <button type="button" class="btn btn-default swalDefaultQuestion">
+                                            <i class="fas fa-file-import"></i> @lang('crud.import')
+                                        </button>
+                                    </div>
+                                    --}}
+                                </div> 
+                            
+                           
                         </div>
                         <!-- /.card-body -->
 
@@ -192,5 +207,31 @@
         $("input[name='patientRadio'][value='" + patientId + "']").prop('checked', true);
     }
         })
+
+        function deletePatient(patientId) {
+            const confirmDelete = confirm('Are you sure?');
+            if (confirmDelete) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ url("patients") }}/' + patientId;
+                form.style.display = 'none';
+
+                const csrfTokenInput = document.createElement('input');
+                csrfTokenInput.type = 'hidden';
+                csrfTokenInput.name = '_token';
+                csrfTokenInput.value = '{{ csrf_token() }}';
+
+                const methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+
+                form.appendChild(csrfTokenInput);
+                form.appendChild(methodInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
     </script>
 @endpush

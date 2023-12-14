@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         // Orientation médicale
-        Schema::create('consultation_service', function (Blueprint $table) {
+        Schema::create('consultation_services', function (Blueprint $table) {
             $table->id();
             $table->foreignId('service_id')->constrained('services');
             $table->foreignId('consultation_id')->constrained('consultations');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('consultation_service');
+        Schema::dropIfExists('consultation_services');
     }
 };

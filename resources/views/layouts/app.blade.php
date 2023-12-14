@@ -2,6 +2,7 @@
 
 @push('third_party_stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/summernote/summernote-lite.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
 @endpush
 
 @section('_content')
@@ -70,4 +71,40 @@
 
 @push('third_party_scripts')
     <script src="{{ asset('assets/summernote/summernote-lite.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/rstxdbg3rllarurra768zcwtwphhxqlxqvnhebaxc017ot19/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        tinymce.init({
+            selector: 'textarea#remarques',
+            plugins: 'autoresize',
+            autoresize_bottom_margin: 16,
+            menubar: false,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        });
+        tinymce.init({
+            selector: 'textarea#observation',
+            plugins: 'autoresize',
+            autoresize_bottom_margin: 16,
+            menubar: false,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        });
+        tinymce.init({
+            selector: 'textarea#diagnostic',
+            plugins: 'autoresize',
+            autoresize_bottom_margin: 16,
+            menubar: false,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        });
+        tinymce.init({
+            selector: 'textarea#bilan',
+            plugins: 'autoresize',
+            autoresize_bottom_margin: 16,
+            menubar: false,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        });
+    });
+    </script>
+
 @endpush
