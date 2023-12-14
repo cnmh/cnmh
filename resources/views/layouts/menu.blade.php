@@ -27,7 +27,7 @@
 
         <li class="nav-item">
             <a href="{{ route('rendez-vous.index') }}" class="nav-link {{ Route::is('rendez-vous.index' . '*') ? 'active' : '' }}">
-                <p>Rendez-vous </p>
+                <p>Rendez-vous-médecin </p>
             </a>
         </li>
     </ul>
