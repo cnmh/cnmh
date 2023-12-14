@@ -7,10 +7,11 @@
             <th></th>
         </thead>
         <tbody>
+            @foreach($médecin as $item)
             <tr>
-                <td>8</td>
-                <td>Mr. NAJIM Iman</td>
-                <td>03/04/2022</td>
+                <td>{{$item->id}}</td>
+                <td>Médecin générale</td>
+                <td>{{$item->date_consultation}}</td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="#">
                         <i class="fas fa-folder">
@@ -19,6 +20,7 @@
                     </a>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

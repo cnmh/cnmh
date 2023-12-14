@@ -10,6 +10,7 @@ return [
 'detail' => 'Détail',
 'details' => 'Détails',
 'back' => 'Retour',
+'remarque' => 'Remarque',
 'search' => 'Rechercher',
 'export' => 'Exporter',
 'print' => 'Imprimer',

@@ -41,7 +41,7 @@
                     <div class="form-group d-flex">
                         <i class="fa-solid fa-filter mr-2 mt-2"></i>
                         <select class="form-control form-control-sm" id="selectSearch">
-                            <option value="">Choisir l'état</option>
+                            <option value="">Choisir la phase</option>
                             <option value="enAttente">En attente</option>
                             <option value="enConsultation">En consultation</option>
                             <option value="enRendezVous">En rendez-vous</option>

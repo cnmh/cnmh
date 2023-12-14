@@ -40,6 +40,14 @@ if (isset($url['query'])) {
     ) }}
 </div>
 
+<!-- Remarque fields -->
+<div class="form-group col-sm-12">
+    {!! Form::label('remarques', 'Remarque') !!}
+    {!! Form::textarea('romarque', null, ['class' => 'form-control', 'id' => 'remarques']) !!}
+</div>
+
+
+
 <!-- Date Enregsitrement Field -->
 <div class="form-group col-sm-6 d-none">
     {!! Form::label('date_enregsitrement', __('models/dossierPatients.fields.date_enregsitrement')) !!}

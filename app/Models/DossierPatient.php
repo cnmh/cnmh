@@ -15,7 +15,8 @@ class DossierPatient extends Model
         'couverture_medical_id',
         'numero_dossier',
         'etat',
-        'date_enregsitrement'
+        'date_enregsitrement',
+        'romarque',
     ];
 
     protected $casts = [
@@ -30,6 +31,7 @@ class DossierPatient extends Model
         'numero_dossier' => '',
         'etat' => 'required|string|max:255',
         'date_enregsitrement' => 'required',
+        'romarque' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];
