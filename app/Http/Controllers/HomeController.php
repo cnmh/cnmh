@@ -39,8 +39,11 @@ class HomeController extends Controller
         $dossierEnRendezVous = Consultation::where('etat','enRendezVous')->count();
         $dossierEnConsultation = Consultation::where('etat','enConsultation')->count();
 
-        $reussirRendezVous = ($dossierEnConsultation/$dossierEnRendezVous)*100;
-
+        if($dossierEnRendezVous === 0){
+            $reussirRendezVous = 0;
+        }else{
+            $reussirRendezVous = ($dossierEnConsultation/$dossierEnRendezVous)*100;
+        }
         $chartData = [
             ['Label', 'Dossiers bénéficiaires', 'Bénéficiaires', 'Tuteurs'],
             ['Dossiers bénéficiaires', $dossierCount, 0, 0],
