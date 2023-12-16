@@ -142,6 +142,7 @@ class UserSeeder extends Seeder
             "store-RendezVous",
             "show-RendezVous",
             "edit-RendezVous",
+            "destroy-RendezVous",
             "create-DossierPatient",
             "parent-DossierPatient",
             "create-Tuteur",
