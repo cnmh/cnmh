@@ -69,7 +69,6 @@
                                         <tr>
 
                                             <th></th>
-                                            <th>N°d'Ordre</th>
                                             <th>N°Dossier</th>
                                             <th>Nom</th>
                                             <th>Prénom</th>
@@ -90,7 +89,6 @@
                                             </td>
                                             <input type="hidden" name="consultation_id"
                                                 value="{{$dossier_patient->consultation_id}} ">
-                                            <td>{{ $dossier_patient->id }}</td>
                                             <td>{{ $dossier_patient->numero_dossier }}</td>
                                             <td>{{ $dossier_patient->nom }}</td>
                                             <td>{{ $dossier_patient->prenom }}</td>

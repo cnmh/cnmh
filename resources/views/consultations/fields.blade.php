@@ -26,11 +26,10 @@
 <div class="form-group col-sm-6">
     {!! Form::label("Services", __('models/services.fields.service_id')) !!}
     <br>
-    
     {{ Form::select(
         'services_id[]',
         $services->pluck('nom', 'id')->toArray(),
-        isset($service_patient) ? $service_patient : [],
+        isset($services_ids) ? $services_ids : [],
         ['class' => 'form-control', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>

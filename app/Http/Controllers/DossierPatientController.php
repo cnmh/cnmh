@@ -201,15 +201,12 @@ class DossierPatientController extends AppBaseController
 
         $médecin = Consultation::where('id',$dossierPatientConsultation->consultation_id)->where('etat','enConsultation')->get();
 
-
-
-
         $service = $dossierPatient->dossierPatientServices;
         foreach ($consultation as $value) {
             $R = RendezVous::where('consultation_id', $value->id)->get();
         }
-        // foreach($service as $value){
-        //
+        
+        $title = 'MedecinGeneral';
 
         $listrendezvous=DossierPatient::join('dossier_patient_consultation', 'dossier_patients.patient_id', '=', 'dossier_patient_consultation.dossier_patient_id')
         ->join('consultations','consultations.id','=','dossier_patient_consultation.consultation_id')
@@ -234,7 +231,7 @@ class DossierPatientController extends AppBaseController
             return redirect(route('dossier-patients.index'));
         }
 
-        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous","responsableEntrotient","couvertureMedical","situationFamilial","type_handicap_patient","NiveauScolairePatient","listAttent","médecin","service_demander_patient"));
+        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous","responsableEntrotient","couvertureMedical","situationFamilial","type_handicap_patient","NiveauScolairePatient","listAttent","médecin","service_demander_patient","title"));
     }
 
     /**
