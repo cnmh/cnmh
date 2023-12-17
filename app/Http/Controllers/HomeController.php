@@ -43,6 +43,10 @@ class HomeController extends Controller
             $reussirRendezVous = 0;
         }else{
             $reussirRendezVous = ($dossierEnConsultation/$dossierEnRendezVous)*100;
+
+            if($reussirRendezVous > 100){
+                $reussirRendezVous = 100;
+            }
         }
         $chartData = [
             ['Label', 'Dossiers bénéficiaires', 'Bénéficiaires', 'Tuteurs'],
