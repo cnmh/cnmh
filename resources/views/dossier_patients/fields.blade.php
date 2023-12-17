@@ -25,12 +25,23 @@ if (isset($url['query'])) {
     ) }}
 </div>
 
+<!-- Service field -->
 
-
+<div class="form-group col-sm-6">
+    {!! Form::label("Services", __('models/services.fields.service_dm')) !!}
+    <br>
+    
+    {{ Form::select(
+        'services_id[]',
+        $services->pluck('nom', 'id')->toArray(),
+        isset($service_patient) ? $service_patient : [],
+        ['class' => 'form-control', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
+    ) }}
+</div>
 
 
 <!-- Couverture Medical Id Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('fonction', __('models/dossierPatients.fields.couverture_medical_id')) !!}
     {{ Form::select(
         'couverture_medical_id',

@@ -223,8 +223,6 @@
                                         </tbody>
 
                                     </table>
-
-
                             </div>
                             <div class="ml-4 mb-3">
                                 <button   class="btn btn-primary">@lang('crud.next')</button>
