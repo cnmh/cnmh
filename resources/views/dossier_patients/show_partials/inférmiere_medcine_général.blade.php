@@ -13,7 +13,7 @@
                 <td>Médecin générale</td>
                 <td>{{$item->date_consultation}}</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="#">
+                    <a class="btn btn-primary btn-sm" href="{{ route('consultations.show', [$title,$item->id]) }}">
                         <i class="fas fa-folder">
                         </i>
                         Détail

@@ -194,7 +194,6 @@
                                             <tr>
 
                                                 <th></th>
-                                                <th>N°d'Ordre</th>
                                                 <th>N°Dossier</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
@@ -210,8 +209,6 @@
                                                             name="consultation_id"
                                                             aria-label="Radio button for following text input">
                                                     </td>
-
-                                                    <td>{{ $dossier_patient->id }}</td>
                                                     <td>{{ $dossier_patient->numero_dossier }}</td>
                                                     <td>{{ $dossier_patient->nom }}</td>
                                                     <td>{{ $dossier_patient->prenom }}</td>

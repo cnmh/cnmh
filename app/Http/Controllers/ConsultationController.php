@@ -10,9 +10,12 @@ use App\Models\DossierPatient;
 use App\Models\DossierPatientConsultation;
 use App\Models\RendezVous;
 use App\Models\DossierPatient_typeHandycape;
+use App\Models\Dossier_patient_service;
 use App\Models\TypeHandicap;
 use App\Models\Service;
 use App\Models\Consultation_service;
+use App\Models\Consultation_type_handicap;
+
 use App\Repositories\ConsultationRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -103,14 +106,19 @@ class ConsultationController extends AppBaseController
         $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultationID)->first();
     
         $type_handicap_patients = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)->get();
-    
+
         $type_handicap_ids = $type_handicap_patients->pluck('type_handicap_id')->toArray();
     
         $type_handicap = TypeHandicap::all();
 
+        $service_patient = Dossier_patient_service::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)->get();
+
+        $services_ids = $service_patient->pluck('service_id')->toArray();
+
         $services = Service::all();
+        
     
-        return view('consultations.create', compact('title', 'type_handicap_ids', 'type_handicap', 'services'));
+        return view('consultations.create', compact('title', 'type_handicap_ids', 'type_handicap', 'services', 'services_ids', 'service_patient'));
     }
     
 
@@ -122,28 +130,23 @@ class ConsultationController extends AppBaseController
 
         $input = $request->all();
 
+
         $typeHandicapIDs = $request->type_handicap_id;
         $service_ids = $request->services_id;
         $consultationID = $request->consultation_id;
+
+        foreach ($typeHandicapIDs as $typeHandycapeID) {
+            $consultation_typeHandycape = new Consultation_type_handicap;
+            $consultation_typeHandycape->type_handicap_id = $typeHandycapeID;
+            $consultation_typeHandycape->consultation_id = $consultationID;
+            $consultation_typeHandycape->save();
+        }
 
         foreach($service_ids as $service_id){
             $service = new Consultation_service;
             $service->service_id = $service_id;
             $service->consultation_id = $consultationID;
             $service->save();
-        }
-
-        $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultationID)->first();
-
-        DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)
-        ->whereNotIn('type_handicap_id', $typeHandicapIDs)
-        ->delete();
-
-        foreach ($typeHandicapIDs as $typeHandicapID) {
-            DossierPatient_typeHandycape::updateOrCreate(
-                ['dossier_patient_id' =>$dossierPatientConsultation->dossier_patient_id, 'type_handicap_id' => $typeHandicapID],
-                ['type_handicap_id' => $typeHandicapID]
-            );
         }
 
         $Model = "App\\Models\\" . ucfirst($model);
@@ -183,11 +186,21 @@ class ConsultationController extends AppBaseController
 
         $consultation_service = Consultation_service::where('consultation_id',$consultation->id)->get();
 
+        $type_handicap_consultation = Consultation_type_handicap::where('consultation_id', $consultation->id)->get();
+
+
+
 
         foreach($consultation_service as $item){
             $service = Service::find($item->service_id);
             $consultation_service_patient[] = $service;
         }
+
+        foreach($type_handicap_consultation as $handicap){
+            $handicaps = TypeHandicap::find($handicap->type_handicap_id);
+            $consultation_handicap_patient[] = $handicaps;
+        }
+
 
         if (empty($consultation)) {
             Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
@@ -195,7 +208,7 @@ class ConsultationController extends AppBaseController
             return redirect(route('consultations.index', $title));
         }
 
-        return view('consultations.show', compact("consultation", "title","consultation_service_patient"));
+        return view('consultations.show', compact("consultation", "title","consultation_service_patient","consultation_handicap_patient"));
     }
 
     /**
@@ -209,15 +222,17 @@ class ConsultationController extends AppBaseController
     
         $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultationID)->first();
     
-        $type_handicap_patients = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)->get();
+        $type_handicap_patients = Consultation_type_handicap::where('consultation_id', $consultationID)->get();
     
         $type_handicap_ids = $type_handicap_patients->pluck('type_handicap_id')->toArray();
 
-        $consultation_service = Consultation_service::where('consultation_id',$consultationID)->get();
+        $service_patient = Consultation_service::where('consultation_id',$consultationID)->get();
 
-        $service_patient = $consultation_service->pluck('service_id')->toArray();
     
         $type_handicap = TypeHandicap::all();
+
+
+        $services_ids = $service_patient->pluck('service_id')->toArray();
 
         $services = Service::all();
 
@@ -227,7 +242,7 @@ class ConsultationController extends AppBaseController
             return redirect(route('consultations.index'));
         }
 
-        return view('consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient'));
+        return view('consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient','services_ids'));
     }
 
     /**
@@ -240,21 +255,21 @@ class ConsultationController extends AppBaseController
         $typeHandicapIDs = $request->type_handicap_id;
         $service_ids = $request->services_id;
 
+
         if (empty($consultation)) {
             Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('consultations.index'));
         }
 
-        $dossierPatientConsultation = DossierPatientConsultation::where('consultation_id', $consultation->id)->first();
 
-        DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientConsultation->dossier_patient_id)
+        Consultation_type_handicap::where('consultation_id',$consultation->id)
         ->whereNotIn('type_handicap_id', $typeHandicapIDs)
         ->delete();
 
         foreach ($typeHandicapIDs as $typeHandicapID) {
-            DossierPatient_typeHandycape::updateOrCreate(
-                ['dossier_patient_id' =>$dossierPatientConsultation->dossier_patient_id, 'type_handicap_id' => $typeHandicapID],
+            Consultation_type_handicap::updateOrCreate(
+                ['consultation_id' => $consultation->id, 'type_handicap_id' => $typeHandicapID],
                 ['type_handicap_id' => $typeHandicapID]
             );
         }

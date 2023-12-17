@@ -14,11 +14,22 @@
 <div class="col-sm-12">
     {!! Form::label('Services', 'Services') !!}
     <ol>
-        @foreach($consultation_service_patient as $service_patient)
-          <li>{{ $service_patient->nom }}</li>
+        @foreach($consultation_service_patient as $service_patient_consultation)
+          <li>{{ $service_patient_consultation->nom }}</li>
         @endforeach
     </ol>
 </div>
+
+<!-- Ttye_handicap Consultation Field -->
+<div class="col-sm-12">
+    {!! Form::label('TypeHandicap', "Type d'handicap") !!}
+    <ol>
+        @foreach($consultation_handicap_patient as $consultation_handicap)
+          <li>{{ $consultation_handicap->nom }}</li>
+        @endforeach
+    </ol>
+</div>
+
 
 
 <!-- Observation Field -->
