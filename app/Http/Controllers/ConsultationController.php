@@ -181,13 +181,21 @@ class ConsultationController extends AppBaseController
 
         $consultation = $this->consultationRepository->find($id);
 
+        $consultation_service = Consultation_service::where('consultation_id',$consultation->id)->get();
+
+
+        foreach($consultation_service as $item){
+            $service = Service::find($item->service_id);
+            $consultation_service_patient[] = $service;
+        }
+
         if (empty($consultation)) {
             Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('consultations.index', $title));
         }
 
-        return view('consultations.show', compact("consultation", "title"));
+        return view('consultations.show', compact("consultation", "title","consultation_service_patient"));
     }
 
     /**

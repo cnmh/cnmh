@@ -11,8 +11,7 @@ use App\Models\User;
 use App\Models\TypeHandicap;
 use App\Models\EtatCivil;
 use App\Models\NiveauScolaire;
-
-
+use App\Models\Dossier_patient_service;
 
 use Illuminate\Http\Request;
 use App\Models\DossierPatient;
@@ -127,7 +126,17 @@ class DossierPatientController extends AppBaseController
             $DossierPatient_typeHandycape->dossier_patient_id = $dossierPatient->id;
             $DossierPatient_typeHandycape->save();
         }
-        
+
+        $service_ids = $request->input('services_id');
+
+        foreach($service_ids as $service_id){
+            $service_patient_demander = new Dossier_patient_service;
+            $service_patient_demander->service_id = $service_id;
+            $service_patient_demander->dossier_patient_id = $dossierPatient->id;
+            $service_patient_demander->save();
+        }
+
+    
         $consultation = new Consultation();
         $consultation->date_enregistrement=$request->date_enregsitrement;
         $consultation->type="medecinGeneral";
@@ -160,22 +169,27 @@ class DossierPatientController extends AppBaseController
         $patient = Patient::find($dossierPatient->patient_id);
 
         $NiveauScolaire = $patient->niveau_scolaire_id;
-
         $NiveauScolairePatient = NiveauScolaire::find($NiveauScolaire);
-
-
         $parent  = $patient->parent;
 
         $situationFamilial =EtatCivil::where('id',$parent->etat_civil_id)->first();
         $couvertureMedical = CouvertureMedical::find($dossierPatient->couverture_medical_id);
         $type_handicap = DossierPatient_typeHandycape::where('dossier_patient_id',$dossierPatient->id)->get();
 
+        $service_demander = dossier_patient_service::where('dossier_patient_id',$dossierPatient->id)->get();
+
+
         foreach($type_handicap as $type_handicap_id){
-            $type_handicap_patient = TypeHandicap::find($type_handicap_id);
+            $type_handicap = TypeHandicap::find($type_handicap_id->type_handicap_id);
+            $type_handicap_patient[] = $type_handicap;
         }
 
-       
+        foreach($service_demander as $item){
+            $service = Service::find($item->service_id);
+            $service_demander_patient[] = $service;
+        }
 
+    
         // $consultation=Consultation::find($dossierPatient->patient_id);
         // $pp=$consultation->id;
         // $rendevous=RendezVous::find($pp);
@@ -220,7 +234,7 @@ class DossierPatientController extends AppBaseController
             return redirect(route('dossier-patients.index'));
         }
 
-        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous","responsableEntrotient","couvertureMedical","situationFamilial","type_handicap_patient","NiveauScolairePatient","listAttent","médecin"));
+        return view('dossier_patients.show',compact('dossierPatient',"patient","parent","listrendezvous","responsableEntrotient","couvertureMedical","situationFamilial","type_handicap_patient","NiveauScolairePatient","listAttent","médecin","service_demander_patient"));
     }
 
     /**
@@ -241,6 +255,14 @@ class DossierPatientController extends AppBaseController
         $couverture_medical = CouvertureMedical::all();
         $dossierPatientID = $dossierPatient->id; 
 
+        $services = Service::all();
+
+        $service_dossier_patient = Dossier_patient_service::where('dossier_patient_id',$dossierPatientID)->first();
+
+
+        $service_patient = $service_dossier_patient->pluck('service_id')->toArray();
+
+
         $DossierPatient_typeHandycap = DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)->get();
 
         $typeHandicapIDs = $DossierPatient_typeHandycap->pluck('type_handicap_id')->toArray();
@@ -249,7 +271,7 @@ class DossierPatientController extends AppBaseController
 
         $patientId = $dossierPatient->patient_id;
 
-        return view('dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient'));
+        return view('dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient','service_patient','services'));
     }
 
     /**
@@ -258,6 +280,7 @@ class DossierPatientController extends AppBaseController
     public function update($id, UpdateDossierPatientRequest $request)
     {
         $data = $request->all();
+
 
         $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
 
@@ -270,6 +293,7 @@ class DossierPatientController extends AppBaseController
         }
     
         $typeHandicapIDs = $data['type_handicap_id'];
+        $service_ids = $data['services_id'];
     
         DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)
             ->whereNotIn('type_handicap_id', $typeHandicapIDs)
@@ -281,6 +305,20 @@ class DossierPatientController extends AppBaseController
                 ['type_handicap_id' => $typeHandicapID]
             );
         }
+
+
+        dossier_patient_service::where('dossier_patient_id',$dossierPatientID)
+        ->whereNotIn('service_id',$service_ids)
+        ->delete();
+
+
+        foreach($service_ids as $service_id){
+            dossier_patient_service::updateOrCreate(
+                ['dossier_patient_id' =>$dossierPatientID, 'service_id' => $service_id],
+                ['service_id' => $service_id]
+            );
+        }
+
     
         $dossierPatient = $this->dossierPatientRepository->update($data, $dossierPatientID);
         Flash::success(__('messages.updated', ['model' => __('models/dossierPatients.singular')]));
@@ -356,7 +394,8 @@ class DossierPatientController extends AppBaseController
     {
         $couverture_medical = CouvertureMedical::all();
         $type_handicap = TypeHandicap::all();
-        return view('dossier_patients.entretien', compact('type_handicap', 'couverture_medical'));
+        $services = Service::all();
+        return view('dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services'));
     }
     public function export()
     {

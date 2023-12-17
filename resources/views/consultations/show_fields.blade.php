@@ -10,6 +10,17 @@
     <p>{{ $consultation->date_consultation }}</p>
 </div>
 
+<!-- Service Consultation Field -->
+<div class="col-sm-12">
+    {!! Form::label('Services', 'Services') !!}
+    <ol>
+        @foreach($consultation_service_patient as $service_patient)
+          <li>{{ $service_patient->nom }}</li>
+        @endforeach
+    </ol>
+</div>
+
+
 <!-- Observation Field -->
 <div class="col-sm-12">
     {!! Form::label('observation', __('models/consultations.fields.observation').':') !!}
