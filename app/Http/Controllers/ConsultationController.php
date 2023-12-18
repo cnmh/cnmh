@@ -208,6 +208,10 @@ class ConsultationController extends AppBaseController
             return redirect(route('consultations.index', $title));
         }
 
+        if(empty($consultation_handicap_patient) || empty($consultation_service_patient)){
+            return view('consultations.show', compact("consultation", "title"));
+        }
+
         return view('consultations.show', compact("consultation", "title","consultation_service_patient","consultation_handicap_patient"));
     }
 
