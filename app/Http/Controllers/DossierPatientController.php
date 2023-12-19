@@ -101,6 +101,14 @@ class DossierPatientController extends AppBaseController
     {
         $input = $request->all();
 
+        $patientId = $input['patient_id'];
+
+        $dossierPatientExiste = DossierPatient::where('patient_id',$patientId)->first();
+
+        if($dossierPatientExiste){
+            Flash::error("Dossier patient est déja existé");
+            return back();
+        }
 
         $latestDossier = DossierPatient::where('numero_dossier', 'like', 'A-%')
             ->whereRaw('CAST(SUBSTRING(numero_dossier, 3) AS SIGNED) IS NOT NULL')

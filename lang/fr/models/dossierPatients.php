@@ -7,7 +7,7 @@ return [
         'id' => 'Id',
         'patient_id' => 'Patient',
         'couverture_medical_id' => 'Couverture médicale',
-        'type_handicap_id' => "Type d'handicapé",
+        'type_handicap_id' => "Types de handicap",
         'numero_dossier' => 'Numéro Dossier',
         'etat' => 'État',
         'date_enregsitrement' => "Date d'enregsitrement",

@@ -25,7 +25,7 @@
 
 <!-- Ttye_handicap Consultation Field -->
 <div class="col-sm-12">
-    {!! Form::label('TypeHandicap', "Type d'handicap:") !!}
+    {!! Form::label('TypeHandicap', "Types de handicap:") !!}
     @if(!empty($consultation_handicap_patient))
         <ol>
             @foreach($consultation_handicap_patient as $consultation_handicap)

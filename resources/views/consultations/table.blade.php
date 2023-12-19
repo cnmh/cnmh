@@ -6,17 +6,22 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Téléphone</th>
-                    <th>Date enregistrement</th>
+                    <th>Date d'enregistrement</th>
                     <th>État</th>
                     <th>Orientation</th>
-                    <th>Date consultation</th>
+                    <th>Date de consultation</th>
                     <th colspan="3">Action</th>
                 </tr>
             </thead>
             <tbody>
+                @if($consultations->isEmpty())
+                <tr>
+                    <td>Aucune consultation trouvée</td>
+                </tr>
+                @else
                 @foreach($consultations as $consultation)
                 <tr>
-                    <td>{{ $consultation->id }}</td>
+                    <td>{{ $consultation->nom }}</td>
                     <td>{{ $consultation->prenom }}</td>
                     <td>{{ $consultation->telephone }}</td>
                     <td>{{ $consultation->date_enregistrement }}</td>
@@ -63,6 +68,8 @@
                 </tr>
 
                 @endforeach
+                @endif
+               
             </tbody>
         </table>
     </div>

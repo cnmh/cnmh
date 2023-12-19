@@ -3,7 +3,7 @@
     <a href="{{ route('dossier-patients.index') }}"
         class="nav-link {{ Route::is('dossier-patients.index' . '*') ? 'active' : '' }}">
         <i class="fa-solid fa-hospital-user"></i>
-        <p>Dossier beneficiers</p>
+        <p>Dossier bénéficiaires</p>
     </a>
 
 </li>

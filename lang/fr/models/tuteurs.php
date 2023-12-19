@@ -14,7 +14,7 @@ return [
     'email' => 'Email',
     'adresse' => 'Adresse',
     'cin' => 'CIN',
-    'remarques' => 'Remarques',
+    'remarques' => 'Remarque',
     'created_at' => 'Créé le',
     'updated_at' => 'Mis à jour le',
     ],

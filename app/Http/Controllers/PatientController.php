@@ -7,6 +7,8 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\NiveauScolaire;
 use App\Models\Tuteur;
+use App\Models\Patient;
+
 use App\Models\Reclamation;
 
 use App\Repositories\PatientRepository;
@@ -65,7 +67,11 @@ class PatientController extends AppBaseController
             $input['image'] = 'assets/images/' . $filename;
 
         }
-
+        $patientExiste = Patient::where('nom',$input['nom'])->first();
+        if($patientExiste){
+            Flash::error("Patient déja existé");
+            return back();
+        }
 
         $patient = $this->patientRepository->create($input);
 

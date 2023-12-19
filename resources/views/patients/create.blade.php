@@ -6,11 +6,12 @@
         <div class="row mb-2">
             <div class="p-2">
                 <h3 class="h3">Ajouter un bénéficiaires</h3>
-
             </div>
-
             <div class="col-sm-12">
                 @include('dossier_patients.stepper')
+            </div>
+            <div class="col-sm-12">
+              @include('flash::message')
             </div>
         </div>
     </div>

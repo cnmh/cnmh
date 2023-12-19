@@ -27,6 +27,7 @@
                     </div>
 
                     <div class="card-body">
+                        <p class="required-field">@lang('crud.requiredFields')</p>
                         {!! Form::open(['route' => 'tuteurs.store']) !!}
 
                         <div class="row">

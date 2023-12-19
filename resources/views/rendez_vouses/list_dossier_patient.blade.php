@@ -192,8 +192,6 @@
                                     <table class="table table-striped" id="tuteurs-table">
                                         <thead>
                                             <tr>
-
-                                                <th></th>
                                                 <th>N°Dossier</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
@@ -201,7 +199,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($dossier_patients as $dossier_patient)
+                                        @if($dossier_patients->isEmpty())
+                                           <tr>
+                                             <td class="text-center">Aucune dossier en liste d'attente</td>
+                                           </tr>
+                                        @else
+                                        @foreach ($dossier_patients as $dossier_patient)
                                                 <tr>
                                                     <td>
 
@@ -217,6 +220,7 @@
                                                 {{-- <input type="hidden" name="consultation_id" value="{{$dossier_patient->consultation_id}}" > --}}
 
                                             @endforeach
+                                        @endif
                                         </tbody>
 
                                     </table>
