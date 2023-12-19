@@ -12,7 +12,11 @@
             </tr>
             </thead>
             <tbody>
-
+            @if($rendezVouses->isEmpty())
+            <tr>
+                <td>Aucune rendez-vous trouvée</td>
+            </tr>
+            @else
             @foreach($rendezVouses as $rendezVous)
                 <tr>
                     <td>{{ $rendezVous->numero_dossier }}</td>
@@ -43,6 +47,8 @@
                 </tr>
                 
             @endforeach
+            @endif
+            
             </tbody>
         </table>
     </div>

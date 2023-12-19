@@ -9,10 +9,10 @@ use App\Models\Consultation;
 use App\Models\DossierPatientConsultation;
 use App\Models\RendezVous;
 use App\Models\DossierPatient;
-
 use App\Repositories\RendezVousRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 
 class RendezVousController extends AppBaseController
 {
@@ -172,18 +172,46 @@ class RendezVousController extends AppBaseController
      */
     public function destroy($id)
     {
+
         $rendezVous = $this->rendezVousRepository->find($id);
 
-        Consultation::where('id', $rendezVous->consultation_id)->update([
+        $consultation = Consultation::where('id', $rendezVous->consultation_id)->first();
+    
+        $consultation->update([
             'etat' => 'enAttente'
         ]);
-        
-        if (empty($rendezVous)) {
-            Flash::error(__('models/rendezVouses.singular').' '.__('messages.not_found'));
 
-            return redirect(route('rendez-vous.index'));
+
+        if (empty($rendezVous)) {
+
+            $user = auth()->user();
+
+            if($user->name === 'Medecin générale'){
+
+                $consultation = Consultation::where('id', $id)->first();
+    
+                $consultation->update([
+                    'etat' => 'enAttente'
+                ]);
+        
+                $rendezVous_consultation = $this->rendezVousRepository->where(RendezVous::class,'consultation_id',$consultation->id)->first();
+
+                if(empty($rendezVous_consultation)){
+                    Flash::error(__('models/rendezVouses.singular').' '.__('messages.not_found'));
+                    return back();
+                }
+    
+                $this->rendezVousRepository->delete($rendezVous_consultation->id);
+    
+                return back();
+    
+            }
+
+            Flash::error(__('models/rendezVouses.singular').' '.__('messages.not_found'));
+            return back();
         }
 
+        
         $this->rendezVousRepository->delete($id);
 
         Flash::success(__('messages.deleted', ['model' => __('models/rendezVouses.singular')]));
