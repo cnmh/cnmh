@@ -12,6 +12,11 @@
                 </tr>
             </thead>
             <tbody>
+                @if($dossierPatients->isEmpty())
+                <tr>
+                    <td class="text-center">Aucune dossier trouvée</td>
+                </tr>
+                @else
                 @foreach($dossierPatients as $dossierPatient)
                 <tr>
                     <td>{{ $dossierPatient->numero_dossier }}</td>
@@ -47,6 +52,8 @@
                 </tr>
 
                 @endforeach
+                @endif
+                
             </tbody>
         </table>
     </div>

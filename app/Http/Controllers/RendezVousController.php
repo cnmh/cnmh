@@ -71,6 +71,10 @@ class RendezVousController extends AppBaseController
     public function create(Request $request)
     {
         $consultation_id = $request->consultation_id;
+
+        if(empty($consultation_id)){
+            return back();
+        }
         return view('rendez_vouses.create',compact("consultation_id"));
     }
 

@@ -15,7 +15,7 @@ if (isset($url['query'])) {
 
 <!-- Fonction Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label("type d'handycapé", __('models/dossierPatients.fields.type_handicap_id')) !!}
+    {!! Form::label("type de handycape", __('models/dossierPatients.fields.type_handicap_id')) !!}
     
     {{ Form::select(
         'type_handicap_id[]',

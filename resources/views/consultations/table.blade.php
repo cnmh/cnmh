@@ -14,6 +14,11 @@
                 </tr>
             </thead>
             <tbody>
+                @if($consultations->isEmpty())
+                <tr>
+                    <td>Aucune consultation trouvée</td>
+                </tr>
+                @else
                 @foreach($consultations as $consultation)
                 <tr>
                     <td>{{ $consultation->nom }}</td>
@@ -63,6 +68,8 @@
                 </tr>
 
                 @endforeach
+                @endif
+               
             </tbody>
         </table>
     </div>

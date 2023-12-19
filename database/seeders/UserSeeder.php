@@ -154,6 +154,7 @@ class UserSeeder extends Seeder
             "edit-Tuteur",
             "destroy-Tuteur",
             "update-Tuteur",
+            "index-Tuteur",
             "create-Patient",
             "store-Patient",
             "entretien-DossierPatient",
@@ -180,6 +181,7 @@ class UserSeeder extends Seeder
             "Ajouter_RendezVous-Consultation",
             "index-DossierPatient",
             "store-Consultation",
+            "destroy-RendezVous",
         ];
         $medecin_generale->givePermissionTo($permissionMedecinGenerale);
 
