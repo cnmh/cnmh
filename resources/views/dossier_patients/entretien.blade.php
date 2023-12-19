@@ -35,8 +35,7 @@
                         </div>
                         @include('dossier_patients.stepper')
                         <div class="card-header">
-
-
+                          @include('flash::message')
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">

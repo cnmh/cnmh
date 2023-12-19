@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('prenom');
             $table->string('sexe');
             $table->string('telephone');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('adresse');
             $table->string('cin');
             $table->text('remarques')->nullable();
