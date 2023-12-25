@@ -164,12 +164,12 @@ class UserController extends AppBaseController
         $userFound = $this->userRepository->find($id);
 
         if($userFound){
-            
+
             $userFound->update([
                 'password' => $passwordHash
             ]);
 
-            Flash::success("Le mot de pass a ete initializer avec success :".$password);
+            Flash::success("Le mot de pass a ete initialisé avec succès :".$password);
 
             return back();
 
