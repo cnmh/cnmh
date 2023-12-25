@@ -82,7 +82,8 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $etatCivils])
         </div>
-        <div class="float-left">
+        {{--
+            <div class="float-left">
         @can('export-EtatCivil')
             <a href="{{ route('etatCivils.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
@@ -93,7 +94,9 @@
                 <i class="fas fa-file-import"></i> Importer
             </button>
             @endcan
-        </div>
+        </div> 
+        --}}
+       
     </div>
 </div>
 

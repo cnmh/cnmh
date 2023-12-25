@@ -54,7 +54,8 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $users])
         </div>
-        <div class="float-left d-flex">
+        {{--
+             <div class="float-left d-flex">
             @can('export-User')
 
             <form action="{{ route('users.export') }}" method="post">
@@ -71,6 +72,8 @@
                 </button>
             @endcan
         </div>
+        --}}
+       
     </div>
 </div>
 

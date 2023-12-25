@@ -69,7 +69,8 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $typeHandicaps])
         </div>
-        <div class="float-left">
+        {{--
+             <div class="float-left">
             @can('export-TypeHandicap')
             <a href="{{ route('typehandicap.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
@@ -81,6 +82,8 @@
             </button>
             @endcan
         </div>
+        --}}
+       
     </div>
 </div>
 <!-- Modal Import -->

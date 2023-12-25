@@ -44,7 +44,8 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $orientationExternes])
         </div>
-        <div class="float-left">
+        {{--
+            <div class="float-left">
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> Exporter
                                 </button>
@@ -52,5 +53,8 @@
                                     <i class="fas fa-file-import"></i> Importer
                                 </button>
         </div>
+        --}}
+
+        
     </div>
 </div>

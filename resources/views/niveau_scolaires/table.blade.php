@@ -45,7 +45,8 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $niveauScolaires])
         </div>
-        <div class="float-left">
+        {{--
+            <div class="float-left">
             @can('export-NiveauScolaire')
             <a href="{{ route('niveauScolaires.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
@@ -58,6 +59,8 @@
             @endcan
             
         </div>
+        --}}
+        
     </div>
 </div>
 

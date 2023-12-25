@@ -43,7 +43,8 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $roles])
         </div>
-        <div class="float-left">
+        {{--
+             <div class="float-left">
             @can('export-Role')
             <a href="{{ route('roles.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> Exporter
@@ -55,5 +56,7 @@
                 </button>
             @endcan
         </div>
+        --}}
+       
     </div>
 </div>
