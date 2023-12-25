@@ -13,10 +13,25 @@
 <!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
 
 <!-- TODO : migrate:fresh -> This database does not exist -->
+#### Utilisation des données initiales
+- commande pour l'autorisation
 ```bash
-  php artisan migrate:fresh
-  php artisan db:seed
-  npm run build
+  php artisan migrate
+  php artisan db:seed --class=PermissionSeeder  
+  php artisan db:seed --class=RoleSeeder  
+```
+- commande pour les paramètres de l'application
+
+```bash
+  php artisan db:seed --class=ServicesTableSeeder 
+  php artisan db:seed --class=CouvertureMedicalsTableSeeder 
+  php artisan db:seed --class=TypeHandicapsTableSeeder 
+  php artisan db:seed --class=EmployesTableSeeder 
+  php artisan db:seed --class=EtatCivilsTableSeeder
+  php artisan db:seed --class=NiveauScolairesTableSeeder 
+  php artisan db:seed --class=SocialUserSeeder 
+  php artisan db:seed --class=MedecinSeeder 
+  php artisan db:seed --class=AdminSeeder
 ```
 # Démonstration de l'application 
 
