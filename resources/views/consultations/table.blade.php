@@ -75,6 +75,7 @@
     </div>
 </div>
 <div class="card-footer clearfix">
+    {{--
     <div class="float-left d-flex">
         <form action="{{ route('consultations.export') }}" method="post">
             @csrf 
@@ -86,7 +87,7 @@
         <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
         </button>
-    </div>
+    </div>--}}
     <div class="float-right">
         @include('adminlte-templates::common.paginate', ['records' => $consultations])
     </div>

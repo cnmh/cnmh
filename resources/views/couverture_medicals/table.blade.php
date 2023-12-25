@@ -44,6 +44,7 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $couvertureMedicals])
         </div>
+        {{--
         <div class="float-left">
             @can('export-CouvertureMedical')
                 <a href="{{ route('couvertureMedicals.export') }}" class="btn btn-default swalDefaultQuestion">
@@ -56,6 +57,8 @@
                 </button>
             @endcan
         </div>
+        --}}
+        
     </div>
 </div>
 

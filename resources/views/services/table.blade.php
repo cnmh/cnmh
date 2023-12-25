@@ -46,7 +46,8 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $services])
         </div>
-        <div class="float-left">
+        {{--
+           <div class="float-left">
             @can('export-Service')
             <a href="{{ route('services.export') }}" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> @lang('crud.export')
@@ -57,7 +58,9 @@
                 <i class="fas fa-file-import"></i> @lang('crud.import')
             </button>
             @endcan
-        </div>
+        </div> 
+        --}}
+        
     </div>
 </div>
 
