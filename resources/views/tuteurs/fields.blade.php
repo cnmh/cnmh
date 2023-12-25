@@ -61,7 +61,7 @@
 
 <!-- Email Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('Email', __('models/tuteurs.fields.email') . ':') !!}
+    {!! Form::label('Email', __('models/tuteurs.fields.email') . ':') !!}<span class="required-field">*</span></label>
     {!! Form::email('email', old('email'), [
         'class' => 'form-control',
         'maxlength' => 255,
