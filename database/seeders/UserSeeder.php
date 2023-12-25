@@ -19,6 +19,53 @@ class UserSeeder extends Seeder
         $password = Hash::make("admin");
         $social = Hash::make("social");
         $medecin = Hash::make("medecin");
+        $root = Hash::make("root");
+
+        $rootUser = User::create([
+            'name' => 'root',
+            'email' => 'root@gmail.com',
+            'password' => $root,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+        $rootUser->assignRole('root');
+
+        $permissionRoot = [
+            'index-Permission',
+            'create-Permission',
+            'show-Permission',
+            'store-Permission',
+            'edit-Permission',
+            'update-Permission',
+            'destroy-Permission',
+            'export-Permission',
+            'import-Permission',
+            'index-Role',
+            'store-Role',
+            'create-Role',
+            'export-Role',
+            'import-Role',
+            'show-Role',
+            'edit-Role',
+            'update-Role',
+            'destroy-Role',
+            'addPermissionsAuto-Permission',
+            'showRolePermission-Permission',
+            'assignRolePermission-Permission',
+            'getPermissionsAction-Permission',
+            'userAssignedPermissions-Permission',
+            'index-User',
+            'create-User',
+            'store-User',
+            'show-User',
+            'edit-User',
+            'update-User',
+            'destroy-User',
+            'import-User',
+            'export-User',
+        ];
+
+        $rootUser->givePermissionTo($permissionRoot);
 
         $admin = User::create([
             'name' => 'admin',
@@ -39,24 +86,6 @@ class UserSeeder extends Seeder
             'destroy-EtatCivil',
             'export-EtatCivil',
             'import-EtatCivil',
-            'index-Permission',
-            'create-Permission',
-            'show-Permission',
-            'store-Permission',
-            'edit-Permission',
-            'update-Permission',
-            'destroy-Permission',
-            'export-Permission',
-            'import-Permission',
-            'index-Role',
-            'store-Role',
-            'create-Role',
-            'export-Role',
-            'import-Role',
-            'show-Role',
-            'edit-Role',
-            'update-Role',
-            'destroy-Role',
             'index-Employe',
             'create-Employe',
             'store-Employe',
@@ -102,20 +131,6 @@ class UserSeeder extends Seeder
             'destroy-NiveauScolaire',
             'export-NiveauScolaire',
             'import-NiveauScolaire',
-            'addPermissionsAuto-Permission',
-            'showRolePermission-Permission',
-            'assignRolePermission-Permission',
-            'getPermissionsAction-Permission',
-            'userAssignedPermissions-Permission',
-            'index-User',
-            'create-User',
-            'store-User',
-            'show-User',
-            'edit-User',
-            'update-User',
-            'destroy-User',
-            'import-User',
-            'export-User',
 
         ];
         $admin->givePermissionTo($permissionAdmin);
