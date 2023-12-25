@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportUser;
 use App\Imports\ImportUser;
+use Illuminate\Support\Str;
 
 use Flash;
 
@@ -152,6 +153,28 @@ class UserController extends AppBaseController
     {
         Excel::import(new ImportUser, $request->file('file')->store('files'));
         return redirect()->back();
+    }
+
+    public function InitialiserMtp($id){
+
+        $password = Str::random(9);
+
+        $passwordHash = Hash::make($password);
+
+        $userFound = $this->userRepository->find($id);
+
+        if($userFound){
+            
+            $userFound->update([
+                'password' => $passwordHash
+            ]);
+
+            Flash::success("Le mot de pass a ete initializer avec success :".$password);
+
+            return back();
+
+        }
+
     }
 
 
