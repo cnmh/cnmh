@@ -75,19 +75,21 @@
     </div>
 </div>
 <div class="card-footer clearfix">
-    {{--
     <div class="float-left d-flex">
+        @can('export-Consultation')
         <form action="{{ route('consultations.export') }}" method="post">
             @csrf 
             <button type="submit" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> @lang('crud.export')
             </button>
         </form>
-        
+        @endcan
+        @can('import-Consultation')
         <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
         </button>
-    </div>--}}
+        @endcan
+    </div>
     <div class="float-right">
         @include('adminlte-templates::common.paginate', ['records' => $consultations])
     </div>

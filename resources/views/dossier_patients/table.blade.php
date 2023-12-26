@@ -62,7 +62,7 @@
 </div>
 
 <div class="card-footer clearfix">
-    {{--<div class="float-left">
+    <div class="float-left">
         @can('export-DossierPatient')
         <a class="btn btn-default swalDefaultQuestion" href="{{ route('dossier-patients.export') }}"><i
                 class="fas fa-download"></i>@lang('crud.export')</a>
@@ -74,7 +74,7 @@
         </button>
         @endcan
        
-    </div> --}}
+    </div>
     <div class="float-right">
         @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])
     </div>

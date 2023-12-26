@@ -46,7 +46,6 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $services])
         </div>
-        {{--
            <div class="float-left">
             @can('export-Service')
             <a href="{{ route('services.export') }}" class="btn btn-default swalDefaultQuestion">
@@ -59,7 +58,7 @@
             </button>
             @endcan
         </div> 
-        --}}
+        
         
     </div>
 </div>

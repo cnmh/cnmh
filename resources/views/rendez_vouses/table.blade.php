@@ -57,7 +57,6 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $rendezVouses])
         </div>
-        {{--
          <div class="float-left">
                                 @can('export-RendezVous')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
@@ -70,7 +69,6 @@
                                 </button>
                                 @endcan
         </div>
-        --}}
        
     </div>
 </div>

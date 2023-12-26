@@ -138,16 +138,19 @@
                                     <div class="float-right">
                                         {{-- @include('adminlte-templates::common.paginate', ['records' => $patients]) --}}
                                     </div>
-                                    {{--
                                     <div class="float-left">
+                                        @can('export-Patient')
                                         <button type="button" class="btn btn-default swalDefaultQuestion">
                                             <i class="fas fa-download"></i> @lang('crud.export')
                                         </button>
+                                        @endcan
+                                        @can('import-Patient')
                                         <button type="button" class="btn btn-default swalDefaultQuestion">
                                             <i class="fas fa-file-import"></i> @lang('crud.import')
                                         </button>
+                                        @endcan
                                     </div>
-                                    --}}
+                                    
                                 </div> 
                             
                            
