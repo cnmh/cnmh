@@ -23,16 +23,9 @@
 - commande pour les paramètres de l'application
 
 ```bash
-  php artisan db:seed --class=ServicesTableSeeder 
-  php artisan db:seed --class=CouvertureMedicalsTableSeeder 
-  php artisan db:seed --class=TypeHandicapsTableSeeder 
-  php artisan db:seed --class=EmployesTableSeeder 
-  php artisan db:seed --class=EtatCivilsTableSeeder
-  php artisan db:seed --class=NiveauScolairesTableSeeder 
-  php artisan db:seed --class=SocialUserSeeder 
-  php artisan db:seed --class=MedecinSeeder 
-  php artisan db:seed --class=AdminSeeder
+  php artisan db:seed --class=ParamaitresSeeder
 ```
+
 # Démonstration de l'application 
 
 - Email : admin@gmail.com
