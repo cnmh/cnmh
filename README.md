@@ -14,11 +14,16 @@
 
 <!-- TODO : migrate:fresh -> This database does not exist -->
 #### Utilisation des données initiales
+
+- Commande pour ajouter des tables dans une base de données
+
+```bash
+php artisan migrate
+```
+
 - commande pour l'autorisation
 ```bash
-  php artisan migrate
-  php artisan db:seed --class=PermissionSeeder  
-  php artisan db:seed --class=RoleSeeder  
+  php artisan db:seed --class=AuthorisationSeeder 
 ```
 - commande pour les paramètres de l'application
 
