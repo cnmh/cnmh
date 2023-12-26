@@ -13,11 +13,24 @@
 <!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
 
 <!-- TODO : migrate:fresh -> This database does not exist -->
+#### Utilisation des données initiales
+
+- Commande pour ajouter des tables dans une base de données
+
 ```bash
-  php artisan migrate:fresh
-  php artisan db:seed
-  npm run build
+php artisan migrate
 ```
+
+- commande pour l'autorisation
+```bash
+  php artisan db:seed --class=AuthorisationSeeder 
+```
+- commande pour les paramètres de l'application
+
+```bash
+  php artisan db:seed --class=ParamaitresSeeder
+```
+
 # Démonstration de l'application 
 
 - Email : admin@gmail.com
