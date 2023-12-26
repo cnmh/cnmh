@@ -66,7 +66,7 @@ class AppMenuSeeder extends Seeder
                 'nom' => __("List d'attente"),
                 'description' => "service social",
                 'icon' => null,
-                'url' => '/consultations/liste-attente',
+                'url' => 'consultations.index',
                 'menu_group_id' => $serviceSocialGroup->id,
             ],
             [
