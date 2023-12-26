@@ -16,12 +16,13 @@
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            {{--
-                            <a href="{{ route('users.show', [$user->id]) }}"
-                               class='btn btn-default btn-sm'>
-                                <i class="far fa-eye"></i>
+                            
+                            <a href="{{ route('users.initialiserMtp', [$user->id]) }}"
+                               class='btn btn-default btn-sm d-flex'>
+                                <i class="fas fa-lock mr-2 mt-1"></i>
+                                Initialiser
                             </a> 
-                            --}}
+                            
                             @can('update-User')
 
                             <a href="{{ route('manage.role.permission', [$user->id]) }}" class='btn btn-default btn-sm d-flex'>

@@ -20,7 +20,7 @@
                 @foreach($dossierPatients as $dossierPatient)
                 <tr>
                     <td>{{ $dossierPatient->numero_dossier }}</td>
-                    <td>{{ $dossierPatient->patient->nom }}</td>
+                    <td>{{ $dossierPatient->patient->nom }} {{ $dossierPatient->patient->prenom }}</td>
                     {{-- <td>{{ $dossierPatient->couvertureMedical->nom }}</td> --}}
                     <td><span class="badge bg-success">{{ $dossierPatient->etat }}</span></td>
                     {{-- <td>{{ $dossierPatient->date_enregsitrement }}</td> --}}
