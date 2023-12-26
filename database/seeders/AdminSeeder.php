@@ -82,7 +82,6 @@ class AdminSeeder extends Seeder
             'destroy-NiveauScolaire',
             'export-NiveauScolaire',
             'import-NiveauScolaire',
-
         ];
         $admin->givePermissionTo($permissionAdmin);
 
