@@ -48,15 +48,7 @@ class HomeController extends Controller
                 $reussirRendezVous = 100;
             }
         }
-        $chartData = [
-            ['Label', 'Dossiers bénéficiaires', 'Bénéficiaires', 'Tuteurs'],
-            ['Dossiers bénéficiaires', $dossierCount, 0, 0],
-            ['Bénéficiaires', 0, $patientCount, 0],
-            ['Tuteurs', 0, 0, $tuteurCount],
-        ];
-
-        $data = json_encode($chartData);
-
-        return View::make('home', compact('data','dossierEnAttend','dossierEnRendezVous','dossierEnConsultation','reussirRendezVous'));
+       
+        return View::make('home', compact('dossierCount','patientCount','tuteurCount','reussirRendezVous'));
     }
 }

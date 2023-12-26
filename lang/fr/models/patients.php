@@ -3,6 +3,7 @@
 return [
     'singular' => 'bénéficiaire',
     'plural' => 'bénéficiaires',
+    'plural_M' => 'Bénéficiaires',
     'fields' => [
         'id' => 'ID',
         'tuteur_id' => 'Tuteur',

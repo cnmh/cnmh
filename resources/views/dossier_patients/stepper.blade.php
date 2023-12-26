@@ -141,7 +141,7 @@
     </div>
     <div class="md-step active done">
         <div class="md-step-circle" id="step2"><span>2</span></div>
-        <div class="md-step-title">@lang('models/patients.plural')</div>
+        <div class="md-step-title">@lang('models/patients.plural_M')</div>
         <div class="md-step-bar-left"></div>
         <div class="md-step-bar-right"></div>
     </div>

@@ -148,6 +148,8 @@ Route::post('/import_permissions', [App\Http\Controllers\PermissionController::c
 Route::resource('users', App\Http\Controllers\UserController::class);
 Route::post('/user/export',[App\Http\Controllers\UserController::class,'export'])->name('users.export');
 Route::post('/user/import',[App\Http\Controllers\UserController::class,'import'])->name('users.import');
+Route::get('/user/{id}/password/initialiser',[App\Http\Controllers\UserController::class,'InitialiserMtp'])->name('users.initialiserMtp');
+
 
 
 Route::get('/manage/permissions-roles/{id}', [App\Http\Controllers\PermissionController::class, 'showRolePermission'])->name('manage.role.permission');

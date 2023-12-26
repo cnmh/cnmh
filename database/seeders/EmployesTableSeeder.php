@@ -22,7 +22,6 @@ class EmployesTableSeeder extends Seeder
         $niveauScholaire = Employe::insert([
             [
                 'nom' => ' souan',
-
                 'prenom'=>'Khawla',
                 'email'=>'khawla@gmail.com',
                 'telephone'=>'0600000001',
