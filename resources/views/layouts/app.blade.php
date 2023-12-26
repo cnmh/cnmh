@@ -107,4 +107,16 @@
     });
     </script>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var editLink = document.getElementById('editLink');
+        var beneficiaireSelect = document.getElementById('beneficiaire_select');
+        beneficiaireSelect.addEventListener('change', function() {
+            var selectedId = beneficiaireSelect.value;
+            var editUrl = {{ route('patients.edit', '') }}/' + selectedId;
+            editLink.href = editUrl;
+        });
+    });
+    </script>
+
 @endpush

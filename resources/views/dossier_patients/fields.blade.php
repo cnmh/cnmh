@@ -16,7 +16,7 @@ if (isset($url['query'])) {
 <!-- Fonction Field -->
 <div class="form-group col-sm-6">
     {!! Form::label("type de handycape", __('models/dossierPatients.fields.type_handicap_id')) !!}
-    
+
     {{ Form::select(
         'type_handicap_id[]',
         $type_handicap->pluck('nom', 'id')->toArray(),
@@ -30,7 +30,7 @@ if (isset($url['query'])) {
 <div class="form-group col-sm-6">
     {!! Form::label("Services", __('models/services.fields.service_dm')) !!}
     <br>
-    
+
     {{ Form::select(
         'services_id[]',
         $services->pluck('nom', 'id')->toArray(),
@@ -39,6 +39,54 @@ if (isset($url['query'])) {
     ) }}
 </div>
 
+@if($editMode)
+
+<!-- Tuteur field -->
+
+<div class="form-group col-sm-6">
+    {!! Form::label("Tuteur", __('Tuteur')) !!}
+    <br>
+
+    {{ Form::select(
+        'tuteur_id',
+        [$tuteur->id => $tuteur->nom . ' ' . $tuteur->prenom],
+        null,
+        ['class' => 'form-control', 'id'=> 'tuteur_select']
+    ) }}
+</div>
+
+
+<!-- Patient field -->
+<div class="form-group col-sm-6">
+    {!! Form::label("Bénéficiaire", __('Bénéficiaire')) !!}
+    @if($patients_tuteur->count() > 1)
+    <div class="d-flex">
+        {{ Form::select(
+            'beneficiaire_id',
+            $patients_tuteur->pluck('nom','id'),
+            null,
+            ['class' => 'form-control', 'id' => 'beneficiaire_select']
+        ) }}
+
+        <a href="#" class="btn btn-primary ml-2" id="editLink">Edit</a>
+    </div>
+
+    @else
+    <div class="d-flex">
+        {{ Form::select(
+        'beneficiaire_id',
+        [$patients_tuteur[0]->id => $patients_tuteur[0]->nom . ' ' . $patients_tuteur[0]->prenom],
+        null,
+        ['class' => 'form-control', 'id'=> 'beneficiaire_select']
+    ) }}
+        <a href="{{ route('patients.edit', $beneficiaires[0]->id) }}" class="btn btn-primary ml-2">Edit</a>
+    </div>
+
+    @endif
+</div>
+
+
+@endif
 
 <!-- Couverture Medical Id Field -->
 <div class="form-group col-sm-12">
@@ -62,7 +110,8 @@ if (isset($url['query'])) {
 <!-- Date Enregsitrement Field -->
 <div class="form-group col-sm-6 d-none">
     {!! Form::label('date_enregsitrement', __('models/dossierPatients.fields.date_enregsitrement')) !!}
-    {!! Form::datetimeLocal('date_enregsitrement', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control','id'=>'date_enregsitrement']) !!}
+    {!! Form::datetimeLocal('date_enregsitrement', now()->format('Y-m-d\TH:i:s'), ['class' =>
+    'form-control','id'=>'date_enregsitrement']) !!}
 </div>
 
 
