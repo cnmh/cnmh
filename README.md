@@ -108,3 +108,17 @@ php artisan migrate
   npm run build
 ```
 
+# Maintenance 
+
+##  Mise à jour des permissions
+
+1. Clean Table permission
+
+```sql
+Delete FROM laravel.model_has_permissions;
+```
+
+2. Ajouter les persmission par la commande suivant : 
+```bash
+  php artisan db:seed --class=AuthorisationSeeder 
+```
