@@ -16,10 +16,15 @@ Notre projet vise à moderniser la gestion des dossiers patients au Centre Natio
 <!-- TODO fixed: migrate:fresh -> This database does not exist -->
 #### Utilisation des données initiales
 
-- Commande pour ajouter des tables dans une base de données
+- Creer un fichier env
 
 ```bash
 cp .env.example .env
+```
+
+- Commande pour ajouter des tables dans une base de données
+
+```bash
 php artisan migrate
 ```
 
@@ -92,11 +97,18 @@ php artisan migrate
     }
 
 
-### Installation de l'application
 
-- Creer un fichier env
-  
+# Maintenance 
+
+##  Mise à jour des permissions
+
+1. Clean Table permission
+
+```sql
+Delete FROM laravel.model_has_permissions;
+```
+
+2. Ajouter les persmission par la commande suivant : 
 ```bash
-  npm install
-  composer install
+  php artisan db:seed --class=AuthorisationSeeder 
 ```
