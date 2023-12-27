@@ -56,6 +56,7 @@
                 </button>
             @endcan
         </div>
+        
     </div>
 </div>
 

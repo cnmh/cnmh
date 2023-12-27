@@ -57,7 +57,7 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $rendezVouses])
         </div>
-        <div class="float-left">
+         <div class="float-left">
                                 @can('export-RendezVous')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> @lang('crud.export')
@@ -69,5 +69,6 @@
                                 </button>
                                 @endcan
         </div>
+       
     </div>
 </div>

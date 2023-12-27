@@ -29,7 +29,6 @@ class UserSeeder extends Seeder
             'updated_at' => $now,
         ]);
         $rootUser->assignRole('root');
-
         $permissionRoot = [
             'index-Permission',
             'create-Permission',
@@ -38,13 +37,9 @@ class UserSeeder extends Seeder
             'edit-Permission',
             'update-Permission',
             'destroy-Permission',
-            'export-Permission',
-            'import-Permission',
             'index-Role',
             'store-Role',
             'create-Role',
-            'export-Role',
-            'import-Role',
             'show-Role',
             'edit-Role',
             'update-Role',
@@ -61,8 +56,6 @@ class UserSeeder extends Seeder
             'edit-User',
             'update-User',
             'destroy-User',
-            'import-User',
-            'export-User',
         ];
 
         $rootUser->givePermissionTo($permissionRoot);
@@ -84,8 +77,6 @@ class UserSeeder extends Seeder
             'store-EtatCivil',
             'update-EtatCivil',
             'destroy-EtatCivil',
-            'export-EtatCivil',
-            'import-EtatCivil',
             'index-Employe',
             'create-Employe',
             'store-Employe',
@@ -93,8 +84,6 @@ class UserSeeder extends Seeder
             'edit-Employe',
             'update-Employe',
             'destroy-Employe',
-            'export-Employe',
-            'import-Employe',
             'index-CouvertureMedical',
             'create-CouvertureMedical',
             'store-CouvertureMedical',
@@ -102,8 +91,6 @@ class UserSeeder extends Seeder
             'edit-CouvertureMedical',
             'update-CouvertureMedical',
             'destroy-CouvertureMedical',
-            'export-CouvertureMedical',
-            'import-CouvertureMedical',
             'index-TypeHandicap',
             'create-TypeHandicap',
             'store-TypeHandicap',
@@ -111,8 +98,6 @@ class UserSeeder extends Seeder
             'edit-TypeHandicap',
             'update-TypeHandicap',
             'destroy-TypeHandicap',
-            'export-TypeHandicap',
-            'import-TypeHandicap',
             'index-Service',
             'create-Service',
             'store-Service',
@@ -120,8 +105,6 @@ class UserSeeder extends Seeder
             'edit-Service',
             'update-Service',
             'destroy-Service',
-            'export-Service',
-            'import-Service',
             'index-NiveauScolaire',
             'show-NiveauScolaire',
             'create-NiveauScolaire',
@@ -129,8 +112,8 @@ class UserSeeder extends Seeder
             'edit-NiveauScolaire',
             'update-NiveauScolaire',
             'destroy-NiveauScolaire',
-            'export-NiveauScolaire',
-            'import-NiveauScolaire',
+
+
 
         ];
         $admin->givePermissionTo($permissionAdmin);
@@ -164,8 +147,6 @@ class UserSeeder extends Seeder
             "patient-DossierPatient",
             "store-Tuteur",
             "show-Tuteur",
-            "export-Tuteur",
-            "import-Tuteur",
             "edit-Tuteur",
             "destroy-Tuteur",
             "update-Tuteur",
@@ -174,8 +155,6 @@ class UserSeeder extends Seeder
             "store-Patient",
             "entretien-DossierPatient",
             "show-DossierPatient",
-            "export-DossierPatient",
-            "import-DossierPatient",
 
         ];
         $service_social->givePermissionTo($permissionServiceSocial);
