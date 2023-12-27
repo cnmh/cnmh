@@ -46,45 +46,29 @@ if (isset($url['query'])) {
 <div class="form-group col-sm-6">
     {!! Form::label("Tuteur", __('Tuteur')) !!}
     <br>
-
+    <div class="d-flex">
     {{ Form::select(
         'tuteur_id',
         [$tuteur->id => $tuteur->nom . ' ' . $tuteur->prenom],
         null,
         ['class' => 'form-control', 'id'=> 'tuteur_select']
     ) }}
+       <a href="/tuteurs/{{$tuteur->id}}/edit" class="btn btn-primary ml-2">Edit</a>
+    </div>
 </div>
 
 
 <!-- Patient field -->
 <div class="form-group col-sm-6">
-    {!! Form::label("Bénéficiaire", __('Bénéficiaire')) !!}
-    @if($patients_tuteur->count() > 1)
+    <label for="beneficiaire_select">Bénéficiaire</label>
     <div class="d-flex">
-        <select name="patient_id" id="">
-            
+        <select name="patient_id" id="" class="form-control" id="beneficiaire_select">
+            @foreach($patients_tuteur as $patient_itemt)
+            <option value="{{ $patient_itemt->id }}">{{ $patient_itemt->nom }} {{ $patient_itemt->prenom }}</option>
+            @endforeach
         </select>
-        {{ Form::select(
-            'patient_id',
-            $patients_tuteur->pluck('nom','id'),
-            null,
-            ['class' => 'form-control', 'id' => 'beneficiaire_select']
-        ) }}
-        <a href="/patients/edit/{{$patients_tuteur[0]->id}}" class="btn btn-primary ml-2" id="editLink">Edit</a>
+        <a href="/patients/{{$patients_tuteur[0]->id}}/edit" class="btn btn-primary ml-2" id="editLink">Edit</a>
     </div>
-
-    @else
-    <div class="d-flex">
-        {{ Form::select(
-        'beneficiaire_id',
-        [$patients_tuteur[0]->id => $patients_tuteur[0]->nom . ' ' . $patients_tuteur[0]->prenom],
-        null,
-        ['class' => 'form-control', 'id'=> 'beneficiaire_select']
-    ) }}
-        <a href="{{ route('patients.edit', $beneficiaires[0]->id) }}" class="btn btn-primary ml-2">Edit</a>
-    </div>
-
-    @endif
 </div>
 
 
@@ -114,14 +98,6 @@ if (isset($url['query'])) {
     {!! Form::label('date_enregsitrement', __('models/dossierPatients.fields.date_enregsitrement')) !!}
     {!! Form::datetimeLocal('date_enregsitrement', now()->format('Y-m-d\TH:i:s'), ['class' =>
     'form-control','id'=>'date_enregsitrement']) !!}
-</div>
-
-
-
-<!-- Patient Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('patient_id', __('models/dossierPatients.fields.patient_id'), ['hidden']) !!}
-    {!! Form::number('patient_id', $patientId, ['class' => 'form-control', 'required', 'hidden']) !!}
 </div>
 
 
