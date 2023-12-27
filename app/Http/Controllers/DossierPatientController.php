@@ -92,7 +92,7 @@ class DossierPatientController extends AppBaseController
      */
     public function create()
     {
-        return view('dossier_patients.create',compact('editMode'));
+        return view('dossier_patients.create');
     }
 
     /**
