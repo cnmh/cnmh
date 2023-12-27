@@ -61,14 +61,16 @@ if (isset($url['query'])) {
     {!! Form::label("Bénéficiaire", __('Bénéficiaire')) !!}
     @if($patients_tuteur->count() > 1)
     <div class="d-flex">
+        <select name="patient_id" id="">
+            
+        </select>
         {{ Form::select(
-            'beneficiaire_id',
+            'patient_id',
             $patients_tuteur->pluck('nom','id'),
             null,
             ['class' => 'form-control', 'id' => 'beneficiaire_select']
         ) }}
-
-        <a href="#" class="btn btn-primary ml-2" id="editLink">Edit</a>
+        <a href="/patients/edit/{{$patients_tuteur[0]->id}}" class="btn btn-primary ml-2" id="editLink">Edit</a>
     </div>
 
     @else
