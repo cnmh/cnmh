@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Flash;
 use App\Models\Patient;
+use App\Models\Tuteur;
 use App\Models\Service;
 use App\Models\RendezVous;
 use App\Models\Consultation;
@@ -256,6 +257,20 @@ class DossierPatientController extends AppBaseController
             return redirect(route('dossier-patients.index'));
         }
 
+        $patient_id = $dossierPatient->patient_id;
+
+        $editMode = true; 
+        
+        $beneficiaires_tuteur = Patient::where('id', $patient_id)->first();
+
+        $patients_tuteur = Patient::where('tuteur_id',$beneficiaires_tuteur->tuteur_id)->get();
+
+        $tuteur = Tuteur::where('id', $beneficiaires_tuteur->tuteur_id)->first();
+
+        
+       
+        
+        
         $type_handicap = TypeHandicap::all();
         $couverture_medical = CouvertureMedical::all();
         $dossierPatientID = $dossierPatient->id; 
@@ -276,7 +291,7 @@ class DossierPatientController extends AppBaseController
 
         $patientId = $dossierPatient->patient_id;
 
-        return view('dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient','service_patient','services'));
+        return view('dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient','service_patient','services','patients_tuteur','tuteur','editMode'));
     }
 
     /**
@@ -397,10 +412,11 @@ class DossierPatientController extends AppBaseController
     }
     public function entretien(Request $request)
     {
+        $editMode = false; 
         $couverture_medical = CouvertureMedical::all();
         $type_handicap = TypeHandicap::all();
         $services = Service::all();
-        return view('dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services'));
+        return view('dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services','editMode'));
     }
     public function export()
     {
