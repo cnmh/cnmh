@@ -187,7 +187,7 @@
 
                             </h3>
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body">
                             {!! Form::open(['route' => 'rendez-vous.store', 'method' => 'post']) !!}
 
                             <div class="row">
