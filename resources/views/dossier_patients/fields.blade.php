@@ -100,6 +100,10 @@ if (isset($url['query'])) {
     'form-control','id'=>'date_enregsitrement']) !!}
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('patient_id', __('models/dossierPatients.fields.patient_id'), ['hidden']) !!}
+    {!! Form::number('patient_id', $patientId, ['class' => 'form-control', 'required', 'hidden']) !!}
+</div>
 
 <!-- Etat Field -->
 <div class="form-group col-sm-6">
