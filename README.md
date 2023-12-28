@@ -1,7 +1,8 @@
-<!-- TODO : Changer le nom du projet -->
+<!-- TODO fixed : Changer le nom du projet -->
 # cnmh2 
 
-<!-- TODO : Introduction -->
+<!-- TODO fixed: Introduction -->
+Notre projet vise à moderniser la gestion des dossiers patients au Centre National Mohammed VI des Handicapés (CNMH). En passant de la documentation papier à la digitalisation, nous résolvons les problèmes de collecte et d'analyse des données, permettant ainsi une gestion plus efficace et une analyse statistique améliorée
 
 ### Installation de l'application
 
@@ -10,10 +11,16 @@
   composer install
 ```
 
-<!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
+<!-- TODO fixed: Ajoutez des instruction d'installation de fichier d'environnement -->
 
-<!-- TODO : migrate:fresh -> This database does not exist -->
+<!-- TODO fixed: migrate:fresh -> This database does not exist -->
 #### Utilisation des données initiales
+
+- Creer un fichier env
+
+```bash
+cp .env.example .env
+```
 
 - Commande pour ajouter des tables dans une base de données
 
@@ -90,23 +97,6 @@ php artisan migrate
     }
 
 
-### Installation de l'application
-
-- Creer un fichier env
-  
-```bash
-  npm install
-  composer install
-```
-
-<!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
-
-<!-- TODO : migrate:fresh -> This database does not exist -->
-```bash
-  php artisan migrate:fresh
-  php artisan db:seed
-  npm run build
-```
 
 # Maintenance 
 
