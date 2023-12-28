@@ -110,7 +110,7 @@ php artisan migrate
 
 # Maintenance 
 
-##  Mise à jour des permissions
+##  Mise à jour des autorisations
 
 1. Clean Table permission
 
