@@ -21,13 +21,13 @@
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
             <a href="/consultations/liste-attente" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
-                <p>Liste de attente </p>
+                <p>Liste d'attente médecin</p>
             </a>
         </li>
 
         <li class="nav-item">
             <a href="{{ route('rendez-vous.index') }}" class="nav-link {{ Route::is('rendez-vous.index' . '*') ? 'active' : '' }}">
-                <p>Rendez-vous-médecin </p>
+                <p>Rendez vous médecin </p>
             </a>
         </li>
     </ul>

@@ -3,13 +3,11 @@
         <table class="table table-striped" id="consultations-table">
             <thead>
                 <tr>
+                    <th>Numéro dossier</th>
                     <th>Nom</th>
                     <th>Prénom</th>
-                    <th>Téléphone</th>
                     <th>Date d'enregistrement</th>
                     <th>État</th>
-                    <th>Orientation</th>
-                    <th>Date de consultation</th>
                     <th colspan="3">Action</th>
                 </tr>
             </thead>
@@ -21,9 +19,9 @@
                 @else
                 @foreach($consultations as $consultation)
                 <tr>
+                    <td>{{ $consultation->numero_dossier }}</td>
                     <td>{{ $consultation->nom }}</td>
                     <td>{{ $consultation->prenom }}</td>
-                    <td>{{ $consultation->telephone }}</td>
                     <td>{{ $consultation->date_enregistrement }}</td>
                     <td>
                         @if($consultation->etat === 'enRendezVous')
@@ -34,12 +32,6 @@
                         En consultation
                         @endif
                     </td>
-                    <td>
-                        @if($consultation->type === 'medecinGeneral')
-                        Médecin générale
-                        @endif
-                    </td>
-                    <td>{{ $consultation->date_consultation }}</td>
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['consultations.destroy', $consultation->id], 'method' => 'delete'])
                         !!}
