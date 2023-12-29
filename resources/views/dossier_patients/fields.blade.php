@@ -62,7 +62,7 @@ if (isset($url['query'])) {
 <div class="form-group col-sm-6">
     <label for="beneficiaire_select">Bénéficiaire</label>
     <div class="d-flex">
-        <select name="patient_id" id="" class="form-control" id="beneficiaire_select">
+        <select name="patient_id" class="form-control" id="beneficiaire_select">
             @foreach($patients_tuteur as $patient_itemt)
             <option value="{{ $patient_itemt->id }}">{{ $patient_itemt->nom }} {{ $patient_itemt->prenom }}</option>
             @endforeach

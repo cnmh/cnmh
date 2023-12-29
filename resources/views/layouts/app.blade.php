@@ -113,7 +113,7 @@
         var beneficiaireSelect = document.getElementById('beneficiaire_select');
         beneficiaireSelect.addEventListener('change', function() {
             var selectedId = beneficiaireSelect.value;
-            var editUrl = '/patients/edit/' + selectedId;
+            var editUrl = '/patients/' + selectedId + '/edit';
 
             console.log(editUrl);
             editLink.href = editUrl;
