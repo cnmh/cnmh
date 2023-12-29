@@ -189,7 +189,7 @@
 
 @push('page_scripts')
     <script>
-          const tableContainer = $('#table-container')
+        const tableContainer = $('#table-container')
         var searchQuery = ''
 
         const search = (query = '', page = 1) => {
@@ -223,7 +223,13 @@
                 search(searchQuery)
             })
             updatePaginationLinks()
+        var parentId = {{ request('tuteur_id') ?: 'null' }};
+    if (parentId) {
+        $("input[name='parentRadio'][value='" + parentId + "']").prop('checked', true);
+    }
         })
+
+
 
         function deleteTuteur(tuteurId) {
             const confirmDelete = confirm('Are you sure?');
@@ -250,6 +256,7 @@
                 form.submit();
             }
         }
+
     </script>
 
 @endpush
