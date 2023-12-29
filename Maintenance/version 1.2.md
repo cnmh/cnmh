@@ -7,3 +7,4 @@
 
 ## Liste des problèmes résolues
 
+- Entretien social : Rechercher tuteur ne marche pas #127
