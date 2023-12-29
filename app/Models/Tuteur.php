@@ -37,7 +37,7 @@ class Tuteur extends Model
         'prenom' => 'required|string|max:255',
         'sexe' => 'required|string|max:255',
         'telephone' => 'required|string|max:255',
-        'email' => 'required|string|max:255',
+        'email' => 'nullable|string|max:255',
         'adresse' => 'required|string|max:255',
         'cin' => 'required|string|max:255',
         'remarques' => 'nullable|string|max:65535',
