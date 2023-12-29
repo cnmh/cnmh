@@ -62,7 +62,7 @@ class TuteurController extends AppBaseController
         $input = $request->all();
 
 
-        $tuteurExiste = $this->tuteurRepository->where(Tuteur::class,'nom',$input['nom'])->orwhere('prenom',$input['prenom'])->first();
+        $tuteurExiste = $this->tuteurRepository->where(Tuteur::class,'cin',$input['cin'])->first();
 
         if($tuteurExiste){
             Flash::error('Tuteur est déja existe');
