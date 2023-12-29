@@ -13,6 +13,11 @@ class Maintenance_1_1_1 extends Seeder
      */
     public function run(): void
     {
+
+        /**
+         * Attribuer autorisation au service social 
+         */
+
         $serviceSocial = User::where('name', 'service social')->first();
 
         if ($serviceSocial) {
