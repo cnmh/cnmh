@@ -8,6 +8,15 @@ use App\Models\Fonction;
 
 use Illuminate\Database\Seeder;
 
+
+/**
+ * Class EmployesTableSeeder
+ *
+ * @author Amine Lamchatab
+ * CodeCampers
+ */
+
+
 class EmployesTableSeeder extends Seeder
 {
     /**

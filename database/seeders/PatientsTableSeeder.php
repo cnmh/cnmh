@@ -8,6 +8,16 @@ use App\Models\NiveauScolaire;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
+
+
+/**
+ * Class PatientsTableSeeder
+ *
+ * @author Amine Lamchatab
+ * CodeCampers
+ */
+
+
 class PatientsTableSeeder extends Seeder
 {
     /**
@@ -24,14 +34,14 @@ class PatientsTableSeeder extends Seeder
             [
                 'tuteur_id' => Tuteur::inRandomOrder()->first()->id,
                 'niveau_scolaire_id'=>NiveauScolaire::inRandomOrder()->first()->id,
-                'nom' => 'yahya',
-                'prenom' => 'mohammed',
-                'image' => $faker->imageUrl(300, 300, 'people'),
-                'telephone'=>'060000001',
+                'nom' => 'Yahya',
+                'prenom' => 'Mohammed',
+                'telephone'=>'0600000004',
                 'email'=>'yahya@gmail.com',
                 'adresse'=>'Tanger',
-                'cin'=>'K00001',
-                'remarques'=>'text',
+                'cin'=>'K00004',
+                'image' => $faker->imageUrl(300, 300, 'people'),
+                'remarques'=>'remarques de patient',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -39,13 +49,13 @@ class PatientsTableSeeder extends Seeder
                 'tuteur_id' => Tuteur::inRandomOrder()->first()->id,
                 'niveauxScolaire_id'=>NiveauScolaire::inRandomOrder()->first()->id,
                 'nom' => 'EL mliki',
-                'image' => $faker->imageUrl(300, 300, 'people'),
                 'prenom' => 'Hicham',
-                'telephone'=>'060000001',
-                'email'=>'yahya@gmail.com',
+                'telephone'=>'0600000005',
+                'email'=>'el_mliki@gmail.com',
                 'adresse'=>'Tanger',
-                'cin'=>'K00001',
-                'remarques'=>'text',
+                'cin'=>'K00005',
+                'image' => $faker->imageUrl(300, 300, 'people'),
+                'remarques'=>'remarques de patient',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -53,15 +63,15 @@ class PatientsTableSeeder extends Seeder
                 'tuteur_id' => Tuteur::inRandomOrder()->first()->id,
                 'niveauxScolaire_id'=>NiveauScolaire::inRandomOrder()->first()->id,
                 'nom' => 'Saidi',
-                'prenom' => 'oumaima',
-                'telephone'=>'060000001',
-                'email'=>'yahya@gmail.com',
+                'prenom' => 'Oumaima',
+                'telephone'=>'0600000006',
+                'email'=>'saidi@gmail.com',
                 'adresse'=>'Tanger',
-                'cin'=>'K00001',
-                'remarques'=>'text',
+                'cin'=>'K00006',
+                'image' => $faker->imageUrl(300, 300, 'people'),
+                'remarques'=>'remarques de patient',
                 'created_at' => $now,
                 'updated_at' => $now,
-                'image' => $faker->imageUrl(300, 300, 'people'),
             ],
 
         ]);

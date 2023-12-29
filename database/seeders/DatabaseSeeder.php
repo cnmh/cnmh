@@ -14,6 +14,17 @@ use App\Models\Consultation;
 use App\Models\NiveauScolaire;
 use Illuminate\Database\Seeder;
 use Symfony\Component\Uid\NilUuid;
+use Database\Seeders\TuteursTableSeeder;
+
+
+/**
+ * Class DatabaseSeeder
+ *
+ * @author Amine Lamchatab
+ * CodeCampers
+ */
+
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,11 +48,19 @@ class DatabaseSeeder extends Seeder
             NiveauScolairesTableSeeder::class,
             PatientsTableSeeder::class,
             EmployesTableSeeder::class,
+
             DossierPatientsTableSeeder::class,
+
             OrientationExternesTableSeeder::class,
 
+            ConsultationsTableSeeder::class,
 
-            // ConsultationsTableSeeder::class,
+
+            DossierPatientServiceSeeder::class,
+            DossierPatientTypeHandicapSeeder::class,
+            DossierPatientConsultationTableSeeder::class,
+            
+
             // RendezVousesTableSeeder::class,
 
             // DossierPatientConsultationTableSeeder::class,

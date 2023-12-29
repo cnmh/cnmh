@@ -6,6 +6,14 @@ use App\Models\Tuteur;
 use App\Models\EtatCivil;
 use Illuminate\Database\Seeder;
 
+
+/**
+ * Class TuteursTableSeeder
+ *
+ * @author Amine Lamchatab
+ * CodeCampers
+ */
+
 class TuteursTableSeeder extends Seeder
 {
     /**
@@ -22,38 +30,38 @@ class TuteursTableSeeder extends Seeder
                 'etat_civil_id' => EtatCivil::inRandomOrder()->first()->id,
                 'nom' => 'Stito',
                 'prenom' => 'Nada',
-                'sexe'=>'Homme',
-                'telephone'=>'06000000001',
-                'email'=>'madani@gmail.com',
+                'sexe'=>'Femme',
+                'telephone'=>'0600000001',
+                'email'=>'stito@gmail.com',
                 'adresse'=>'Tanger',
                 'cin'=>'K00001',
-                'remarques'=>'text',
+                'remarques'=>'remarques de tuteur',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'etat_civil_id' => EtatCivil::inRandomOrder()->first()->id,
                 'nom' => 'Lharrak',
-                'prenom' => 'botaina',
+                'prenom' => 'Botaina',
                 'sexe'=>'Femme',
-                'telephone'=>'06000000001',
-                'email'=>'madani@gmail.com',
+                'telephone'=>'0600000002',
+                'email'=>'lharrak@gmail.com',
                 'adresse'=>'Tanger',
-                'cin'=>'K00001',
-                'remarques'=>'text',
+                'cin'=>'K00002',
+                'remarques'=>'remarques de tuteur',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'etat_civil_id' =>EtatCivil::inRandomOrder()->first()->id,
-                'nom' => 'Aziz',
-                'prenom' => 'Swihli',
+                'nom' => 'Swihli',
+                'prenom' => 'Aziz',
                 'sexe'=>'Homme',
-                'telephone'=>'06000000001',
-                'email'=>'madani@gmail.com',
+                'telephone'=>'0600000003',
+                'email'=>'swihli@gmail.com',
                 'adresse'=>'Tanger',
-                'cin'=>'K00001',
-                'remarques'=>'text',
+                'cin'=>'K00003',
+                'remarques'=>'remarques de tuteur',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],

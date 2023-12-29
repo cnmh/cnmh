@@ -5,6 +5,15 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\CouvertureMedical;
 
+
+/**
+ * Class CouvertureMedicalsTableSeeder
+ *
+ * @author Amine Lamchatab
+ * CodeCampers
+ */
+
+
 class CouvertureMedicalsTableSeeder extends Seeder
 {
     /**
@@ -18,32 +27,32 @@ class CouvertureMedicalsTableSeeder extends Seeder
 
         $couvertureMedicals = CouvertureMedical::insert([
             [
-                'nom' => 'cnops',
-                'description' => 'h',
+                'nom' => 'CNOPS',
+                'description' => 'description de couverture medicals',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'cnss',
-                'description' => 'h',
+                'nom' => 'CNSS',
+                'description' => 'description de couverture medicals',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'nom' => 'FAR',
-                'description' => 'h',
+                'description' => 'description de couverture medicals',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'assurance (complimentaire)',
-                'description' => 'h',
+                'nom' => 'Assurance (complimentaire)',
+                'description' => 'description de couverture medicals',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Ne sait pas',
-                'description' => 'h',
+                'nom' => 'Autre',
+                'description' => 'description de couverture medicals',
                 'created_at' => $now,
                 'updated_at' => $now,
             ]

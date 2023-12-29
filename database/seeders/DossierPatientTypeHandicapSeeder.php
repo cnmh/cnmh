@@ -2,39 +2,42 @@
 
 namespace Database\Seeders;
 
+use App\Models\TypeHandicap;
+use App\Models\DossierPatient;
 use Illuminate\Database\Seeder;
-use App\Models\DossierPatientConsultation;
+use App\Models\DossierPatient_typeHandycape;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 
-
 /**
- * Class DossierPatientConsultationTableSeeder
+ * Class DossierPatientTypeHandicapSeeder
  *
  * @author Amine Lamchatab
  * CodeCampers
  */
 
 
-class DossierPatientConsultationTableSeeder extends Seeder
+class DossierPatientTypeHandicapSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $dossierPatients = \App\Models\DossierPatient::all();
-        $consultations = \App\Models\Consultation::all();
+        $dossierPatients = DossierPatient::all();
+        $typeHandicaps = TypeHandicap::all();
 
         foreach ($dossierPatients as $dossierPatient) {
-            $randomConsultation = $consultations->random();
+            $randomTypeHandicap = $typeHandicaps->random();
 
-            DossierPatientConsultation::insert([
+            DossierPatient_typeHandycape::insert([
                 'dossier_patient_id' => $dossierPatient->id,
-                'consultation_id' => $randomConsultation->id,
+                'type_handicap_id' => $randomTypeHandicap->id,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         }
     }
 }
+
+

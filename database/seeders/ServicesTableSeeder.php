@@ -5,6 +5,17 @@ namespace Database\Seeders;
 use App\Models\Service;
 use Illuminate\Database\Seeder;
 
+
+
+/**
+ * Class ServicesTableSeeder
+ *
+ * @author Amine Lamchatab
+ * CodeCampers
+ */
+
+
+
 class ServicesTableSeeder extends Seeder
 {
     /**

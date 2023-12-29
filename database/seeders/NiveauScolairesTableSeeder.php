@@ -5,6 +5,19 @@ namespace Database\Seeders;
 use App\Models\NiveauScolaire;
 use Illuminate\Database\Seeder;
 
+
+
+/**
+ * Class NiveauScolairesTableSeeder
+ *
+ * @author Amine Lamchatab
+ * CodeCampers
+ */
+
+
+
+
+
 class NiveauScolairesTableSeeder extends Seeder
 {
     /**
@@ -19,31 +32,31 @@ class NiveauScolairesTableSeeder extends Seeder
         $niveauScholaire = NiveauScolaire::insert([
             [
                 'nom' => 'Maternelle',
-                'description' => 'h',
+                'description' => 'description de niveau scholaire',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'nom' => 'Ecole primaire',
-                'description' => 'h',
+                'description' => 'description de niveau scholaire',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'nom' => 'Collége',
-                'description' => 'h',
+                'description' => 'description de niveau scholaire',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'nom' => 'Lycéé',
-                'description' => 'h',
+                'description' => 'description de niveau scholaire',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'nom' => 'Université',
-                'description' => 'h',
+                'description' => 'description de niveau scholaire',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
