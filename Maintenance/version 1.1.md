@@ -7,7 +7,7 @@
 
 # Ajouter autorisation au service social pour editer patient et consulter patient
 
-php artisan db:seed --class=MaintenanceSocialAuthorization
+php artisan db:seed --class=Maintenance_1_1_1
 
 ``` 
 

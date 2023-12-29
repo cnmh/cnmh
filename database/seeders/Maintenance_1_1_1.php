@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
-class MaintenanceSocialAuthorization extends Seeder
+class Maintenance_1_1_1 extends Seeder
 {
     /**
      * Run the database seeds.
