@@ -9,6 +9,19 @@
     </div>
     <div class="row">
         <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box" style="background:#00838f;">
+                <div class="inner">
+                    <h3>{{$dossierCount}}</h3>
+
+                    <p>Nombre des dossiers</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
 
             <div class="small-box" style="background:#FFD54F;">
                 <div class="inner">
@@ -31,19 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box" style="background:#00838f;">
-                <div class="inner">
-                    <h3>{{$dossierCount}}</h3>
 
-                    <p>Nombre des dossiers</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-folder-open"></i>
-                </div>
-            </div>
-        </div>
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -53,7 +54,7 @@
                     <p class="text-dark">Dossiers en attente</p>
                 </div>
                 <div class="icon">
-                  <i class="fas fa-folder-open"></i>
+                    <i class="fas fa-folder-open"></i>
                 </div>
             </div>
         </div>
