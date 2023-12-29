@@ -7,3 +7,6 @@
 
 ## Liste des problèmes résolues
 
+- Tableau de board : Affichage des statistiques #123
+- Page login ; Titre incorrecte #124
+
