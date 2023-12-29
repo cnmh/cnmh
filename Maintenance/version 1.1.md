@@ -24,3 +24,5 @@ php artisan db:seed --class=Maintenance_1_1_2
 - Le scénario ajouter dossier bénéficiaire ne marche pas #81
 - Français - Dossiers bénéficiaires #77
 - Initialiser le mot de passe d'un utilisateur #90
+- La commande php artisan db:seed et maintenance #126
+

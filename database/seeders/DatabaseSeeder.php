@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
             EmployesTableSeeder::class,
             DossierPatientsTableSeeder::class,
             OrientationExternesTableSeeder::class,
+            Maintenance_1_1_1::class,
+            Maintenance_1_1_2::class,
 
 
             // ConsultationsTableSeeder::class,
