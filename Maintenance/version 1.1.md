@@ -9,6 +9,10 @@
 
 php artisan db:seed --class=Maintenance_1_1_1
 
+# Ajouter autorisation au root pour initialiser le mot de pass
+
+php artisan db:seed --class=Maintenance_1_1_2
+
 ``` 
 
 
