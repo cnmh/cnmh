@@ -59,6 +59,7 @@
                                 </form>
                             </div>
                         </div>
+                        <div id="table-container">
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 @php
@@ -172,6 +173,7 @@
                             -
                         </div>
                         <!-- /.card-body -->
+                        </div>
 
                     </div>
                     <!-- /.card -->
@@ -187,7 +189,7 @@
 
 @push('page_scripts')
     <script>
-        const tableContainer = $('#table-container')
+          const tableContainer = $('#table-container')
         var searchQuery = ''
 
         const search = (query = '', page = 1) => {
@@ -221,40 +223,7 @@
                 search(searchQuery)
             })
             updatePaginationLinks()
-        var parentId = {{ request('tuteur_id') ?: 'null' }};
-    if (parentId) {
-        $("input[name='parentRadio'][value='" + parentId + "']").prop('checked', true);
-    }
         })
-
-
-
-        function deleteTuteur(tuteurId) {
-            const confirmDelete = confirm('Are you sure?');
-            if (confirmDelete) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '{{ url("tuteurs") }}/' + tuteurId;
-                form.style.display = 'none';
-
-                const csrfTokenInput = document.createElement('input');
-                csrfTokenInput.type = 'hidden';
-                csrfTokenInput.name = '_token';
-                csrfTokenInput.value = '{{ csrf_token() }}';
-
-                const methodInput = document.createElement('input');
-                methodInput.type = 'hidden';
-                methodInput.name = '_method';
-                methodInput.value = 'DELETE';
-
-                form.appendChild(csrfTokenInput);
-                form.appendChild(methodInput);
-
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-
     </script>
 
 @endpush
