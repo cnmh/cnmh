@@ -33,22 +33,8 @@ class HomeController extends Controller
     {
         $dossierCount = DossierPatient::count();
         $patientCount = Patient::count();
-        $tuteurCount = Tuteur::count();
-
         $dossierEnAttend = Consultation::where('etat','enAttente')->count();
-        $dossierEnRendezVous = Consultation::where('etat','enRendezVous')->count();
-        $dossierEnConsultation = Consultation::where('etat','enConsultation')->count();
-
-        if($dossierEnRendezVous === 0){
-            $reussirRendezVous = 0;
-        }else{
-            $reussirRendezVous = ($dossierEnConsultation/$dossierEnRendezVous)*100;
-
-            if($reussirRendezVous > 100){
-                $reussirRendezVous = 100;
-            }
-        }
-       
-        return View::make('home', compact('dossierCount','patientCount','tuteurCount','reussirRendezVous'));
+        $Consultation = Consultation::where('etat','enConsultation')->count();
+        return View::make('home', compact('dossierCount','patientCount','Consultation','dossierEnAttend'));
     }
 }
