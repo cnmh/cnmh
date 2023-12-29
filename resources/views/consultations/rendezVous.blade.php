@@ -62,6 +62,7 @@
                     <div class="card-body p-0">
                         <div class="table-responsive">
 
+                            <form action="{{ route('consultations.patient', request()->model) }}" method="GET">
 
                                 <table class="table table-striped" id="tuteurs-table">
                                     <thead>
@@ -93,17 +94,13 @@
                                             <td>{{ $dossier_patient->prenom }}</td>
                                             <td>{{ $dossier_patient->telephone }}</td>
                                             <td>
-                                            <div class='btn-group'>
-                                            @can('destroy-RendezVous')
-                                            {!! Form::open(['route' => ['rendez-vous.destroy', $dossier_patient->consultation_id], 'method' => 'POST', 'class' => 'your-form-class', 'id' => 'deleteForm']) !!}
-                                                @csrf 
-                                                @method('DELETE')                                                
-                                                {!! Form::button('Reporter', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "confirmDelete()"]) !!}
-                                            {!! Form::close() !!}
-                                            @endcan
+                                                <div class='btn-group'>
+                                                    @can('destroy-RendezVous')
+                                                
+                                                    <button type="button" class="btn btn-danger" onclick="confirmAndSubmit('{{ route('rendez-vous.destroy', $dossier_patient->consultation_id) }}')">Reporter</button>
 
-                                            </div>
-
+                                                    @endcan
+                                                </div>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -119,6 +116,7 @@
                             {{-- <div name="rendezVous" value="false" class="btn btn-primary">Ajouter sans RendezVous</div> --}}
                             <button class="btn btn-primary">@lang('crud.next')</button>
                         </div>
+                        </form>
                         <div class="card-footer clearfix">
                             <div class="float-left">
                                 @include('adminlte-templates::common.paginate', [
@@ -141,4 +139,29 @@
 
     </div>
 </section>
+
+<script>
+    function confirmAndSubmit(route) {
+        if (confirm('Are you sure?')) {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = route;
+            form.style.display = 'none';
+
+            var csrfTokenField = document.createElement('input');
+            csrfTokenField.type = 'hidden';
+            csrfTokenField.name = '_token';
+            csrfTokenField.value = '{{ csrf_token() }}';
+            form.appendChild(csrfTokenField);
+
+            var methodField = document.createElement('input');
+            methodField.type = 'hidden';
+            methodField.name = '_method';
+            methodField.value = 'DELETE';
+            form.appendChild(methodField);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
 @endsection
