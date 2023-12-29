@@ -68,7 +68,8 @@ class ConsultationController extends AppBaseController
         'patients.nom',
         'patients.prenom',
         'patients.telephone',
-        'patients.id as patient_id'
+        'patients.id as patient_id',
+        'dossier_patients.numero_dossier'
     )
     ->paginate();
 

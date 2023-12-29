@@ -8,7 +8,7 @@
             <div class="col-sm-6">
 
                 @if ($titleApp == "Liste d'attente")
-                <h1>{{ $titleApp }}</h1>
+                <h1>{{ $titleApp }} médecin général</h1>
 
                 @else
                 <h1>@lang('models/consultations.plural') {{$titleApp}}</h1>
