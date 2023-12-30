@@ -11,7 +11,7 @@ class DossierPatientTest extends DuskTestCase
     /**
      * A Dusk test example.
      */
-    public function testExample(): void
+    public function AjouterDossierBeneficiaire(): void
     {
         $this->browse(function (Browser $browser) {
            
