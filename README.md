@@ -21,16 +21,8 @@ cp .env.example .env
 
 ```bash
 php artisan migrate
-```
-
-- commande pour l'autorisation
-```bash
-  php artisan db:seed --class=AuthorisationSeeder 
-```
-- commande pour les paramètres de l'application
-
-```bash
-  php artisan db:seed --class=ParamaitresSeeder
+php artisan db:seed
+php artisan key:generate
 ```
 
 # Démonstration de l'application 
@@ -44,7 +36,3 @@ php artisan migrate
 - Email : medecin@gmail.com
   - Password : medecin
   - 
-
-# Maintenance 
-
-##  Mise à jour des autorisations
