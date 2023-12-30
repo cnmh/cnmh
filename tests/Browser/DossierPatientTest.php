@@ -5,14 +5,19 @@ namespace Tests\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
 
 class DossierPatientTest extends DuskTestCase
 {
+    use DatabaseTruncation;
+
     /**
      * A Dusk test example.
      */
-    public function AjouterDossierBeneficiaire(): void
+    public function testExample2(): void
     {
+        // $this->seed();
+
         $this->browse(function (Browser $browser) {
            
             
@@ -35,7 +40,6 @@ class DossierPatientTest extends DuskTestCase
 
                 // Ajouter tuteur
                 $browser->clickLink('Ajouter tuteur');
-                $browser->visit('/tuteurs/create');
                 $browser->type('nom', 'NomTuteur1');
                 $browser->type('prenom', 'PrénomTuteur1');
                 $browser->select('etat_civil_id','1');
@@ -43,13 +47,11 @@ class DossierPatientTest extends DuskTestCase
                 $browser->type('telephone', '1010101010');
                 $browser->type('adresse', 'Tanger Maroc branes');
                 $browser->type('cin', 'k00004');
-                // $browser->pause('5000');
                 $browser->press('Enregistrer');
                 $browser->assertPathIs('/patientForm');
 
                 // Ajouter bénéficiaire
                 $browser->clickLink('Ajouter bénéficiaire');
-                $browser->visit('/patients/create');
                 $browser->type('nom', 'Madani');
                 $browser->type('prenom', 'Ali');
                 $browser->select('niveau_scolaire_id','1');
@@ -57,9 +59,13 @@ class DossierPatientTest extends DuskTestCase
                 $browser->assertPathIs('/entretien/parentRadio=4');
 
                 // Entretien social
-                $browser->select('couverture_medical_id','1',);
-                // Select : Service demander
-                // Select : Couverture social
+              
+               
+                $browser->select('type_handicap_id[]',[1,2]);
+                $browser->select('services_id[]',[1,2]);
+                
+                $browser->select('couverture_medical_id','1');
+             
                 $browser->press('Enregistrer');
                 $browser->assertPathIs('/dossier-patients');
             });

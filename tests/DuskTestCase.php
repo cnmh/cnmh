@@ -13,6 +13,14 @@ abstract class DuskTestCase extends BaseTestCase
     use CreatesApplication;
 
     /**
+     * Indicates whether the default seeder should run before each test.
+     *
+     * @var bool
+     */
+    protected $seed = true;
+
+
+    /**
      * Prepare for Dusk test execution.
      *
      * @beforeClass

@@ -35,4 +35,10 @@ php artisan key:generate
 
 - Email : medecin@gmail.com
   - Password : medecin
-  - 
+
+
+## TO update js and css
+
+```bash
+npm run build
+```
