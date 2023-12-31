@@ -7,7 +7,7 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 
-class TableauBoardTest extends CnmhDuskTest
+class TableauBoardTest extends CnmhDuskTestCase
 {
  
     public function testStatistiques(): void

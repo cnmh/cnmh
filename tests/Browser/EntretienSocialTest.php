@@ -7,12 +7,14 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 
-class EntretienSocialTest extends CnmhDuskTest
+class EntretienSocialTest extends CnmhDuskTestCase
 {
     // use DatabaseTruncation;
 
 
-
+    /**
+     * @group entretien-social
+     */
     public function testAjouterEntretienSocial(): void
     {
  
@@ -56,16 +58,13 @@ class EntretienSocialTest extends CnmhDuskTest
         });
     }
 
-
     /**
-     * @group list-attente
+     * @group entretien-social
      */
     public function testInsertionAutomatiqueEnListAttente(): void{
 
         // Prepare data
         // Ajouter entretien social
-
-
         
         $this->browse(function (Browser $browser) {
 
@@ -82,6 +81,4 @@ class EntretienSocialTest extends CnmhDuskTest
  
         });
     }
-
-    
 }

@@ -7,10 +7,10 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 
-class CnmhDuskTest extends DuskTestCase
+class CnmhDuskTestCase extends DuskTestCase
 {
-    use DatabaseTruncation;
-    // use RefreshDatabase;
+    /// use DatabaseTruncation;
+    //  use RefreshDatabase;
 
     
     /**
@@ -28,19 +28,25 @@ class CnmhDuskTest extends DuskTestCase
     //  protected $seed = true;
 
 
-    protected static $seedRun = false;
+    protected static $migrate_fresh = false;
+    protected static $db_seed = false;
 
     protected function setUp(): void{
         parent::setUp();
-
-        // run seed one time
-        if(!static::$seedRun){
-            // $this->artisan('db:seed');
-            $this->artisan('db:seed', ['--class' => 'DatabaseSeeder']);
-            static::$seedRun = true;
-        }else{
-            $this->artisan('db:seed', ['--class' => 'DatabaseSeederElsePermission']);
+        
+        // init database one time by test session seed one time
+        if(!static::$migrate_fresh){
+            // php artisan migrate:fresh
+            $this->artisan('migrate:fresh');
+            $migrate_fresh = true;
         }
+
+        if(!static::$db_seed){
+            // php artisan db:seed 
+            $this->artisan('db:seed', ['--class' => 'DatabaseSeeder']);
+            static::$db_seed = true;
+        }
+
     }
 
     public function login_service_social($browser):void{

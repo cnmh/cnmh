@@ -7,7 +7,7 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 
-class ConsultationMedecinGeneralTest extends CnmhDuskTest
+class ConsultationMedecinGeneralTest extends CnmhDuskTestCase
 {
 
     /**
