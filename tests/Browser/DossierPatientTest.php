@@ -11,12 +11,9 @@ class DossierPatientTest extends DuskTestCase
 {
     use DatabaseTruncation;
 
-    /**
-     * A Dusk test example.
-     */
-    public function testExample2(): void
+
+    public function testEntretienSocial(): void
     {
-        // $this->seed();
 
         $this->browse(function (Browser $browser) {
            
@@ -73,6 +70,19 @@ class DossierPatientTest extends DuskTestCase
 
 
 
+        });
+    }
+
+    function testInsertionAutomatiqueEnListAttente(): void{
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/consultations/liste-attente');
+            // Recherche par nom
+            $this->type('Madani', 'searchConsultation');
+            // $this->press('');
+            $this-assertSee('Madani');
+            $this-assertSee('Ali');
+ 
         });
     }
 }
