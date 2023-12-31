@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Autorizations;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
             'updated_at' => $now,
         ]);
         $rootUser->assignRole('root');
+        
         $permissionRoot = [
             'index-Permission',
             'create-Permission',

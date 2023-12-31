@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Social;
 
 use App\Models\Patient;
 use App\Models\Reclamation;

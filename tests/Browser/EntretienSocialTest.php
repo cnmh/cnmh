@@ -9,14 +9,17 @@ use Illuminate\Foundation\Testing\DatabaseTruncation;
 
 class EntretienSocialTest extends CnmhDuskTest
 {
-    use DatabaseTruncation;
+    // use DatabaseTruncation;
+
+
 
     public function testAjouterEntretienSocial(): void
     {
+ 
         $this->browse(function (Browser $browser) {
 
-            login_service_social($browser);
-
+             
+            $this->login_service_social($browser);
 
             // Navigation
             $browser->clickLink('Dossier bénéficiaires');
@@ -45,15 +48,38 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->assertPathIs('/entretien/parentRadio=4');
 
             // Entretien social
-          
-           
             $browser->select('type_handicap_id[]',[1,2]);
             $browser->select('services_id[]',[1,2]);
-            
             $browser->select('couverture_medical_id','1');
-         
             $browser->press('Enregistrer');
             $browser->assertPathIs('/dossier-patients');
+        });
+    }
+
+
+    /**
+     * @group list-attente
+     */
+    public function testInsertionAutomatiqueEnListAttente(): void{
+
+        // Prepare data
+        // Ajouter entretien social
+
+
+        
+        $this->browse(function (Browser $browser) {
+
+           $this->login_service_social($browser);
+
+            // Traitement
+            $browser->visit('/consultations/liste-attente');
+            $browser->type('#searchConsultation','Madani');
+            // $this->press('');
+
+            // Assertion
+            $browser->assertSee('Madani');
+            $browser->assertSee('Ali');
+ 
         });
     }
 

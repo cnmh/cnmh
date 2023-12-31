@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Parameters;
 
 use App\Models\TypeHandicap;
 use Illuminate\Database\Seeder;

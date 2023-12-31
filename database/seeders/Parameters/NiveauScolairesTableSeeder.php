@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Parameters;
 
-use App\Models\Service;
+use App\Models\NiveauScolaire;
 use Illuminate\Database\Seeder;
 
-class ServicesTableSeeder extends Seeder
+class NiveauScolairesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,38 +16,39 @@ class ServicesTableSeeder extends Seeder
     {
         $now = \Carbon\Carbon::now();
 
-        $service = Service::insert([
+        $niveauScholaire = NiveauScolaire::insert([
             [
-                'nom' => 'Service social',
-                'description' => 'description prestation 1',
+                'nom' => 'Maternelle',
+                'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service médical',
-                'description' => 'description prestation 2',
+                'nom' => 'Ecole primaire',
+                'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service Éducatif',
-                'description' => 'description prestation 3',
+                'nom' => 'Collége',
+                'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service de la Formation Professionnelle',
-                'description' => 'description prestation 4',
+                'nom' => 'Lycéé',
+                'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service sportif',
-                'description' => 'description prestation 5',
+                'nom' => 'Université',
+                'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
         ]);
+
 
     }
 }

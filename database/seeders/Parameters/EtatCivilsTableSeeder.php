@@ -1,11 +1,16 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Parameters;
 
+
+use App\Models\EtatCivil;
 use Illuminate\Database\Seeder;
-use App\Models\CouvertureMedical;
 
-class CouvertureMedicalsTableSeeder extends Seeder
+/**
+ * php artisan db:seed --class="Database\Seeders\Tests\EtatCivilsTableSeeder"
+ * 
+ */
+class EtatCivilsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,39 +19,35 @@ class CouvertureMedicalsTableSeeder extends Seeder
      */
     public function run()
     {
+        // \App\Models\EtatCivil::factory(8)->create();
         $now = \Carbon\Carbon::now();
 
-        $couvertureMedicals = CouvertureMedical::insert([
+        $etat_civil = EtatCivil::insert([
             [
-                'nom' => 'cnops',
+                'nom' => 'Marié(e)',
                 'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'cnss',
+                'nom' => 'Divorcé(e)',
                 'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'FAR',
+                'nom' => 'Célibataire',
                 'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'assurance (complimentaire)',
-                'description' => 'h',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'nom' => 'Ne sait pas',
+                'nom' => 'Veuf(ve)',
                 'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
             ]
         ]);
+
     }
 }

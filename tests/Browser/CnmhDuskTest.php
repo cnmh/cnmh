@@ -43,15 +43,16 @@ class CnmhDuskTest extends DuskTestCase
         }
     }
 
-
     public function login_service_social($browser):void{
 
-         // Login
-         $browser->visit('/login');
-         $browser->type('email', 'social@gmail.com');
-         $browser->type('password', 'social');
-         // $browser->pause('5000');
-         $browser->press('Connexion');
-         $browser->assertPathIs('/');
-    }
+        // Login
+        $browser->visit('/login');
+        $browser->type('email', 'social@gmail.com');
+        $browser->type('password', 'social');
+        // $browser->pause('5000');
+        $browser->press('Connexion');
+        $browser->assertPathIs('/');
+   }
+
+  
 }

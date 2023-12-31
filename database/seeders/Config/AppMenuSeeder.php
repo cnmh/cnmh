@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Config;
 
 use App\Models\Consultation;
 use App\Models\MenuGroup;

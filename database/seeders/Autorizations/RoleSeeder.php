@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Autorizations;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -12,8 +12,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // TODO fixed: Ajouter les roles
-
+   
         Role::create([
             'name' => 'admin',
         ]);

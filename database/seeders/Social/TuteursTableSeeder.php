@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Social;
 
 use App\Models\Tuteur;
 use App\Models\EtatCivil;

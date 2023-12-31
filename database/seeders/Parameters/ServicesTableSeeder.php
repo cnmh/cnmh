@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Parameters;
 
-use App\Models\NiveauScolaire;
+use App\Models\Service;
 use Illuminate\Database\Seeder;
 
-class NiveauScolairesTableSeeder extends Seeder
+class ServicesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,39 +16,38 @@ class NiveauScolairesTableSeeder extends Seeder
     {
         $now = \Carbon\Carbon::now();
 
-        $niveauScholaire = NiveauScolaire::insert([
+        $service = Service::insert([
             [
-                'nom' => 'Maternelle',
-                'description' => 'h',
+                'nom' => 'Service social',
+                'description' => 'description prestation 1',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Ecole primaire',
-                'description' => 'h',
+                'nom' => 'Service médical',
+                'description' => 'description prestation 2',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Collége',
-                'description' => 'h',
+                'nom' => 'Service Éducatif',
+                'description' => 'description prestation 3',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Lycéé',
-                'description' => 'h',
+                'nom' => 'Service de la Formation Professionnelle',
+                'description' => 'description prestation 4',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Université',
-                'description' => 'h',
+                'nom' => 'Service sportif',
+                'description' => 'description prestation 5',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
         ]);
-
 
     }
 }

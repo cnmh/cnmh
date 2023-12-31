@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Config;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MenuGroupSeeder extends Seeder
+class MenuItemSeeder extends Seeder
 {
     /**
      * Run the database seeds.

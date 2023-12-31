@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Medical;
 
 use Illuminate\Database\Seeder;
 
-class MenuGroupsTableSeeder extends Seeder
+class ConsultationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class MenuGroupsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
     }
 }
