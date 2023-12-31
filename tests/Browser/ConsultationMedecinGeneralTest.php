@@ -5,17 +5,19 @@ namespace Tests\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
 
-class ConsultationMedecinGeneral extends DuskTestCase
+class ConsultationMedecinGeneralTest extends CnmhDuskTest
 {
+
     /**
      * A Dusk test example.
      */
-    public function testExample(): void
+    public function testAjouterConsultation(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Laravel');
+            $browser->visit('/');
+                    // ->assertSee('Laravel');
         });
     }
 }

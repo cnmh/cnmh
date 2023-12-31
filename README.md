@@ -45,15 +45,13 @@ php artisan migrate:fresh
 
 ## Exécution de test Browser
 
-- Création de fichier d'environement pour exécuter l'application avec la configuration convenable avec le test browser abec dusk
+Création de fichier d'environement pour exécuter l'application avec la configuration convenable avec le test browser avec dusk
 
 
 ```bash
-cp .env .env.dusk.local
+cp .env .env.test
 
 ```
-
-
 
 ```conf
 APP_KEY=
@@ -65,19 +63,17 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 # Création d'une base de données pour le test
-DB_DATABASE=cnmh_test_browser
+DB_DATABASE=cnmh_test
 DB_USERNAME=
 DB_PASSWORD=
 ```
 
 ```bash
-php artisan migrate --env=dusk.local
-php artisan db:seed --env=dusk.local
+php artisan migrate --env=test
+php artisan db:seed --env=test
 ```
 
-
-
 ```bash
-php artisan serve --env=dusk.local
+php artisan serve --env=test
 ```
 
