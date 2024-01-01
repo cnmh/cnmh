@@ -396,11 +396,28 @@ class DossierPatientController extends AppBaseController
 
     public function parent(Request $request)
     {
+        
+        if ($request->ajax()) {
+            $search = $request->get('query');
+            $search = str_replace(" ", "%", $search);
+
+            $tuteurs = Tuteur::join('etat_civils', 'tuteurs.etat_civil_id', '=', 'etat_civils.id')
+            ->where('tuteurs.nom', 'like', '%' . $search . '%')
+            ->orWhere('tuteurs.prenom', 'like', '%' . $search . '%')
+            ->select('tuteurs.nom as tuteur_nom', 'etat_civils.id as etat_civil_id', 'tuteurs.prenom', 'tuteurs.adresse', 'tuteurs.telephone', 'tuteurs.email', 'etat_civils.nom as etat_civil_nom')
+            ->paginate();
+
+
+            return response()->json(['data' => $tuteurs]);
+        }
+
         $query = $request->input('query');
         $tuteurRepository = new TuteurRepository;
-        $tuteurs  =  $tuteurRepository->paginate($query);
+        $tuteurs = $tuteurRepository->paginate($query);
+
         return view('dossier_patients.parent', compact("tuteurs"));
     }
+
     public function patient(Request $request)
     {
 
