@@ -13,12 +13,15 @@ class EntretienSocialTest extends CnmhDuskTest
 
 
 
+    /**
+     * @group entretien-social
+     */
     public function testAjouterEntretienSocial(): void
     {
  
         $this->browse(function (Browser $browser) {
 
-             
+
             $this->login_service_social($browser);
 
             // Navigation
@@ -26,6 +29,7 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->visit('/dossier-patients');
             $browser->clickLink('Ajouter');
             $browser->visit('/parentForm');
+            // add assert
 
             // Ajouter tuteur
             $browser->clickLink('Ajouter tuteur');
@@ -45,7 +49,10 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->type('prenom', 'Ali');
             $browser->select('niveau_scolaire_id','1');
             $browser->press('Enregistrer');
-            $browser->assertPathIs('/entretien/parentRadio=4');
+            $browser->assertSee('bénéficiaire a été enregistré avec succès.');
+            // $browser->assertPathIs('/entretien/parentRadio=4');
+            // TODO : assert by path
+
 
             // Entretien social
             $browser->select('type_handicap_id[]',[1,2]);
@@ -66,6 +73,7 @@ class EntretienSocialTest extends CnmhDuskTest
         // Ajouter entretien social
 
 
+        // TODO : ajouter entretien social
         
         $this->browse(function (Browser $browser) {
 
