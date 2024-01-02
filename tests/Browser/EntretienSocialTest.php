@@ -7,6 +7,7 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 
+
 class EntretienSocialTest extends CnmhDuskTest
 {
     // use DatabaseTruncation;

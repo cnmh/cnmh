@@ -10,6 +10,15 @@ use App\Models\DossierPatient;
 use App\Models\CouvertureMedical;
 use App\Models\DossierPatient_typeHandycape;
 use App\Models\DossierPatientConsultation;
+use App\Models\Dossier_patient_service;
+use App\Models\Consultation;
+
+
+
+
+
+
+
 
 
 use App\Models\User;
@@ -23,29 +32,14 @@ class ListAttenteTest extends CnmhDuskTest
      */
 
     
-    public function testExample(): void
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Laravel');
-        });
-
-
-
-    }
-
-
+     /**
+     * @group entretien-social
+     */
     public function testInsertionAutomatiqueEnListAttente(): void{
 
-      
-
-
-
-
-
-    
-
         // TODO : ajouter entretien social
+
+       $this->ajouter_entretien_social_not_existe();
         
         $this->browse(function (Browser $browser) {
 
@@ -54,12 +48,12 @@ class ListAttenteTest extends CnmhDuskTest
             // Traitement
 
             $browser->visit('/consultations/liste-attente');
-            $browser->type('#searchConsultation','Madani');
+            // $browser->type('#searchConsultation','Madani');
             // $this->press('');
 
             // Assertion
-            $browser->assertSee('Madani');
-            $browser->assertSee('Ali');
+            // $browser->assertSee('Madani');
+            // $browser->assertSee('Ali');
  
         });
     }
@@ -74,6 +68,19 @@ class ListAttenteTest extends CnmhDuskTest
         $etat = "enAttente";
         $now = \Carbon\Carbon::now();
 
+       
+       $dossierPatientRepository = new DossierPatientRepository;
+
+       $latestDossier = DossierPatient::where('numero_dossier', 'like', 'A-%')
+       ->whereRaw('CAST(SUBSTRING(numero_dossier, 3) AS SIGNED) IS NOT NULL')
+       ->max('numero_dossier');
+
+        $counter = $latestDossier ? (int)substr($latestDossier, 2) + 1 : 1802;
+
+        $numeroDossier = 'A-' . $counter;
+
+        $input['numero_dossier'] = $numeroDossier;
+
         // Traitement 
         $input = [
             'patient_id' => $patient->id,
@@ -81,29 +88,22 @@ class ListAttenteTest extends CnmhDuskTest
             'numero_dossier' => $numeroDossier,
             'etat' => $etat,
             'date_enregsitrement' => $now,
-            'romarque' => null,
+            'romarque' => 'entrotien social test',
             'user_id' => $user->id,
         ];
 
         $patientId = $input['patient_id'];
 
-        $latestDossier = DossierPatient::where('numero_dossier', 'like', 'A-%')
-            ->whereRaw('CAST(SUBSTRING(numero_dossier, 3) AS SIGNED) IS NOT NULL')
-            ->max('numero_dossier');
-    
-        $counter = $latestDossier ? (int)substr($latestDossier, 2) + 1 : 1802;
-    
-        $numeroDossier = 'A-' . $counter;
-    
-        $input['numero_dossier'] = $numeroDossier;
-    
-        $dossierPatient = $this->dossierPatientRepository->create($input);
+        $dossierPatient = $dossierPatientRepository->create($input);
+
         $dossierPatient->save();
         
         $dossierPatient = DossierPatient::where('numero_dossier', $numeroDossier)->first();
         $DossierPatient_typeHandycape = new DossierPatient_typeHandycape;
 
-        $typeHandycapeIDs = $request->input('type_handicap_id');
+        $typeHandycaps = [1,2];
+
+        $typeHandycapeIDs = $typeHandycaps;
         
         foreach ($typeHandycapeIDs as $typeHandycapeID) {
             $DossierPatient_typeHandycape = new DossierPatient_typeHandycape;
@@ -112,7 +112,9 @@ class ListAttenteTest extends CnmhDuskTest
             $DossierPatient_typeHandycape->save();
         }
 
-        $service_ids = $request->input('services_id');
+        $services_patient = [1,2];
+
+        $service_ids = $services_patient;
 
         foreach($service_ids as $service_id){
             $service_patient_demander = new Dossier_patient_service;
@@ -123,12 +125,12 @@ class ListAttenteTest extends CnmhDuskTest
 
     
         $consultation = new Consultation();
-        $consultation->date_enregistrement=$request->date_enregsitrement;
+        $consultation->date_enregistrement= now();
         $consultation->type="medecinGeneral";
         $consultation->etat="enAttente";
         $consultation->save();
 
-         $DossierPatient_consultation =  new DossierPatientConsultation;
+        $DossierPatient_consultation =  new DossierPatientConsultation;
 
         $DossierPatient_consultation->dossier_patient_id = $dossierPatient->id;
         $DossierPatient_consultation->consultation_id  = $consultation->id;

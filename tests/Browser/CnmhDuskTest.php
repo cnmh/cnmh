@@ -9,19 +9,19 @@ use Illuminate\Foundation\Testing\DatabaseTruncation;
 
 class CnmhDuskTest extends DuskTestCase
 {
-    use DatabaseTruncation;
+    // use DatabaseMigrations;
     // use RefreshDatabase;
 
     
     /**
      * Indicates which tables should be excluded from truncation.
      */
-     protected $exceptTables = [
-        'users',
-        'permissions',
-        'model_has_roles',
-        'model_has_permissions'
-    ];
+    //  protected $exceptTables = [
+    //     'users',
+    //     'permissions',
+    //     'model_has_roles',
+    //     'model_has_permissions'
+    // ];
 
 
     // Indicates whether the default seeder should run before each test.
@@ -32,15 +32,17 @@ class CnmhDuskTest extends DuskTestCase
 
     protected function setUp(): void{
         parent::setUp();
+        $this->artisan('migrate:fresh');
+        $this->artisan('db:seed', ['--class' => 'DatabaseSeeder']);
 
         // run seed one time
-        if(!static::$seedRun){
-            // $this->artisan('db:seed');
-            $this->artisan('db:seed', ['--class' => 'DatabaseSeeder']);
-            static::$seedRun = true;
-        }else{
-            $this->artisan('db:seed', ['--class' => 'DatabaseSeederElsePermission']);
-        }
+        // if(!static::$seedRun){
+        //     // $this->artisan('db:seed');
+        //     $this->artisan('db:seed', ['--class' => 'DatabaseSeeder']);
+        //     static::$seedRun = true;
+        // }else{
+        //     $this->artisan('db:seed', ['--class' => 'DatabaseSeederElsePermission']);
+        // }
     }
 
     public function login_service_social($browser):void{
