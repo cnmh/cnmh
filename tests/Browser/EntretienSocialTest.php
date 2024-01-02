@@ -65,7 +65,7 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->assertPathIs('/dossier-patients');
 
 
-            // TODO: Assert: Added tuteur , entretien social , list d'attente
+            // TODO: Fixed Assert: Added tuteur , entretien social , list d'attente
             $this->assertDatabaseHas('tuteurs', [
                 'nom' => 'NomTuteur1',
                 'prenom' => 'PrénomTuteur1',
@@ -74,14 +74,18 @@ class EntretienSocialTest extends CnmhDuskTest
                 'nom' => 'Madani',
                 'prenom' => 'Ali',
             ]);
-    
+            $this->assertDatabaseHas('consultations', [
+                'id' => '1',
+            ]);
+
+            // $this->assertTrue(\DB::table('consultations')->count() > 0, 'The consultations table is not empty.');
+
 
 
         });
     }
 
 
-   
 
     
 
