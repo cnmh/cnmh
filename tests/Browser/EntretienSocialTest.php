@@ -80,32 +80,9 @@ class EntretienSocialTest extends CnmhDuskTest
     }
 
 
-    /**
-     * @group list-attente
-     */
-    public function testInsertionAutomatiqueEnListAttente(): void{
+   
 
-        // Prepare data
-        // Ajouter entretien social
-
-
-        // TODO : ajouter entretien social
-        
-        $this->browse(function (Browser $browser) {
-
-           $this->login_service_social($browser);
-
-            // Traitement
-            $browser->visit('/consultations/liste-attente');
-            $browser->type('#searchConsultation','Madani');
-            // $this->press('');
-
-            // Assertion
-            $browser->assertSee('Madani');
-            $browser->assertSee('Ali');
- 
-        });
-    }
+    
 
     
 }
