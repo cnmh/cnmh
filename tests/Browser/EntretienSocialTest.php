@@ -42,6 +42,10 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->type('cin', 'k00004');
             $browser->press('Enregistrer');
             $browser->assertPathIs('/patientForm');
+            $this->assertDatabaseHas('tuteurs', [
+                'nom' => 'NomTuteur1',
+                'prenom' => 'PrénomTuteur1',
+            ]);
 
             // Ajouter bénéficiaire
             $browser->clickLink('Ajouter bénéficiaire');
@@ -51,6 +55,11 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->press('Enregistrer');
             $browser->assertSee('bénéficiaire a été enregistré avec succès.');
             // $browser->assertPathIs('/entretien/parentRadio=4');
+            $this->assertDatabaseHas('patients', [
+                'nom' => 'Madani',
+                'prenom' => 'Ali',
+            ]);
+
             // TODO : assert by path
 
 
@@ -61,7 +70,6 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->press('Enregistrer');
             $browser->assertPathIs('/dossier-patients');
 
-            // Assert data base
 
             // TODO: Assert: Added tuteur , entretien social , list d'attente
             
