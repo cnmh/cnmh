@@ -60,6 +60,14 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->select('couverture_medical_id','1');
             $browser->press('Enregistrer');
             $browser->assertPathIs('/dossier-patients');
+
+            // Assert data base
+
+            // TODO: Assert: Added tuteur , entretien social , list d'attente
+            
+            
+
+
         });
     }
 
