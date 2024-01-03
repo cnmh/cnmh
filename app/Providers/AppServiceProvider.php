@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Artisan::call('migrate');
     }
 
     /**
@@ -23,5 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {   
         // TODO à ajouter dans laravel starter aprés savoir ce qu'il fait
         Schema::defaultStringLength(191);
+
+       
     }
 }
