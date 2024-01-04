@@ -175,16 +175,14 @@ class RendezVousController extends AppBaseController
 
         $rendezVous = $this->rendezVousRepository->find($id);
 
-        $consultation = Consultation::where('id', $rendezVous->consultation_id)->first();
-    
-        $consultation->update([
-            'etat' => 'enAttente'
-        ]);
+
+       
 
 
         if (empty($rendezVous)) {
 
             $user = auth()->user();
+
 
             if($user->name === 'Medecin générale'){
 
@@ -211,6 +209,11 @@ class RendezVousController extends AppBaseController
             return back();
         }
 
+        $consultation = Consultation::where('id', $rendezVous->consultation_id)->first();
+    
+        $consultation->update([
+            'etat' => 'enAttente'
+        ]);
         
         $this->rendezVousRepository->delete($id);
 

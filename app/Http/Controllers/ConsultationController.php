@@ -339,6 +339,10 @@ class ConsultationController extends AppBaseController
 
     public function patient(Request $request)
     {
+        if(empty($request->dossier_patients)){
+            return back();
+        }
+        
         $dossier_patient = DossierPatient::find($request->dossier_patients);
         return view('consultations.patient',compact("dossier_patient"));
     }
