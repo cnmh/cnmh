@@ -49,7 +49,7 @@
                                 <!-- SEARCH FORM -->
                                 <form class="form-inline ml-3">
                                     <div class="input-group input-group-sm">
-                                        <input type="search" class="form-control form-control-lg" placeholder="@lang('crud.search')">
+                                        <input type="search" id="searchTuteur" class="form-control form-control-lg" placeholder="@lang('crud.search')">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-lg btn-default">
                                                 <i class="fa fa-search"></i>
@@ -83,7 +83,7 @@
                                                 <th colspan="3">@lang('crud.action')</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tuteurTable">
                                             @foreach ($tuteurs as $tuteur)
                                                 <tr>
                                                     <td>
@@ -186,48 +186,86 @@
 @endsection
 
 @push('page_scripts')
+    
     <script>
-        const tableContainer = $('#table-container')
-        var searchQuery = ''
+       $(document).ready(function() {
+        function fetch_data(page, search) {
+            $.ajax({
+                url: "/parentForm/?page=" + page + "&query=" + search.trim(),
+                dataType: 'json', 
+                success: function(response) {
+                    $('#tuteurTable').html('');
+                    var data = response.data.data;
 
-        const search = (query = '', page = 1) => {
-            $.ajax('{{ route('tuteurs.index') }}', {
-                data: {
-                    query: query,
-                    page: page
-                },
-                success: (data) => updateTable(data)
-            })
-            history.pushState(null, null, '?query=' + query + '&page=' + page)
+                    for (var i = 0; i < data.length; i++) {
+                        var row = '<tr>';
+                        var rowData = data[i];
+
+                        row += '<td><input type="radio" name="parentRadio" value="' + rowData.id + '" ' + (rowData.id == "{{ $tuteur->id }}" ? 'checked' : '') + '></td>';
+                        row += '<td>' + rowData.tuteur_nom + '</td>';
+                        row += '<td>' + rowData.prenom + '</td>';
+                        row += '<td>' + rowData.telephone + '</td>';
+                        row += '<td>' + rowData.email + '</td>';
+                        row += '<td>' + rowData.adresse + '</td>';
+                        row += '<td>' + rowData.etat_civil_nom + '</td>';
+                        row += '<td style="width: 120px">';
+                        row += '<div class="btn-group">';
+
+                        row += '@can("show-Tuteur")';
+                        row += '<a href="{{ route("tuteurs.show", ["tuteur" => ' + rowData.id + ']) }}" class="btn btn-default btn-sm">';
+                        row += '<i class="far fa-eye"></i>';
+                        row += '</a>';
+                        row += '@endcan';
+
+                        row += '@can("edit-Tuteur")';
+                        row += '<a href="{{ route("tuteurs.edit", ["tuteur" => ' + rowData.id + ']) }}" class="btn btn-default btn-sm">';
+                        row += '<i class="far fa-edit"></i>';
+                        row += '</a>';
+                        row += '@endcan';
+
+                        row += '@can("destroy-Tuteur")';
+                        row += '<a href="#" class="btn btn-danger btn-xs" onclick="deleteTuteur(' + rowData.id + ')">';
+                        row += '<i class="far fa-trash-alt"></i>';
+                        row += '</a>';
+                        row += '@endcan';
+
+                        row += '</div>';
+                        row += '</td>';
+                        row += '</tr>';
+
+                        $('#tuteurTable').append(row);
+                    }
+
+
+                }
+
+
+            });
+
+
+
         }
 
-        const updateTable = (html) => {
-            tableContainer.html(html)
-            updatePaginationLinks()
-        }
+        $('body').on('click', '.pagination li', function(event) {
+            event.preventDefault();
+            var pageButton = $(this).find('.page-link');
+            if (pageButton.length) {
+                var page = pageButton.attr('page-number');
+                var search = $('#searchTuteur').val();
+                fetch_data(page, search);
+            }
+        });
 
-        const updatePaginationLinks = () => {
-            $('button[page-number]').each(function() {
-                $(this).on('click', function() {
-                    pageNumber = $(this).attr('page-number')
-                    search(searchQuery, pageNumber)
-                })
-            })
-        }
+        $('body').on('keyup', '#searchTuteur', function() {
+            var search = $('#searchTuteur').val();
+            var page = 1;
 
-        $(document).ready(() => {
-            $('[type="search"]').on('input', function() {
-                searchQuery = $(this).val()
-                search(searchQuery)
-            })
-            updatePaginationLinks()
-        var parentId = {{ request('tuteur_id') ?: 'null' }};
-    if (parentId) {
-        $("input[name='parentRadio'][value='" + parentId + "']").prop('checked', true);
-    }
-        })
+            console.log(search);
+            fetch_data(page, search);
+        });
 
-
+       fetch_data(1, '');
+    });
 
         function deleteTuteur(tuteurId) {
             const confirmDelete = confirm('Are you sure?');
