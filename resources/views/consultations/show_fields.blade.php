@@ -10,6 +10,34 @@
     <p>{{ $consultation->date_consultation }}</p>
 </div>
 
+<!-- Service Consultation Field -->
+<div class="col-sm-12">
+    {!! Form::label('Services', 'Services:') !!}
+    @if(!empty($consultation_service_patient))
+        <ol>
+            @foreach($consultation_service_patient as $service_patient_consultation)
+            <li>{{ $service_patient_consultation->nom }}</li>
+            @endforeach
+        </ol>
+    @endif
+
+</div>
+
+<!-- Ttye_handicap Consultation Field -->
+<div class="col-sm-12">
+    {!! Form::label('TypeHandicap', "Types de handicap:") !!}
+    @if(!empty($consultation_handicap_patient))
+        <ol>
+            @foreach($consultation_handicap_patient as $consultation_handicap)
+                <li>{{ $consultation_handicap->nom }}</li>
+            @endforeach
+        </ol>
+    @endif
+
+</div>
+
+
+
 <!-- Observation Field -->
 <div class="col-sm-12">
     {!! Form::label('observation', __('models/consultations.fields.observation').':') !!}

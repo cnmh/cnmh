@@ -192,9 +192,6 @@
                                     <table class="table table-striped" id="tuteurs-table">
                                         <thead>
                                             <tr>
-
-                                                <th></th>
-                                                <th>N°d'Ordre</th>
                                                 <th>N°Dossier</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
@@ -202,7 +199,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($dossier_patients as $dossier_patient)
+                                        @if($dossier_patients->isEmpty())
+                                           <tr>
+                                             <td class="text-center">Aucune dossier en liste d'attente</td>
+                                           </tr>
+                                        @else
+                                        @foreach ($dossier_patients as $dossier_patient)
                                                 <tr>
                                                     <td>
 
@@ -210,8 +212,6 @@
                                                             name="consultation_id"
                                                             aria-label="Radio button for following text input">
                                                     </td>
-
-                                                    <td>{{ $dossier_patient->id }}</td>
                                                     <td>{{ $dossier_patient->numero_dossier }}</td>
                                                     <td>{{ $dossier_patient->nom }}</td>
                                                     <td>{{ $dossier_patient->prenom }}</td>
@@ -220,11 +220,10 @@
                                                 {{-- <input type="hidden" name="consultation_id" value="{{$dossier_patient->consultation_id}}" > --}}
 
                                             @endforeach
+                                        @endif
                                         </tbody>
 
                                     </table>
-
-
                             </div>
                             <div class="ml-4 mb-3">
                                 <button   class="btn btn-primary">@lang('crud.next')</button>

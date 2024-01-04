@@ -12,7 +12,11 @@
             </tr>
             </thead>
             <tbody>
-
+            @if($rendezVouses->isEmpty())
+            <tr>
+                <td>Aucune rendez-vous trouvée</td>
+            </tr>
+            @else
             @foreach($rendezVouses as $rendezVous)
                 <tr>
                     <td>{{ $rendezVous->numero_dossier }}</td>
@@ -43,6 +47,8 @@
                 </tr>
                 
             @endforeach
+            @endif
+            
             </tbody>
         </table>
     </div>
@@ -51,7 +57,7 @@
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $rendezVouses])
         </div>
-        <div class="float-left">
+         <div class="float-left">
                                 @can('export-RendezVous')
                                 <button type="button" class="btn btn-default swalDefaultQuestion">
                                     <i class="fas fa-download"></i> @lang('crud.export')
@@ -63,5 +69,6 @@
                                 </button>
                                 @endcan
         </div>
+       
     </div>
 </div>

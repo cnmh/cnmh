@@ -10,6 +10,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cnmh2-production.up.railway.app/build/assets/app-993a4911.css">
+
 
     @vite('resources/sass/app.scss')
     @stack('third_party_stylesheets')
@@ -25,6 +27,7 @@
     @vite('resources/js/app.js')
     @stack('third_party_scripts')
     @stack('page_scripts')
+    <script src="https://cnmh2-production.up.railway.app/build/assets/app-e421d829.js"></script>
     <script>
         $(document).ready(() => {
             // $('.menu-open').click()

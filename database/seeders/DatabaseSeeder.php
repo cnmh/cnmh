@@ -15,6 +15,34 @@ use App\Models\NiveauScolaire;
 use Illuminate\Database\Seeder;
 use Symfony\Component\Uid\NilUuid;
 
+use Database\Seeders\Config\{
+    AppMenuSeeder
+};
+use Database\Seeders\Autorizations\{
+    AuthorisationSeeder,
+    PermissionSeeder,
+    RoleSeeder,
+    UserSeeder,
+    Maintenance_1_1_1,
+    Maintenance_1_1_2
+};
+use Database\Seeders\Parameters\{
+    CouvertureMedicalsTableSeeder,
+    EmployesTableSeeder,
+    EtatCivilsTableSeeder,
+    FonctionsTableSeeder,
+    NiveauScolairesTableSeeder,
+    ServicesTableSeeder,
+    TypeHandicapsTableSeeder
+};
+use Database\Seeders\Social\{
+    PatientsTableSeeder,
+    RendezVousesTableSeeder,
+    TuteursTableSeeder
+};
+use Database\Seeders\Medical\{
+    ConsultationsTableSeeder
+};
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -22,34 +50,45 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        $this->call([
-            AppMenuSeeder::class,
-            PermissionSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
-            EtatCivilsTableSeeder::class,
-            ServicesTableSeeder::class,
-            TuteursTableSeeder::class,
-            CouvertureMedicalsTableSeeder::class,
-            TypeHandicapsTableSeeder::class,
-            FonctionsTableSeeder::class,
-            NiveauScolairesTableSeeder::class,
-            PatientsTableSeeder::class,
-            EmployesTableSeeder::class,
-            DossierPatientsTableSeeder::class,
-            OrientationExternesTableSeeder::class,
+        $classes = [];
+        $classes = array_merge(
+            ConfigSeeder::Classes(),
+            AutorizationsSeeder::Classes(),
+            ParametersSeeder::Classes(),
+            SocialSeeder::Classes(),
+            SocialSeeder::Classes()
+        );
+        $this->call($classes);
 
 
-            // ConsultationsTableSeeder::class,
-            // RendezVousesTableSeeder::class,
+        // $this->call([
+        //     EtatCivilsTableSeeder::class,
+        //     ServicesTableSeeder::class,
+        //     CouvertureMedicalsTableSeeder::class,
+        //     TypeHandicapsTableSeeder::class,
+        //     FonctionsTableSeeder::class,
+        //     NiveauScolairesTableSeeder::class,
 
-            // DossierPatientConsultationTableSeeder::class,
-            // ProjectsTableSeeder::class,
 
-            ReclamationsTableSeeder::class,
-            // MembersTableSeeder::class,
-        ]);
+        //     // AppMenuSeeder::class,
+        //     // PermissionSeeder::class,
+        //     // RoleSeeder::class,
+        //     // UserSeeder::class,
+        //     // TuteursTableSeeder::class,
+           
+        //     // PatientsTableSeeder::class,
+        //     // EmployesTableSeeder::class,
+        //     // DossierPatientsTableSeeder::class,
+        //     // OrientationExternesTableSeeder::class,
+        //     // Maintenance_1_1_1::class,
+        //     // Maintenance_1_1_2::class,
+
+
+        //     // ConsultationsTableSeeder::class,
+        //     // RendezVousesTableSeeder::class,
+        //     // DossierPatientConsultationTableSeeder::class,
+        //     // MembersTableSeeder::class,
+        // ]);
 
     }
 }

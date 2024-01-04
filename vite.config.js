@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
+    base: 'https://cnmh2-production.up.railway.app/',
     plugins: [
         laravel({
             input: ['resources/sass/app.scss', 'resources/js/app.js'],

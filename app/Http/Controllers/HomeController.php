@@ -33,23 +33,8 @@ class HomeController extends Controller
     {
         $dossierCount = DossierPatient::count();
         $patientCount = Patient::count();
-        $tuteurCount = Tuteur::count();
-
         $dossierEnAttend = Consultation::where('etat','enAttente')->count();
-        $dossierEnRendezVous = Consultation::where('etat','enRendezVous')->count();
-        $dossierEnConsultation = Consultation::where('etat','enConsultation')->count();
-
-        $reussirRendezVous = ($dossierEnConsultation/$dossierEnRendezVous)*100;
-
-        $chartData = [
-            ['Label', 'Dossiers bénéficiaires', 'Bénéficiaires', 'Tuteurs'],
-            ['Dossiers bénéficiaires', $dossierCount, 0, 0],
-            ['Bénéficiaires', 0, $patientCount, 0],
-            ['Tuteurs', 0, 0, $tuteurCount],
-        ];
-
-        $data = json_encode($chartData);
-
-        return View::make('home', compact('data','dossierEnAttend','dossierEnRendezVous','dossierEnConsultation','reussirRendezVous'));
+        $Consultation = Consultation::where('etat','enConsultation')->count();
+        return View::make('home', compact('dossierCount','patientCount','Consultation','dossierEnAttend'));
     }
 }

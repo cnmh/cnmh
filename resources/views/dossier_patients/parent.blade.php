@@ -149,7 +149,7 @@
 
                             </div>
                             </form>
-                            {{--
+                            
                             <div class="card-footer clearfix">
                                 <div class="float-right">
                                     @include('adminlte-templates::common.paginate', [
@@ -157,15 +157,19 @@
                                     ])
                                 </div>
                                 <div class="float-left">
+                                    @can('export-Tuteur')
                                     <button type="button" class="btn btn-default swalDefaultQuestion">
                                         <i class="fas fa-download"></i> @lang('crud.export')
                                     </button>
+                                    @endcan
+                                    @can('import-Tuteur')
                                     <button type="button" class="btn btn-default swalDefaultQuestion">
                                         <i class="fas fa-file-import"></i> @lang('crud.import')
                                     </button>
+                                    @endcan
                                 </div>
                             </div>
-                            --}}
+                            -
                         </div>
                         <!-- /.card-body -->
 

@@ -4,19 +4,17 @@
 <div class="p-4">
     <div class="card card-dark" style="display: flex; flex-direction: column;">
         <div class="card-header">
-            <h3 class="card-title">Statistiques</h3>
+            <h3 class="card-title">Tableau de board</h3>
         </div>
-        <div class="card-body" style="flex: 1;">
-            <div id="barChart" style="height: 400px;"></div>
-        </div>
-        <!-- /.card-body -->
     </div>
     <div class="row">
         <div class="col-lg-3 col-6">
-            <div class="small-box" style="background:#fd5c63;">
+            <!-- small box -->
+            <div class="small-box" style="background:#00838f;">
                 <div class="inner">
-                    <h3>{{$dossierEnAttend}}</h3>
-                    <p>Dossiers en attente</p>
+                    <h3>{{$dossierCount}}</h3>
+
+                    <p>Nombre des dossiers</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-folder-open"></i>
@@ -27,66 +25,40 @@
 
             <div class="small-box" style="background:#FFD54F;">
                 <div class="inner">
-                    <h3>{{$dossierEnRendezVous}}</h3>
-                    <p>Dossiers en rendez-vous</p>
+                    <h3>{{$patientCount}}</h3>
+                    <p>Nombre des bénéficiaires</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-folder-open"></i>
+                    <i class="fas fa-users"></i>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box" style="background:#00838f;">
+            <div class="small-box" style="background:#fd5c63;">
                 <div class="inner">
-                    <h3>{{$dossierEnConsultation}}</h3>
-
-                    <p>Dossiers en consultation</p>
+                    <h3>{{$Consultation}}</h3>
+                    <p>Nombre des consultations</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-folder-open"></i>
                 </div>
             </div>
         </div>
+
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box" style="background:#1cb36c;">
                 <div class="inner">
-                    <h3>{{$reussirRendezVous}} %</h3>
-                    <p class="text-dark">Rendez-vous réaliser</p>
+                    <h3>{{$dossierEnAttend}}</h3>
+                    <p class="text-dark">Dossiers en attente</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-folder-open"></i>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-<!-- Google Charts -->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-google.charts.load('current', {
-    'packages': ['corechart']
-});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-    var data = google.visualization.arrayToDataTable(<?php echo $data; ?>);
-
-    var options = {
-        legend: {
-            position: 'top'
-        },
-        colors: ['#1cb36c', '#FFD54F', '#00838f'],
-        isStacked: false,
-    };
-
-    var chart = new google.visualization.BarChart(document.getElementById('barChart'));
-    chart.draw(data, options);
-}
-</script>
 @endsection

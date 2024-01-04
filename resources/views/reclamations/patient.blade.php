@@ -100,12 +100,16 @@
                         {{-- @include('adminlte-templates::common.paginate', ['records' => $patients]) --}}
                     </div>
                     <div class="float-left">
+                        @can('export-Patient')
                         <button type="button" class="btn btn-default swalDefaultQuestion">
                             <i class="fas fa-download"></i> Exporter
                         </button>
+                        @endcan
+                        @can('import-Patient')
                         <button type="button" class="btn btn-default swalDefaultQuestion">
                             <i class="fas fa-file-import"></i> Importer
                         </button>
+                        @endcan
                     </div>
                 </div>
             </div>

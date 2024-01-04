@@ -12,10 +12,15 @@
                 </tr>
             </thead>
             <tbody>
+                @if($dossierPatients->isEmpty())
+                <tr>
+                    <td class="text-center">Aucune dossier trouvée</td>
+                </tr>
+                @else
                 @foreach($dossierPatients as $dossierPatient)
                 <tr>
                     <td>{{ $dossierPatient->numero_dossier }}</td>
-                    <td>{{ $dossierPatient->patient->nom }}</td>
+                    <td>{{ $dossierPatient->patient->nom }} {{ $dossierPatient->patient->prenom }}</td>
                     {{-- <td>{{ $dossierPatient->couvertureMedical->nom }}</td> --}}
                     <td><span class="badge bg-success">{{ $dossierPatient->etat }}</span></td>
                     {{-- <td>{{ $dossierPatient->date_enregsitrement }}</td> --}}
@@ -47,6 +52,8 @@
                 </tr>
 
                 @endforeach
+                @endif
+                
             </tbody>
         </table>
     </div>
@@ -60,13 +67,13 @@
         <a class="btn btn-default swalDefaultQuestion" href="{{ route('dossier-patients.export') }}"><i
                 class="fas fa-download"></i>@lang('crud.export')</a>
         @endcan
-        {{--
+        
         @can('import-DossierPatient')
         <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
         </button>
         @endcan
-        --}}
+       
     </div>
     <div class="float-right">
         @include('adminlte-templates::common.paginate', ['records' => $dossierPatients])

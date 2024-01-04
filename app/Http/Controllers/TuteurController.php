@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTuteurRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\EtatCivil;
 use App\Models\Patient;
+use App\Models\Tuteur;
 use App\Repositories\TuteurRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -60,16 +61,27 @@ class TuteurController extends AppBaseController
 
         $input = $request->all();
 
+
+        $tuteurExiste = $this->tuteurRepository->where(Tuteur::class,'cin',$input['cin'])->first();
+
+        if($tuteurExiste){
+            Flash::error('Tuteur est déja existe');
+            return back();
+        }
+
         $tuteur = $this->tuteurRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/tuteurs.singular')]));
 
 
         if ($request->parentForm) {
+
             return redirect("/patientForm?parentRadio=$tuteur->id");
+
         } else {
 
             return redirect(route('tuteurs.index'));
+
         }
     }
 

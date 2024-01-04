@@ -1,97 +1,79 @@
-<!-- TODO : Changer le nom du projet -->
-# cnmh2 
+# CNMH
 
-<!-- TODO : Introduction -->
+Notre projet vise à moderniser la gestion des dossiers patients au Centre National Mohammed VI des Handicapés (CNMH). En passant de la documentation papier à la digitalisation.
 
-### Installation de l'application
+## Plan
+
+- Installation de l'application pour la première fois
+- Mise à ajour de l'application
+- Démonstration de l'application 
+- Exécution de test Browser
+
+
+# Installation de l'application pour la première fois
 
 ```bash
   npm install
   composer install
 ```
 
-<!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
-
-<!-- TODO : migrate:fresh -> This database does not exist -->
 ```bash
-  php artisan migrate:fresh
-  php artisan db:seed
-  npm run build
+cp .env.example .env
+php artisan key:generate
 ```
-# Démonstration de l'application 
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+# Démonstration de l'application
 
 - Email : admin@gmail.com
   - Password : admin
-  
 - Email : social@gmail.com
   - Password : social
-
 - Email : medecin@gmail.com
   - Password : medecin
-  - 
-## Les composants de l'application
 
-<!-- Introduction -->
+## Mise à ajour de l'application
 
-- app
-  - Exports
-  - Helpers
-  - Http
-    - Controllers
-    - Middleware
-      - ConsultationMidddleware.PHP
-    - Request
-  - Imports
-  - Models
-  - Policies
-  - Providers
-    - AppServiceProvider.php
-    - AuthServiceProvider.php
-    - RouteServiceProvider.php
-  - Repositories
-- config
-  - app.php
-  - excel.php+
-- database
-  - factories
-  - migrations
-  - seeders
-- lang 
-- resources
-  - views
-    - auth
-      - Login.blade.php
-    - **tous les vues**
-- Routes
-  - web.php
-
-<!-- TODO : Vérifiez que maatwebsite/excel est installé dans lab-laraver-starter -->
-- composer.json
-  -  "require": {
-        "maatwebsite/excel": "^3.1"
-    },
-  -  "autoload": {
-        "files": [
-            "app/Helpers/Helper.php"
-        ]
-    }
-
-
-### Installation de l'application
-
-- Creer un fichier env
-  
 ```bash
-  npm install
-  composer install
+npm run build
+php artisan migrate:fresh
 ```
 
-<!-- TODO : Ajoutez des instruction d'installation de fichier d'environnement -->
+## Exécution de test Browser
 
-<!-- TODO : migrate:fresh -> This database does not exist -->
+Création de fichier d'environement pour exécuter l'application avec la configuration convenable avec le test browser avec dusk
+
+
 ```bash
-  php artisan migrate:fresh
-  php artisan db:seed
-  npm run build
+cp .env .env.test
+
+```
+
+```conf
+APP_KEY=
+# laravel-debug générer des exception avec dusk
+APP_DEBUG=false
+APP_URL=http://127.0.0.1:8000/
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+# Création d'une base de données pour le test
+DB_DATABASE=cnmh_test
+DB_USERNAME=
+DB_PASSWORD=
+```
+
+```bash
+php artisan migrate --env=test
+php artisan db:seed --env=test
+```
+
+```bash
+php artisan serve --env=test
 ```
 

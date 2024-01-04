@@ -19,14 +19,17 @@
         <div class="col-md-10  ">
             <div class="col-md-12  ">
                 <div class="card card-primary card-create ">
+                        <div class="col-sm-12">
+                          @include('flash::message')
+                        </div>
                     <div class="card-header">
                         <h3 class="card-title"> @lang('crud.create')
                             un tuteur
-
                         </h3>
                     </div>
-
+              
                     <div class="card-body">
+                        <p class="required-field">@lang('crud.requiredFields')</p>
                         {!! Form::open(['route' => 'tuteurs.store']) !!}
 
                         <div class="row">

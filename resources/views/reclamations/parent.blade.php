@@ -107,12 +107,16 @@
                         @include('adminlte-templates::common.paginate', ['records' => $tuteurs])
                     </div>
                     <div class="float-left">
+                        @can('export-Tuteur')
                         <button type="button" class="btn btn-default swalDefaultQuestion">
                             <i class="fas fa-download"></i> Exporter
                         </button>
+                        @endcan
+                        @can('import-Tuteur')
                         <button type="button" class="btn btn-default swalDefaultQuestion">
                             <i class="fas fa-file-import"></i> Importer
                         </button>
+                        @endcan
                     </div>
                 </div>
             </div>

@@ -59,7 +59,9 @@
                 </td>
                 <td>
                     <ol>
-                       
+                        @foreach($service_demander_patient as $item)
+                            <li>{{$item->nom}}</li>
+                        @endforeach
                     </ol>
                 </td>
             </tr>

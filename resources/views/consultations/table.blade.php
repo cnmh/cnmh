@@ -3,22 +3,25 @@
         <table class="table table-striped" id="consultations-table">
             <thead>
                 <tr>
+                    <th>Numéro dossier</th>
                     <th>Nom</th>
                     <th>Prénom</th>
-                    <th>Téléphone</th>
-                    <th>Date enregistrement</th>
+                    <th>Date d'enregistrement</th>
                     <th>État</th>
-                    <th>Orientation</th>
-                    <th>Date consultation</th>
                     <th colspan="3">Action</th>
                 </tr>
             </thead>
             <tbody>
+                @if($consultations->isEmpty())
+                <tr>
+                    <td>Aucune consultation trouvée</td>
+                </tr>
+                @else
                 @foreach($consultations as $consultation)
                 <tr>
-                    <td>{{ $consultation->id }}</td>
+                    <td>{{ $consultation->numero_dossier }}</td>
+                    <td>{{ $consultation->nom }}</td>
                     <td>{{ $consultation->prenom }}</td>
-                    <td>{{ $consultation->telephone }}</td>
                     <td>{{ $consultation->date_enregistrement }}</td>
                     <td>
                         @if($consultation->etat === 'enRendezVous')
@@ -29,12 +32,6 @@
                         En consultation
                         @endif
                     </td>
-                    <td>
-                        @if($consultation->type === 'medecinGeneral')
-                        Médecin générale
-                        @endif
-                    </td>
-                    <td>{{ $consultation->date_consultation }}</td>
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['consultations.destroy', $consultation->id], 'method' => 'delete'])
                         !!}
@@ -52,7 +49,10 @@
                             </a>
                             @endcan
                             @can('destroy-Consultation')
+                            {{-- 
                              {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            
+                            --}}
                              @endcan
                         </div>
                         {!! Form::close() !!}
@@ -60,22 +60,27 @@
                 </tr>
 
                 @endforeach
+                @endif
+               
             </tbody>
         </table>
     </div>
 </div>
 <div class="card-footer clearfix">
     <div class="float-left d-flex">
+        @can('export-Consultation')
         <form action="{{ route('consultations.export') }}" method="post">
             @csrf 
             <button type="submit" class="btn btn-default swalDefaultQuestion">
                 <i class="fas fa-download"></i> @lang('crud.export')
             </button>
         </form>
-        
+        @endcan
+        @can('import-Consultation')
         <button class="btn btn-default swalDefaultQuestion" data-toggle="modal" data-target="#importModel">
                 <i class="fas fa-file-import"></i> @lang('crud.import')
         </button>
+        @endcan
     </div>
     <div class="float-right">
         @include('adminlte-templates::common.paginate', ['records' => $consultations])

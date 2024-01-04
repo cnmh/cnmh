@@ -1,4 +1,5 @@
-<div class="tab-pane fade" id="custom-tabs-two-settings3" role="tabpanel" aria-labelledby="custom-tabs-two-settings3-tab">
+<div class="tab-pane fade" id="custom-tabs-two-settings3" role="tabpanel"
+    aria-labelledby="custom-tabs-two-settings3-tab">
     <h3>Consultation en attente:
     </h3>
     <br>
@@ -11,13 +12,15 @@
             </tr>
         </thead>
         <tbody>
-           @foreach($listAttent as $item)
-           <tr>
-            <td></td>
-            <td>{{$item->id}}</td>
-            <td>{{$item->date_enregistrement}}</td>
-           </tr>
-           @endforeach
+            @foreach($listAttent as $item)
+                @foreach($service_demander_patient as $service)
+                    <tr>
+                        <td>{{$service->nom}}</td>
+                        <td>{{$item->id}}</td>
+                        <td>{{$item->date_enregistrement}}</td>
+                    </tr>
+                @endforeach
+            @endforeach
         </tbody>
     </table>
 </div>
