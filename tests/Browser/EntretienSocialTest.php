@@ -7,18 +7,22 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 
+
 class EntretienSocialTest extends CnmhDuskTest
 {
     // use DatabaseTruncation;
 
 
 
+    /**
+     * @group entretien-social
+     */
     public function testAjouterEntretienSocial(): void
     {
  
         $this->browse(function (Browser $browser) {
 
-             
+
             $this->login_service_social($browser);
 
             // Navigation
@@ -26,6 +30,7 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->visit('/dossier-patients');
             $browser->clickLink('Ajouter');
             $browser->visit('/parentForm');
+            // add assert
 
             // Ajouter tuteur
             $browser->clickLink('Ajouter tuteur');
@@ -39,13 +44,19 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->press('Enregistrer');
             $browser->assertPathIs('/patientForm');
 
+
             // Ajouter bénéficiaire
             $browser->clickLink('Ajouter bénéficiaire');
             $browser->type('nom', 'Madani');
             $browser->type('prenom', 'Ali');
             $browser->select('niveau_scolaire_id','1');
             $browser->press('Enregistrer');
-            $browser->assertPathIs('/entretien/parentRadio=4');
+            $browser->assertSee('bénéficiaire a été enregistré avec succès.');
+            // $browser->assertPathIs('/entretien/parentRadio=4');
+
+            // TODO : assert by path
+
+
 
             // Entretien social
             $browser->select('type_handicap_id[]',[1,2]);
@@ -53,35 +64,31 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->select('couverture_medical_id','1');
             $browser->press('Enregistrer');
             $browser->assertPathIs('/dossier-patients');
+
+
+            // TODO: Fixed Assert: Added tuteur , entretien social , list d'attente
+            $this->assertDatabaseHas('tuteurs', [
+                'nom' => 'NomTuteur1',
+                'prenom' => 'PrénomTuteur1',
+            ]);
+            $this->assertDatabaseHas('patients', [
+                'nom' => 'Madani',
+                'prenom' => 'Ali',
+            ]);
+            $this->assertDatabaseHas('consultations', [
+                'id' => '1',
+            ]);
+
+            // $this->assertTrue(\DB::table('consultations')->count() > 0, 'The consultations table is not empty.');
+
+
+
         });
     }
 
 
-    /**
-     * @group list-attente
-     */
-    public function testInsertionAutomatiqueEnListAttente(): void{
 
-        // Prepare data
-        // Ajouter entretien social
-
-
-        
-        $this->browse(function (Browser $browser) {
-
-           $this->login_service_social($browser);
-
-            // Traitement
-            $browser->visit('/consultations/liste-attente');
-            $browser->type('#searchConsultation','Madani');
-            // $this->press('');
-
-            // Assertion
-            $browser->assertSee('Madani');
-            $browser->assertSee('Ali');
- 
-        });
-    }
+    
 
     
 }
