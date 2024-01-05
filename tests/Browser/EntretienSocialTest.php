@@ -2,9 +2,15 @@
 
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Patient;
+use App\Models\DossierPatient;
+use App\Models\DossierPatientConsultation;
+use App\Models\Dossier_patient_service;
+use App\Models\DossierPatient_typeHandycape;
+
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 
 
@@ -21,8 +27,6 @@ class EntretienSocialTest extends CnmhDuskTest
     {
  
         $this->browse(function (Browser $browser) {
-
-
             $this->login_service_social($browser);
 
             // Navigation
@@ -30,7 +34,7 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->visit('/dossier-patients');
             $browser->clickLink('Ajouter');
             $browser->visit('/parentForm');
-            // add assert
+            $browser->assertPathIs('/parentForm');
 
             // Ajouter tuteur
             $browser->clickLink('Ajouter tuteur');
@@ -44,7 +48,6 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->press('Enregistrer');
             $browser->assertPathIs('/patientForm');
 
-
             // Ajouter bénéficiaire
             $browser->clickLink('Ajouter bénéficiaire');
             $browser->type('nom', 'Madani');
@@ -53,10 +56,7 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->press('Enregistrer');
             $browser->assertSee('bénéficiaire a été enregistré avec succès.');
             // $browser->assertPathIs('/entretien/parentRadio=4');
-
             // TODO : assert by path
-
-
 
             // Entretien social
             $browser->select('type_handicap_id[]',[1,2]);
@@ -65,8 +65,7 @@ class EntretienSocialTest extends CnmhDuskTest
             $browser->press('Enregistrer');
             $browser->assertPathIs('/dossier-patients');
 
-
-            // TODO: Fixed Assert: Added tuteur , entretien social , list d'attente
+            // TODO: Fixed Assert: Added tuteur, patient, Dossier patient, consultation, dossierpatientconsultation, dossierpatientservice, dossierpatient typeshendicap
             $this->assertDatabaseHas('tuteurs', [
                 'nom' => 'NomTuteur1',
                 'prenom' => 'PrénomTuteur1',
@@ -75,12 +74,27 @@ class EntretienSocialTest extends CnmhDuskTest
                 'nom' => 'Madani',
                 'prenom' => 'Ali',
             ]);
-            $this->assertDatabaseHas('consultations', [
-                'id' => '1',
+            // get patient 
+            $patient = Patient::where(['nom' => 'Madani', 'prenom' => 'Ali'])->first();
+            $this->assertDatabaseHas('dossier_patients', [
+                'patient_id' => $patient->id,
             ]);
 
-            // $this->assertTrue(\DB::table('consultations')->count() > 0, 'The consultations table is not empty.');
+            $dossier_patient = DossierPatient::where('patient_id', $patient->id)->first();
+            $this->assertDatabaseHas('dossier_patient_consultation', [
+                'dossier_patient_id' => $dossier_patient->id,
+            ]);
 
+            $dossier_patient_consultation = DossierPatientConsultation::where('dossier_patient_id', $dossier_patient->id)->first();
+            $this->assertDatabaseHas('consultations', [
+                'id' => $dossier_patient_consultation->consultation_id,
+            ]);
+
+            $dossier_patient_services_count = Dossier_patient_service::where('dossier_patient_id', $dossier_patient->id)->count();
+            $this->assertDatabaseCount('dossier_patient_service', $dossier_patient_services_count);
+
+            $dossier_patient_type_handicap_count = DossierPatient_typeHandycape::where('dossier_patient_id', $dossier_patient->id)->count();
+            $this->assertDatabaseCount('dossier_patient_type_handicap', $dossier_patient_type_handicap_count);
 
 
         });
