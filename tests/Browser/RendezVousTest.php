@@ -29,35 +29,28 @@ class RendezVousTest extends CnmhDuskTest
     public function test_ajouter_rendez_vous(){
 
         $this->browse(function (Browser $browser) {
-            $this->ajouter_entretien_social_not_existe();
-
             $this->login_service_social($browser);
+            $this->ajouter_entretien_social_not_existe();
 
             // Navigation
             $browser->visit('/rendez-vous');
             $browser->visit('/rendez-vous/list_dossier');
 
-            $browser->radio('consultation_id', '1');
+            // traitement
+            $etat = "enAttente";
+            $dossierPatient = DossierPatient::where('etat',$etat)->first();
+            $DossierPatient_consultation = DossierPatientConsultation::where('dossier_patient_id',$dossierPatient->id)->first();
+            $browser->radio('consultation_id', $DossierPatient_consultation->consultation_id);
             $browser->press('Suivant');
-            
             $browser->type('date_rendez_vous', '2024-01-04T13:36');
             $browser->press('Enregistrer');
-
             $browser->assertSee('Rendez vous a été enregistré avec succès.');
-
             $this->assertDatabaseHas('rendez_vous', [
-                'id' => '1',
+                'consultation_id' => $DossierPatient_consultation->consultation_id,
             ]);
         });
 
     }
-
-
-
-
-
-
-
 
     public function ajouter_entretien_social_not_existe(){
 

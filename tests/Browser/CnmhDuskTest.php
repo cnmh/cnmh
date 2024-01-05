@@ -56,5 +56,17 @@ class CnmhDuskTest extends DuskTestCase
         $browser->assertPathIs('/');
    }
 
+
+    public function login_medecin($browser):void{
+
+        // Login
+        $browser->visit('/login');
+        $browser->type('email', 'medecin@gmail.com');
+        $browser->type('password', 'medecin');
+        // $browser->pause('5000');
+        $browser->press('Connexion');
+        $browser->assertPathIs('/');
+    }
+
   
 }
