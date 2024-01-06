@@ -33,7 +33,7 @@ class ListAttenteTest extends CnmhDuskTest
 
     
      /**
-     * @group entretien-social
+     * @group list-attente
      */
     public function testInsertionAutomatiqueEnListAttente(): void{
 
