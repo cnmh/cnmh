@@ -101,6 +101,7 @@ class ConsultationMedecinGeneralTest extends CnmhDuskTest
             $browser->type('date_rendez_vous', '2024-01-04T13:36');
             $browser->press('Enregistrer');
             $browser->assertSee('Rendez vous a été enregistré avec succès.');
+            
             $this->assertDatabaseHas('rendez_vous', [
                 'consultation_id' => $DossierPatient_consultation->consultation_id,
             ]);
