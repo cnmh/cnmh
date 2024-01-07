@@ -192,6 +192,7 @@
                                     <table class="table table-striped" id="tuteurs-table">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>N°Dossier</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>

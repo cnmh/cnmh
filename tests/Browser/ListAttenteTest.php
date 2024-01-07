@@ -2,55 +2,62 @@
 
 namespace Tests\Browser;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Patient;
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use App\Models\Consultation;
-use App\Models\DossierPatient;
-use Tests\Browser\CnmhDuskTest;
-use App\Models\CouvertureMedical;
-use Tests\Browser\ListAttenteTest;
-use App\Models\Dossier_patient_service;
-use App\Models\DossierPatientConsultation;
-use App\Models\DossierPatient_typeHandycape;
-use App\Repositories\DossierPatientRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTruncation;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
+use App\Models\Patient;
+use App\Models\DossierPatient;
+use App\Models\CouvertureMedical;
+use App\Models\DossierPatient_typeHandycape;
+use App\Models\DossierPatientConsultation;
+use App\Models\Dossier_patient_service;
+use App\Models\Consultation;
 
-class RendezVousTest extends CnmhDuskTest
+
+
+
+
+
+
+
+
+use App\Models\User;
+use Illuminate\Support\Carbon;
+use App\Repositories\DossierPatientRepository;
+
+class ListAttenteTest extends CnmhDuskTest
 {
-
-
     /**
-     * @group ajouter-rendez-vous
+     * A Dusk test example.
      */
-    public function test_ajouter_rendez_vous(){
 
+    
+     /**
+     * @group list-attente
+     */
+    public function testInsertionAutomatiqueEnListAttente(): void{
+
+        // TODO : ajouter entretien social
+
+       $this->ajouter_entretien_social_not_existe();
+        
         $this->browse(function (Browser $browser) {
-            $this->login_service_social($browser);
-            $this->ajouter_entretien_social_not_existe();
 
-            // Navigation
-            $browser->visit('/rendez-vous');
-            $browser->visit('/rendez-vous/list_dossier');
+           $this->login_service_social($browser);
 
-            // traitement
-            $etat = "enAttente";
-            $dossierPatient = DossierPatient::where('etat',$etat)->first();
-            $DossierPatient_consultation = DossierPatientConsultation::where('dossier_patient_id',$dossierPatient->id)->first();
-            $browser->radio('consultation_id', $DossierPatient_consultation->consultation_id);
-            $browser->press('Suivant');
-            $browser->type('date_rendez_vous', '2024-01-04T13:36');
-            $browser->press('Enregistrer');
-            $browser->assertSee('Rendez vous a été enregistré avec succès.');
-            $this->assertDatabaseHas('rendez_vous', [
-                'consultation_id' => $DossierPatient_consultation->consultation_id,
-            ]);
+            // Traitement
+
+            $browser->visit('/consultations/liste-attente');
+            // $browser->type('#searchConsultation','Madani');
+            // $this->press('');
+
+            // Assertion
+            // $browser->assertSee('Madani');
+            // $browser->assertSee('Ali');
+ 
         });
-
     }
+
 
     public function ajouter_entretien_social_not_existe(){
 
@@ -115,6 +122,7 @@ class RendezVousTest extends CnmhDuskTest
             $service_patient_demander->dossier_patient_id = $dossierPatient->id;
             $service_patient_demander->save();
         }
+
     
         $consultation = new Consultation();
         $consultation->date_enregistrement= now();
