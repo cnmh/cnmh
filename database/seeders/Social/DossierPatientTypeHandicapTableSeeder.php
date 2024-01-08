@@ -4,9 +4,11 @@ namespace Database\Seeders\Social;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\DossierPatientConsultation;
+use App\Models\TypeHandicap;
+use App\Models\DossierPatient_typeHandycape;
 
-class DossierPatientConsultationTableSeeder extends Seeder
+
+class DossierPatientTypeHandicapTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,34 +16,38 @@ class DossierPatientConsultationTableSeeder extends Seeder
     public function run(): void
     {
         $now = \Carbon\Carbon::now();
-        $dossierPatientConsultation = DossierPatientConsultation::insert([
+        $dossierPatientTypeHandicap = DossierPatient_typeHandycape::insert([
             [
                 'dossier_patient_id' => 1,
-                'consultation_id' => 1,
+                'type_handicap_id' => TypeHandicap::inRandomOrder()->first()->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'dossier_patient_id' => 2,
-                'consultation_id' => 2,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],  [
-                'dossier_patient_id' => 3,
-                'consultation_id' => 3,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],  [
-                'dossier_patient_id' => 4,
-                'consultation_id' => 4,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],  [
-                'dossier_patient_id' => 5,
-                'consultation_id' => 5,
+                'type_handicap_id' => TypeHandicap::inRandomOrder()->first()->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
+            [
+                'dossier_patient_id' => 3,
+                'type_handicap_id' => TypeHandicap::inRandomOrder()->first()->id,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'dossier_patient_id' => 4,
+                'type_handicap_id' => TypeHandicap::inRandomOrder()->first()->id,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'dossier_patient_id' => 5,
+                'type_handicap_id' => TypeHandicap::inRandomOrder()->first()->id,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+           
         ]);
     }
 }

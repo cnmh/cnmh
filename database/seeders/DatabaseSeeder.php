@@ -38,7 +38,8 @@ use Database\Seeders\Parameters\{
 use Database\Seeders\Social\{
     PatientsTableSeeder,
     RendezVousesTableSeeder,
-    TuteursTableSeeder
+    TuteursTableSeeder,
+    DossierPatientTableSeeder
 };
 use Database\Seeders\Medical\{
     ConsultationsTableSeeder
@@ -56,7 +57,6 @@ class DatabaseSeeder extends Seeder
             AutorizationsSeeder::Classes(),
             ParametersSeeder::Classes(),
             SocialSeeder::Classes(),
-            SocialSeeder::Classes()
         );
         $this->call($classes);
 
