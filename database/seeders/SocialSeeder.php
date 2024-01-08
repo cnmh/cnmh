@@ -19,7 +19,9 @@ use Database\Seeders\Social\{
     TuteursTableSeeder,
     DossierPatientTableSeeder,
     ConsultationTableSeeder,
-    DossierPatientConsultationTableSeeder
+    DossierPatientConsultationTableSeeder,
+    DossierPatientTypeHandicapTableSeeder,
+    DossierPatientServiceTableSeeder
 };
  
 /**
@@ -42,6 +44,8 @@ class SocialSeeder extends Seeder
             ConsultationTableSeeder::class,
             DossierPatientConsultationTableSeeder::class,
             RendezVousesTableSeeder::class,
+            DossierPatientTypeHandicapTableSeeder::class,
+            DossierPatientServiceTableSeeder::class
         ];
     }
 }
