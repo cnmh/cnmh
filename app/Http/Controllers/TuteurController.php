@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\EtatCivil;
 use App\Models\Patient;
 use App\Models\Tuteur;
+use App\Models\DossierPatient;
 use App\Repositories\TuteurRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -104,10 +105,11 @@ class TuteurController extends AppBaseController
     /**
      * Show the form for editing the specified Tuteur.
      */
-    public function edit($id)
+    public function edit($id , Request $request)
     {
         $tuteur = $this->tuteurRepository->find($id);
-    
+        $previousUrl = $request->input('previous_url', route('dossier-patients.index'));
+            
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
             return redirect(route('tuteurs.index'));
@@ -115,7 +117,7 @@ class TuteurController extends AppBaseController
     
         $etat_civil = EtatCivil::find($tuteur->etat_civil_id);
     
-        return view('tuteurs.edit', compact('tuteur', 'etat_civil'));
+        return view('tuteurs.edit', compact('tuteur', 'etat_civil','previousUrl'));
     }
     
     /**
@@ -131,9 +133,22 @@ class TuteurController extends AppBaseController
             return redirect(route('tuteurs.index'));
         }
 
+        $previousUrl = $request->input('previous_url');
+
         $tuteur = $this->tuteurRepository->update($request->all(), $id);
 
+        $patient = Patient::where('tuteur_id',$id)->first();
+
+        $dossier_patient = DossierPatient::where('patient_id',$patient->id)->first();
+
+        $numeroDossier = $dossier_patient->numero_dossier;
+
         Flash::success(__('messages.updated', ['model' => __('models/tuteurs.singular')]));
+
+        if (strpos($previousUrl, 'dossier-patients') !== false) {
+            $redirectUrl = $previousUrl . '/'. $numeroDossier .'/edit';
+            return redirect($redirectUrl);
+        }
 
         return redirect(route('tuteurs.index'));
     }

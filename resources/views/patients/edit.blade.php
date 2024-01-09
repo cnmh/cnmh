@@ -23,6 +23,7 @@
 
             <div class="card-body">
                 <div class="row">
+                    <input type="hidden" name="previous_url" value="{{ $previousUrl }}">
                     @include('patients.fields')
                 </div>
             </div>
