@@ -217,15 +217,24 @@ class DossierPatientController extends AppBaseController
         
         $title = 'MedecinGeneral';
 
-        $listrendezvous=DossierPatient::join('dossier_patient_consultation', 'dossier_patients.patient_id', '=', 'dossier_patient_consultation.dossier_patient_id')
-        ->join('consultations','consultations.id','=','dossier_patient_consultation.consultation_id')
-        ->join('rendez_vous','rendez_vous.consultation_id','=','dossier_patient_consultation.consultation_id')
-        ->join('consultation_services','consultation_services.consultation_id','=','dossier_patient_consultation.consultation_id')
-        ->join('services','services.id','=','consultation_services.service_id')
-        ->where('dossier_patients.patient_id',$dossierPatient->patient_id)
-        ->select(['rendez_vous.date_rendez_vous','rendez_vous.etat', 'services.nom','dossier_patients.patient_id'])
-        ->groupBy('rendez_vous.date_rendez_vous', 'rendez_vous.etat','services.nom','dossier_patients.patient_id')
+        $listrendezvous = RendezVous::join('consultations', 'consultations.id', '=', 'rendez_vous.consultation_id')
+        ->join('dossier_patient_consultation', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+        ->join('dossier_patients', 'dossier_patients.id', '=', 'dossier_patient_consultation.dossier_patient_id')
+        ->join('patients', 'patients.id', '=', 'dossier_patients.patient_id')
+        ->select([
+            'rendez_vous.date_rendez_vous',
+            'rendez_vous.etat as etatRendezVous',
+            'consultations.*',
+            'dossier_patient_consultation.*',
+            'dossier_patients.*',
+            'patients.*'
+        ])
         ->get();
+
+
+
+        // $rendevous = 
+
         // dd($listrendezvous);
         // $consultation=$dossierPatient->dossierPatientConsultations;
         // $service=$dossierPatient->dossierPatientServices;
