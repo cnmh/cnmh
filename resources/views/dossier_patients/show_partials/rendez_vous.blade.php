@@ -53,16 +53,16 @@
                         {{explode(' ', $item->date_rendez_vous)[1]}}
                     </td>
                     <td>
-                        {{$item->nom}}
+                        Service médical
                     </td>
-                    <td>{{$item->etat}}</td>
-                    <td>
+                    <td>{{$item->etatRendezVous}}</td>
+                    {{-- <td>
                         <a class="btn btn-primary btn-sm" href="#">
                             <i class="fas fa-folder">
                             </i>
                             Détail
                         </a>
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
         </tbody>
