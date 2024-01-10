@@ -13,13 +13,11 @@
         </thead>
         <tbody>
             @foreach($listAttent as $item)
-                @foreach($service_demander_patient as $service)
                     <tr>
-                        <td>{{$service->nom}}</td>
+                        <td>Service médical</td>
                         <td>{{$item->id}}</td>
                         <td>{{$item->date_enregistrement}}</td>
                     </tr>
-                @endforeach
             @endforeach
         </tbody>
     </table>
