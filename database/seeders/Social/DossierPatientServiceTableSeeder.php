@@ -4,9 +4,10 @@ namespace Database\Seeders\Social;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\DossierPatientConsultation;
+use App\Models\Service;
+use App\Models\Dossier_patient_service;
 
-class DossierPatientConsultationTableSeeder extends Seeder
+class DossierPatientServiceTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,34 +15,39 @@ class DossierPatientConsultationTableSeeder extends Seeder
     public function run(): void
     {
         $now = \Carbon\Carbon::now();
-        $dossierPatientConsultation = DossierPatientConsultation::insert([
+        $dossierPatientservice = Dossier_patient_service::insert([
             [
                 'dossier_patient_id' => 1,
-                'consultation_id' => 1,
+                'service_id' => Service::inRandomOrder()->first()->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'dossier_patient_id' => 2,
-                'consultation_id' => 2,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],  [
-                'dossier_patient_id' => 3,
-                'consultation_id' => 3,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],  [
-                'dossier_patient_id' => 4,
-                'consultation_id' => 4,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],  [
-                'dossier_patient_id' => 5,
-                'consultation_id' => 5,
+                'service_id' => Service::inRandomOrder()->first()->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
+            [
+                'dossier_patient_id' => 3,
+                'service_id' => Service::inRandomOrder()->first()->id,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'dossier_patient_id' => 4,
+                'service_id' => Service::inRandomOrder()->first()->id,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'dossier_patient_id' => 5,
+                'service_id' => Service::inRandomOrder()->first()->id,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+           
+           
         ]);
     }
 }
