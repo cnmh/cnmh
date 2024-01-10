@@ -24,7 +24,8 @@ use Database\Seeders\Autorizations\{
     RoleSeeder,
     UserSeeder,
     Maintenance_1_1_1,
-    Maintenance_1_1_2
+    Maintenance_1_1_2,
+    Maintenance_1_1_3
 };
 use Database\Seeders\Parameters\{
     CouvertureMedicalsTableSeeder,
