@@ -1,0 +1,5 @@
+# Déploiement : l'application s'exécute dans le dossier racine et non sur pub
+
+# Direct all requests to /public folder
+RewriteCond %{REQUEST_URI} !/public
+RewriteRule ^(.*)$ public/$1 [L]
