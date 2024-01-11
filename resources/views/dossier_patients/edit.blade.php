@@ -8,6 +8,9 @@
                     <h1>
                         @lang('crud.edit') @lang('models/dossierPatients.singular')
                     </h1>
+                    <div class="mt-5">
+                        @include('flash::message')
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,6 +26,7 @@
 
             <div class="card-body">
                 <div class="row">
+                    <input type="hidden" name="previous_url" value="{{ url()->previous() }}">
                     @include('dossier_patients.fields')
                 </div>
             </div>

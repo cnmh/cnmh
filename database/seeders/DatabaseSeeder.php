@@ -24,7 +24,8 @@ use Database\Seeders\Autorizations\{
     RoleSeeder,
     UserSeeder,
     Maintenance_1_1_1,
-    Maintenance_1_1_2
+    Maintenance_1_1_2,
+    Maintenance_1_1_3
 };
 use Database\Seeders\Parameters\{
     CouvertureMedicalsTableSeeder,
@@ -38,7 +39,8 @@ use Database\Seeders\Parameters\{
 use Database\Seeders\Social\{
     PatientsTableSeeder,
     RendezVousesTableSeeder,
-    TuteursTableSeeder
+    TuteursTableSeeder,
+    DossierPatientTableSeeder
 };
 use Database\Seeders\Medical\{
     ConsultationsTableSeeder
@@ -56,7 +58,6 @@ class DatabaseSeeder extends Seeder
             AutorizationsSeeder::Classes(),
             ParametersSeeder::Classes(),
             SocialSeeder::Classes(),
-            SocialSeeder::Classes()
         );
         $this->call($classes);
 

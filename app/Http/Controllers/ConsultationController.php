@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportConsultation;
 use App\Imports\ImportConsultation;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -54,41 +55,86 @@ class ConsultationController extends AppBaseController
         $title = $modelName;
         $title  = ucFirst($title);
 
-        $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
-    ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-    ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
-    ->where('consultations.type', 'medecinGeneral')
-    ->select(
-        'dossier_patient_consultation.*',
-        'consultations.id as consultation_id',
-        'consultations.etat',
-        'consultations.type',
-        'consultations.date_consultation',
-        'consultations.date_enregistrement',
-        'patients.nom',
-        'patients.prenom',
-        'patients.telephone',
-        'patients.id as patient_id',
-        'dossier_patients.numero_dossier'
-    )
-    ->paginate();
+        $user = Auth()->user();
 
+        if($user->email == 'medecin@gmail.com'){
+            $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+            ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+            ->where('consultations.type', 'medecinGeneral')
+            ->where('consultations.etat', 'enConsultation')
+            ->select(
+                'dossier_patient_consultation.*',
+                'consultations.id as consultation_id',
+                'consultations.etat',
+                'consultations.type',
+                'consultations.date_consultation',
+                'consultations.date_enregistrement',
+                'patients.nom',
+                'patients.prenom',
+                'patients.telephone',
+                'patients.id as patient_id',
+                'dossier_patients.numero_dossier'
+            )
+            ->paginate();
+
+            if ($request->ajax()) {
+                $search = $request->get('query');
+                $search = str_replace(" ", "%", $search);
+    
+                
+                $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+                ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+                ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+                ->select('*', 'patients.id as patient_id')
+                ->where(function ($query) use ($search) {
+                    $query->where('patients.nom', 'like', '%' . $search . '%')
+                        ->orWhere('patients.prenom', 'like', '%' . $search . '%');
+                })
+                ->where('consultations.etat', '=', 'enConsultation')
+                ->paginate();
+            
+               
+                return view('consultations.table',compact('consultations', 'title',"titleApp"))->render();
+            }
+
+            return view('consultations.index', compact('consultations', 'title',"titleApp"));
+        }
+
+        $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+        ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+        ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+        ->where('consultations.type', 'medecinGeneral')
+        ->select(
+            'dossier_patient_consultation.*',
+            'consultations.id as consultation_id',
+            'consultations.etat',
+            'consultations.type',
+            'consultations.date_consultation',
+            'consultations.date_enregistrement',
+            'patients.nom',
+            'patients.prenom',
+            'patients.telephone',
+            'patients.id as patient_id',
+            'dossier_patients.numero_dossier'
+        )
+        ->paginate();
 
         if ($request->ajax()) {
             $search = $request->get('query');
             $search = str_replace(" ", "%", $search);
-        
             $consultations = DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
-            ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
-            ->select('*','patients.id as patient_id')
-            ->where('patients.nom', 'like', '%' . $search . '%')
-            ->orWhere('patients.prenom', 'like', '%' . $search . '%')
-            ->orWhere('consultations.etat', 'like', '%' . $search . '%')->paginate();
-                
-        
+                ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+                ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+                ->select('*','patients.id as patient_id')
+                ->where('patients.nom', 'like', '%' . $search . '%')
+                ->orWhere('patients.prenom', 'like', '%' . $search . '%')
+                ->orWhere('consultations.etat', 'like', '%' . $search . '%')
+                ->paginate();
+           
             return view('consultations.table',compact('consultations', 'title',"titleApp"))->render();
         }
+
         return view('consultations.index', compact('consultations', 'title',"titleApp"));
 
     }
@@ -339,6 +385,10 @@ class ConsultationController extends AppBaseController
 
     public function patient(Request $request)
     {
+        if(empty($request->dossier_patients)){
+            return back();
+        }
+        
         $dossier_patient = DossierPatient::find($request->dossier_patients);
         return view('consultations.patient',compact("dossier_patient"));
     }

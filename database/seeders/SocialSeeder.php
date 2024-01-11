@@ -15,8 +15,13 @@ use Symfony\Component\Uid\NilUuid;
 
 use Database\Seeders\Social\{
     PatientsTableSeeder,
+    TuteursTableSeeder,
+    DossierPatientTableSeeder,
+    ConsultationTableSeeder,
+    DossierPatientConsultationTableSeeder,
+    DossierPatientTypeHandicapTableSeeder,
+    DossierPatientServiceTableSeeder,
     RendezVousesTableSeeder,
-    TuteursTableSeeder
 };
  
 /**
@@ -35,7 +40,12 @@ class SocialSeeder extends Seeder
         return  [
             TuteursTableSeeder::class,
             PatientsTableSeeder::class,
-            RendezVousesTableSeeder::class
+            DossierPatientTableSeeder::class,
+            ConsultationTableSeeder::class,
+            DossierPatientConsultationTableSeeder::class,
+            DossierPatientTypeHandicapTableSeeder::class,
+            DossierPatientServiceTableSeeder::class,
+            RendezVousesTableSeeder::class,
         ];
     }
 }
