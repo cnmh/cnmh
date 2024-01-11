@@ -37,7 +37,7 @@
         <div class="col-sm-12 d-flex justify-content-between p-0">
             <div class="mt-3">
                 <div class="col-sm-12">
-
+                    @if(auth()->user()->email == 'social@gmail.com')
                     <div class="form-group d-flex">
                         <i class="fa-solid fa-filter mr-2 mt-2"></i>
                         <select class="form-control form-control-sm" id="selectSearch">
@@ -48,6 +48,7 @@
                         </select>
 
                     </div>
+                    @endif
                 </div>
             </div>
             <!-- SEARCH FORM -->

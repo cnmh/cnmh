@@ -217,15 +217,24 @@ class DossierPatientController extends AppBaseController
         
         $title = 'MedecinGeneral';
 
-        $listrendezvous=DossierPatient::join('dossier_patient_consultation', 'dossier_patients.patient_id', '=', 'dossier_patient_consultation.dossier_patient_id')
-        ->join('consultations','consultations.id','=','dossier_patient_consultation.consultation_id')
-        ->join('rendez_vous','rendez_vous.consultation_id','=','dossier_patient_consultation.consultation_id')
-        ->join('consultation_services','consultation_services.consultation_id','=','dossier_patient_consultation.consultation_id')
-        ->join('services','services.id','=','consultation_services.service_id')
-        ->where('dossier_patients.patient_id',$dossierPatient->patient_id)
-        ->select(['rendez_vous.date_rendez_vous','rendez_vous.etat', 'services.nom','dossier_patients.patient_id'])
-        ->groupBy('rendez_vous.date_rendez_vous', 'rendez_vous.etat','services.nom','dossier_patients.patient_id')
+        $listrendezvous = RendezVous::join('consultations', 'consultations.id', '=', 'rendez_vous.consultation_id')
+        ->join('dossier_patient_consultation', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+        ->join('dossier_patients', 'dossier_patients.id', '=', 'dossier_patient_consultation.dossier_patient_id')
+        ->join('patients', 'patients.id', '=', 'dossier_patients.patient_id')
+        ->select([
+            'rendez_vous.date_rendez_vous',
+            'rendez_vous.etat as etatRendezVous',
+            'consultations.*',
+            'dossier_patient_consultation.*',
+            'dossier_patients.*',
+            'patients.*'
+        ])
         ->get();
+
+
+
+        // $rendevous = 
+
         // dd($listrendezvous);
         // $consultation=$dossierPatient->dossierPatientConsultations;
         // $service=$dossierPatient->dossierPatientServices;
@@ -404,7 +413,7 @@ class DossierPatientController extends AppBaseController
             $tuteurs = Tuteur::join('etat_civils', 'tuteurs.etat_civil_id', '=', 'etat_civils.id')
             ->where('tuteurs.nom', 'like', '%' . $search . '%')
             ->orWhere('tuteurs.prenom', 'like', '%' . $search . '%')
-            ->select('tuteurs.nom as tuteur_nom', 'etat_civils.id as etat_civil_id', 'tuteurs.prenom', 'tuteurs.adresse', 'tuteurs.telephone', 'tuteurs.email', 'etat_civils.nom as etat_civil_nom')
+            ->select('tuteurs.nom as tuteur_nom', 'etat_civils.id as etat_civil_id', 'tuteurs.prenom', 'tuteurs.adresse', 'tuteurs.telephone', 'tuteurs.email', 'etat_civils.nom as etat_civil_nom','tuteurs.id as id')
             ->paginate();
 
 

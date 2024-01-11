@@ -19,7 +19,8 @@ use Database\Seeders\Autorizations\{
     RoleSeeder,
     UserSeeder,
     Maintenance_1_1_1,
-    Maintenance_1_1_2
+    Maintenance_1_1_2,
+    Maintenance_1_1_3,
 };
  
 /**
@@ -41,7 +42,8 @@ class AutorizationsSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             Maintenance_1_1_1::class,
-            Maintenance_1_1_2::class
+            Maintenance_1_1_2::class,
+            Maintenance_1_1_3::class,
         ];
     }
 }

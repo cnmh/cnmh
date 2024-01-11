@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\NiveauScolaire;
 use App\Models\Tuteur;
 use App\Models\Patient;
+use App\Models\DossierPatient;
 
 use App\Models\Reclamation;
 
@@ -104,9 +105,11 @@ class PatientController extends AppBaseController
     /**
      * Show the form for editing the specified Patient.
      */
-    public function edit($id)
+    public function edit($id , Request $request)
     {
         $patient = $this->patientRepository->find($id);
+
+        $previousUrl = $request->input('previous_url', route('dossier-patients.index'));
 
         $tuteur = Tuteur::find($patient->tuteur_id);
         $niveauScolaire = NiveauScolaire::find($patient->niveau_scolaire_id);
@@ -117,7 +120,7 @@ class PatientController extends AppBaseController
             return redirect(route('patients.index'));
         }
 
-        return view('patients.edit')->with(['patient' => $patient, 'tuteur' => $tuteur , 'niveau_s' => $niveauScolaire]);
+        return view('patients.edit')->with(['patient' => $patient, 'tuteur' => $tuteur , 'niveau_s' => $niveauScolaire , 'previousUrl' => $previousUrl]);
     }
 
 
@@ -136,10 +139,15 @@ class PatientController extends AppBaseController
             return redirect(route('patients.index'));
         }
 
+        $previousUrl = $request->input('previous_url');
         $patient = $this->patientRepository->update($request->all(), $id);
-
+        $dossier_patient = DossierPatient::where('patient_id',$patient->id)->first();
+        $numeroDossier = $dossier_patient->numero_dossier;
         Flash::success(__('messages.updated', ['model' => __('models/patients.singular')]));
-
+        if (strpos($previousUrl, 'dossier-patients') !== false) {
+            $redirectUrl = $previousUrl . '/'. $numeroDossier .'/edit';
+            return redirect($redirectUrl);
+        }
         return redirect(route('patients.index'));
     }
 
