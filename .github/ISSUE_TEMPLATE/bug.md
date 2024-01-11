@@ -9,12 +9,12 @@ assignees: ''
 
 ## Description de bug
 
+## Production de l'erreur 
+
 
 ## Solution 
 
 
-## Pull request 
-- titre-issue close #numéro-issue
 
 ##  Critère de validation
 
@@ -25,3 +25,4 @@ Le validateur doit vérifier les éléments suivants
 2. Github
    1. le pull request est vers le dépôt *develop*
    2. le nom de pull-request
+3. le nom de pull-request = le titre de l'issue close #nomuéro issue

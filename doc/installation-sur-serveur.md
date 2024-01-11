@@ -1,5 +1,6 @@
 # Installation de l'application sur le serveur 
 
+Ce procédure doit être tester localement avant de le réaliser sur le serveur
 
 1. clone main branch
 
