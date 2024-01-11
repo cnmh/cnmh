@@ -9,7 +9,6 @@ Notre projet vise à moderniser la gestion des dossiers patients au Centre Natio
 - Démonstration de l'application 
 - Exécution de test Browser
 
-
 # Installation de l'application pour la première fois
 
 ```bash
@@ -76,4 +75,32 @@ php artisan db:seed --env=test
 ```bash
 php artisan serve --env=test
 ```
+
+## Installation de l'application sur le serveur
+
+1. Installation manuel des packages npm et composer 
+2. Création de fichier d'environnement .env
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+3. Création de la base de données 
+
+```bash
+php artisan migrate
+```
+4. Initialisation de la base de données 
+
+<!-- TODO :  https://github.com/cnmh/app/issues/243 : Déploiement : Les mots de passe doit être privée -->
+Modification de fichier UserSeeder.php pour changer les mots de passe
+
+```bash
+php artisan db:seed --class=AutorizationsSeeder
+php artisan db:seed --class=ConfigSeeder
+php artisan db:seed --class=ParametersSeeder
+```
+
+
 

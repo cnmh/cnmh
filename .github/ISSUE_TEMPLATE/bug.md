@@ -13,8 +13,6 @@ assignees: ''
 ## Solution 
 
 
-##  Livrables
-
 ## Pull request 
 - titre-issue close #numéro-issue
 
