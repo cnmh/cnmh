@@ -177,10 +177,11 @@ class ConsultationController extends AppBaseController
 
         $input = $request->all();
 
+        $consultation = DossierPatientConsultation::where('dossier_patient_id', $request->dossier_patients)->first();
 
         $typeHandicapIDs = $request->type_handicap_id;
         $service_ids = $request->services_id;
-        $consultationID = $request->consultation_id;
+        $consultationID = $consultation->id;
 
         foreach ($typeHandicapIDs as $typeHandycapeID) {
             $consultation_typeHandycape = new Consultation_type_handicap;
@@ -198,10 +199,10 @@ class ConsultationController extends AppBaseController
 
         $Model = "App\\Models\\" . ucfirst($model);
         $callModel = new $Model;
-        $consultation= $callModel::find($request->consultation_id)->update([
+        $consultation= $callModel::find($consultationID)->update([
             "date_enregistrement" => $request->date_enregistrement,
             "date_consultation" =>$request->date_consultation,
-            "consultation_id" => $request->consultation_id,
+            "consultation_id" => $consultationID,
             "observation" => $request->observation,
             "diagnostic" => $request->diagnostic,
             "bilan" => $request->bilan,
