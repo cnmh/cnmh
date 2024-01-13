@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\TypeHandicap;
 
-class Maintenance_1_1_3 extends Seeder
+class Maintenance_1_1_5 extends Seeder
 {
     /**
      * Run the database seeds.
