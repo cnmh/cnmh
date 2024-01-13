@@ -47,12 +47,6 @@ class NiveauScolairesTableSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
-            [
-                'nom' => 'Aucun',
-                'description' => 'h',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
         ]);
 
 
