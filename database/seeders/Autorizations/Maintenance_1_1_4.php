@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
-class Maintenance_1_1_3 extends Seeder
+class Maintenance_1_1_4 extends Seeder
 {
     /**
      * Run the database seeds.
