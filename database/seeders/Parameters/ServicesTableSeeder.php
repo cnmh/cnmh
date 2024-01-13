@@ -18,35 +18,66 @@ class ServicesTableSeeder extends Seeder
 
         $service = Service::insert([
             [
-                'nom' => 'Service social',
-                'description' => 'description prestation 1',
+                'nom' => 'Pôle médical',
+                'description' => 'description Orientation 1',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service médical',
-                'description' => 'description prestation 2',
+                'nom' => 'Pôle Éducatif',
+                'description' => 'description Orientation 2',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service Éducatif',
-                'description' => 'description prestation 3',
+                'nom' => 'Formation Professionnelle',
+                'description' => 'description Orientation 3',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service de la Formation Professionnelle',
-                'description' => 'description prestation 4',
+                'nom' => 'Pôle sportif',
+                'description' => 'description Orientation 4',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
-                'nom' => 'Service sportif',
-                'description' => 'description prestation 5',
+                'nom' => 'Dentiste',
+                'description' => 'description Orientation 5',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
+            [
+                'nom' => 'Pshycomotricité',
+                'description' => 'description Orientation 6',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'nom' => 'Ergothérapie',
+                'description' => 'description Orientation 7',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'nom' => 'Orthoptiste',
+                'description' => 'description Orientation 8',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'nom' => 'Orthophoniste',
+                'description' => 'description Orientation 9',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'nom' => 'Kinésithérapeute',
+                'description' => 'description Orientation 10',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            
         ]);
 
     }
