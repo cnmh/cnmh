@@ -197,15 +197,14 @@
                     $('#tuteurTable').html('');
                     var data = response.data.data;
 
-                    if(!empty(data)){
+                    if(data !== ""){
 
                         for (var i = 0; i < data.length; i++) {
                         var row = '<tr>';
                         var rowData = data[i];
+                        var tuteur = "{{ $tuteur->id }}";
 
-                        
-                        
-                        row += '<td><input type="radio" name="parentRadio" value="' + rowData.id + '" ' + (rowData.id == tuteur ? 'checked' : '') + '></td>';
+                        row += '<td><input type="radio" name="parentRadio" value="' + rowData.id + '" ' + (rowData.id == tuteur) + '></td>';
                         row += '<td>' + rowData.tuteur_nom + '</td>';
                         row += '<td>' + rowData.prenom + '</td>';
                         row += '<td>' + rowData.telephone + '</td>';
