@@ -171,6 +171,7 @@ class UserSeeder extends Seeder
             "show-Consultation",
             "edit-Consultation",
             "patient-Consultation",
+            "update-Consultation",
             "create-Consultation",
             "show-DossierPatient",
             "Ajouter_RendezVous-Consultation",
