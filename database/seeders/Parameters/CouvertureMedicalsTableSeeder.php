@@ -46,6 +46,12 @@ class CouvertureMedicalsTableSeeder extends Seeder
                 'description' => 'h',
                 'created_at' => $now,
                 'updated_at' => $now,
+            ],
+            [
+                'nom' => 'AMO tadamon',
+                'description' => 'h',
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
     }
