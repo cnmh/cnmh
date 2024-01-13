@@ -24,7 +24,7 @@
 
 <!-- Services Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label("Services", __('models/services.fields.service_id')) !!}
+    {!! Form::label("orientation", __('models/services.fields.service_id')) !!}
     <br>
     {{ Form::select(
         'services_id[]',
