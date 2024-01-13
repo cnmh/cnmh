@@ -25,12 +25,6 @@
                         <td rowspan="3">
                             <img width="99" height="99" src="../assets/dist/img/User-avatar.svg.png">
                         </td>
-                        <td>
-                            Numero:
-                        </td>
-                        <td>
-                            {{ $dossierPatient->patient_id }}
-                        </td>
 
                     </tr>
                     <tr>
