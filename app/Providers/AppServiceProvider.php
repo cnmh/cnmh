@@ -14,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Artisan::call('migrate');
+      
+    $this->app->register(CustomValidationServiceProvider::class);
+
     }
 
     /**
