@@ -21,7 +21,7 @@ class Service extends Model
     ];
 
     public static array $rules = [
-        'nom' => 'required|string|max:255',
+        'nom' => 'required|unique:Services,nom|string|max:255',
         'description' => 'required|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'

@@ -72,8 +72,13 @@ class ServiceController extends AppBaseController
     public function store(CreateServiceRequest $request)
     {
         $input = $request->all();
-
+        dd($input);
         $service = $this->serviceRepository->create($input);
+        if (empty($service)) {
+            Flash::error(__('models/services.singular').' '.__('messages.not_found'));
+
+            return redirect(route('services.index'));
+        }
 
         Flash::success(__('messages.saved', ['model' => __('models/services.singular')]));
 
