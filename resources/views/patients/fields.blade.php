@@ -81,6 +81,23 @@ $params = $query[0];
     {!! Form::text('adresse', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255]) !!}
 </div>
 
+<!-- data de naissance Field -->
+<div class="form-group col-sm-12 col-lg-12">
+    {!! Form::label('Date de naissance', __('models/patients.fields.dataNaissance')) !!} <span class="required-field">*</span>
+    {!! Form::date('date_naissance', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535, 'required']) !!}
+</div>
+
+<!-- Sexe Field -->
+@php
+    $sexe = ['homme', 'femme'];
+@endphp
+
+<div class="form-group col-sm-6">
+    {!! Form::label('Sexe', __('models/tuteurs.fields.sexe') . ':') !!} <span class="required-field">*</span>
+    {!! Form::select('sexe', array_combine($sexe, $sexe), old('sexe'), ['class' => 'form-control', 'required']) !!}
+</div>
+
+
 <!-- Remarques Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('remarques', __('models/patients.fields.remarques')) !!}

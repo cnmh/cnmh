@@ -9,6 +9,7 @@ use App\Models\Patient;
 use App\Models\DossierPatient;
 use App\Models\Consultation;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -35,6 +36,41 @@ class HomeController extends Controller
         $patientCount = Patient::count();
         $dossierEnAttend = Consultation::where('etat','enAttente')->count();
         $Consultation = Consultation::where('etat','enConsultation')->count();
-        return View::make('home', compact('dossierCount','patientCount','Consultation','dossierEnAttend'));
+
+
+        $currentYear = Carbon::now()->year;
+        $startDate = Carbon::now();
+        $endDate = Carbon::now();
+
+
+
+         // Nouveau patients
+         $countNouveauPatientFemme0_5years = Patient::whereYear('created_at', '=', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(5), $endDate])->where('sexe', 'Femme')->count();
+         $countNouveauPatientHomme0_5years = Patient::whereYear('created_at', '=', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(5), $endDate])->where('sexe', 'Homme')->count();
+         $countNouveauPatientFemme6_11years = Patient::whereYear('created_at', '=', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(11), $endDate->subYears(6)])->where('sexe', 'Femme')->count();
+         $countNouveauPatientHomme6_11years = Patient::whereYear('created_at', '=', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(11), $endDate->subYears(6)])->where('sexe', 'Homme')->count();
+         $countNouveauPatientFemme12_17years = Patient::whereYear('created_at', '=', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(17), $endDate->subYears(12)])->where('sexe', 'Femme')->count();
+         $countNouveauPatientHomme12_17years = Patient::whereYear('created_at', '=', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(17), $endDate->subYears(12)])->where('sexe', 'Homme')->count();
+         $countNouveauPatientFemme18plus = Patient::whereYear('created_at', '=', $currentYear)->whereYear('date_naissance', '>', $startDate->subYears(17)->year)->where('sexe', 'Femme')->count();
+         $countNouveauPatientHomme18plus = Patient::whereYear('created_at', '=', $currentYear)->whereYear('date_naissance', '>', $startDate->subYears(17)->year)->where('sexe', 'Homme')->count();
+        
+        // Ancianne patients
+        $countAncianPatientFemme0_5years = Patient::whereYear('created_at', '<', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(5), $endDate])->where('sexe', 'Femme')->count();
+        $countAncianPatientHomme0_5years = Patient::whereYear('created_at', '<', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(5), $endDate])->where('sexe', 'Homme')->count();
+        $countAncianPatientFemme6_11years = Patient::whereYear('created_at', '<', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(11), $endDate->subYears(6)])->where('sexe', 'Femme')->count();
+        $countAncianPatientHomme6_11years = Patient::whereYear('created_at', '<', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(11), $endDate->subYears(6)])->where('sexe', 'Homme')->count();
+        $countAncianPatientFemme12_17years = Patient::whereYear('created_at', '<', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(17), $endDate->subYears(12)])->where('sexe', 'Femme')->count();
+        $countAncianPatientHomme12_17years = Patient::whereYear('created_at', '<', $currentYear)->whereBetween('date_naissance', [$startDate->subYears(17), $endDate->subYears(12)])->where('sexe', 'Homme')->count();
+        $countAncianPatientFemme18plus = Patient::whereYear('created_at', '<', $currentYear)->whereYear('date_naissance', '>=', $startDate->subYears(18)->year)->where('sexe', 'Femme')->count();
+        $countAncianPatientHomme18plus = Patient::whereYear('created_at', '<', $currentYear)->whereYear('date_naissance', '>=', $startDate->subYears(18)->year)->where('sexe', 'Homme')->count();
+
+
+
+
+    
+
+        return View::make('home', compact('dossierCount','patientCount','Consultation','dossierEnAttend','countAncianPatientFemme0_5years','countAncianPatientHomme0_5years','countAncianPatientFemme6_11years',
+        'countAncianPatientHomme6_11years','countAncianPatientFemme12_17years','countAncianPatientHomme12_17years','countAncianPatientFemme18plus','countAncianPatientHomme18plus','countNouveauPatientFemme0_5years','countNouveauPatientHomme0_5years','countNouveauPatientFemme6_11years',
+        'countNouveauPatientHomme6_11years','countNouveauPatientFemme12_17years','countNouveauPatientHomme12_17years','countNouveauPatientFemme18plus','countNouveauPatientHomme18plus'));
     }
 }
