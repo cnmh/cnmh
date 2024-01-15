@@ -1,0 +1,16 @@
+name: set en-cours label
+on:
+  pull_request_target:
+    types: [assigned, opened, synchronize, reopened]
+jobs:
+  label_issues_en_cours:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: en-cours
