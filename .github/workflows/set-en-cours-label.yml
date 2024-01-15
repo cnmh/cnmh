@@ -8,7 +8,7 @@ jobs:
     permissions:
       issues: write
     steps:
-      - run: gh issue edit "$issue_url" --add-label "$LABELS"   
+      - run: curl -s "$issue_url" | jq -r .number   
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
