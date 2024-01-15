@@ -1,7 +1,7 @@
 name: show_event
 on:
-  pull_request_target: # Use pull_request_target
-    branches: [main]
+  pull_request_target
+
 jobs:
   test:
     runs-on: ubuntu-latest
