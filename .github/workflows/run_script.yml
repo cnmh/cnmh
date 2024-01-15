@@ -12,3 +12,8 @@ jobs:
           chmod +x ./actions/test.sh
           ./actions/test.sh
       shell: bash
+      env: 
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+        issue_url: ${{ github.event.pull_request.issue_url }}
+        LABELS: en-cours

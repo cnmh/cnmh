@@ -1,1 +1,1 @@
-echo "run script"
+curl -s "$issue_url" | jq -r .number
