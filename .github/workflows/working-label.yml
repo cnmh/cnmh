@@ -1,5 +1,6 @@
-name: Assign work in progress label when pull request is updated
-on: [pull_request]
+name: Assign work in progress
+on: 
+    pull_request
 jobs:
   working_label:
     runs-on: ubuntu-latest
