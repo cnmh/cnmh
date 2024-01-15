@@ -8,9 +8,9 @@ jobs:
     permissions:
       issues: write
     steps:
-      - run: echo "$NUMBER"
-        env:
+      - run: gh issue edit "$issue_url" --add-label "$LABELS"   
+        env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          NUMBER: ${{ github.event.pull_request.issue_url }}
+          issue_url: ${{ github.event.pull_request.issue_url }}
           LABELS: en-cours
