@@ -120,7 +120,7 @@ Route::prefix('/root')->group(function() {
 Route::resource('tuteurs', App\Http\Controllers\TuteurController::class);
 // Route::delete('/tuteurs/{id}', 'TuteurController@destroy')->name('tuteurs.destroy');
 
-Route::get('/parentForm',[DossierPatientController::class,'parent'])->name('dossier-patients.parent');
+// Route::get('/parentForm',[DossierPatientController::class,'parent'])->name('dossier-patients.parent');
 Route::get('/patientForm',[DossierPatientController::class,'patient'])->name('dossier-patients.patient');
 Route::get('/entretien/{query}',[DossierPatientController::class,'entretien'])->name('dossier-patients.entretien');
 Route::post('/storeEntetien',[DossierPatientController::class,'storeEntetien'])->name('dossier-patients.storeEntetien');
@@ -172,7 +172,7 @@ Route::get('/get-permissions-action/{id}',[App\Http\Controllers\PermissionContro
  * Routage entretien social
 */
 // Routage entretien social phase de tuteur
-Route::post('/pôle-social/entretien-social/choix/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectTuteur'])->name('choix.tuteurs');
+Route::get('/pôle-social/entretien-social/choix/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectTuteur'])->name('dossier-patients.parent');
 Route::get('/pôle-social/entretien-social/tuteur/{tuteurID}',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectTuteur'])->name('Select.tuteurs');
 Route::get('/pôle-social/entretien-social/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormAjouteTuteur'])->name('FormAjoute.tuteurs');
 Route::post('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouteTuteur'])->name('Ajoute.tuteurs');
