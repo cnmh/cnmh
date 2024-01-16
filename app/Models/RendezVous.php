@@ -34,4 +34,9 @@ class RendezVous extends Model
     {
         return $this->belongsTo(\App\Models\Consultation::class, 'id_consultation');
     }
+
+    public static function RendezVousEtat()
+    {
+        return 'Planifier';
+    }
 }
