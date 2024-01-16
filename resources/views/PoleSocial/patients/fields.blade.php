@@ -13,30 +13,14 @@
 
 <!-- Parent Id Field -->
 @php
-$url = parse_url($_SERVER['REQUEST_URI']);
+    $currentRoute = Route::currentRouteName();
 @endphp
-@if (isset($url['query']))
-@php
-$query = explode('=', $url['query']);
-$params = $query[0];
-@endphp
-@if ($params == 'parentRadio')
-<input type="hidden" name="parentRadio" value="{{ $url['query'] }}">
-
-<input type="hidden" name="tuteur_id" value="{{ $query[1] }} ">
-@endif
-@else
-<div class="form-group col-sm-6">
-    <label for="tuteur_id">{!! __('models/patients.fields.tuteur_id') !!} <span class="required-field">*</span></label>
-    {{ Form::select(
-            'tuteur_id',
-            ['' => "-- Sélectionner le tuteur  --"] + ($tuteur ? $tuteur->pluck('nom', 'id')->toArray() : []),
-            old('tuteur_id'),
-            ['class' => 'form-control', 'required'],
-        ) }}
-</div>
+@if ($currentRoute == 'FormAjoute.bénéficiaires')
+<input type="hidden" name="tuteur_id" value="{{ $tuteur->id }}">
 
 @endif
+
+
 
 
 <!-- Niveau Scolaire Id Field -->

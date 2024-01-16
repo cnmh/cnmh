@@ -25,6 +25,10 @@ class PatientRepository extends BaseRepository
         return $this->fieldSearchable;
     }
 
+    public function PatientExiste($nom,$prenom){
+        return Patient::where(['nom' => $nom, 'prenom' => $prenom])->first();
+    }
+
     public function model(): string
     {
         return Patient::class;

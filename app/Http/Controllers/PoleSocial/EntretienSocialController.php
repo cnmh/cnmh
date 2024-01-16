@@ -7,6 +7,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\EntretienSocial\DossierPatientRepository;
 use App\Http\Requests\CreateDossierPatientRequest;
 use App\Http\Requests\CreateTuteurRequest;
+use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdateDossierPatientRequest;
 use App\Repositories\EntretienSocial\TuteurRepository;
 use App\Repositories\EntretienSocial\PatientRepository;
@@ -16,8 +17,10 @@ use App\Repositories\Parametres\CouvertureMedicalRepository;
 use App\Repositories\Parametres\TypeHandicapRepository;
 use App\Repositories\Parametres\ServiceRepository;
 use App\Models\Patient;
-
+use App\Models\Tuteur;
 use App\Models\DossierPatient;
+use Flash;
+
 
 
 
@@ -90,17 +93,17 @@ class EntretienSocialController extends AppBaseController
 
     // Ajouter le tuteur
     public function AjouteTuteur(CreateTuteurRequest $request){
-
         $input = $request->all();
-        $tuteurExiste = $this->tuteurRepository->where(Tuteur::class,'cin',$input['cin'])->first();
+        $tuteurRepository = new TuteurRepository;
+        $tuteurExiste = $tuteurRepository->where(Tuteur::class,'cin',$input['cin'])->first();
         if($tuteurExiste){
             Flash::error('Tuteur est déja existe');
             return back();
         }
-        $tuteur = $this->tuteurRepository->create($input);
+        $tuteur = $tuteurRepository->create($input);
         Flash::success(__('messages.saved', ['model' => __('models/tuteurs.singular')]));
         $tuteurID = $tuteur->id;
-        $this->FormSelectPatient($tuteurID);
+        return redirect()->route('FormSelect.bénéficiaires',$tuteurID);
     }
 
 
@@ -120,16 +123,16 @@ class EntretienSocialController extends AppBaseController
         return redirect()->route('FormEntretienSocial', $request->patientRadio)->with('patient_id',$request->patientRadio);
     }
 
-    public function FormAjoutePatient(){
+    public function FormAjoutePatient($tuteurID){
         $tuteurs = new TuteurRepository;
-        $tuteur = $tuteurs->get();
+        $tuteur = $tuteurs->find($tuteurID);
         $niveauScolaire = new NiveauScolaireRepository;
         $niveau_s = $niveauScolaire->get();
         return view('PoleSocial.patients.create',compact("tuteur","niveau_s"));
     }
 
     // Ajouter le Patient
-    public function AjoutePatient(CreateTuteurRequest $request){
+    public function AjoutePatient(CreatePatientRequest $request){
 
         $input = $request->all();
         if ($request->hasFile('image')) {
@@ -140,7 +143,10 @@ class EntretienSocialController extends AppBaseController
             $input['image'] = 'assets/images/' . $filename;
         }
         $patientRepository = new PatientRepository;
-        $patientExiste = $patientRepository->where(Patient::class,'nom',$input['nom'])->first();
+        $nom = $input['nom'];
+        $prenom = $input['prenom'];
+
+        $patientExiste = $patientRepository->PatientExiste($nom,$prenom);
         if($patientExiste){
             Flash::error("Patient déja existé");
             return back();
@@ -148,7 +154,7 @@ class EntretienSocialController extends AppBaseController
         $patient = $patientRepository->create($input);
         Flash::success(__('messages.saved', ['model' => __('models/patients.singular')]));
         $PatientID = $patient->id;
-        $this->FormEntretienSocial($PatientID);
+        return redirect()->route('FormEntretienSocial',$PatientID);
     }
 
 
@@ -167,19 +173,17 @@ class EntretienSocialController extends AppBaseController
 
     public function AjouterEntretienSocial(CreateDossierPatientRequest $request,$PatientID){
         $enquette = $request->all();
-        $dossierPatientExiste = DossierPatient::where('patient_id',$PatientID)->first();
+        $dossierPatientExiste = $this->dossierPatientRepository->DossierExiste($PatientID);
         // Règle : 
         if($dossierPatientExiste){
             Flash::error("Dossier patient est déja existé");
             return back();
         }
         // Traitement 
-        // $latestDossier = DossierPatient::where('numero_dossier', 'like', 'A-%')
-        //     ->whereRaw('CAST(SUBSTRING(numero_dossier, 3) AS SIGNED) IS NOT NULL')
-        //     ->max('numero_dossier');
-        // $counter = $latestDossier ? (int)substr($latestDossier, 2) + 1 : 1802;
-        // $numeroDossier = 'A-' . $counter;
-        // $input['numero_dossier'] = $numeroDossier;
+        $latestDossier = $this->dossierPatientRepository->NumeroDossier();
+        $counter = $latestDossier ? (int)substr($latestDossier, 2) + 1 : 1802;
+        $numeroDossier = 'A-' . $counter;
+        $enquette['numero_dossier'] = $numeroDossier;
         $dossierPatient = $this->dossierPatientRepository->entretienSocial($enquette,$PatientID);
         // Sortie
         Flash::success(__('messages.saved', ['model' => __('models/dossierPatients.singular')]));

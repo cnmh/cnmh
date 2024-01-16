@@ -8,7 +8,7 @@
                 <h3 class="h3">Ajouter un bénéficiaires</h3>
             </div>
             <div class="col-sm-12">
-                @include('dossier_patients.stepper')
+                @include('PoleSocial.dossier_patients.stepper')
             </div>
             <div class="col-sm-12">
               @include('flash::message')
@@ -29,11 +29,14 @@
                     </div>
 
                     <div class="card-body">
-
-                        {!! Form::open(['route' => 'patients.store', 'enctype' => 'multipart/form-data']) !!}
+                        @if(urldecode(request()->url()) == url('/pôle-social/entretien-social/tuteur/'.$tuteur->id.'/bénéficiaire/ajouter'))
+                          {!! Form::open(['route' => 'Ajoute.bénéficiaires', 'enctype' => 'multipart/form-data']) !!}
+                        @else
+                          {!! Form::open(['route' => 'patients.store', 'enctype' => 'multipart/form-data']) !!}
+                        @endif
                         <p class="required-field">@lang('crud.requiredFields')</p>
                         <div class="row">
-                            @include('patients.fields')
+                            @include('PoleSocial.patients.fields')
                         </div>
 
                     </div>

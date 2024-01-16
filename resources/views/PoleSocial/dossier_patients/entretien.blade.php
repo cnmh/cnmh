@@ -40,7 +40,7 @@
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <div class="card">
-                                    {!! Form::open(['route' => 'dossier-patients.store', 'method' => 'POST']) !!}
+                                    {!! Form::open(['route' => ['AjouterEntretienSocial', $PatientID], 'method' => 'POST']) !!}
                                     <!-- Specify the route and method for the form -->
 
                                     <div class="card-body">

@@ -1,13 +1,4 @@
-<?php
-$url = parse_url($_SERVER['REQUEST_URI']);
-$explodePath = explode('/', $url['path']);
-$parentId = $explodePath[count($explodePath) - 2];  
-$patientId = null;
-if (isset($url['query'])) {
-    $explodeQuery = explode('=', $url['query']);
-    $patientId = $explodeQuery[1];
-}
-?>
+
 
 
 <!-- Numero Dossier Field -->
@@ -102,7 +93,7 @@ if (isset($url['query'])) {
 
 <div class="form-group col-sm-6">
     {!! Form::label('patient_id', __('models/dossierPatients.fields.patient_id'), ['hidden']) !!}
-    {!! Form::number('patient_id', $patientId, ['class' => 'form-control', 'required', 'hidden']) !!}
+    {!! Form::number('patient_id', $PatientID, ['class' => 'form-control', 'required', 'hidden']) !!}
 </div>
 
 <!-- Etat Field -->

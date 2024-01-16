@@ -131,49 +131,38 @@
 
 </style>
 
+@php
+    $currentRoute = Route::currentRouteName();
+    $backgroundStyleStep1 = '';
+    $backgroundStyleStep2 = '';
+    $backgroundStyleStep3 = '';
+    if($currentRoute === 'dossier-patients.parent' || $currentRoute === 'FormAjoute.tuteurs'){
+        $backgroundStyleStep1 = 'background: #0275d8';
+    }elseif($currentRoute === 'FormSelect.bénéficiaires' || $currentRoute === 'FormAjoute.bénéficiaires'){
+        $backgroundStyleStep2 = 'background: #0275d8';
+    }else{
+        $backgroundStyleStep3 = 'background: #0275d8';
+    }
+@endphp
+
 
 <div class="md-stepper-horizontal orange">
     <div class="md-step active done">
-        <div class="md-step-circle" id="step1"><span>1</span></div>
+        <div class="md-step-circle" id="step1" style="{{ $backgroundStyleStep1 }}"><span>1</span></div>
         <div class="md-step-title">@lang('models/tuteurs.plural')</div>
         <div class="md-step-bar-left"></div>
         <div class="md-step-bar-right"></div>
     </div>
     <div class="md-step active done">
-        <div class="md-step-circle" id="step2"><span>2</span></div>
+        <div class="md-step-circle" id="step2" style="{{ $backgroundStyleStep2 }}"><span>2</span></div>
         <div class="md-step-title">@lang('models/patients.plural_M')</div>
         <div class="md-step-bar-left"></div>
         <div class="md-step-bar-right"></div>
     </div>
     <div class="md-step active">
-        <div class="md-step-circle" id="step3"><span>3</span></div>
+        <div class="md-step-circle" id="step3" style="{{ $backgroundStyleStep3 }}"><span>3</span></div>
         <div class="md-step-title">@lang('models/entretienSocial.singular')</div>
         <div class="md-step-bar-left"></div>
         <div class="md-step-bar-right"></div>
     </div>
 </div>
-@push('page_scripts')
-<script>
-    $(document).ready(() => {
-
-    const page1 = "{{ url('/parentForm') }}";
-    const page2 = "{{ url('/patientForm') }}";
-    const page3 = "{{ url('/entretien/') }}";
-    const page4 = "{{ url('/patients/create') }}";
-    const page5 = "{{ url('/tuteurs/create') }}";
-
-
-    
-    if (window.location.href.includes(page1) || window.location.href.includes(page5)) {
-        let button = document.getElementById('step1');
-        button.style.backgroundColor = '#0275d8';
-    } else if (window.location.href.includes(page2) || window.location.href.includes(page4)) {
-        let button = document.getElementById('step2');
-        button.style.backgroundColor = '#0275d8';
-    } else if (window.location.href.startsWith(page3)) {
-        let button = document.getElementById('step3');
-        button.style.backgroundColor = '#0275d8';
-    }
-})
-    </script>
-@endpush

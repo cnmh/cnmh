@@ -8,7 +8,7 @@
                 <h3 class="h3">Ajouter un tuteur</h3>
             </div>
             <div class="col-sm-12">
-                @include('dossier_patients.stepper')
+                @include('PoleSocial.dossier_patients.stepper')
             </div>
         </div>
     </div>
@@ -30,10 +30,14 @@
               
                     <div class="card-body">
                         <p class="required-field">@lang('crud.requiredFields')</p>
-                        {!! Form::open(['route' => 'tuteurs.store']) !!}
+                        @if(urldecode(request()->url()) == url('pôle-social/entretien-social/tuteur/ajouter'))
+                          {!! Form::open(['route' => 'Ajoute.tuteurs']) !!}
+                        @else
+                          {!! Form::open(['route' => 'tuteurs.store']) !!}
+                        @endif
 
                         <div class="row">
-                            @include('tuteurs.fields')
+                            @include('PoleSocial.tuteurs.fields')
                         </div>
 
                     </div>
@@ -44,7 +48,7 @@
                                 {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
                             </div>
 
-                            @if (request()->getRequestUri() == '/tuteurs/create?=parentForm')
+                            @if (urldecode(request()->url()) == url('/pôle-social/entretien-social/tuteur/ajouter)'))
 
                             <div class="ml-auto p-2 bd-highlight">
                                 <a href="{{  url()->previous() }}" class="btn btn-secondary"> @lang('crud.cancel')

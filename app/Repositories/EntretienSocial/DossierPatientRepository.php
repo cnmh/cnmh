@@ -16,6 +16,8 @@ use App\Models\Dossier_patient_service;
 use App\Models\DossierPatientConsultation;
 use App\Models\Consultation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class DossierPatientRepository extends BaseRepository
 {
@@ -33,31 +35,29 @@ class DossierPatientRepository extends BaseRepository
     }
 
    
-    public function entretienSocial($enquette, $patiendID) {
-        try {
-            DB::beginTransaction();
-
-            // Ajouter dossier
-            $enquette['patient_id'] = $patiendID;
-            $this->model->newInstance($enquette);
-            parent::create($enquette);
-            $dossierPatient =  $this->model->where('numero_dossier', $enquette['numero_dossier'])->first();
-            $typeHandycapeIDs = $enquette->input('type_handicap_id');
-            $service_ids = $enquette->input('services_id');
-            $dossierPatientID = $dossierPatient->id;
-            $date_enregsitrement = $enquette->date_enregsitrement;
-            $this->AffecterTypeHandicapAuDossier($typeHandycapeIDs, $dossierPatientID);
-            $this->AffecterServiceAuDossier($service_ids, $dossierPatientID);
-
-            // Ajouter dossier en liste d'attente
-            $this->AjouterDossierEnListAttente($date_enregsitrement, $dossierPatientID);
+    public function entretienSocial($enquette, $patientID) {
+        $enquette['patient_id'] = $patientID;
+        $enquette['user_id'] = Auth::id(); 
+        $dossierPatient = $this->model->create($enquette); 
+        $typeHandycapeIDs = $enquette['type_handicap_id'];
+        $serviceIDs = $enquette['services_id'];
+        $this->AffecterTypeHandicapAuDossier($typeHandycapeIDs, $dossierPatient->id);
+        $this->AffecterServiceAuDossier($serviceIDs, $dossierPatient->id);
     
-            DB::commit(); 
-        } catch (\Exception $e) {
-            DB::rollback(); 
-            $errorMessage = $e->getMessage();
-            return back()->with('error',$errorMessage);
-        }
+        // Ajouter dossier en liste d'attente
+        $date_enregsitrement = $enquette['date_enregsitrement'];
+        $this->AjouterDossierEnListAttente($date_enregsitrement, $dossierPatient->id);
+    }
+
+    public function NumeroDossier(){
+        return DossierPatient::where('numero_dossier', 'like', 'A-%')
+        ->whereRaw('CAST(SUBSTRING(numero_dossier, 3) AS SIGNED) IS NOT NULL')
+        ->max('numero_dossier');
+    }
+
+
+    public function DossierExiste($patientID){
+        return DossierPatient::where('patient_id',$patientID)->first();
     }
     
 
@@ -84,22 +84,17 @@ class DossierPatientRepository extends BaseRepository
 
     // Ajouter consultation
     public function AjouterDossierEnListAttente($date_enregsitrement,$dossierPatientID){
-
         $consultation = new Consultation();
         $consultation->date_enregistrement=$date_enregsitrement;
         $consultation->type="medecinGeneral";
         $consultation->etat=Consultation::ConsultationEtat();
-
         $consultation->save();
         $consultationID = $consultation->id;
         $this->dossierPatientConsultation($dossierPatientID,$consultationID);
-
-
     }
 
     // Ajouter dossier patient consultation
     public function dossierPatientConsultation($dossierPatientID,$consultationID){
-
         $DossierPatient_consultation =  new DossierPatientConsultation;
         $DossierPatient_consultation->dossier_patient_id = $dossierPatientID;
         $DossierPatient_consultation->consultation_id  = $consultationID;
