@@ -52,7 +52,8 @@ class DossierPatientRepository extends BaseRepository
             DB::commit(); 
         } catch (\Exception $e) {
             DB::rollback(); 
-            return back()->with('');
+            $errorMessage = $e->getMessage();
+            return back()->with('error',$errorMessage);
         }
     }
     
