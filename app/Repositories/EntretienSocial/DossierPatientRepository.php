@@ -15,6 +15,7 @@ use App\Models\DossierPatient_typeHandycape;
 use App\Models\Dossier_patient_service;
 use App\Models\DossierPatientConsultation;
 use App\Models\Consultation;
+use Illuminate\Support\Facades\DB;
 
 class DossierPatientRepository extends BaseRepository
 {
