@@ -12,11 +12,9 @@ use App\Repositories\EntretienSocial\TuteurRepository;
 use App\Repositories\EntretienSocial\PatientRepository;
 use App\Repositories\Parametres\EtatCivilRepository;
 use App\Repositories\Parametres\NiveauScolaireRepository;
-
-
-
-
-
+use App\Repositories\Parametres\CouvertureMedicalRepository;
+use App\Repositories\Parametres\TypeHandicapRepository;
+use App\Repositories\Parametres\ServiceRepository;
 
 
 
@@ -125,9 +123,12 @@ class EntretienSocialController extends AppBaseController
     // Phase 3 : Ajouter enquette social
     public function FormEntretienSocial($PatientID){
         $editMode = false; 
-        $couverture_medical = CouvertureMedical::all();
-        $type_handicap = TypeHandicap::all();
-        $services = Service::all();
+        $couvertureMedical = new CouvertureMedicalRepository;
+        $couverture_medical = $couvertureMedical->all();
+        $typeHandicap = new TypeHandicapRepository;
+        $type_handicap = $typeHandicap->all();
+        $service = new ServiceRepository;
+        $services = $service->all();
         $PatientID = $PatientID;
         return view('dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services','editMode','PatientID'));
     }
