@@ -37,10 +37,6 @@ class TuteurRepository extends BaseRepository
             ->paginate();
     }
 
-    public function all(){
-        return Tuteur::all();
-    }
-
     public function model(): string
     {
         return Tuteur::class;
