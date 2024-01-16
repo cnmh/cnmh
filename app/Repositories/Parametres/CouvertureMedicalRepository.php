@@ -17,7 +17,7 @@ class CouvertureMedicalRepository extends BaseRepository
         return $this->fieldSearchable;
     }
 
-    public function all(){
+    public function get(){
         return CouvertureMedical::all();
     }
 

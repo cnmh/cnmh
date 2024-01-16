@@ -58,7 +58,7 @@ class TuteurController extends AppBaseController
      */
     public function create()
     {
-        $etat_civil = EtatCivil::all();
+        $etat_civil = EtatCivil::get();
         return view('tuteurs.create', compact("etat_civil"));
     }
 

@@ -17,7 +17,7 @@ class ServiceRepository extends BaseRepository
         return $this->fieldSearchable;
     }
 
-    public function all(){
+    public function get(){
         return Service::all();
     }
 

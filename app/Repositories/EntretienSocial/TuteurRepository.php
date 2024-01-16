@@ -24,6 +24,10 @@ class TuteurRepository extends BaseRepository
         return $this->fieldSearchable;
     }
 
+    public function get(){
+        return Tuteur::all();
+    }
+
     public function search($input){
 
         $tuteurs = Tuteur::join('etat_civils', 'tuteurs.etat_civil_id', '=', 'etat_civils.id')

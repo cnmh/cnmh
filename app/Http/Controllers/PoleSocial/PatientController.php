@@ -51,9 +51,9 @@ class PatientController extends AppBaseController
     public function create()
     {
         $tuteurs = new TuteurRepository;
-        $tuteur = $tuteurs->all();
+        $tuteur = $tuteurs->get();
         $niveauScolaire = new NiveauScolaireRepository;
-        $niveau_s = $niveauScolaire->all();
+        $niveau_s = $niveauScolaire->get();
         return view('patients.create',compact("tuteur","niveau_s"));
     }
 
