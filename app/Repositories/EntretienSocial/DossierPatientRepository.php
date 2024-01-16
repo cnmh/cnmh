@@ -86,7 +86,8 @@ class DossierPatientRepository extends BaseRepository
         $consultation = new Consultation();
         $consultation->date_enregistrement=$date_enregsitrement;
         $consultation->type="medecinGeneral";
-        $consultation->etat="enAttente";
+        $consultation->etat=Consultation::ConsultationEtat();
+
         $consultation->save();
         $consultationID = $consultation->id;
         $this->dossierPatientConsultation($dossierPatientID,$consultationID);
