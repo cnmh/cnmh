@@ -35,7 +35,7 @@
 
 
 
-                        @include('dossier_patients.stepper')
+                        @include('PoleSocial.dossier_patients.stepper')
                         <div class="card-header">
 
                             <div class="col-sm-12 d-flex justify-content-between">
@@ -87,8 +87,7 @@
                                             @foreach ($tuteurs as $tuteur)
                                                 <tr>
                                                     <td>
-
-                                                        <input type="radio" name="parentRadio" value="{{ $tuteur->id }}" {{ $tuteur->id == request('tuteur_id') ? 'checked' : '' }}>
+                                                        <input type="radio" name="tuteurID" value="{{ $tuteur->id }}" {{ $tuteur->id == request('tuteur_id') ? 'checked' : '' }}>
                                                     </td>
 
                                                     <td>{{ $tuteur->nom }}</td>

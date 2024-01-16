@@ -33,7 +33,7 @@
                         <div class="card-header">
                             <h3 class="card-title"></h3>
                         </div>
-                        @include('dossier_patients.stepper')
+                        @include('PoleSocial.dossier_patients.stepper')
                         <div class="card-header">
                           @include('flash::message')
                         </div>
@@ -45,18 +45,14 @@
 
                                     <div class="card-body">
                                         <div class="row">
-                                            @include('dossier_patients.fields')
+                                            @include('PoleSocial.dossier_patients.fields')
                                         </div>
                                     </div>
 
 
-                                    @php
-                                        $url = request()->getPathInfo();
-                                        $query = explode('entretien/', $url);
-
-                                    @endphp
+                                    
                                     <div class="card-footer">
-                                        <a href="/patientForm?{{ $query[1] }}"
+                                        <a href=""
                                             class="btn btn-primary">@lang('crud.previous')</a>
                                         {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
                                         {{-- <a href="{{ route('dossier-patients.index') }}" class="btn btn-default">

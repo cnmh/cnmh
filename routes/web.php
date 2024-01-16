@@ -173,17 +173,17 @@ Route::get('/get-permissions-action/{id}',[App\Http\Controllers\PermissionContro
 */
 // Routage entretien social phase de tuteur
 Route::get('/pôle-social/entretien-social/choix/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectTuteur'])->name('dossier-patients.parent');
-Route::get('/pôle-social/entretien-social/tuteur/{tuteurID}',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectTuteur'])->name('Select.tuteurs');
+Route::get('/pôle-social/entretien-social/tuteur/selected',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectTuteur'])->name('Select.tuteurs');
 Route::get('/pôle-social/entretien-social/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormAjouteTuteur'])->name('FormAjoute.tuteurs');
 Route::post('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouteTuteur'])->name('Ajoute.tuteurs');
 // Routage entretien social phase de bénéficiaire
 Route::get('/pôle-social/entretien-social/tuteur/{tuteur_id}/bénéficiaire',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectPatient'])->name('FormSelect.bénéficiaires');
-Route::get('/pôle-social/entretien-social/bénéficiaire/{bénéficiaireID}',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectPatient'])->name('Select.bénéficiaires');
+Route::get('/pôle-social/entretien-social/bénéficiaire/selected',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectPatient'])->name('Select.bénéficiaires');
 Route::get('/pôle-social/entretien-social/bénéficiaire',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormAjoutePatient'])->name('FormAjoute.bénéficiaires');
 Route::post('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjoutePatient'])->name('Ajoute.bénéficiaires');
 // Routage entretien social phase de enquette social
 Route::get('/pôle-social/entretien-social/{bénéficiaireID}/enquette',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormEntretienSocial'])->name('FormEntretienSocial');
-Route::post('/pôle-social/entretien-social/{patientID}/enquette',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouterEntretienSocial'])->name('AjouterEntretienSocial');
+Route::post('/pôle-social/entretien-social/bénéficiaire/{patientID}/enquette',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouterEntretienSocial'])->name('AjouterEntretienSocial');
 
 
 

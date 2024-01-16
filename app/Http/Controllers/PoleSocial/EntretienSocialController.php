@@ -15,6 +15,7 @@ use App\Repositories\Parametres\NiveauScolaireRepository;
 use App\Repositories\Parametres\CouvertureMedicalRepository;
 use App\Repositories\Parametres\TypeHandicapRepository;
 use App\Repositories\Parametres\ServiceRepository;
+use App\Models\Patient;
 
 use App\Models\DossierPatient;
 
@@ -33,6 +34,7 @@ class EntretienSocialController extends AppBaseController
     public function list_dossier(Request $request){
         $dossierPatients = $this->dossierPatientRepository->paginate();
 
+
         if ($request->ajax()) {
             $search = $request->get('search');
             $search = str_replace(" ", "%", $search);
@@ -47,12 +49,12 @@ class EntretienSocialController extends AppBaseController
         
 
         
-            return view('dossier_patients.table')
+            return view('PoleSocial.dossier_patients.table')
                 ->with('dossierPatients', $dossierPatients)
                 ->render();
         }
 
-        return view('dossier_patients.index')
+        return view('PoleSocial.dossier_patients.index')
             ->with('dossierPatients', $dossierPatients);
     }
 
@@ -72,18 +74,18 @@ class EntretienSocialController extends AppBaseController
         $query = $request->input('query');
         $tuteurRepository = new TuteurRepository;
         $tuteurs = $tuteurRepository->paginate($query);
-        return view('dossier_patients.parent', compact("tuteurs"));
+        return view('PoleSocial.dossier_patients.parent', compact("tuteurs"));
     }
 
     // pass tuteur a patient
-    public function SelectTuteur($tuteurID){
-        return redirect()->route('FormSelect.bénéficiaires', $tuteurID)->with('tuteur_id',$tuteurID);
+    public function SelectTuteur(Request $request){
+        return redirect()->route('FormSelect.bénéficiaires', $request->tuteurID)->with('tuteur_id',$request->tuteurID);
     }
 
     public function FormAjouteTuteur(){
         $EtatCivil = new EtatCivilRepository;
         $etat_civil = $EtatCivil->all();
-        return view('tuteurs.create', compact("etat_civil"));
+        return view('PoleSocial.tuteurs.create', compact("etat_civil"));
     }
 
     // Ajouter le tuteur
@@ -109,12 +111,12 @@ class EntretienSocialController extends AppBaseController
     public function FormSelectPatient($tuteurID){
         $patientRepository = new PatientRepository;
         $patients = $patientRepository->where(Patient::class,'tuteur_id',$tuteurID)->get();
-        return view('dossier_patients.patient', compact("patients"));
+        return view('PoleSocial.dossier_patients.patient', compact("patients"));
     }
 
     // pass Patient a entretien
-    public function SelectPatient($PatientID){
-        return redirect()->route('FormEntretienSocial', $PatientID)->with('patient_id',$PatientID);
+    public function SelectPatient(Request $request){
+        return redirect()->route('FormEntretienSocial', $request->patientRadio)->with('patient_id',$request->patientRadio);
     }
 
     public function FormAjoutePatient(){
@@ -122,7 +124,7 @@ class EntretienSocialController extends AppBaseController
         $tuteur = $tuteurs->all();
         $niveauScolaire = new NiveauScolaireRepository;
         $niveau_s = $niveauScolaire->all();
-        return view('patients.create',compact("tuteur","niveau_s"));
+        return view('PoleSocial.patients.create',compact("tuteur","niveau_s"));
     }
 
     // Ajouter le Patient
@@ -159,7 +161,7 @@ class EntretienSocialController extends AppBaseController
         $service = new ServiceRepository;
         $services = $service->all();
         $PatientID = $PatientID;
-        return view('dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services','editMode','PatientID'));
+        return view('PoleSocial.dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services','editMode','PatientID'));
     }
 
     public function AjouterEntretienSocial(CreateDossierPatientRequest $request,$PatientID){

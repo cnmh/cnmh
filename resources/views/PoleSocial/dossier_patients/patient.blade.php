@@ -35,7 +35,7 @@
                         <div class="card-header">
                             <h3 class="card-title"></h3>
                         </div>
-                        @include('dossier_patients.stepper')
+                        @include('PoleSocial.dossier_patients.stepper')
                         <div class="card-header">
                             <div class="col-sm-12 d-flex justify-content-between ">
                                 <div class="col-sm-6">
@@ -61,11 +61,8 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                @php
-                                    $url = parse_url($_SERVER['REQUEST_URI']);
-                                    // var_dump($url['query']);
-                                @endphp
-                                <form action="{{ route('dossier-patients.entretien', $url['query']) }}" method="get">
+                               
+                                <form action="{{ route('Select.bénéficiaires') }}" method="get">
 
                                     <table class="table table-striped" id="patient-table">
                                         <thead>
