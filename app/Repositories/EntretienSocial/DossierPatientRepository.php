@@ -37,18 +37,20 @@ class DossierPatientRepository extends BaseRepository
         try {
             DB::beginTransaction();
 
+            // Ajouter dossier
             $enquette['patient_id'] = $patiendID;
             $this->model->newInstance($enquette);
-            $this->model->create($enquette);
+            parent::create($enquette);
             $dossierPatient =  $this->model->where('numero_dossier', $enquette['numero_dossier'])->first();
             $typeHandycapeIDs = $enquette->input('type_handicap_id');
             $service_ids = $enquette->input('services_id');
             $dossierPatientID = $dossierPatient->id;
             $date_enregsitrement = $enquette->date_enregsitrement;
-            $this->DossierPatient_typeHandycape($typeHandycapeIDs, $dossierPatientID);
-            $this->Dossier_patient_service($service_ids, $dossierPatientID);
+            $this->AffecterTypeHandicapAuDossier($typeHandycapeIDs, $dossierPatientID);
+            $this->AffecterServiceAuDossier($service_ids, $dossierPatientID);
+
             // Ajouter dossier en liste d'attente
-            $this->Consultation($date_enregsitrement, $dossierPatientID);
+            $this->AjouterDossierEnListAttente($date_enregsitrement, $dossierPatientID);
     
             DB::commit(); 
         } catch (\Exception $e) {
@@ -60,7 +62,7 @@ class DossierPatientRepository extends BaseRepository
     
 
      // Ajouter dossier patient type handicap
-    public function DossierPatient_typeHandycape($typeHandycapeIDs,$dossierPatientID){
+    public function AffecterTypeHandicapAuDossier($typeHandycapeIDs,$dossierPatientID){
         foreach ($typeHandycapeIDs as $typeHandycapeID) {
             $DossierPatient_typeHandycape = new DossierPatient_typeHandycape;
             $DossierPatient_typeHandycape->type_handicap_id = $typeHandycapeID;
@@ -70,7 +72,7 @@ class DossierPatientRepository extends BaseRepository
     }
 
     // Ajouter dossier patient service demander
-    public function Dossier_patient_service($service_ids,$dossierPatientID){
+    public function AffecterServiceAuDossier($service_ids,$dossierPatientID){
 
         foreach($service_ids as $service_id){
             $service_patient_demander = new Dossier_patient_service;
@@ -81,7 +83,7 @@ class DossierPatientRepository extends BaseRepository
     }
 
     // Ajouter consultation
-    public function Consultation($date_enregsitrement,$dossierPatientID){
+    public function AjouterDossierEnListAttente($date_enregsitrement,$dossierPatientID){
 
         $consultation = new Consultation();
         $consultation->date_enregistrement=$date_enregsitrement;

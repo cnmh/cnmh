@@ -16,6 +16,8 @@ use App\Repositories\Parametres\CouvertureMedicalRepository;
 use App\Repositories\Parametres\TypeHandicapRepository;
 use App\Repositories\Parametres\ServiceRepository;
 
+use App\Models\DossierPatient;
+
 
 
 class EntretienSocialController extends AppBaseController
@@ -28,22 +30,39 @@ class EntretienSocialController extends AppBaseController
     }
 
 
+    public function list_dossier(Request $request){
+        $dossierPatients = $this->dossierPatientRepository->paginate();
+
+        if ($request->ajax()) {
+            $search = $request->get('search');
+            $search = str_replace(" ", "%", $search);
+        
+            $dossierPatients = DossierPatient::join('patients', function ($join) {
+                $join->on('dossier_patients.patient_id', '=', 'patients.id')
+                    ->select('patients.id as patientID', 'patients.*', 'dossier_patients.numero_dossier as dossier_id');
+            })
+            ->where('patients.nom', 'like', '%' . $search . '%')
+            ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')->orderBy('dossier_patients.numero_dossier')
+            ->paginate();
+        
+
+        
+            return view('dossier_patients.table')
+                ->with('dossierPatients', $dossierPatients)
+                ->render();
+        }
+
+        return view('dossier_patients.index')
+            ->with('dossierPatients', $dossierPatients);
+    }
+
+
     /**
      * Phase 1 : Choix ou création du tuteur
     */
-    public function FormSelectTuteur(){
+    public function FormTuteur(){
 
-        if ($request->ajax()) {
-            $search = $request->get('query');
-            $search = str_replace(" ", "%", $search);
-            $tuteurRepository = new TuteurRepository;
-            $tuteur = $tuteurRepository->search($search);
-            return response()->json(['data' => $tuteurs]);
-        }
-        $query = $request->input('query');
-        $tuteurRepository = new TuteurRepository;
-        $tuteurs = $tuteurRepository->paginate($query);
-        return view('dossier_patients.parent', compact("tuteurs"));
+        dd('yes');
     }
 
     // pass tuteur a patient
