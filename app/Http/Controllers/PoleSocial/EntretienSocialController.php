@@ -11,6 +11,8 @@ use App\Http\Requests\UpdateDossierPatientRequest;
 use App\Repositories\EntretienSocial\TuteurRepository;
 use App\Repositories\EntretienSocial\PatientRepository;
 use App\Repositories\Parametres\EtatCivilRepository;
+use App\Repositories\Parametres\NiveauScolaireRepository;
+
 
 
 
@@ -36,22 +38,14 @@ class EntretienSocialController extends AppBaseController
         if ($request->ajax()) {
             $search = $request->get('query');
             $search = str_replace(" ", "%", $search);
-
-            $tuteurs = Tuteur::join('etat_civils', 'tuteurs.etat_civil_id', '=', 'etat_civils.id')
-            ->where('tuteurs.nom', 'like', '%' . $search . '%')
-            ->orWhere('tuteurs.prenom', 'like', '%' . $search . '%')
-            ->select('tuteurs.nom as tuteur_nom', 'etat_civils.id as etat_civil_id', 'tuteurs.prenom', 'tuteurs.adresse', 'tuteurs.telephone', 'tuteurs.email', 'etat_civils.nom as etat_civil_nom','tuteurs.id as id')
-            ->paginate();
-
+            $tuteurRepository = new TuteurRepository;
+            $tuteur = $tuteurRepository->search($search);
             return response()->json(['data' => $tuteurs]);
         }
-
         $query = $request->input('query');
         $tuteurRepository = new TuteurRepository;
         $tuteurs = $tuteurRepository->paginate($query);
-
         return view('dossier_patients.parent', compact("tuteurs"));
-
     }
 
     // pass tuteur a patient
@@ -74,9 +68,7 @@ class EntretienSocialController extends AppBaseController
             Flash::error('Tuteur est déja existe');
             return back();
         }
-
         $tuteur = $this->tuteurRepository->create($input);
-
         Flash::success(__('messages.saved', ['model' => __('models/tuteurs.singular')]));
         $tuteurID = $tuteur->id;
         $this->FormSelectPatient($tuteurID);
@@ -99,8 +91,10 @@ class EntretienSocialController extends AppBaseController
     }
 
     public function FormAjoutePatient(){
-        $tuteur = Tuteur::all();
-        $niveau_s = NiveauScolaire::all();
+        $tuteurs = new TuteurRepository;
+        $tuteur = $tuteurs->all();
+        $niveauScolaire = new NiveauScolaireRepository;
+        $niveau_s = $niveauScolaire->all();
         return view('patients.create',compact("tuteur","niveau_s"));
     }
 

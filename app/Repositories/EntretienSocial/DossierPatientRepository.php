@@ -32,20 +32,30 @@ class DossierPatientRepository extends BaseRepository
     }
 
    
-    public function entretienSocial($enquette,$patiendID){
-        $enquette['patient_id'] = $patiendID;
-        $this->model->newInstance($enquette);
-        $this->model->create($enquette);
-        $dossierPatient =  $this->model->where('numero_dossier', $enquette['numero_dossier'])->first();
-        $typeHandycapeIDs = $enquette->input('type_handicap_id');
-        $service_ids = $enquette->input('services_id');
-        $dossierPatientID = $dossierPatient->id;
-        $date_enregsitrement = $enquette->date_enregsitrement;
-        $this->DossierPatient_typeHandycape($typeHandycapeIDs,$dossierPatientID);
-        $this->Dossier_patient_service($service_ids,$dossierPatientID);
-        // Ajouter dossier en list d'attente
-        $this->Consultation($date_enregsitrement,$dossierPatientID);
+    public function entretienSocial($enquette, $patiendID) {
+        try {
+            DB::beginTransaction();
+
+            $enquette['patient_id'] = $patiendID;
+            $this->model->newInstance($enquette);
+            $this->model->create($enquette);
+            $dossierPatient =  $this->model->where('numero_dossier', $enquette['numero_dossier'])->first();
+            $typeHandycapeIDs = $enquette->input('type_handicap_id');
+            $service_ids = $enquette->input('services_id');
+            $dossierPatientID = $dossierPatient->id;
+            $date_enregsitrement = $enquette->date_enregsitrement;
+            $this->DossierPatient_typeHandycape($typeHandycapeIDs, $dossierPatientID);
+            $this->Dossier_patient_service($service_ids, $dossierPatientID);
+            // Ajouter dossier en liste d'attente
+            $this->Consultation($date_enregsitrement, $dossierPatientID);
+    
+            DB::commit(); 
+        } catch (\Exception $e) {
+            DB::rollback(); 
+            return back()->with('');
+        }
     }
+    
 
      // Ajouter dossier patient type handicap
     public function DossierPatient_typeHandycape($typeHandycapeIDs,$dossierPatientID){
