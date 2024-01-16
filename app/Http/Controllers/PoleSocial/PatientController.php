@@ -9,10 +9,11 @@ use App\Models\NiveauScolaire;
 use App\Models\Tuteur;
 use App\Models\Patient;
 use App\Models\DossierPatient;
-
-use App\Models\Reclamation;
-
+use App\Repositories\Parametres\NiveauScolaireRepository;
+use App\Repositories\EntretienSocial\TuteurRepository;
 use App\Repositories\EntretienSocial\PatientRepository;
+use App\Repositories\EntretienSocial\DossierPatientRepository;
+use App\Models\Reclamation;
 use Illuminate\Http\Request;
 use Flash;
 
@@ -49,8 +50,10 @@ class PatientController extends AppBaseController
      */
     public function create()
     {
-        $tuteur = Tuteur::all();
-        $niveau_s = NiveauScolaire::all();
+        $tuteurs = new TuteurRepository;
+        $tuteur = $tuteurs->all();
+        $niveauScolaire = new NiveauScolaireRepository;
+        $niveau_s = $niveauScolaire->all();
         return view('patients.create',compact("tuteur","niveau_s"));
     }
 
@@ -68,7 +71,8 @@ class PatientController extends AppBaseController
             $input['image'] = 'assets/images/' . $filename;
 
         }
-        $patientExiste = Patient::where('nom',$input['nom'])->first();
+        $patientRepository = new PatientRepository;
+        $patientExiste = $patientRepository->where(Patient::class,'nom',$input['nom'])->first();
         if($patientExiste){
             Flash::error("Patient déja existé");
             return back();
@@ -92,13 +96,11 @@ class PatientController extends AppBaseController
     public function show($id)
     {
         $patient = $this->patientRepository->find($id);
-
         if (empty($patient)) {
             Flash::error(__('models/patients.singular').' '.__('messages.not_found'));
 
             return redirect(route('patients.index'));
         }
-
         return view('patients.show')->with('patient', $patient);
     }
 
@@ -108,18 +110,16 @@ class PatientController extends AppBaseController
     public function edit($id , Request $request)
     {
         $patient = $this->patientRepository->find($id);
-
         $previousUrl = $request->input('previous_url', route('dossier-patients.index'));
-
-        $tuteur = Tuteur::find($patient->tuteur_id);
-        $niveauScolaire = NiveauScolaire::find($patient->niveau_scolaire_id);
-
+        $tuteurs = new TuteurRepository;
+        $tuteur = $tuteurs->find($patient->tuteur_id);
+        $niveauScolaire = new NiveauScolaireRepository;
+        $niveauScolaire = $niveauScolaire->find($patient->niveau_scolaire_id);
         if (empty($patient)) {
             Flash::error(__('models/patients.singular').' '.__('messages.not_found'));
 
             return redirect(route('patients.index'));
         }
-
         return view('patients.edit')->with(['patient' => $patient, 'tuteur' => $tuteur , 'niveau_s' => $niveauScolaire , 'previousUrl' => $previousUrl]);
     }
 
@@ -141,7 +141,9 @@ class PatientController extends AppBaseController
 
         $previousUrl = $request->input('previous_url');
         $patient = $this->patientRepository->update($request->all(), $id);
-        $dossier_patient = DossierPatient::where('patient_id',$patient->id)->first();
+
+        $dossierPatientRepo = new DossierPatientRepository;
+        $dossier_patient = $dossierPatientRepo->where(DossierPatient::class,'patient_id',$patient->id)->first();
         $numeroDossier = $dossier_patient->numero_dossier;
         Flash::success(__('messages.updated', ['model' => __('models/patients.singular')]));
         if (strpos($previousUrl, 'dossier-patients') !== false) {
@@ -159,22 +161,17 @@ class PatientController extends AppBaseController
     public function destroy($id)
     {
         $patient = $this->patientRepository->find($id);
-
         if (empty($patient)) {
             Flash::error(__('models/patients.singular').' '.__('messages.not_found'));
 
             return redirect(route('patients.index'));
         }
-
         if($patient){
             $reclamation = Reclamation::where('patient_id',$patient->id)->first();
             $reclamation->delete();
         }
-
         $this->patientRepository->delete($id);
-
         Flash::success(__('messages.deleted', ['model' => __('models/patients.singular')]));
-
         return redirect(route('patients.index'));
     }
 }

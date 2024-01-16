@@ -5,11 +5,20 @@ namespace App\Http\Controllers\PoleSocial;
 use App\Http\Requests\CreateTuteurRequest;
 use App\Http\Requests\UpdateTuteurRequest;
 use App\Http\Controllers\AppBaseController;
-use App\Models\EtatCivil;
+
 use App\Models\Patient;
-use App\Models\Tuteur;
-use App\Models\DossierPatient;
 use App\Repositories\EntretienSocial\TuteurRepository;
+use App\Repositories\EntretienSocial\PatientRepository;
+
+use App\Repositories\Parametres\EtatCivilRepository;
+use App\Repositories\Parametres\NiveauScolaireRepository;
+use App\Repositories\Parametres\CouvertureMedicalRepository;
+use App\Repositories\Parametres\TypeHandicapRepository;
+use App\Repositories\Parametres\ServiceRepository;
+use App\Repositories\EntretienSocial\DossierPatientRepository;
+
+
+use App\Models\DossierPatient;
 use Illuminate\Http\Request;
 use Flash;
 
@@ -58,31 +67,18 @@ class TuteurController extends AppBaseController
      */
     public function store(CreateTuteurRequest $request)
     {
-
-
         $input = $request->all();
-
-
         $tuteurExiste = $this->tuteurRepository->where(Tuteur::class,'cin',$input['cin'])->first();
-
         if($tuteurExiste){
             Flash::error('Tuteur est déja existe');
             return back();
         }
-
         $tuteur = $this->tuteurRepository->create($input);
-
         Flash::success(__('messages.saved', ['model' => __('models/tuteurs.singular')]));
-
-
         if ($request->parentForm) {
-
             return redirect("/patientForm?parentRadio=$tuteur->id");
-
         } else {
-
             return redirect(route('tuteurs.index'));
-
         }
     }
 
@@ -92,13 +88,11 @@ class TuteurController extends AppBaseController
     public function show($id)
     {
         $tuteur = $this->tuteurRepository->find($id);
-
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('tuteurs.index'));
         }
-
         return view('tuteurs.show')->with('tuteur', $tuteur);
     }
 
@@ -108,15 +102,13 @@ class TuteurController extends AppBaseController
     public function edit($id , Request $request)
     {
         $tuteur = $this->tuteurRepository->find($id);
-        $previousUrl = $request->input('previous_url', route('dossier-patients.index'));
-            
+        $previousUrl = $request->input('previous_url', route('dossier-patients.index')); 
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
             return redirect(route('tuteurs.index'));
         }
-    
-        $etat_civil = EtatCivil::find($tuteur->etat_civil_id);
-    
+        $EtatCivil = new EtatCivilRepository;
+        $etat_civil = $EtatCivil->find($tuteur->etat_civil_id);
         return view('tuteurs.edit', compact('tuteur', 'etat_civil','previousUrl'));
     }
     
@@ -126,23 +118,18 @@ class TuteurController extends AppBaseController
     public function update($id, UpdateTuteurRequest $request)
     {
         $tuteur = $this->tuteurRepository->find($id);
-
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('tuteurs.index'));
         }
-
         $previousUrl = $request->input('previous_url');
-
         $tuteur = $this->tuteurRepository->update($request->all(), $id);
-
-        $patient = Patient::where('tuteur_id',$id)->first();
-
-        $dossier_patient = DossierPatient::where('patient_id',$patient->id)->first();
-
+        $patientRepo = new PatientRepository;
+        $patient = $patientRepo->where(Patient::class,'tuteur_id',$id)->first();
+        $dossierPatientRepo = new DossierPatientRepository;
+        $dossier_patient = $dossierPatientRepo->where(DossierPatient::class,'patient_id',$patient->id)->first();
         $numeroDossier = $dossier_patient->numero_dossier;
-
         Flash::success(__('messages.updated', ['model' => __('models/tuteurs.singular')]));
 
         if (strpos($previousUrl, 'dossier-patients') !== false) {
@@ -161,18 +148,15 @@ class TuteurController extends AppBaseController
     public function destroy($id)
     {
         $tuteur = $this->tuteurRepository->find($id);
-
-        
-
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
 
             return redirect(route('tuteurs.index'));
         }
-
         if($tuteur){
 
-            $patient = Patient::where('tuteur_id',$tuteur->id)->first();
+            $patientRepo = new PatientRepository;
+            $patient = $patientRepo->where(Patient::class,'tuteur_id',$id)->first();
 
             if($patient){
                 Flash::error(__("Le tuteur a des patients associés. Supprimez d'abord le patient"));
@@ -180,11 +164,8 @@ class TuteurController extends AppBaseController
             }
             
         }
-
         $this->tuteurRepository->delete($id);
-
         Flash::success(__('messages.deleted', ['model' => __('models/tuteurs.singular')]));
-
         return redirect(route('tuteurs.index'));
     }
 }
