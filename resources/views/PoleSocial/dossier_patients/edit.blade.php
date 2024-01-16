@@ -22,18 +22,18 @@
 
         <div class="card">
 
-            {!! Form::model($dossierPatient, ['route' => ['dossier-patients.update', $dossierPatient->numero_dossier], 'method' => 'patch']) !!}
+            {!! Form::model($dossierPatient, ['route' => ['dossier-patients.modifier', $dossierPatient->numero_dossier], 'method' => 'put']) !!}
 
             <div class="card-body">
                 <div class="row">
                     <input type="hidden" name="previous_url" value="{{ url()->previous() }}">
-                    @include('dossier_patients.fields')
+                    @include('PoleSocial.dossier_patients.fields')
                 </div>
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Enregistrer', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('dossier-patients.index') }}" class="btn btn-default"> @lang('crud.cancel') </a>
+                <a href="{{ route('dossier-patients.list') }}" class="btn btn-default"> @lang('crud.cancel') </a>
             </div>
 
             {!! Form::close() !!}

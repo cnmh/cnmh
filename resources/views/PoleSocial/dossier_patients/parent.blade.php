@@ -40,7 +40,7 @@
 
                             <div class="col-sm-12 d-flex justify-content-between">
                                 <div class="col-sm-6">
-                                    <a class="btn btn-primary " href="{{ route('FormAjoute.tuteurs') }}">
+                                    <a class="btn btn-primary " href="{{ route('FormAjoute.tuteurs') }}?=parentForm">
 
                                         @lang('crud.add_new') {{strtolower(__('models/tuteurs.singular'))}}
                                     </a>

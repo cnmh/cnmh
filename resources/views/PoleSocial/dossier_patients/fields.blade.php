@@ -93,7 +93,7 @@
 
 <div class="form-group col-sm-6">
     {!! Form::label('patient_id', __('models/dossierPatients.fields.patient_id'), ['hidden']) !!}
-    {!! Form::number('patient_id', $PatientID, ['class' => 'form-control', 'required', 'hidden']) !!}
+    {!! Form::number('patient_id', $editMode ? $patientId : $PatientID , ['class' => 'form-control', 'required' => 'required', 'hidden' => 'hidden']) !!}
 </div>
 
 <!-- Etat Field -->

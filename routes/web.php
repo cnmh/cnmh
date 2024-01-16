@@ -184,6 +184,19 @@ Route::post('/pôle-social/entretien-social/bénéficiaire/ajouter',[App\Http\Co
 // Routage entretien social phase de enquette social
 Route::get('/pôle-social/entretien-social/{bénéficiaireID}/enquette',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormEntretienSocial'])->name('FormEntretienSocial');
 Route::post('/pôle-social/entretien-social/bénéficiaire/{patientID}/enquette',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouterEntretienSocial'])->name('AjouterEntretienSocial');
+// List des dossier social
+Route::get('/pôle-social/entretien-social/',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'list_dossier'])->name('dossier-patients.list');
+Route::get('/pôle-social/entretien-social/dossier-bénéficiaire/{id}',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'show_dossier'])->name('dossier-patients.consulter');
+Route::get('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/editer',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'edit'])->name('dossier-patients.editer');
+Route::PUT('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/update',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'update'])->name('dossier-patients.modifier');
+
+
+
+
+
+
+
+
 
 
 

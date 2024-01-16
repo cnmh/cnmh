@@ -11,10 +11,12 @@ use App\Models\TypeHandicap;
 use App\Models\CouvertureMedical;
 use App\Models\Patient;
 use App\Models\Tuteur;
+use App\Models\RendezVous;
 use App\Models\DossierPatient_typeHandycape;
 use App\Models\Dossier_patient_service;
 use App\Models\DossierPatientConsultation;
 use App\Models\Consultation;
+use App\Models\OrientationExterne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -100,6 +102,104 @@ class DossierPatientRepository extends BaseRepository
         $DossierPatient_consultation->consultation_id  = $consultationID;
         $DossierPatient_consultation->save();
     }
+
+
+    public function search($search){
+        DossierPatient::join('patients', function ($join) {
+            $join->on('dossier_patients.patient_id', '=', 'patients.id')
+                ->select('patients.id as patientID', 'patients.*', 'dossier_patients.numero_dossier as dossier_id');
+        })
+        ->where('patients.nom', 'like', '%' . $search . '%')
+        ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')->orderBy('dossier_patients.numero_dossier')
+        ->paginate();
+    }
+
+    public function DossierPatient_typeHandycapFIND($dossierPatientID){
+        return DossierPatient_typeHandycape::where('dossier_patient_id',$dossierPatientID)->get();
+    }
+
+    public function DossierPatient_serviceFIND($dossierPatientID){
+        return Dossier_patient_service::where('dossier_patient_id',$dossierPatientID)->get();
+    }
+
+    public function DossierPatient_consultationFIND($dossierPatientID){
+        return DossierPatientConsultation::where('dossier_patient_id',$dossierPatientID)->first();
+    }
+
+    public function ListAttenteFIND($id){
+        return Consultation::where('id',$id)->where('etat','enAttente')->get();
+    }
+
+    public function ConsultationNedecinFIND($id){
+        return Consultation::where('id',$id)->where('etat','enConsultation')->get();
+    }
+
+    public function rendezVousPatient(){
+
+        return RendezVous::join('consultations', 'consultations.id', '=', 'rendez_vous.consultation_id')
+        ->join('dossier_patient_consultation', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+        ->join('dossier_patients', 'dossier_patients.id', '=', 'dossier_patient_consultation.dossier_patient_id')
+        ->join('patients', 'patients.id', '=', 'dossier_patients.patient_id')
+        ->select([
+            'rendez_vous.date_rendez_vous',
+            'rendez_vous.etat as etatRendezVous',
+            'consultations.*',
+            'dossier_patient_consultation.*',
+            'dossier_patients.*',
+            'patients.*'
+        ])
+        ->get();
+
+    }
+
+    public function typeHandycapDossierPatientIfExisteDelete($dossierPatientID,$typeHandicapIDs){
+        return DossierPatient_typeHandycape::where('dossier_patient_id', $dossierPatientID)
+        ->whereNotIn('type_handicap_id', $typeHandicapIDs)
+        ->delete();
+    }
+
+    public function typeHandycapDossierPatientUpdate($dossierPatientID,$typeHandicapID){
+        return DossierPatient_typeHandycape::updateOrCreate(
+            ['dossier_patient_id' => $dossierPatientID, 'type_handicap_id' => $typeHandicapID],
+            ['type_handicap_id' => $typeHandicapID]
+        );
+    }
+
+    public function serviceDossierPatientIfExisteDelete($dossierPatientID,$service_ids){
+        return dossier_patient_service::where('dossier_patient_id',$dossierPatientID)
+        ->whereNotIn('service_id',$service_ids)
+        ->delete();
+    }
+
+    public function serviceDossierPatientUpdate($dossierPatientID,$service_id){
+        return dossier_patient_service::updateOrCreate(
+            ['dossier_patient_id' =>$dossierPatientID, 'service_id' => $service_id],
+            ['service_id' => $service_id]
+        );
+    }
+
+    public function OrientationExterneFIND(){
+        return OrientationExterne::where('dossier_patient_id', $dossierPatientID)->first();
+    }
+
+    public function ConsultationFIND(){
+        return Consultation::find();
+    }
+
+
+    
+
+
+
+   
+
+    
+
+
+    
+
+
+
 
     public function model(): string
     {
