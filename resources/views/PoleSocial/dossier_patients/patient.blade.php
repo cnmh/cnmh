@@ -40,7 +40,7 @@
                             <div class="col-sm-12 d-flex justify-content-between ">
                                 <div class="col-sm-6">
                                 @can('create-DossierPatient')
-                                    <a class="btn btn-primary " href="{{ route('patients.create') }}?parentRadio={{request()->query("parentRadio")}}">
+                                    <a class="btn btn-primary " href="{{ route('FormAjoute.bénéficiaires', $tuteur_id) }}">
                                         @lang('crud.add_new') {{strtolower(__('models/patients.singular'))}}
                                     </a>
                                 @endcan

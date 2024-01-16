@@ -110,8 +110,9 @@ class EntretienSocialController extends AppBaseController
     */
     public function FormSelectPatient($tuteurID){
         $patientRepository = new PatientRepository;
+        $tuteur_id = $tuteurID;
         $patients = $patientRepository->where(Patient::class,'tuteur_id',$tuteurID)->get();
-        return view('PoleSocial.dossier_patients.patient', compact("patients"));
+        return view('PoleSocial.dossier_patients.patient', compact("patients",'tuteur_id'));
     }
 
     // pass Patient a entretien
@@ -121,9 +122,9 @@ class EntretienSocialController extends AppBaseController
 
     public function FormAjoutePatient(){
         $tuteurs = new TuteurRepository;
-        $tuteur = $tuteurs->all();
+        $tuteur = $tuteurs->get();
         $niveauScolaire = new NiveauScolaireRepository;
-        $niveau_s = $niveauScolaire->all();
+        $niveau_s = $niveauScolaire->get();
         return view('PoleSocial.patients.create',compact("tuteur","niveau_s"));
     }
 
