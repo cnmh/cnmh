@@ -60,9 +60,19 @@ class EntretienSocialController extends AppBaseController
     /**
      * Phase 1 : Choix ou création du tuteur
     */
-    public function FormTuteur(){
+    public function FormSelectTuteur(Request $request){
 
-        dd('yes');
+        if ($request->ajax()) {
+            $search = $request->get('query');
+            $search = str_replace(" ", "%", $search);
+            $tuteurRepository = new TuteurRepository;
+            $tuteurs = $tuteurRepository->search($search);
+            return response()->json(['data' => $tuteurs]);
+        }
+        $query = $request->input('query');
+        $tuteurRepository = new TuteurRepository;
+        $tuteurs = $tuteurRepository->paginate($query);
+        return view('dossier_patients.parent', compact("tuteurs"));
     }
 
     // pass tuteur a patient
