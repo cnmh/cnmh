@@ -9,7 +9,7 @@ use App\Models\EtatCivil;
 use App\Models\Patient;
 use App\Models\Tuteur;
 use App\Models\DossierPatient;
-use App\Repositories\TuteurRepository;
+use App\Repositories\EntretienSocial\TuteurRepository;
 use Illuminate\Http\Request;
 use Flash;
 

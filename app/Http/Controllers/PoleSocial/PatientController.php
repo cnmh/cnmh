@@ -12,7 +12,7 @@ use App\Models\DossierPatient;
 
 use App\Models\Reclamation;
 
-use App\Repositories\PatientRepository;
+use App\Repositories\EntretienSocial\PatientRepository;
 use Illuminate\Http\Request;
 use Flash;
 
