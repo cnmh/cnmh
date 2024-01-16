@@ -405,6 +405,7 @@ class PermissionSeeder extends Seeder
         Permission::create([
             'name' => 'patient-Consultation',
         ]);
+        
 
 
         // Adding Rendez-vous permissions 
