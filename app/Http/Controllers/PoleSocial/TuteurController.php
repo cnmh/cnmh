@@ -132,7 +132,7 @@ class TuteurController extends AppBaseController
         $numeroDossier = $dossier_patient->numero_dossier;
         Flash::success(__('messages.updated', ['model' => __('models/tuteurs.singular')]));
 
-        if (strpos($previousUrl, 'dossier-patients') !== false) {
+        if (strpos($previousUrl, 'entretien-social') !== false) {
             $redirectUrl = $previousUrl . '/'. $numeroDossier .'/edit';
             return redirect($redirectUrl);
         }

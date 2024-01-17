@@ -146,7 +146,7 @@ class PatientController extends AppBaseController
         $dossier_patient = $dossierPatientRepo->where(DossierPatient::class,'patient_id',$patient->id)->first();
         $numeroDossier = $dossier_patient->numero_dossier;
         Flash::success(__('messages.updated', ['model' => __('models/patients.singular')]));
-        if (strpos($previousUrl, 'dossier-patients') !== false) {
+        if (strpos($previousUrl, 'entretien-social') !== false) {
             $redirectUrl = $previousUrl . '/'. $numeroDossier .'/edit';
             return redirect($redirectUrl);
         }
