@@ -185,7 +185,7 @@ class EntretienSocialController extends AppBaseController
         $dossierPatient = $this->dossierPatientRepository->entretienSocial($enquette,$PatientID);
         // Sortie
         Flash::success(__('messages.saved', ['model' => __('models/dossierPatients.singular')]));
-        return redirect(route('dossier-patients.index'));
+        return redirect(route('PoleSocial.dossier-patients.index'));
     }
 
 

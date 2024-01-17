@@ -81,8 +81,8 @@ class Consultation extends Model
     public static function ConsultationEtat(){
         return [
             self::ETAT_EN_ATTENTE,
-            self::ETAT_EN_COURS,
-            self::ETAT_TERMINEE,
+            self::ETAT_EN_RENDEZVOUS,
+            self::ETAT_CONSULTATION,
         ];
     }
 }

@@ -76,7 +76,8 @@
                                                 <th>@lang('models/tuteurs.fields.telephone')</th>
                                                 <th>@lang('models/tuteurs.fields.email')</th>
                                                 <th>@lang('models/tuteurs.fields.adresse')</th>
-                                                <th> @lang('models/tuteurs.fields.etat_civil_id')</th>
+                                                <th>@lang('models/tuteurs.fields.cin')</th>
+                                                <th>@lang('models/tuteurs.fields.etat_civil_id')</th>
 
                                                 {{-- <th>Cin</th>
                                             <th>Remarques</th> --}}
@@ -95,9 +96,9 @@
                                                     <td>{{ $tuteur->telephone }}</td>
                                                     <td>{{ $tuteur->email }}</td>
                                                     <td>{{ $tuteur->adresse }}</td>
+                                                    <td>{{ $tuteur->cin }}</td>
                                                     <td>{{ $tuteur->etatCivil->nom }}</td>
-                                                    {{-- <td>{{ $tuteur->cin }}</td>
-                                                <td>{{ $tuteur->remarques }}</td> --}}
+                                                    {{-- <td>{{ $tuteur->remarques }}</td> --}}
                                                 <td style="width: 120px">
                                                     <div class='btn-group'>
                                                         @can('show-Tuteur')
@@ -190,7 +191,7 @@
        $(document).ready(function() {
         function fetch_data(page, search) {
             $.ajax({
-                url: "/parentForm/?page=" + page + "&query=" + search.trim(),
+                url: "/pôle-social/entretien-social/choix/tuteur/?page=" + page + "&query=" + search.trim(),
                 dataType: 'json', 
                 success: function(response) {
                     $('#tuteurTable').html('');
@@ -206,6 +207,7 @@
                         row += '<td>' + rowData.telephone + '</td>';
                         row += '<td>' + rowData.email + '</td>';
                         row += '<td>' + rowData.adresse + '</td>';
+                        row += '<td>' + rowData.cin + '</td>';
                         row += '<td>' + rowData.etat_civil_nom + '</td>';
                         row += '<td style="width: 120px">';
                         row += '<div class="btn-group">';
