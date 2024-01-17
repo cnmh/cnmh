@@ -301,7 +301,6 @@ class EntretienSocialController extends AppBaseController
             $dossierPatientConsultation = $this->dossierPatientRepository->DossierPatient_consultationFIND($dossierPatientID);
             $DossierPatient_typeHandycape = $this->dossierPatientRepository->DossierPatient_typeHandycapFIND($dossierPatientID);
 
-
             if ($OrientationExterne) {
                 Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
             } else {
@@ -314,8 +313,12 @@ class EntretienSocialController extends AppBaseController
                         return back();
                     }
                     else {
-                        $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientConsultation);
-                        $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($DossierPatient_typeHandycape);
+                    
+                        $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierFromListAttente($consultation);
+                        
                     } 
 
                     $this->dossierPatientRepository->delete($dossierPatientID);
