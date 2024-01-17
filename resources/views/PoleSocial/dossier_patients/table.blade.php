@@ -26,7 +26,7 @@
                     {{-- <td>{{ $dossierPatient->date_enregsitrement }}</td> --}}
 
                     <td style="width: 120px">
-                        {!! Form::open(['route' => ['dossier-patients.destroy', $dossierPatient->numero_dossier], 'method' =>
+                        {!! Form::open(['route' => ['dossier-patients.supprimer', $dossierPatient->numero_dossier], 'method' =>
                         'delete']) !!}
 
                         <div class='btn-group'>
