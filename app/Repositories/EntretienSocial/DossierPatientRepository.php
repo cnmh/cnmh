@@ -186,6 +186,14 @@ class DossierPatientRepository extends BaseRepository
         return Consultation::find($consultation);
     }
 
+    public function deleteDossierPatientConsultation($input){
+
+        return dd($input);
+
+        return DossierPatientConsultation::delete($input->id);
+
+    }
+
     public function model(): string
     {
         return DossierPatient::class;
