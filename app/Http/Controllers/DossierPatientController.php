@@ -100,10 +100,10 @@ class DossierPatientController extends AppBaseController
     */
     public function store(CreateDossierPatientRequest $request)
     {
+
+
         $input = $request->all();
-
         $patientId = $input['patient_id'];
-
         $dossierPatientExiste = DossierPatient::where('patient_id',$patientId)->first();
 
         if($dossierPatientExiste){

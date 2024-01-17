@@ -1,6 +1,4 @@
-
 ```bash
-
 # Ajouter autorisation au service social pour editer patient et consulter patient
 
 php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_1_1
@@ -13,8 +11,5 @@ php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_1_2
 
 php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_1_3 
 
-# Ajouter autorisation au service médical pour editer le consultation
+``````
 
-php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_1_4
-
-``` 
