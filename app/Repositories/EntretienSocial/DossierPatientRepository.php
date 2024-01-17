@@ -89,7 +89,7 @@ class DossierPatientRepository extends BaseRepository
         $consultation = new Consultation();
         $consultation->date_enregistrement=$date_enregsitrement;
         $consultation->type="medecinGeneral";
-        $consultation->etat=Consultation::ConsultationEtat();
+        $consultation->etat=Consultation::ETAT_EN_ATTENTE;
         $consultation->save();
         $consultationID = $consultation->id;
         $this->dossierPatientConsultation($dossierPatientID,$consultationID);
@@ -185,21 +185,6 @@ class DossierPatientRepository extends BaseRepository
     public function ConsultationFIND(){
         return Consultation::find();
     }
-
-
-    
-
-
-
-   
-
-    
-
-
-    
-
-
-
 
     public function model(): string
     {
