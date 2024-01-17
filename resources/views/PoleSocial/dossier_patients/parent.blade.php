@@ -196,12 +196,13 @@
                 success: function(response) {
                     $('#tuteurTable').html('');
                     var data = response.data.data;
+                    var tuteurId = {{ $tuteur->id ?? null }};
 
                     for (var i = 0; i < data.length; i++) {
                         var row = '<tr>';
                         var rowData = data[i];
 
-                        row += '<td><input type="radio" name="parentRadio" value="' + rowData.id + '" ' + (rowData.id == "{{ $tuteur->id }}" ? 'checked' : '') + '></td>';
+                        row += '<td><input type="radio" name="parentRadio" value="' + rowData.id + '" ' + (rowData.id == tuteurId ? 'checked' : '') + '></td>';
                         row += '<td>' + rowData.tuteur_nom + '</td>';
                         row += '<td>' + rowData.prenom + '</td>';
                         row += '<td>' + rowData.telephone + '</td>';
