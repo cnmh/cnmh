@@ -304,7 +304,6 @@ class EntretienSocialController extends AppBaseController
             if ($OrientationExterne) {
                 Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
             } else {
-                if ($dossierPatientConsultation) {
 
                     $consultation = $dossierPatientConsultation->consultation_id;
                     $consultations = $this->dossierPatientRepository->ConsultationFIND($consultation);
@@ -314,19 +313,22 @@ class EntretienSocialController extends AppBaseController
                         return back();
                     }
                     else {
-                        $dossierPatientConsultation->delete();
-                        $DossierPatient_typeHandycape->delete();
-                    } 
                     
+                        $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierFromListAttente($consultation);
+                        
+                    } 
+
                     $this->dossierPatientRepository->delete($dossierPatientID);
                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
-                    return back();
-                }
             }
         }
         
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
+            return back();
         }
 
         return redirect(route('dossier-patients.list'));

@@ -166,13 +166,13 @@ class DossierPatientRepository extends BaseRepository
     }
 
     public function serviceDossierPatientIfExisteDelete($dossierPatientID,$service_ids){
-        return dossier_patient_service::where('dossier_patient_id',$dossierPatientID)
+        return Dossier_patient_service::where('dossier_patient_id',$dossierPatientID)
         ->whereNotIn('service_id',$service_ids)
         ->delete();
     }
 
     public function serviceDossierPatientUpdate($dossierPatientID,$service_id){
-        return dossier_patient_service::updateOrCreate(
+        return Dossier_patient_service::updateOrCreate(
             ['dossier_patient_id' =>$dossierPatientID, 'service_id' => $service_id],
             ['service_id' => $service_id]
         );
@@ -185,6 +185,35 @@ class DossierPatientRepository extends BaseRepository
     public function ConsultationFIND($consultation){
         return Consultation::find($consultation);
     }
+
+    public function deleteDossierPatientConsultation($input){
+        $id = $input;
+        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id',$id)->first();
+        $delete =  $findDossierPatientConsultation->delete();
+        return $delete;
+    }
+
+    public function deleteDossierPatient_typeHandycape($input){
+        $id = $input;
+        $findDossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id',$id)->first();
+        $delete =  $findDossierPatient_typeHandycape->delete();
+        return $delete;
+    }
+
+    public function deleteDossierFromListAttente($input){
+        $id = $input;
+        $findConsultation = Consultation::find($id);
+        $delete =  $findConsultation->delete();
+        return $delete;
+    }
+
+    public function deleteDossierPatient_service($input){
+        $id = $input;
+        $findDossier_patient_service = Dossier_patient_service::where('dossier_patient_id',$id)->first();
+        $delete =  $findDossier_patient_service->delete();
+        return $delete;
+    }
+
 
     public function model(): string
     {
