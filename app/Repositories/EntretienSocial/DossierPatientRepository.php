@@ -182,8 +182,8 @@ class DossierPatientRepository extends BaseRepository
         return OrientationExterne::where('dossier_patient_id', $dossierPatientID)->first();
     }
 
-    public function ConsultationFIND(){
-        return Consultation::find();
+    public function ConsultationFIND($consultation){
+        return Consultation::find($consultation);
     }
 
     public function model(): string
