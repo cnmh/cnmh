@@ -1,8 +1,16 @@
 <!-- Date Enregistrement Field -->
-<div class="form-group col-sm-6 {{ (isset($services_ids) || isset($type_handicap_ids)) ? '' : 'd-disable'}}">
-    {!! Form::label('date_enregistrement', __('models/consultations.fields.date_enregistrement').':') !!}
-    {!! Form::datetimeLocal('date_enregistrement',  now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'date_enregistrement']) !!}
+<?php
+    date_default_timezone_set('Africa/Casablanca');
+?>
+<div class="form-group col-sm-6 {{ Request::routeIs('consultations.create') ? 'disabled' : '' }}">
+    {!! Form::label('date_enregistrement', __('models/consultations.fields.date_enregistrement') . ':') !!}
+    {!! Form::datetimeLocal('date_enregistrement', now()->format('Y-m-d\TH:i'), [
+        'class' => 'form-control',
+        'id' => 'date_enregistrement',
+        'disabled' => Request::routeIs('consultations.create'),
+    ]) !!}
 </div>
+
 
 @push('page_scripts')
     <script type="text/javascript">
