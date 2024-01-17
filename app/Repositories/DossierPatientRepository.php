@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\DossierPatient;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Model;
 
 class DossierPatientRepository extends BaseRepository
 {
@@ -23,5 +24,12 @@ class DossierPatientRepository extends BaseRepository
     public function model(): string
     {
         return DossierPatient::class;
+    }
+    public function create(array $input): Model
+    {
+        if (auth()->check()) {
+            $input['user_id'] = auth()->user()->id;
+        } 
+        return parent::create($input);
     }
 }
