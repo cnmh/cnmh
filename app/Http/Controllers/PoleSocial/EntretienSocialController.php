@@ -261,7 +261,8 @@ class EntretienSocialController extends AppBaseController
         $typeHandicapIDs = $DossierPatient_typeHandycap->pluck('type_handicap_id')->toArray();
         $type_handicap_patient = $typeHandicap->where(TypeHandicap::class,'id', $typeHandicapIDs)->get();
         $patientId = $dossierPatient->patient_id;
-        return view('PoleSocial.dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient','service_patient','services','patients_tuteur','tuteur','editMode'));
+        $numeroDossier = $dossierPatient->numero_dossier;
+        return view('PoleSocial.dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient','service_patient','services','patients_tuteur','tuteur','editMode','numeroDossier'));
     }
 
    
