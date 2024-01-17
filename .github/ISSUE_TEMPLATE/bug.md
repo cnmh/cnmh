@@ -1,10 +1,9 @@
 ---
 name: Bug
 about: Déclaration d'un bug
-title: 'le nom de cas d'utilisation/titre de bug'
+title: 'test'
 labels: bug
 assignees: ''
-
 ---
 
 ## Description de bug
