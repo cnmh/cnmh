@@ -304,11 +304,13 @@ class EntretienSocialController extends AppBaseController
                 Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
             } else {
                 if ($dossierPatientConsultation) {
+
                     $consultation = $dossierPatientConsultation->consultation_id;
                     $consultations = $this->dossierPatientRepository->ConsultationFIND($consultation);
                     $consultationEtat = $consultations->etat;
                     if($consultationEtat === 'enRendezVous' || $consultationEtat === 'enConsultation'){
                         Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                        return back();
                     }
                     else {
                         $dossierPatientConsultation->delete();
@@ -317,6 +319,7 @@ class EntretienSocialController extends AppBaseController
                     
                     $this->dossierPatientRepository->delete($dossierPatientID);
                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
+                    return back();
                 }
             }
         }
