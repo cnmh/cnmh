@@ -165,8 +165,12 @@ class EntretienSocialController extends AppBaseController
         $type_handicap = $typeHandicap->all();
         $service = new ServiceRepository;
         $services = $service->all();
+
+        $latestDossier = $this->dossierPatientRepository->NumeroDossier();
+        $counter = $latestDossier ? (int)substr($latestDossier, 2) + 1 : 1;
+        $numeroDossier = 'A-' . $counter;
         $PatientID = $PatientID;
-        return view('PoleSocial.dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services','editMode','PatientID'));
+        return view('PoleSocial.dossier_patients.entretien', compact('type_handicap', 'couverture_medical','services','editMode','PatientID','numeroDossier'));
     }
 
     public function AjouterEntretienSocial(CreateDossierPatientRequest $request,$PatientID){
@@ -178,14 +182,10 @@ class EntretienSocialController extends AppBaseController
             return back();
         }
         // Traitement 
-        $latestDossier = $this->dossierPatientRepository->NumeroDossier();
-        $counter = $latestDossier ? (int)substr($latestDossier, 2) + 1 : 1802;
-        $numeroDossier = 'A-' . $counter;
-        $enquette['numero_dossier'] = $numeroDossier;
         $dossierPatient = $this->dossierPatientRepository->entretienSocial($enquette,$PatientID);
         // Sortie
         Flash::success(__('messages.saved', ['model' => __('models/dossierPatients.singular')]));
-        return redirect(route('PoleSocial.dossier-patients.index'));
+        return redirect(route('dossier-patients.list'));
     }
 
 

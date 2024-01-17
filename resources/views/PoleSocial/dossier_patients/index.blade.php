@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     @can('create-DossierPatient')
                     <a class="btn btn-primary float-right"
-                       href="{{ route('dossier-patients.parent') }}">
+                       href="{{ route('dossier-patients.tuteur') }}">
                          @lang('crud.add_new')
                     </a>
                     @endcan

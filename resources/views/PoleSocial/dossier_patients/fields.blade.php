@@ -2,7 +2,11 @@
 
 
 <!-- Numero Dossier Field -->
-{!! Form::text('numero_dossier', null, ['class' => 'form-control','hidden']) !!}
+
+<div class="form-group col-sm-6">
+    {!! Form::label("Numero de dossier", __('models/dossierPatients.fields.numero_dossier')) !!}
+    {!! Form::text('numero_dossier', $numeroDossier, ['class' => 'form-control']) !!}
+</div>
 
 <!-- Fonction Field -->
 <div class="form-group col-sm-6">

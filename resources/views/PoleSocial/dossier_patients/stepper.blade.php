@@ -136,7 +136,7 @@
     $backgroundStyleStep1 = '';
     $backgroundStyleStep2 = '';
     $backgroundStyleStep3 = '';
-    if($currentRoute === 'dossier-patients.parent' || $currentRoute === 'FormAjoute.tuteurs'){
+    if($currentRoute === 'dossier-patients.tuteur' || $currentRoute === 'FormAjoute.tuteurs'){
         $backgroundStyleStep1 = 'background: #0275d8';
     }elseif($currentRoute === 'FormSelect.bénéficiaires' || $currentRoute === 'FormAjoute.bénéficiaires'){
         $backgroundStyleStep2 = 'background: #0275d8';

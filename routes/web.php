@@ -118,9 +118,10 @@ Route::prefix('/root')->group(function() {
 });
 
 Route::resource('tuteurs', App\Http\Controllers\TuteurController::class);
+// TODO: Route est bloque la creation de nouveau route
 // Route::delete('/tuteurs/{id}', 'TuteurController@destroy')->name('tuteurs.destroy');
 
-// Route::get('/parentForm',[DossierPatientController::class,'parent'])->name('dossier-patients.parent');
+Route::get('/parentForm',[DossierPatientController::class,'parent'])->name('dossier-patients.parent');
 Route::get('/patientForm',[DossierPatientController::class,'patient'])->name('dossier-patients.patient');
 Route::get('/entretien/{query}',[DossierPatientController::class,'entretien'])->name('dossier-patients.entretien');
 Route::post('/storeEntetien',[DossierPatientController::class,'storeEntetien'])->name('dossier-patients.storeEntetien');
@@ -172,7 +173,7 @@ Route::get('/get-permissions-action/{id}',[App\Http\Controllers\PermissionContro
  * Routage entretien social
 */
 // Routage entretien social phase de tuteur
-Route::get('/pôle-social/entretien-social/choix/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectTuteur'])->name('dossier-patients.parent');
+Route::get('/pôle-social/entretien-social/choix/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectTuteur'])->name('dossier-patients.tuteur');
 Route::get('/pôle-social/entretien-social/tuteur/selected',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectTuteur'])->name('Select.tuteurs');
 Route::get('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormAjouteTuteur'])->name('FormAjoute.tuteurs');
 Route::post('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouteTuteur'])->name('Ajoute.tuteurs');
@@ -189,6 +190,8 @@ Route::get('/pôle-social/entretien-social/',[App\Http\Controllers\PoleSocial\En
 Route::get('/pôle-social/entretien-social/dossier-bénéficiaire/{id}',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'show_dossier'])->name('dossier-patients.consulter');
 Route::get('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/editer',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'edit'])->name('dossier-patients.editer');
 Route::PUT('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/update',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'update'])->name('dossier-patients.modifier');
+Route::delete('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/delete',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'destroy'])->name('dossier-patients.supprimer');
+
 
 
 

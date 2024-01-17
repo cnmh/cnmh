@@ -178,7 +178,7 @@ class DossierPatientRepository extends BaseRepository
         );
     }
 
-    public function OrientationExterneFIND(){
+    public function OrientationExterneFIND($dossierPatientID){
         return OrientationExterne::where('dossier_patient_id', $dossierPatientID)->first();
     }
 
