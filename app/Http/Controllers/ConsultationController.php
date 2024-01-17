@@ -362,7 +362,7 @@ class ConsultationController extends AppBaseController
 
         $this->consultationRepository->updateEtatConsultation($consultation);
 
-        Flash::success(__('message.reporter', ['model' => __('models/consultations.singular')]));
+        Flash::success(__('messages.reporter', ['model' => __('models/consultations.singular')]));
 
         return redirect()->back();
     }
