@@ -360,9 +360,9 @@ class ConsultationController extends AppBaseController
             return redirect(route('consultations.index'));
         }
 
-        $this->consultationRepository->delete($id);
+        $this->consultationRepository->updateEtatConsultation($consultation);
 
-        Flash::success(__('messages.deleted', ['model' => __('models/consultations.singular')]));
+        Flash::success(__('messages.reporter', ['model' => __('models/consultations.singular')]));
 
         return redirect()->back();
     }

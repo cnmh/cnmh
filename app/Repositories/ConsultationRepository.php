@@ -25,4 +25,13 @@ class ConsultationRepository extends BaseRepository
     {
         return Consultation::class;
     }
+
+    public function updateEtatConsultation($consultation)
+    {
+        // dd($consultation);
+    
+        // Update the 'etat' column to 'enRendezVous'
+        $consultation->update(['etat' => 'enRendezVous']);
+
+    }
 }
