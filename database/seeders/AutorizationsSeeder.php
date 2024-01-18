@@ -23,8 +23,8 @@ use Database\Seeders\Autorizations\{
     Maintenance_1_1_3,
     Maintenance_1_2_0,
     Maintenance_1_1_4,
-    Maintenance_1_2_1
-
+    Maintenance_1_2_1,
+    Maintenance_1_1_6
 };
  
 /**
@@ -51,6 +51,7 @@ class AutorizationsSeeder extends Seeder
             Maintenance_1_2_0::class,
             Maintenance_1_1_4::class,
             Maintenance_1_2_1::class,
+            Maintenance_1_1_6::class,
         ];
     }
 }
