@@ -31,19 +31,19 @@
 <div class="tab-content" id="custom-tabs-two-tabContent">
         <!-- /.col -->
         <br>
-    @include('dossier_patients.show_partials.Patient_Tuteurs')
-    @include('dossier_patients.show_partials.Entretien_Social')
-    @include('dossier_patients.show_partials.rendez_vous')
-    @include('dossier_patients.show_partials.liste_attente')
-    @include('dossier_patients.show_partials.inférmiere_medcine_général')
+        @include('PoleSocial.dossier_patients.show_partials.Patient_Tuteurs')
+    @include('PoleSocial.dossier_patients.show_partials.Entretien_Social')
+    @include('PoleSocial.dossier_patients.show_partials.rendez_vous')
+    @include('PoleSocial.dossier_patients.show_partials.liste_attente')
+    @include('PoleSocial.dossier_patients.show_partials.inférmiere_medcine_général')
    {{-- @include('dossier_patients.show_partials.psychomotricite')
-    @include('dossier_patients.show_partials.kinésithérapeute')
-    @include('dossier_patients.show_partials.orthophoniste')
-    @include('dossier_patients.show_partials.orthoptiste')
-    @include('dossier_patients.show_partials.ergothérapie')
-    @include('dossier_patients.show_partials.inférmiere_dentiste')
-    @include('dossier_patients.show_partials.inférmiere_neurologe')
-    @include('dossier_patients.show_partials.orientations_exterieurs')
-    @include('dossier_patients.show_partials.réclamation') --}}
+    @include('PoleSocial.dossier_patients.show_partials.kinésithérapeute')
+    @include('PoleSocial.dossier_patients.show_partials.orthophoniste')
+    @include('PoleSocial.dossier_patients.show_partials.orthoptiste')
+    @include('PoleSocial.dossier_patients.show_partials.ergothérapie')
+    @include('PoleSocial.dossier_patients.show_partials.inférmiere_dentiste')
+    @include('PoleSocial.dossier_patients.show_partials.inférmiere_neurologe')
+    @include('PoleSocial.dossier_patients.show_partials.orientations_exterieurs')
+    @include('PoleSocial.dossier_patients.show_partials.réclamation') --}}
 
 </div>
