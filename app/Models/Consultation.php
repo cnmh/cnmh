@@ -75,6 +75,13 @@ class Consultation extends Model
         }
     }
 
+    public static function SocialType(){
+        $user = Auth()->user()->email;
+        if($user === 'social@gmail.com'){
+            return $type = "Liste-d'attente";
+        }
+    }
+
     
 
     const ETAT_EN_ATTENTE = 'enAttente';

@@ -7,7 +7,12 @@
         <div class="row mb-2">
             <div class="col-sm-6">
 
+            @if (App\Models\Consultation::SocialType() == "Liste-d'attente")
+                <h1>List d'attente</h1>
+            @else
                 <h1>Consultations {{ App\Models\Consultation::OrientationType() }}</h1>
+            @endif
+
                
             </div>
             @if ( App\Models\Consultation::OrientationType() == "Liste d'attente")
