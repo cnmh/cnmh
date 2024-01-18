@@ -48,14 +48,23 @@ class ConsultationController extends AppBaseController
 
         $type = Consultation::OrientationType();
 
+        $SocialType = Consultation::SocialType();
+
+
         if ($request->ajax()) {
             $search = $request->get('query');
-            $search = str_replace(" ", "%", $search);
-            $consultations = $this->consultationRepository->search($search,$type);
+            if($search != ""){
+                $search = str_replace(" ", "%", $search);
+                $consultations = $this->consultationRepository->search($search,$type);
+            }
             return view('PoleMedical.consultations.table',compact('consultations'))->render();
         }
 
-        if($type === 'Médecin-général'){
+        if($SocialType === "Liste-d'attente"){
+            $list_attent = new ConsultationRepository;
+            $consultations = $list_attent->Consultation();
+        }
+        elseif($type === 'Médecin-général'){
             $consultationMedecinRepo = new ConsultationMedecinRepository;
             $consultations = $consultationMedecinRepo->Consultation($type);
         }elseif($type === 'Dentiste'){

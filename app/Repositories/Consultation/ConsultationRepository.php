@@ -122,6 +122,28 @@ class ConsultationRepository extends BaseRepository
         return true;
     }
 
+    public function Consultation(){
+
+        return DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+        ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+        ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+        ->select(
+            'dossier_patient_consultation.*',
+            'consultations.id as consultation_id',
+            'consultations.etat',
+            'consultations.type',
+            'consultations.date_consultation',
+            'consultations.date_enregistrement',
+            'patients.nom',
+            'patients.prenom',
+            'patients.telephone',
+            'patients.id as patient_id',
+            'dossier_patients.numero_dossier'
+        )
+        ->paginate();
+    }
+
+
 
 
 

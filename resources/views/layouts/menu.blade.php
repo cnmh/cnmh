@@ -20,7 +20,7 @@
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
-            <a href="/consultations/liste-attente" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+            <a href="/Pôle-medical/{{ \App\Models\Consultation::SocialType() }}/Consultations" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
                 <p>Liste d'attente médecin</p>
             </a>
         </li>
@@ -47,7 +47,9 @@
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
+
             <a href="{{ route('consultations.list' , \App\Models\Consultation::OrientationType()) }}" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
+
                 <p>Consultation </p>
             </a>
         </li>
