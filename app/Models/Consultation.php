@@ -73,4 +73,16 @@ class Consultation extends Model
     public function dentiste(){
         $this::where('type','dentiste');
     }
+
+    const ETAT_EN_ATTENTE = 'enAttente';
+    const ETAT_EN_RENDEZVOUS = 'enRendezVous';
+    const ETAT_CONSULTATION = 'enConsultation';
+
+    public static function ConsultationEtat(){
+        return [
+            self::ETAT_EN_ATTENTE,
+            self::ETAT_EN_RENDEZVOUS,
+            self::ETAT_CONSULTATION,
+        ];
+    }
 }

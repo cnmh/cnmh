@@ -1,7 +1,7 @@
 @can('index-DossierPatient')
 <li class="nav-item">
-    <a href="{{ route('dossier-patients.index') }}"
-        class="nav-link {{ Route::is('dossier-patients.index' . '*') ? 'active' : '' }}">
+    <a href="{{ route('dossier-patients.list') }}"
+        class="nav-link {{ Route::is('dossier-patients.list' . '*') ? 'active' : '' }}">
         <i class="fa-solid fa-hospital-user"></i>
         <p>Dossier bénéficiaires</p>
     </a>
