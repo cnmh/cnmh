@@ -9,7 +9,6 @@ Notre projet vise à moderniser la gestion des dossiers patients au Centre Natio
 - Démonstration de l'application 
 - Exécution de test Browser
 
-
 # Installation de l'application pour la première fois
 
 ```bash
@@ -76,4 +75,8 @@ php artisan db:seed --env=test
 ```bash
 php artisan serve --env=test
 ```
+
+## Installation de l'application sur le serveur
+
+[Installation de l'application sur le serveur](doc/installation-sur-serveur.md)
 

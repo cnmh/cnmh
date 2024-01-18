@@ -41,10 +41,12 @@ class ConsultationMedecinGeneralTest extends CnmhDuskTest
 
             $browser->visit('/consultations/rendezVous/MedecinGeneral');
 
-            $consultation = Consultation::first(); 
+            $consultation = Consultation::find(6);
+        
+            $DossierPatient_consultation = DossierPatientConsultation::where('consultation_id', $consultation->id)->first();
 
-            $dossier_patient = DossierPatient::first();
-
+            $dossier_patient = DossierPatient::where('id', $DossierPatient_consultation->dossier_patient_id)->first();
+        
             $browser->radio('dossier_patients', $dossier_patient->id);
 
             $browser->press('Suivant');
@@ -93,8 +95,8 @@ class ConsultationMedecinGeneralTest extends CnmhDuskTest
             $browser->visit('/rendez-vous/list_dossier');
 
             // traitement
-            $etat = "enAttente";
-            $dossierPatient = DossierPatient::where('etat',$etat)->first();
+            $etat = "entretien social";
+            $dossierPatient = DossierPatient::where('etat', $etat)->orderBy('created_at', 'desc')->first();
             $DossierPatient_consultation = DossierPatientConsultation::where('dossier_patient_id',$dossierPatient->id)->first();
             $browser->radio('consultation_id', $DossierPatient_consultation->consultation_id);
             $browser->press('Suivant');
@@ -118,7 +120,7 @@ class ConsultationMedecinGeneralTest extends CnmhDuskTest
         $patient = Patient::first();
         $couvertureMedical = CouvertureMedical::first();
         $user = User::where('email','social@gmail.com')->first();
-        $etat = "enAttente";
+        $etat = "entretien social";
         $now = \Carbon\Carbon::now();
 
        

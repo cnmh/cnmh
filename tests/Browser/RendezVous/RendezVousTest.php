@@ -30,6 +30,7 @@ class RendezVousTest extends CnmhDuskTest
 
         $this->browse(function (Browser $browser) {
             $this->login_service_social($browser);
+
             $this->ajouter_entretien_social_not_existe();
 
             // Navigation
@@ -37,8 +38,8 @@ class RendezVousTest extends CnmhDuskTest
             $browser->visit('/rendez-vous/list_dossier');
 
             // traitement
-            $etat = "enAttente";
-            $dossierPatient = DossierPatient::where('etat',$etat)->first();
+            $etat = "entretien social";
+            $dossierPatient = DossierPatient::where('etat', $etat)->orderBy('created_at', 'desc')->first();
             $DossierPatient_consultation = DossierPatientConsultation::where('dossier_patient_id',$dossierPatient->id)->first();
             $browser->radio('consultation_id', $DossierPatient_consultation->consultation_id);
             $browser->press('Suivant');
@@ -58,7 +59,7 @@ class RendezVousTest extends CnmhDuskTest
         $patient = Patient::first();
         $couvertureMedical = CouvertureMedical::first();
         $user = User::where('email','social@gmail.com')->first();
-        $etat = "enAttente";
+        $etat = "entretien social";
         $now = \Carbon\Carbon::now();
 
        
@@ -91,7 +92,7 @@ class RendezVousTest extends CnmhDuskTest
 
         $dossierPatient->save();
         
-        $dossierPatient = DossierPatient::where('numero_dossier', $numeroDossier)->first();
+        $dossierPatient = DossierPatient::where('numero_dossier', $numeroDossier)->orderBy('created_at', 'desc')->first();
         $DossierPatient_typeHandycape = new DossierPatient_typeHandycape;
 
         $typeHandycaps = [1,2];

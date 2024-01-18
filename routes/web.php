@@ -75,8 +75,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::resource('reclamations', App\Http\Controllers\ReclamationController::class);
 Route::resource('fonctions', App\Http\Controllers\FonctionController::class);
-Route::resource('patients', App\Http\Controllers\PatientController::class);
-Route::resource('dossier-patients', App\Http\Controllers\DossierPatientController::class);
+Route::resource('patients', App\Http\Controllers\PoleSocial\PatientController::class);
+Route::resource('dossier-patients', App\Http\Controllers\PoleSocial\DossierPatientController::class);
 Route::resource('orientation-externes', App\Http\Controllers\OrientationExterneController::class);
 
 //consultation
@@ -117,8 +117,9 @@ Route::prefix('/root')->group(function() {
     Route::resource('menu-groups', App\Http\Controllers\Root\MenuGroupController::class);
 });
 
-Route::resource('tuteurs', App\Http\Controllers\TuteurController::class);
-Route::delete('/tuteurs/{id}', 'TuteurController@destroy')->name('tuteurs.destroy');
+Route::resource('tuteurs', App\Http\Controllers\PoleSocial\TuteurController::class);
+// TODO: Route est bloque la creation de nouveau route
+// Route::delete('/tuteurs/{id}', 'TuteurController@destroy')->name('tuteurs.destroy');
 
 Route::get('/parentForm',[DossierPatientController::class,'parent'])->name('dossier-patients.parent');
 Route::get('/patientForm',[DossierPatientController::class,'patient'])->name('dossier-patients.patient');
@@ -157,3 +158,95 @@ Route::post('/assign-role-permission', [App\Http\Controllers\PermissionControlle
 
 Route::get('/get-permissions-action',[App\Http\Controllers\PermissionController::class, 'getPermissionsAction'])->name('get.permissions.action');
 Route::get('/get-permissions-action/{id}',[App\Http\Controllers\PermissionController::class, 'userAssignedPermissions'])->name('get.role.permission');
+
+
+
+// Routage : Sprint3
+
+//   /pôle-social/entretien-social/ 
+//   /pôle-social/entretien-social/tuteur  -> phase 1  : action : choixTuteur
+//   /pôle-social/entretien-social/bénéficiaire  -> phase 1  : action : choixBéné
+//   /pôle-social/entretien-social/enquette 
+
+
+/**
+ * Routage entretien social
+*/
+// Routage entretien social phase de tuteur
+Route::get('/pôle-social/entretien-social/choix/tuteur',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectTuteur'])->name('dossier-patients.tuteur');
+Route::get('/pôle-social/entretien-social/tuteur/selected',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectTuteur'])->name('Select.tuteurs');
+Route::get('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormAjouteTuteur'])->name('FormAjoute.tuteurs');
+Route::post('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouteTuteur'])->name('Ajoute.tuteurs');
+// Routage entretien social phase de bénéficiaire
+Route::get('/pôle-social/entretien-social/tuteur/{tuteur_id}/bénéficiaire',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectPatient'])->name('FormSelect.bénéficiaires');
+Route::get('/pôle-social/entretien-social/bénéficiaire/selected',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectPatient'])->name('Select.bénéficiaires');
+Route::get('/pôle-social/entretien-social/tuteur/{tuteurID}/bénéficiaire/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormAjoutePatient'])->name('FormAjoute.bénéficiaires');
+Route::post('/pôle-social/entretien-social/bénéficiaire/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjoutePatient'])->name('Ajoute.bénéficiaires');
+// Routage entretien social phase de enquette social
+Route::get('/pôle-social/entretien-social/{bénéficiaireID}/enquette',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormEntretienSocial'])->name('FormEntretienSocial');
+Route::post('/pôle-social/entretien-social/bénéficiaire/{patientID}/enquette',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouterEntretienSocial'])->name('AjouterEntretienSocial');
+// List des dossier social
+Route::get('/pôle-social/entretien-social/',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'list_dossier'])->name('dossier-patients.list');
+Route::get('/pôle-social/entretien-social/dossier-bénéficiaire/{id}',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'show_dossier'])->name('dossier-patients.consulter');
+Route::get('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/editer',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'edit'])->name('dossier-patients.editer');
+Route::PUT('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/update',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'update'])->name('dossier-patients.modifier');
+Route::delete('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/delete',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'destroy'])->name('dossier-patients.supprimer');
+
+
+/**
+ * Routage de consultation
+*/
+
+// List des consultation et editer et supprimer et consulter la consultation
+Route::get('/Pôle-medical/{type}/Consultations',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_consultations'])->name('consultations.list');
+Route::get('/Pôle-medical/{type}/Consultations/Consultation/{consultationID}',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'show'])->name('consultations.consulter');
+Route::get('/Pôle-medical/{type}/Consultations/{consultationID}/edit',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'edit'])->name('consultations.formEdit');
+Route::patch('/Pôle-medical/{type}/Consultations/{consultationID}/update',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'update'])->name('consultations.modifier');
+Route::delete('/Pôle-medical/{type}/Consultations/{consultationID}/delete',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'destroy'])->name('consultations.supprimer');
+
+// Phase 1 = choix un dossier bénéficiaire dans rendez vous
+Route::get('/Pôle-medical/{type}/Consultations/Rendez-Vous',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_rendezVous'])->name('consultations.rendezvous');
+Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'SelectRendezVous'])->name('consultations.rendezvous-select');
+
+// Phase 2 = voir les informations de bénéficiaire
+Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'InformationPatient'])->name('consultations.patientInformation');
+
+// Phase 3 = Ajouter un consultation
+Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation', [App\Http\Controllers\PoleMedical\ConsultationController::class, 'FormAjouterConsultation'])->name('consultations.FormAjouterConsultation');
+Route::post('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation/ajouter', [App\Http\Controllers\PoleMedical\ConsultationController::class, 'AjouterConsultation'])->name('consultations.AjouterConsultation');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
