@@ -261,7 +261,8 @@ class EntretienSocialController extends AppBaseController
         $typeHandicapIDs = $DossierPatient_typeHandycap->pluck('type_handicap_id')->toArray();
         $type_handicap_patient = $typeHandicap->where(TypeHandicap::class,'id', $typeHandicapIDs)->get();
         $patientId = $dossierPatient->patient_id;
-        return view('PoleSocial.dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient','service_patient','services','patients_tuteur','tuteur','editMode'));
+        $numeroDossier = $dossierPatient->numero_dossier;
+        return view('PoleSocial.dossier_patients.edit',compact('dossierPatient','type_handicap','couverture_medical','patientId','type_handicap_patient','service_patient','services','patients_tuteur','tuteur','editMode','numeroDossier'));
     }
 
    
@@ -303,26 +304,31 @@ class EntretienSocialController extends AppBaseController
             if ($OrientationExterne) {
                 Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
             } else {
-                if ($dossierPatientConsultation) {
+
                     $consultation = $dossierPatientConsultation->consultation_id;
                     $consultations = $this->dossierPatientRepository->ConsultationFIND($consultation);
                     $consultationEtat = $consultations->etat;
                     if($consultationEtat === 'enRendezVous' || $consultationEtat === 'enConsultation'){
                         Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                        return back();
                     }
                     else {
-                        $dossierPatientConsultation->delete();
-                        $DossierPatient_typeHandycape->delete();
-                    } 
                     
+                        $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID);
+                        $this->dossierPatientRepository->deleteDossierFromListAttente($consultation);
+                        
+                    } 
+
                     $this->dossierPatientRepository->delete($dossierPatientID);
                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
-                }
             }
         }
         
         if (empty($dossierPatient)) {
             Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
+            return back();
         }
 
         return redirect(route('dossier-patients.list'));

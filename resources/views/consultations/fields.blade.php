@@ -1,5 +1,5 @@
 <!-- Date Enregistrement Field -->
-<div class="form-group col-sm-6 d-none">
+<div class="form-group col-sm-6 {{ (isset($services_ids) || isset($type_handicap_ids)) ? '' : 'd-disable'}}">
     {!! Form::label('date_enregistrement', __('models/consultations.fields.date_enregistrement').':') !!}
     {!! Form::datetimeLocal('date_enregistrement',  now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'date_enregistrement']) !!}
 </div>
@@ -37,9 +37,9 @@
 
 
 <!-- Date Consultation Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-6 d-none">
     {!! Form::label('date_consultation', __('models/consultations.fields.date_consultation').':') !!}
-    {!! Form::datetimeLocal('date_consultation', null, ['class' => 'form-control','id'=>'date_consultation']) !!}
+    {!! Form::datetimeLocal('date_consultation', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'date_consultation'])  !!}
 </div>
 
 @push('page_scripts')
