@@ -194,6 +194,34 @@ Route::delete('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/delete
 
 
 
+Route::get('/Pôle-medical/{type}/Consultations',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_consultations'])->name('consultations.list');
+
+
+Route::get('/Pôle-medical/{type}/Consultations/Rendez-Vous',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_rendezVous'])->name('consultations.rendezvous');
+
+
+Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'SelectRendezVous'])->name('consultations.rendezvous-select');
+
+Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'InformationPatient'])->name('consultations.patientInformation');
+
+Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation', [App\Http\Controllers\PoleMedical\ConsultationController::class, 'FormAjouterConsultation'])->name('consultations.FormAjouterConsultation');
+
+Route::post('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation/ajouter', [App\Http\Controllers\PoleMedical\ConsultationController::class, 'AjouterConsultation'])->name('consultations.AjouterConsultation');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
