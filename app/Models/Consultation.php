@@ -70,6 +70,9 @@ class Consultation extends Model
         }elseif($user === 'orthophoniste@gmail.com'){
             return $type = 'Orthophoniste';
         }
+        elseif($user === 'social@gmail.com'){
+            return $type = 'Médecin-général';
+        }
     }
 
     
