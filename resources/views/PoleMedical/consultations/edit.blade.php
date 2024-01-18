@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($consultation, ['route' => ['consultations.update', $consultation->id], 'method' => 'patch']) !!}
+           {!! Form::model($consultation, ['route' => ['consultations.modifier','type' => App\Models\Consultation::OrientationType(), 'consultationID' => $consultation->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">

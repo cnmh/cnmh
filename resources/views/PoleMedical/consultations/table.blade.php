@@ -33,11 +33,11 @@
                         @endif
                     </td>
                     <td style="width: 120px">
-                        {!! Form::open(['route' => ['consultations.destroy', $consultation->id], 'method' => 'delete'])
+                        {!! Form::open(['route' => ['consultations.supprimer', 'type' => App\Models\Consultation::OrientationType(), 'consultationID' => $consultation->id], 'method' => 'delete'])
                         !!}
                         <div class='btn-group'>
                             @can('show-Consultation')
-                            <a href=""
+                            <a href="{{ route('consultations.consulter', ['type' => App\Models\Consultation::OrientationType(),'consultationID' => $consultation->consultation_id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
@@ -49,11 +49,8 @@
                             </a>
                             @endcan
                             @can('destroy-Consultation')
-                            {{-- 
                              {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            
-                            --}}
-                             @endcan
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>

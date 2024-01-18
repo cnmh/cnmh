@@ -22,8 +22,6 @@ use App\Repositories\Consultation\ConsultationDentisteRepository;
 use App\Repositories\Consultation\ConsultationOrthophonisteRepository;
 use App\Repositories\Parametres\TypeHandicapRepository;
 use App\Repositories\Parametres\ServiceRepository;
-
-
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Database\Eloquent\Model;
@@ -71,9 +69,19 @@ class ConsultationController extends AppBaseController
         return view('PoleMedical.consultations.index', compact('consultations'));
     }
 
-    public function list_rendezVous(){
-
+    public function list_rendezVous(Request $request){
         $type = Consultation::OrientationType();
+        if($request->ajax()){
+            $search = $request->get('query');
+            $search = str_replace(" ", "%", $search);
+
+            if($search !=""){
+                $rendez_vous = $this->consultationRepository->searchRendezVous($search, $type);
+            }
+
+            return response()->json(['data' => $rendez_vous]);
+        }
+
         if($type === 'Médecin-général'){
             $RendezVousMedecinRepo = new ConsultationMedecinRepository;
             $dossier_patients = $RendezVousMedecinRepo->ConsultationRendezVous($type);
@@ -187,13 +195,82 @@ class ConsultationController extends AppBaseController
     }
 
     // update consultation
-    public function update(Request $request, $id){
+    public function update(Request $request, $type,$id){
+
+        $consultation = $this->consultationRepository->find($id);
+        $typeHandicapIDs = $request->type_handicap_id;
+        $service_ids = $request->services_id;
+
+        if (empty($consultation)) {
+            Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
+            return redirect(route('consultations.list'));
+        }
+
+        $type_handicap_patients = $this->consultationRepository->Consultation_type_handicapUpdate($id,$typeHandicapIDs); 
+        $services_patients = $this->consultationRepository->Consultation_serviceUpdate($id,$service_ids);    
+        $consultation = $this->consultationRepository->update($request->all(), $id);
+
+        Flash::success(__('messages.updated', ['model' => __('models/consultations.singular')]));
+        return redirect()->route('consultations.list', $type);
 
     }
 
-    // Supprimer consultation
-    public function destroy($id){
 
+    public function show($type, $id)
+    {
+        $consultation = $this->consultationRepository->find($id);
+        $consultation_service = $this->consultationRepository->Consultation_service_patientFind($id); 
+        $type_handicap_consultation = $this->consultationRepository->Consultation_type_handicapFind($id);    
+
+        foreach($consultation_service as $item){
+            $service = new ServiceRepository;
+            $service = $service->find($item->service_id);
+            $consultation_service_patient[] = $service;
+        }
+
+        foreach($type_handicap_consultation as $handicap){
+            $handicaps = new TypeHandicapRepository;
+            $handicaps = $handicaps->find($handicap->type_handicap_id);
+            $consultation_handicap_patient[] = $handicaps;
+        }
+
+
+        if (empty($consultation)) {
+            Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
+            return redirect(route('consultations.list', $type));
+        }
+
+        if(empty($consultation_handicap_patient) || empty($consultation_service_patient)){
+            return view('PoleMedical.consultations.show', compact("PoleMedical.consultation"));
+        }
+
+        return view('PoleMedical.consultations.show', compact("consultation","consultation_service_patient","consultation_handicap_patient"));
+    }
+
+    // Supprimer consultation
+    public function destroy($type,$id){
+
+        $type = Consultation::OrientationType();
+        if($type === 'Médecin-général'){
+            $consultationMedecinRepo = new ConsultationMedecinRepository;
+            $consultations = $consultationMedecinRepo->ConsultationModifier($type,$id);
+            $consultations_typeHandicap = $consultationMedecinRepo->ConsultationTypeHandicapDelete($id);
+            $consultations_services = $consultationMedecinRepo->ConsultationServiceDelete($id);           
+        }elseif($type === 'Dentiste'){
+            $consultationDentisteRepo = new ConsultationDentisteRepository;
+            $consultations = $consultationDentisteRepo->ConsultationModifier($type,$id);
+            $consultations_typeHandicap = $consultationDentisteRepo->ConsultationTypeHandicapDelete($id);
+            $consultations_services = $consultationDentisteRepo->ConsultationServiceDelete($id);    
+        }
+        elseif($type === 'Orthophoniste'){
+            $consultationOrthophonisteRepo = new ConsultationOrthophonisteRepository;
+            $consultations = $consultationOrthophonisteRepo->ConsultationModifier($type,$id);
+            $consultations_typeHandicap = $consultationOrthophonisteRepo->ConsultationTypeHandicapDelete($id);
+            $consultations_services = $consultationOrthophonisteRepo->ConsultationServiceDelete($id);    
+        }
+
+        Flash::success(__('messages.reporter', ['model' => __('models/consultations.singular')]));
+        return redirect()->back();
     }
 
     

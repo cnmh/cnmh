@@ -3,6 +3,7 @@
 namespace App\Repositories\Consultation;
 
 use App\Models\ConsultationMedecin;
+use App\Models\RendezVous;
 use App\Repositories\BaseRepository;
 use App\Models\DossierPatientConsultation;
 use App\Models\Consultation;
@@ -139,12 +140,31 @@ class ConsultationMedecinRepository extends BaseRepository
         return $consultationID;
     }
 
-    
+    public function ConsultationModifier($type,$id)
+    {
+        return ConsultationMedecin::find($id)->update([
+            "date_consultation" => null,
+            "observation" => null,
+            "diagnostic" => null,
+            "bilan" => null,
+            'type' => $type,
+            "etat" => Consultation::ETAT_EN_RENDEZVOUS
+        ]);
+    }
+
+    public function ConsultationTypeHandicapDelete($id){
+
+        return Consultation_type_handicap::where('consultation_id',$id)->first()->delete();
+        
+    }
+
+    public function ConsultationServiceDelete($id){
+        return Consultation_service::where('consultation_id',$id)->first()->delete();
+    }
 
     
 
-   
-
+    
     public function model(): string
     {
         return ConsultationMedecin::class;

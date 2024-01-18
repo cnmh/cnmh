@@ -41,7 +41,8 @@ class Maintenance_1_2_1 extends Seeder
         ]);
 
         $medecin = User::where('email', 'medecin@gmail.com')->first();
-        
+
+     
         if ($dentiste) {
             $permissionNames = [
                 "list_consultations-Consultation",
@@ -56,6 +57,9 @@ class Maintenance_1_2_1 extends Seeder
                 "index-DossierPatient",
                 "edit-Consultation",
                 "show-Consultation",
+                'destroy-Consultation',
+                'list_dossier-EntretienSocial',
+                'show_dossier-EntretienSocial',
             ];
 
             foreach ($permissionNames as $permissionName) {
@@ -79,6 +83,9 @@ class Maintenance_1_2_1 extends Seeder
                 "index-DossierPatient",
                 "edit-Consultation",
                 "show-Consultation",
+                'destroy-Consultation',
+                'list_dossier-EntretienSocial',
+                'show_dossier-EntretienSocial',
             ];
 
             foreach ($permissionNames as $permissionName) {
@@ -99,6 +106,9 @@ class Maintenance_1_2_1 extends Seeder
                 "show-DossierPatient",
                 "AjouterConsultation-Consultation",
                 "destroy-RendezVous",
+                'destroy-Consultation',
+                'list_dossier-EntretienSocial',
+                'show_dossier-EntretienSocial',
             ];
 
             foreach ($permissionNames as $permissionName) {

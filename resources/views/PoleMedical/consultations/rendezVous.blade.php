@@ -56,11 +56,21 @@
                         </div>
                     </div>
 
-
-                    <br>
-
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
+                    <div class="d-flex justify-content-end mt-2 mr-2">
+                       <form class="form-inline ml-3">
+                            <div class="input-group input-group-sm">
+                                <input type="search" class="form-control form-control-lg" id="search" placeholder="Recherche">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-lg btn-default">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                   
+                    <div class="card-body p-0 mt-2">
+                        <div class="table-responsive" id="#rendezVous-table">
 
                             <form action="{{ route('consultations.rendezvous-select', App\Models\Consultation::OrientationType() ) }}" method="get">
 
@@ -76,7 +86,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="RendezVousTable">
 
                                         @foreach ($dossier_patients as $dossier_patient)
                                         <tr>
@@ -163,5 +173,73 @@
             form.submit();
         }
     }
+</script>
+
+<script>
+$(document).ready(function() {
+    console.log('hello');
+
+        function fetch_data(page, search) {
+            var type = "<?php echo App\Models\Consultation::OrientationType(); ?>";
+
+            $.ajax({
+                url: "/Pôle-medical/" + type + "/Consultations/Rendez-Vous?page=" + page + "&query=" + search.trim(),
+                dataType: 'json', 
+                success: function(response) {
+                    $('#RendezVousTable').html('');
+                    var data = response.data;
+
+                    var dossier_patient_id = {{ $dossier_patient->dossier_patient_id ?? null }};
+
+                    for (var i = 0; i < data.length; i++) {
+                        var row = '<tr>';
+                        var rowData = data[i];
+
+                        console.log(rowData);
+                        row += '<td><input type="radio" name="dossier_patient_id" value="' + rowData.dossier_patient_id + '" ' + (rowData.dossier_patient_id == dossier_patient_id ? 'checked' : '') + '></td>';
+                        row += '<input type="hidden" name="consultation_id" value="' + rowData.consultation_id + '" ' + (rowData.dossier_patient_id == dossier_patient_id ? 'checked' : '') + '>';
+                        row += '<td>' + rowData.numero_dossier + '</td>';
+                        row += '<td>' + rowData.nom + '</td>';
+                        row += '<td>' + rowData.prenom + '</td>';
+                        row += '<td>' + rowData.telephone + '</td>';
+                        row += '<td style="width: 120px">';
+                        row += '<div class="btn-group">';
+                        row += '<button type="button" class="btn btn-danger" onclick="confirmAndSubmit(\'/rendez-vous/destroy/' + rowData.consultation_id + '\')">Reporter</button>';
+                        row += '</div>';
+                        row += '</td>';
+                        row += '</tr>';
+
+
+                        $('#RendezVousTable').append(row);
+                    }
+
+
+                }
+
+
+            });
+
+
+
+        }
+
+        $('body').on('click', '.pagination li', function(event) {
+            event.preventDefault();
+            var pageButton = $(this).find('.page-link');
+            if (pageButton.length) {
+                var page = pageButton.attr('page-number');
+                var search = $('#search').val();
+                fetch_data(page, search);
+            }
+        });
+
+        $('body').on('keyup', '#search', function() {
+            var search = $('#search').val();
+            var page = 1;
+            fetch_data(page, search);
+        });
+
+       fetch_data(1, '');
+    });
 </script>
 @endsection

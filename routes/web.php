@@ -193,22 +193,26 @@ Route::PUT('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/update',[
 Route::delete('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/delete',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'destroy'])->name('dossier-patients.supprimer');
 
 
+/**
+ * Routage de consultation
+*/
 
+// List des consultation et editer et supprimer et consulter la consultation
 Route::get('/Pôle-medical/{type}/Consultations',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_consultations'])->name('consultations.list');
-
+Route::get('/Pôle-medical/{type}/Consultations/Consultation/{consultationID}',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'show'])->name('consultations.consulter');
 Route::get('/Pôle-medical/{type}/Consultations/{consultationID}/edit',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'edit'])->name('consultations.formEdit');
+Route::patch('/Pôle-medical/{type}/Consultations/{consultationID}/update',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'update'])->name('consultations.modifier');
+Route::delete('/Pôle-medical/{type}/Consultations/{consultationID}/delete',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'destroy'])->name('consultations.supprimer');
 
-
-
+// Phase 1 = choix un dossier bénéficiaire dans rendez vous
 Route::get('/Pôle-medical/{type}/Consultations/Rendez-Vous',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_rendezVous'])->name('consultations.rendezvous');
-
-
 Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'SelectRendezVous'])->name('consultations.rendezvous-select');
 
+// Phase 2 = voir les informations de bénéficiaire
 Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'InformationPatient'])->name('consultations.patientInformation');
 
+// Phase 3 = Ajouter un consultation
 Route::get('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation', [App\Http\Controllers\PoleMedical\ConsultationController::class, 'FormAjouterConsultation'])->name('consultations.FormAjouterConsultation');
-
 Route::post('/Pôle-medical/{type}/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation/ajouter', [App\Http\Controllers\PoleMedical\ConsultationController::class, 'AjouterConsultation'])->name('consultations.AjouterConsultation');
 
 
