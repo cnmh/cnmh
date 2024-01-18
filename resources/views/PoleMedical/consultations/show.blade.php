@@ -8,7 +8,7 @@
                     <h5>
                         @lang('crud.details')
                         @if (app()->getLocale() == 'fr')
-                           de la {{ strtolower(__('models/consultations.singular')) }} Liste d'attente
+                           de la {{ strtolower(__('models/consultations.singular')) }} {{ App\Models\Consultation::OrientationType()}}
                         @else
                             {{ strtolower(__('models/consultations.singular')) }}
                         @endif
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('consultations.index',$title) }}">
+                       href="{{ route('consultations.list',  App\Models\Consultation::OrientationType()) }}">
                                                     @lang('crud.back')
                                             </a>
                 </div>
