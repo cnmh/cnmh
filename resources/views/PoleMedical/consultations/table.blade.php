@@ -43,7 +43,7 @@
                             </a>
                             @endcan
                             @can('edit-Consultation')
-                           <a href="{{ route('consultations.edit', [$consultation->consultation_id]) }}"
+                           <a href="{{ route('consultations.formEdit', ['type' => App\Models\Consultation::OrientationType(),'consultationID' => $consultation->consultation_id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>

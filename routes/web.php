@@ -196,6 +196,9 @@ Route::delete('/pôle-social/entretien-social/dossier-bénéficiaire/{id}/delete
 
 Route::get('/Pôle-medical/{type}/Consultations',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_consultations'])->name('consultations.list');
 
+Route::get('/Pôle-medical/{type}/Consultations/{consultationID}/edit',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'edit'])->name('consultations.formEdit');
+
+
 
 Route::get('/Pôle-medical/{type}/Consultations/Rendez-Vous',[App\Http\Controllers\PoleMedical\ConsultationController::class, 'list_rendezVous'])->name('consultations.rendezvous');
 

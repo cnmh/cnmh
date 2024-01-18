@@ -2,17 +2,17 @@
 
 namespace App\Repositories\Consultation;
 
-use App\Models\ConsultationMedecin;
+use App\Models\ConsultationOrthophoniste;
+use App\Models\Consultation;
 use App\Repositories\BaseRepository;
 use App\Models\DossierPatientConsultation;
-use App\Models\Consultation;
 use App\Models\Service;
 use App\Models\Consultation_service;
 use App\Models\Consultation_type_handicap;
 use Carbon\Carbon;
 
 
-class ConsultationMedecinRepository extends BaseRepository
+class ConsultationOrthophonisteRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'date_enregistrement',
@@ -28,28 +28,30 @@ class ConsultationMedecinRepository extends BaseRepository
         return $this->fieldSearchable;
     }
 
-    public function Consultation($type){
-
+    public function Consultation($type)
+    {
         return DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
-        ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-        ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
-        ->where('consultations.type', $type)
-        ->where('consultations.etat', '=', 'enConsultation')
-        ->select(
-            'dossier_patient_consultation.*',
-            'consultations.id as consultation_id',
-            'consultations.etat',
-            'consultations.type',
-            'consultations.date_consultation',
-            'consultations.date_enregistrement',
-            'patients.nom',
-            'patients.prenom',
-            'patients.telephone',
-            'patients.id as patient_id',
-            'dossier_patients.numero_dossier'
-        )
-        ->paginate();
+    ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
+    ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+    ->where('consultations.type', $type)
+    ->where('consultations.etat', '=', 'enConsultation')
+    ->select(
+        'dossier_patient_consultation.*',
+        'consultations.id as consultation_id',
+        'consultations.etat',
+        'consultations.type',
+        'consultations.date_consultation',
+        'consultations.date_enregistrement',
+        'patients.nom',
+        'patients.prenom',
+        'patients.telephone',
+        'patients.id as patient_id',
+        'dossier_patients.numero_dossier'
+    )
+    ->paginate();
+
     }
+    
 
     public function ConsultationRendezVous($type){
 
@@ -65,8 +67,7 @@ class ConsultationMedecinRepository extends BaseRepository
     public function ConsultationUpdate($input)
     {
         $consultationID = $input['consultation_id'];
-        
-        return ConsultationMedecin::find($consultationID)->update([
+        return ConsultationOrthophoniste::find($consultationID)->update([
             "date_enregistrement" => $input['date_enregistrement'],
             "date_consultation" => $input['date_consultation'],
             "observation" => $input['observation'],
@@ -75,7 +76,6 @@ class ConsultationMedecinRepository extends BaseRepository
             "etat" => Consultation::ETAT_CONSULTATION
         ]);
     }
-
 
     public function ConsultationAjouter($input, $dossier_patient_id, $type)
     {
@@ -102,14 +102,12 @@ class ConsultationMedecinRepository extends BaseRepository
         return $consultations;
     }
 
-    public function ajouterDossier_patient_consultation($consultationID, $dossier_patient_id)
-    {
+    public function ajouterDossier_patient_consultation($consultationID,$dossier_patient_id){
         return DossierPatientConsultation::create([
             'dossier_patient_id' => $dossier_patient_id,
             'consultation_id' => $consultationID,
         ]);
     }
-
 
     public function AjouterConsultationService($consultationID, $input)
     {
@@ -139,14 +137,8 @@ class ConsultationMedecinRepository extends BaseRepository
         return $consultationID;
     }
 
-    
-
-    
-
-   
-
     public function model(): string
     {
-        return ConsultationMedecin::class;
+        return Consultation::class;
     }
 }

@@ -19,7 +19,7 @@ use App\Models\Consultation_type_handicap;
 use App\Repositories\Consultation\ConsultationRepository;
 use App\Repositories\Consultation\ConsultationMedecinRepository;
 use App\Repositories\Consultation\ConsultationDentisteRepository;
-
+use App\Repositories\Consultation\ConsultationOrthophonisteRepository;
 use App\Repositories\Parametres\TypeHandicapRepository;
 use App\Repositories\Parametres\ServiceRepository;
 
@@ -63,6 +63,9 @@ class ConsultationController extends AppBaseController
         }elseif($type === 'Dentiste'){
             $consultationDentisteRepo = new ConsultationDentisteRepository;
             $consultations = $consultationDentisteRepo->Consultation($type);
+        }elseif($type === 'Orthophoniste'){
+            $consultationOrthophonisteRepo = new ConsultationOrthophonisteRepository;
+            $consultations = $consultationOrthophonisteRepo->Consultation($type);
         }
 
         return view('PoleMedical.consultations.index', compact('consultations'));
@@ -77,6 +80,9 @@ class ConsultationController extends AppBaseController
         }elseif($type === 'Dentiste'){
             $RendezVousDentisteRepo = new ConsultationDentisteRepository;
             $dossier_patients = $RendezVousDentisteRepo->ConsultationRendezVous($type);
+        }elseif($type === 'Orthophoniste'){
+            $RendezVousOrthophonisteRepo = new ConsultationOrthophonisteRepository;
+            $dossier_patients = $RendezVousOrthophonisteRepo->ConsultationRendezVous($type);
         }
 
         return view('PoleMedical.consultations.rendezVous', compact("dossier_patients"));
@@ -127,16 +133,29 @@ class ConsultationController extends AppBaseController
 
         $input = $request->all();
         $services = $request->services_id;
+        $type_handicaps = $request->type_handicap_id;
         $dossier_patient_id = $request->dossier_patients;
+        $consultationID = $request->consultation_id;
         $type = Consultation::OrientationType();
         if($type === 'Médecin-général'){
             $consultationMedecinRepo = new ConsultationMedecinRepository;
             $consultations = $consultationMedecinRepo->ConsultationUpdate($input);
             $orientation = $consultationMedecinRepo->ConsultationAjouter($services,$dossier_patient_id,$type);
+            $consultationService = $consultationMedecinRepo->AjouterConsultationService($consultationID,$services);
+            $consultationHandicap = $consultationMedecinRepo->AjouterConsultationHandicap($consultationID,$type_handicaps);
         }elseif($type === 'Dentiste'){
             $consultationDentisteRepo = new ConsultationDentisteRepository;
             $consultations = $consultationDentisteRepo->ConsultationUpdate($input);
             $orientation = $consultationDentisteRepo->ConsultationAjouter($services,$dossier_patient_id,$type);
+            $consultationService = $consultationDentisteRepo->AjouterConsultationService($consultationID,$services);
+            $consultationHandicap = $consultationDentisteRepo->AjouterConsultationHandicap($consultationID,$type_handicaps);
+        }
+        elseif($type === 'Orthophoniste'){
+            $consultationOrthophonisteRepo = new ConsultationOrthophonisteRepository;
+            $consultations = $consultationOrthophonisteRepo->ConsultationUpdate($input);
+            $orientation = $consultationOrthophonisteRepo->ConsultationAjouter($services,$dossier_patient_id,$type);
+            $consultationService = $consultationOrthophonisteRepo->AjouterConsultationService($consultationID,$services);
+            $consultationHandicap = $consultationOrthophonisteRepo->AjouterConsultationHandicap($consultationID,$type_handicaps);
         }
 
         Flash::success(__('messages.saved', ['model' => __('models/consultations.singular')]));
@@ -144,8 +163,27 @@ class ConsultationController extends AppBaseController
     }
 
     // Form pour editer la consultation
-    public function edit($id){
+    public function edit($type,$id){
+        $consultation = $this->consultationRepository->find($id);
 
+        $consultationID = $consultation->id;
+        $dossierPatientConsultation = $this->consultationRepository->DossierPatientConsultationFind($consultationID,$type);
+        $dossier_patient_id = $dossierPatientConsultation->dossier_patient_id;
+        $type_handicap_patients = $this->consultationRepository->DossierPatient_typeHandycapeFind($dossier_patient_id);
+        $type_handicap_ids = $type_handicap_patients->pluck('type_handicap_id')->toArray();
+        $type_handicap_patients = $this->consultationRepository->Consultation_type_handicapFind($consultationID);    
+        $service_patient = $this->consultationRepository->Consultation_service_patientFind($consultationID); 
+        $services_ids = $service_patient->pluck('service_id')->toArray(); 
+        $type_handicap_repo = new TypeHandicapRepository;
+        $type_handicap = $type_handicap_repo->get();
+        $services_repo = new ServiceRepository;
+        $services = $services_repo->get();
+        if (empty($consultation)) {
+            Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
+            return redirect(route('consultations.list', $type));
+        }
+
+        return view('PoleMedical.consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient','services_ids'));
     }
 
     // update consultation

@@ -3,7 +3,7 @@
 
 php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_2_0 
 
-# Ajouter autorisation au medecin et dentiste
+# Ajouter autorisation au medecin et dentiste et orthophoniste
 
 php artisan db:seed --class=Database\\Seeders\\Autorizations\\Maintenance_1_2_1
 

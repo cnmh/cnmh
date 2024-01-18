@@ -6,6 +6,9 @@ use App\Models\ConsultationDentiste;
 use App\Models\Consultation;
 use App\Repositories\BaseRepository;
 use App\Models\DossierPatientConsultation;
+use App\Models\Service;
+use App\Models\Consultation_service;
+use App\Models\Consultation_type_handicap;
 use Carbon\Carbon;
 
 
@@ -104,6 +107,34 @@ class ConsultationDentisteRepository extends BaseRepository
             'dossier_patient_id' => $dossier_patient_id,
             'consultation_id' => $consultationID,
         ]);
+    }
+
+    public function AjouterConsultationService($consultationID, $input)
+    {
+        $service_ids = $input;
+        
+        foreach ($service_ids as $service_id) {
+            $service = new Consultation_service;
+            $service->service_id = $service_id;
+            $service->consultation_id = $consultationID;
+            $service->save();
+        }
+    
+        return $consultationID; 
+    }
+
+    public function AjouterConsultationHandicap($consultationID, $input)
+    {
+        $typeHandicapIDs = $input;
+        
+        foreach ($typeHandicapIDs as $typeHandycapeID) {
+            $consultation_typeHandycape = new Consultation_type_handicap;
+            $consultation_typeHandycape->type_handicap_id = $typeHandycapeID;
+            $consultation_typeHandycape->consultation_id = $consultationID;
+            $consultation_typeHandycape->save();
+        }
+
+        return $consultationID;
     }
 
     public function model(): string

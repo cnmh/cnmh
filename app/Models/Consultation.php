@@ -67,6 +67,8 @@ class Consultation extends Model
             return $type = 'Médecin-général';
         }elseif($user === 'dentiste@gmail.com'){
             return $type = 'Dentiste';
+        }elseif($user === 'orthophoniste@gmail.com'){
+            return $type = 'Orthophoniste';
         }
     }
 

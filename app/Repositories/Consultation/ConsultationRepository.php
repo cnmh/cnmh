@@ -8,6 +8,8 @@ use App\Models\DossierPatient;
 use App\Models\DossierPatientConsultation;
 use App\Models\DossierPatient_typeHandycape;
 use App\Models\Dossier_patient_service;
+use App\Models\Consultation_type_handicap;
+use App\Models\Consultation_service;
 
 
 
@@ -34,6 +36,7 @@ class ConsultationRepository extends BaseRepository
     public function DossierPatientConsultationFind($id, $type)
     {
         return DossierPatientConsultation::where('dossier_patient_id', $id)
+            ->orWhere('consultation_id', $id)
             ->whereHas('consultation', function ($query) use ($type) {
                 $query->where('type', $type);
             })
@@ -63,6 +66,20 @@ class ConsultationRepository extends BaseRepository
             ->where('consultations.type', '=', $type)
             ->paginate();
     }
+
+    public function Consultation_type_handicapFind($id){
+        return Consultation_type_handicap::where('consultation_id', $id)->get();
+    }
+
+    public function Consultation_service_patientFind($id){
+        return Consultation_service::where('consultation_id', $id)->get();
+    }
+
+
+
+
+    
+
     
     public function model(): string
     {
