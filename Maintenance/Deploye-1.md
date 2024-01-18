@@ -11,5 +11,7 @@ php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_1_2
 
 php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_1_3 
 
-``````
+# Ajouter les prestations qui n'existent pas et modifier le nom des prestations existantes selon ceux utilisés par le medecin générale
+
+``` 
 
