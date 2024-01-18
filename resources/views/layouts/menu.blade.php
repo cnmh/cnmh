@@ -47,7 +47,7 @@
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
-            <a href="/Pôle-medical/{{ \App\Models\Consultation::OrientationType() }}/Consultations" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
+            <a href="{{ route('consultations.list' , \App\Models\Consultation::OrientationType()) }}" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
                 <p>Consultation </p>
             </a>
         </li>
