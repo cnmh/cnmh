@@ -77,7 +77,7 @@
             </div>
             <div class="card-body">
                 {{-- <div class="row"> --}}
-                    @include('dossier_patients.show_fields')
+                    @include('PoleSocial.dossier_patients.show_fields')
                 {{-- </div> --}}
             </div>
         </div>
