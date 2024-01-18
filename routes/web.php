@@ -75,8 +75,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::resource('reclamations', App\Http\Controllers\ReclamationController::class);
 Route::resource('fonctions', App\Http\Controllers\FonctionController::class);
-Route::resource('patients', App\Http\Controllers\PatientController::class);
-Route::resource('dossier-patients', App\Http\Controllers\DossierPatientController::class);
+Route::resource('patients', App\Http\Controllers\PoleSocial\PatientController::class);
+Route::resource('dossier-patients', App\Http\Controllers\PoleSocial\DossierPatientController::class);
 Route::resource('orientation-externes', App\Http\Controllers\OrientationExterneController::class);
 
 //consultation
@@ -117,7 +117,7 @@ Route::prefix('/root')->group(function() {
     Route::resource('menu-groups', App\Http\Controllers\Root\MenuGroupController::class);
 });
 
-Route::resource('tuteurs', App\Http\Controllers\TuteurController::class);
+Route::resource('tuteurs', App\Http\Controllers\PoleSocial\TuteurController::class);
 // TODO: Route est bloque la creation de nouveau route
 // Route::delete('/tuteurs/{id}', 'TuteurController@destroy')->name('tuteurs.destroy');
 
