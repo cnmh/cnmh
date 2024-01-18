@@ -88,7 +88,7 @@ class DossierPatientRepository extends BaseRepository
     public function AjouterDossierEnListAttente($date_enregsitrement,$dossierPatientID){
         $consultation = new Consultation();
         $consultation->date_enregistrement=$date_enregsitrement;
-        $consultation->type="medecinGeneral";
+        $consultation->type=Consultation::OrientationType();
         $consultation->etat=Consultation::ETAT_EN_ATTENTE;
         $consultation->save();
         $consultationID = $consultation->id;

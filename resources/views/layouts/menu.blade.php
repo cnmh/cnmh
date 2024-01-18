@@ -42,16 +42,17 @@
     <a href="#" class="nav-link ">
     <i class="fa-solid fa-hospital-user"></i>
         <p class="pl-2">
-        Medcine générale
+            {{ \App\Models\Consultation::OrientationType() }}
         </p>
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
-            <a href="/consultations/MedecinGeneral" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+            <a href="/Pôle-medical/{{ \App\Models\Consultation::OrientationType() }}/Consultations" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
                 <p>Consultation </p>
             </a>
         </li>
     </ul>
+    
 
     </li>   
 
