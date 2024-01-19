@@ -67,21 +67,6 @@ class ConsultationRepository extends BaseRepository
             ->paginate();
     }
 
-    public function searchListAttente($search)
-    {
-        return DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
-            ->join('consultations', 'dossier_patient_consultation.consultation_id', '=', 'consultations.id')
-            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
-            ->select('*', 'patients.id as patient_id')
-            ->where(function ($query) use ($search) {
-                $query->where('patients.nom', 'like', '%' . $search . '%')
-                    ->orWhere('patients.prenom', 'like', '%' . $search . '%');
-            })
-            ->where('consultations.etat', '=', 'enConsultation')
-            ->where('consultations.type', '=', $type)
-            ->paginate();
-    }
-
     public function searchRendezVous($search,$type)
     {
         return DossierPatientConsultation::join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
