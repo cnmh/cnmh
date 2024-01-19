@@ -1,10 +1,9 @@
 ---
 name: Bug
 about: Déclaration d'un bug
-title: ''
-labels: bug
+title: "le nom de cas d'utilisation/titre de bug"
+labels: bug , new_issue
 assignees: ''
-
 ---
 
 ## Description de bug
@@ -16,13 +15,3 @@ assignees: ''
 
 
 
-##  Critère de validation
-
-Le validateur doit vérifier les éléments suivants 
-
-1. Gestion des tâches 
-   1. l'affectation de l'issue au membre
-2. Github
-   1. le pull request est vers le dépôt *develop*
-   2. le nom de pull-request
-3. le nom de pull-request = le titre de l'issue close #nomuéro issue

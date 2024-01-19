@@ -134,10 +134,6 @@ abstract class BaseRepository
 
     public function create(array $input): Model
     {
-        if (auth()->check()) {
-            $input['user_id'] = auth()->user()->id;
-        } 
-        
         $model = $this->model->newInstance($input);
 
         $model->save();
