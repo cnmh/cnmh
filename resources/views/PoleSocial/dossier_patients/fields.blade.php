@@ -62,7 +62,7 @@
             <option value="{{ $patient_itemt->id }}">{{ $patient_itemt->nom }} {{ $patient_itemt->prenom }}</option>
             @endforeach
         </select>
-        <a href="/patients/{{$patients_tuteur[0]->id}}/edit" class="btn btn-primary ml-2" id="editLink">Edit</a>
+        <a href="/patients/{{$tuteur->id}}/edit" class="btn btn-primary ml-2" id="editLink">Edit</a>
     </div>
 </div>
 
