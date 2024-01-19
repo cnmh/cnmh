@@ -58,11 +58,11 @@
     <label for="beneficiaire_select">Bénéficiaire</label>
     <div class="d-flex">
         <select name="patient_id" class="form-control" id="beneficiaire_select">
-            @foreach($patients_tuteur as $patient_itemt)
-            <option value="{{ $patient_itemt->id }}">{{ $patient_itemt->nom }} {{ $patient_itemt->prenom }}</option>
+            @foreach($patients_tuteur as $tuteur_id)
+            <option value="{{ $tuteur_id->tuteur_id }}">{{ $tuteur_id->nom }} {{ $tuteur_id->prenom }}</option>
             @endforeach
         </select>
-        <a href="/patients/{{$tuteur->id}}/edit" class="btn btn-primary ml-2" id="editLink">Edit</a>
+        <a href="/patients/{{$tuteur_id->tuteur_id}}/edit" class="btn btn-primary ml-2" id="editLink">Edit</a>
     </div>
 </div>
 

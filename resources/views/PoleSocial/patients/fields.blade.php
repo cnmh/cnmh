@@ -12,15 +12,8 @@
 
 
 <!-- Parent Id Field -->
-@php
-    $currentRoute = Route::currentRouteName();
-@endphp
-@if ($currentRoute == 'FormAjoute.bénéficiaires')
+
 <input type="hidden" name="tuteur_id" value="{{ $tuteur->id }}">
-
-@endif
-
-
 
 
 <!-- Niveau Scolaire Id Field -->
