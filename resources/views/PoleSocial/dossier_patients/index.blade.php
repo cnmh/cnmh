@@ -59,7 +59,7 @@
 $(document).ready(function() {
     function fetch_data(page, search) {
         $.ajax({
-            url: "dossier-patients",
+            url: "/pôle-social/entretien-social",
             data: {
                 page: page,
                 search: search
