@@ -15,7 +15,7 @@
 
                
             </div>
-            @if ( App\Models\Consultation::OrientationType() == "Liste d'attente")
+            @if ( App\Models\Consultation::SocialType() == "Liste-d'attente")
 
             @else
             <div class="col-sm-6">
@@ -75,24 +75,32 @@
 <script>
 $(document).ready(function() {
     function fetch_data(page, search) {
-        var modelName = "liste-attente";
-        var modelName = "liste-attente";
+    var modelName = "liste-d'attente"; 
+    var typeSocial = "<?php echo App\Models\Consultation::SocialType(); ?>";
+
+    if (typeSocial != "") {
+        var type = "<?php echo App\Models\Consultation::SocialType(); ?>";
+    } else {
         var type = "<?php echo App\Models\Consultation::OrientationType(); ?>";
-        $.ajax({
-            url: "/Pôle-medical/" + type + "/Consultations/?page=" + page + "&query=" + search.trim(),
-            success: function(data) {
-                var newData = $(data);
-                $('#consultations-table').html(newData.find('#consultations-table').html());
-                $('.card-footer').html(newData.find('.card-footer').html());
-                var paginationHtml = newData.find('.pagination').html();
-                if (paginationHtml) {
-                    $('.pagination').html(paginationHtml);
-                } else {
-                    $('.pagination').html('');
-                }
-            }
-        });
     }
+
+    $.ajax({
+        url: "/Pôle-medical/" + type + "/Consultations?page=" + page + "&query=" + search.trim(),
+        success: function(data) {
+            console.log(data);
+            var newData = $(data);
+            $('#consultations-table').html(newData.find('#consultations-table').html());
+            $('.card-footer').html(newData.find('.card-footer').html());
+            var paginationHtml = newData.find('.pagination').html();
+            if (paginationHtml) {
+                $('.pagination').html(paginationHtml);
+            } else {
+                $('.pagination').html('');
+            }
+        }
+    });
+}
+
 
     $('body').on('click', '.pagination li', function(event) {
         event.preventDefault();

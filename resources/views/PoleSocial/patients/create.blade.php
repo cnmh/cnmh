@@ -46,20 +46,10 @@
                             <div class="p-2 bd-highlight">
                                 {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
                             </div>
-
-                            @if (request()->getRequestUri() == '/patients/create')
-                            <div class="ml-auto p-2 bd-highlight">
-                                <a href="{{ route('patients.index') }}" class="btn btn-secondary"> @lang('crud.cancel')
-                                </a>
-                            </div>
-                            @else
                             <div class="ml-auto p-2 bd-highlight">
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary"> @lang('crud.cancel')
                                 </a>
                             </div>
-                            @endif
-
-
                         </div>
                     </div>
                     {!! Form::close() !!}

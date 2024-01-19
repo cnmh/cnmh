@@ -105,7 +105,7 @@ class DossierPatientRepository extends BaseRepository
 
 
     public function search($search){
-        DossierPatient::join('patients', function ($join) {
+        return DossierPatient::join('patients', function ($join) {
             $join->on('dossier_patients.patient_id', '=', 'patients.id')
                 ->select('patients.id as patientID', 'patients.*', 'dossier_patients.numero_dossier as dossier_id');
         })

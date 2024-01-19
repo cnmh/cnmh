@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('dossier-patients.index') }}">
+                       href="{{ route('dossier-patients.list') }}">
                                                     @lang('crud.back')
                                             </a>
                 </div>

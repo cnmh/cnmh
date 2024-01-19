@@ -47,22 +47,11 @@
                             <div class="p-2 bd-highlight">
                                 {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
                             </div>
-
-                            @if (urldecode(request()->url()) == url('/pôle-social/entretien-social/tuteur/ajouter)'))
-
                             <div class="ml-auto p-2 bd-highlight">
                                 <a href="{{  url()->previous() }}" class="btn btn-secondary"> @lang('crud.cancel')
                                 </a>
                             </div>
-                            @else
-                            <div class="ml-auto p-2 bd-highlight">
-                                <a href="{{ route('tuteurs.index') }}" class="btn btn-secondary"> @lang('crud.cancel')
-                                </a>
-                            </div>
-
-                            @endif
-
-
+                        
                         </div>
                     </div>
                     {!! Form::close() !!}

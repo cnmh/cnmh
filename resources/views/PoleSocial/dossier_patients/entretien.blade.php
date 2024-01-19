@@ -52,7 +52,7 @@
 
                                     
                                     <div class="card-footer">
-                                        <a href=""
+                                        <a href="{{ url()->previous() }}"
                                             class="btn btn-primary">@lang('crud.previous')</a>
                                         {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
                                         {{-- <a href="{{ route('dossier-patients.index') }}" class="btn btn-default">

@@ -37,11 +37,11 @@ class PatientController extends AppBaseController
         $patients = $this->patientRepository->paginate($query);
 
         if ($request->ajax()) {
-            return view('patients.table')
+            return view('PoleSocial.patients.table')
                 ->with('patients', $patients);
         }
 
-        return view('patients.index')
+        return view('PoleSocial.patients.index')
             ->with('patients', $patients);
     }
 
@@ -54,7 +54,7 @@ class PatientController extends AppBaseController
         $tuteur = $tuteurs->get();
         $niveauScolaire = new NiveauScolaireRepository;
         $niveau_s = $niveauScolaire->get();
-        return view('patients.create',compact("tuteur","niveau_s"));
+        return view('PoleSocial.patients.create',compact("tuteur","niveau_s"));
     }
 
     /**
@@ -101,7 +101,7 @@ class PatientController extends AppBaseController
 
             return redirect(route('patients.index'));
         }
-        return view('patients.show')->with('patient', $patient);
+        return view('PoleSocial.patients.show')->with('patient', $patient);
     }
 
     /**
@@ -120,7 +120,7 @@ class PatientController extends AppBaseController
 
             return redirect(route('patients.index'));
         }
-        return view('patients.edit')->with(['patient' => $patient, 'tuteur' => $tuteur , 'niveau_s' => $niveauScolaire , 'previousUrl' => $previousUrl]);
+        return view('PoleSocial.patients.edit')->with(['patient' => $patient, 'tuteur' => $tuteur , 'niveau_s' => $niveauScolaire , 'previousUrl' => $previousUrl]);
     }
 
 

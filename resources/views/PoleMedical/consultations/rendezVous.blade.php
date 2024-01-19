@@ -121,7 +121,7 @@
 
                         </div>
                         <div class="ml-4 mb-3">
-                            <a href=""
+                            <a href="{{ url()->previous() }}"
                                 class="btn btn-primary">@lang('crud.previous')</a>
                             {{-- <div name="rendezVous" value="false" class="btn btn-primary">Ajouter sans RendezVous</div> --}}
                             <button class="btn btn-primary">@lang('crud.next')</button>

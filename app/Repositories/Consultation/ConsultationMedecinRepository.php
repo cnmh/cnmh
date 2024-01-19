@@ -65,8 +65,7 @@ class ConsultationMedecinRepository extends BaseRepository
 
     public function ConsultationUpdate($input)
     {
-        $consultationID = $input['consultation_id'];
-        
+        $consultationID = $input['consultation_id'];        
         return ConsultationMedecin::find($consultationID)->update([
             "date_enregistrement" => $input['date_enregistrement'],
             "date_consultation" => $input['date_consultation'],

@@ -23,13 +23,13 @@
 
             <div class="card-body">
                 <div class="row">
-                    @include('consultations.fields')
+                    @include('PoleMedical.consultations.fields')
                 </div>
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Enregistrer', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('consultations.index', $consultation->id) }}" class="btn btn-default"> @lang('crud.cancel') </a>
+                <a href="{{ url()->previous() }}" class="btn btn-default"> @lang('crud.cancel') </a>
             </div>
 
             {!! Form::close() !!}

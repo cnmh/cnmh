@@ -45,11 +45,11 @@ class TuteurController extends AppBaseController
         $query = $request->input('query');
         $tuteurs = $this->tuteurRepository->paginate($query);
         if ($request->ajax()) {
-            return view('tuteurs.table')
+            return view('PoleSocial.tuteurs.table')
                 ->with('tuteurs', $tuteurs);
         }
 
-        return view('tuteurs.index')
+        return view('PoleSocial.tuteurs.index')
             ->with('tuteurs', $tuteurs);
     }
 
@@ -59,7 +59,7 @@ class TuteurController extends AppBaseController
     public function create()
     {
         $etat_civil = EtatCivil::get();
-        return view('tuteurs.create', compact("etat_civil"));
+        return view('PoleSocial.tuteurs.create', compact("etat_civil"));
     }
 
     /**
@@ -93,7 +93,7 @@ class TuteurController extends AppBaseController
 
             return redirect(route('tuteurs.index'));
         }
-        return view('tuteurs.show')->with('tuteur', $tuteur);
+        return view('PoleSocial.tuteurs.show')->with('tuteur', $tuteur);
     }
 
     /**
@@ -109,7 +109,7 @@ class TuteurController extends AppBaseController
         }
         $EtatCivil = new EtatCivilRepository;
         $etat_civil = $EtatCivil->find($tuteur->etat_civil_id);
-        return view('tuteurs.edit', compact('tuteur', 'etat_civil','previousUrl'));
+        return view('PoleSocial.tuteurs.edit', compact('tuteur', 'etat_civil','previousUrl'));
     }
     
     /**

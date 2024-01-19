@@ -23,25 +23,31 @@ class Maintenance_1_2_1 extends Seeder
         $orthophonistePassword = Hash::make("orthophoniste");
         $now = \Carbon\Carbon::now();
 
-
-        $dentiste = User::create([
-            'name' => 'dentiste',
-            'email' => 'dentiste@gmail.com',
-            'password' => $dentistePassword,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
-
-        $orthophoniste = User::create([
-            'name' => 'orthophoniste',
-            'email' => 'orthophoniste@gmail.com',
-            'password' => $orthophonistePassword,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
-
         $medecin = User::where('email', 'medecin@gmail.com')->first();
+        $dentiste = User::where('email', 'dentiste@gmail.com')->first();
+        $orthophoniste = User::where('email', 'orthophoniste@gmail.com')->first();
 
+        if(empty($dentiste)){
+            $dentiste = User::create([
+                'name' => 'dentiste',
+                'email' => 'dentiste@gmail.com',
+                'password' => $dentistePassword,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }
+
+
+        if(empty($orthophoniste)){
+            $orthophoniste = User::create([
+                'name' => 'orthophoniste',
+                'email' => 'orthophoniste@gmail.com',
+                'password' => $orthophonistePassword,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+    
+        }
      
         if ($dentiste) {
             $permissionNames = [
@@ -60,6 +66,7 @@ class Maintenance_1_2_1 extends Seeder
                 'destroy-Consultation',
                 'list_dossier-EntretienSocial',
                 'show_dossier-EntretienSocial',
+                'update-Consultation'
             ];
 
             foreach ($permissionNames as $permissionName) {
@@ -86,6 +93,7 @@ class Maintenance_1_2_1 extends Seeder
                 'destroy-Consultation',
                 'list_dossier-EntretienSocial',
                 'show_dossier-EntretienSocial',
+                'update-Consultation'
             ];
 
             foreach ($permissionNames as $permissionName) {
@@ -109,6 +117,7 @@ class Maintenance_1_2_1 extends Seeder
                 'destroy-Consultation',
                 'list_dossier-EntretienSocial',
                 'show_dossier-EntretienSocial',
+                'update-Consultation'
             ];
 
             foreach ($permissionNames as $permissionName) {
