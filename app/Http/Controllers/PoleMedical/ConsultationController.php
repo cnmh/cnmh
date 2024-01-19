@@ -47,15 +47,17 @@ class ConsultationController extends AppBaseController
     public function list_consultations(Request $request){
 
         $type = Consultation::OrientationType();
-
         $SocialType = Consultation::SocialType();
-
 
         if ($request->ajax()) {
             $search = $request->get('query');
             if($search != ""){
                 $search = str_replace(" ", "%", $search);
-                $consultations = $this->consultationRepository->search($search,$type);
+                if($SocialType != ''){
+                    $consultations = $this->consultationRepository->searchListAttente($search,$type);
+                }else{
+                    $consultations = $this->consultationRepository->search($search,$type);
+                }
             }
             return view('PoleMedical.consultations.table',compact('consultations'))->render();
         }
@@ -200,7 +202,7 @@ class ConsultationController extends AppBaseController
             return redirect(route('consultations.list', $type));
         }
 
-        return view('PoleMedical.consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient','services_ids'));
+        return view('PoleMedical.consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient','services_ids','dossierPatientConsultation','type_handicap_patients'));
     }
 
     // update consultation
@@ -250,7 +252,7 @@ class ConsultationController extends AppBaseController
         }
 
         if(empty($consultation_handicap_patient) || empty($consultation_service_patient)){
-            return view('PoleMedical.consultations.show', compact("PoleMedical.consultation"));
+            return view('PoleMedical.consultations.show', compact("consultation"));
         }
 
         return view('PoleMedical.consultations.show', compact("consultation","consultation_service_patient","consultation_handicap_patient"));

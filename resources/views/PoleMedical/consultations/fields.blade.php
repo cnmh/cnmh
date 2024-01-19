@@ -17,7 +17,7 @@
     {{ Form::select(
         'type_handicap_id[]',
         $type_handicap->pluck('nom', 'id')->toArray(),
-        isset($type_handicap_ids) ? $type_handicap_ids : [],
+        isset($type_handicap_patients) ? $type_handicap_patients : [],
         ['class' => 'form-control', 'id'=> 'type_handicap_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>
@@ -29,7 +29,7 @@
     {{ Form::select(
         'services_id[]',
         $services->pluck('nom', 'id')->toArray(),
-        isset($services_ids) ? $services_ids : [],
+        isset($service_patient) ? $service_patient : [],
         ['class' => 'form-control', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>

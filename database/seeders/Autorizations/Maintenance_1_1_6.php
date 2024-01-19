@@ -14,59 +14,62 @@ class Maintenance_1_1_6 extends Seeder
      */
     public function run()
     {
-        $now = \Carbon\Carbon::now();
 
-        $ServiceSocial = Service::where('nom', 'Service social')->first();
-        $ServiceSocial->update(['nom' => 'Pôle Médical']);
+        // TODO : à fixer, il générer une exception
+        
+        // $now = \Carbon\Carbon::now();
 
-        $ServiceMedical = Service::where('nom', 'Service médical')->first();
-        $ServiceMedical->update(['nom' => 'Kinésithérapeute']);
+        // $ServiceSocial = Service::where('nom', 'Service social')->first();
+        // $ServiceSocial->update(['nom' => 'Pôle Médical']);
 
-        $ServiceEducatif = Service::where('nom', 'Service Éducatif')->first();
-        $ServiceEducatif->update(['nom' => 'Pôle Éducatif']);
+        // $ServiceMedical = Service::where('nom', 'Service médical')->first();
+        // $ServiceMedical->update(['nom' => 'Kinésithérapeute']);
 
-        $formationProfessionnelle = Service::where('nom', 'Service de la Formation Professionnelle')->first();
-        $formationProfessionnelle->update(['nom' => 'Formation Professionnelle']);
+        // $ServiceEducatif = Service::where('nom', 'Service Éducatif')->first();
+        // $ServiceEducatif->update(['nom' => 'Pôle Éducatif']);
 
-        $serviceSportif = Service::where('nom', 'Service sportif')->first();
-        $serviceSportif->update(['nom' => 'Pôle sportif']);
+        // $formationProfessionnelle = Service::where('nom', 'Service de la Formation Professionnelle')->first();
+        // $formationProfessionnelle->update(['nom' => 'Formation Professionnelle']);
+
+        // $serviceSportif = Service::where('nom', 'Service sportif')->first();
+        // $serviceSportif->update(['nom' => 'Pôle sportif']);
 
 
 
-        $service = Service::insert([
+        // $service = Service::insert([
 
-            [
-                'nom' => 'Dentiste',
-                'description' => 'description Orientation 6',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'nom' => 'Pshycomotricité',
-                'description' => 'description Orientation 7',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'nom' => 'Ergothérapie',
-                'description' => 'description Orientation 8',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'nom' => 'Orthoptiste',
-                'description' => 'description Orientation 9',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'nom' => 'Orthophoniste',
-                'description' => 'description Orientation 10',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
+        //     [
+        //         'nom' => 'Dentiste',
+        //         'description' => 'description Orientation 6',
+        //         'created_at' => $now,
+        //         'updated_at' => $now,
+        //     ],
+        //     [
+        //         'nom' => 'Pshycomotricité',
+        //         'description' => 'description Orientation 7',
+        //         'created_at' => $now,
+        //         'updated_at' => $now,
+        //     ],
+        //     [
+        //         'nom' => 'Ergothérapie',
+        //         'description' => 'description Orientation 8',
+        //         'created_at' => $now,
+        //         'updated_at' => $now,
+        //     ],
+        //     [
+        //         'nom' => 'Orthoptiste',
+        //         'description' => 'description Orientation 9',
+        //         'created_at' => $now,
+        //         'updated_at' => $now,
+        //     ],
+        //     [
+        //         'nom' => 'Orthophoniste',
+        //         'description' => 'description Orientation 10',
+        //         'created_at' => $now,
+        //         'updated_at' => $now,
+        //     ],
             
-        ]);
+        // ]);
 
     }
 }

@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('patients.show_fields')
+                    @include('PoleSocial.patients.show_fields')
                 </div>
             </div>
         </div>

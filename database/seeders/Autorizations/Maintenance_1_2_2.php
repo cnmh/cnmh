@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 
-class Maintenance_1_2_1 extends Seeder
+class Maintenance_1_2_2 extends Seeder
 {
     /**
      * Run the database seeds.
@@ -26,6 +26,8 @@ class Maintenance_1_2_1 extends Seeder
         $medecin = User::where('email', 'medecin@gmail.com')->first();
         $dentiste = User::where('email', 'dentiste@gmail.com')->first();
         $orthophoniste = User::where('email', 'orthophoniste@gmail.com')->first();
+        $social = User::where('email', 'social@gmail.com')->first();
+
 
         if(empty($dentiste)){
             $dentiste = User::create([
@@ -51,16 +53,6 @@ class Maintenance_1_2_1 extends Seeder
      
         if ($dentiste) {
             $permissionNames = [
-                "list_consultations-Consultation",
-                "list_rendezVous-Consultation",
-                "SelectRendezVous-Consultation",
-                "InformationPatient-Consultation",
-                "FormAjouterConsultation-Consultation",
-                "show-DossierPatient",
-                "AjouterConsultation-Consultation",
-                "destroy-RendezVous",
-                "Ajouter_RendezVous-Consultation",
-                "index-DossierPatient",
                 "edit-Consultation",
                 "show-Consultation",
                 'destroy-Consultation',
@@ -78,16 +70,6 @@ class Maintenance_1_2_1 extends Seeder
 
         if ($orthophoniste) {
             $permissionNames = [
-                "list_consultations-Consultation",
-                "list_rendezVous-Consultation",
-                "SelectRendezVous-Consultation",
-                "InformationPatient-Consultation",
-                "FormAjouterConsultation-Consultation",
-                "show-DossierPatient",
-                "AjouterConsultation-Consultation",
-                "destroy-RendezVous",
-                "Ajouter_RendezVous-Consultation",
-                "index-DossierPatient",
                 "edit-Consultation",
                 "show-Consultation",
                 'destroy-Consultation',
@@ -106,18 +88,24 @@ class Maintenance_1_2_1 extends Seeder
         
         if($medecin){
             $permissionNames = [
-                "list_consultations-Consultation",
-                "list_rendezVous-Consultation",
-                "SelectRendezVous-Consultation",
-                "InformationPatient-Consultation",
-                "FormAjouterConsultation-Consultation",
-                "show-DossierPatient",
-                "AjouterConsultation-Consultation",
                 "destroy-RendezVous",
                 'destroy-Consultation',
                 'list_dossier-EntretienSocial',
                 'show_dossier-EntretienSocial',
                 'update-Consultation'
+            ];
+
+            foreach ($permissionNames as $permissionName) {
+                Permission::firstOrCreate(['name' => $permissionName]);
+            }
+
+            $medecin->givePermissionTo($permissionNames);
+        }
+
+        if($social){
+            $permissionNames = [
+                "destroy-Patient",
+                "show-Patient"
             ];
 
             foreach ($permissionNames as $permissionName) {

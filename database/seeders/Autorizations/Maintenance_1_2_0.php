@@ -37,6 +37,9 @@ class Maintenance_1_2_0 extends Seeder
                 'edit-EntretienSocial',
                 'update-EntretienSocial',
                 'destroy-EntretienSocial',
+                "list_consultations-Consultation",
+                "destroy-Patient",
+                "show-Patient"
             ];
 
             foreach ($permissionNames as $permissionName) {

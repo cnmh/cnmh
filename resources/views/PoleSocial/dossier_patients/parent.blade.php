@@ -143,7 +143,7 @@
 
                             </div>
                             <div class="ml-4 mb-3">
-                                <a href="{{ route('dossier-patients.index')}}"  class="btn btn-secondary">@lang('crud.cancel')</a>                                {{-- <a href="{{ route('dossier-patients.parent') }}" class="btn btn-primary">@lang('crud.previous')</a> --}}
+                                <a href="{{ route('dossier-patients.list')}}"  class="btn btn-secondary">@lang('crud.cancel')</a>                                {{-- <a href="{{ route('dossier-patients.parent') }}" class="btn btn-primary">@lang('crud.previous')</a> --}}
 
                                 <button id="next-button" class="btn btn-primary">@lang('crud.next')</button>
 

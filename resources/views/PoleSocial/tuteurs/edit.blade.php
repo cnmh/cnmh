@@ -24,7 +24,7 @@
             <div class="card-body">
                 <div class="row">
                     <input type="hidden" name="previous_url" value="{{ $previousUrl }}">
-                    @include('tuteurs.fields')
+                    @include('PoleSocial.tuteurs.fields')
                 </div>
             </div>
 
