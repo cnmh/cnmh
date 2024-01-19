@@ -252,7 +252,7 @@ class ConsultationController extends AppBaseController
         }
 
         if(empty($consultation_handicap_patient) || empty($consultation_service_patient)){
-            return view('PoleMedical.consultations.show', compact("PoleMedical.consultation"));
+            return view('PoleMedical.consultations.show', compact("consultation"));
         }
 
         return view('PoleMedical.consultations.show', compact("consultation","consultation_service_patient","consultation_handicap_patient"));
