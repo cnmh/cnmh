@@ -43,7 +43,7 @@
         </div>
 
         <div class="card" id="table-container">
-            @include('tuteurs.table')
+            @include('PoleSocial.tuteurs.table')
         </div>
     </div>
 

@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('tuteurs.show_fields')
+                    @include('PoleSocial.tuteurs.show_fields')
                 </div>
             </div>
         </div>
