@@ -27,7 +27,8 @@ use Database\Seeders\Autorizations\{
     Maintenance_1_1_2,
     Maintenance_1_1_3,
     Maintenance_1_2_1,
-    Maintenance_1_1_6
+    Maintenance_1_1_6,
+    Maintenance_1_2_2
 };
 use Database\Seeders\Parameters\{
     CouvertureMedicalsTableSeeder,
