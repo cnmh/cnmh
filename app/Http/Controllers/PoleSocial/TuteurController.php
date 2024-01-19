@@ -115,8 +115,9 @@ class TuteurController extends AppBaseController
     /**
      * Update the specified Tuteur in storage.
      */
-    public function update($id, UpdateTuteurRequest $request)
+    public function update($id, Request $request)
     {
+        dd($id);
         $tuteur = $this->tuteurRepository->find($id);
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));

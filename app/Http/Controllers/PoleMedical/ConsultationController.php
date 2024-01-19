@@ -202,7 +202,7 @@ class ConsultationController extends AppBaseController
             return redirect(route('consultations.list', $type));
         }
 
-        return view('PoleMedical.consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient','services_ids','dossierPatientConsultation'));
+        return view('PoleMedical.consultations.edit', compact('consultation','type_handicap_ids','type_handicap','services','service_patient','services_ids','dossierPatientConsultation','type_handicap_patients'));
     }
 
     // update consultation
