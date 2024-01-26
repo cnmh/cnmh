@@ -13,7 +13,7 @@ return [
     'telephone' => 'Téléphone',
     'email' => 'Email',
     'adresse' => 'Adresse',
-    'cin' => 'CIN',
+    'cin' => 'Cin',
     'remarques' => 'Remarque',
     'created_at' => 'Créé le',
     'updated_at' => 'Mis à jour le',

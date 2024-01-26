@@ -8,5 +8,7 @@ return [
     'deleted' => ':model a été supprimé avec succès',
     'cannotDeleted' => ':model ne peut pas être supprimé.',
     'not_found' => ':model non trouvé',
-    'cannotDeletedEnCounsultation' => ':model ne peut pas être supprimé.'
+    'cannotDeletedEnCounsultation' => ':model ne peut pas être supprimé.',
+    'reporter' => ':model a été reporté en rendez-vous.',
+
 ];
