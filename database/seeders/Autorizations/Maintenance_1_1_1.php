@@ -26,6 +26,7 @@ class Maintenance_1_1_1 extends Seeder
                 'index-Patient',
                 'edit-Patient',
                 'update-Patient',
+                'list_consultations-Consultation',
             ];
 
             foreach ($permissionNames as $permissionName) {

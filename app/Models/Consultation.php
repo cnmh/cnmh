@@ -59,18 +59,40 @@ class Consultation extends Model
         return $this->hasMany(\App\Models\TypeHandicapConsultation::class, 'consultation_id');
     }
 
-    public function setTypeAttribute($value)
+    public static function OrientationType()
     {
-        if ($value == 'dentiste') {
-            $this->attributes['type'] = 'dentiste';
-        } elseif ($value == 'medecinGeneral') {
-            $this->attributes['type'] = 'medecinGeneral';
-        } else {
-            $this->attributes['type'] = null;
+        $user = Auth()->user()->email;
+
+        if($user === 'medecin@gmail.com'){
+            return $type = 'Médecin-général';
+        }elseif($user === 'dentiste@gmail.com'){
+            return $type = 'Dentiste';
+        }elseif($user === 'orthophoniste@gmail.com'){
+            return $type = 'Orthophoniste';
+        }
+        elseif($user === 'social@gmail.com'){
+            return $type = 'Médecin-général';
         }
     }
 
-    public function dentiste(){
-        $this::where('type','dentiste');
+    public static function SocialType(){
+        $user = Auth()->user()->email;
+        if($user === 'social@gmail.com'){
+            return $type = "Liste-d'attente";
+        }
+    }
+
+    
+
+    const ETAT_EN_ATTENTE = 'enAttente';
+    const ETAT_EN_RENDEZVOUS = 'enRendezVous';
+    const ETAT_CONSULTATION = 'enConsultation';
+
+    public static function ConsultationEtat(){
+        return [
+            self::ETAT_EN_ATTENTE,
+            self::ETAT_EN_RENDEZVOUS,
+            self::ETAT_CONSULTATION,
+        ];
     }
 }

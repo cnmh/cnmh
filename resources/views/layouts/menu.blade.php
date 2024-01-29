@@ -1,7 +1,7 @@
 @can('index-DossierPatient')
 <li class="nav-item">
-    <a href="{{ route('dossier-patients.index') }}"
-        class="nav-link {{ Route::is('dossier-patients.index' . '*') ? 'active' : '' }}">
+    <a href="{{ route('dossier-patients.list') }}"
+        class="nav-link {{ Route::is('dossier-patients.list' . '*') ? 'active' : '' }}">
         <i class="fa-solid fa-hospital-user"></i>
         <p>Dossier bénéficiaires</p>
     </a>
@@ -20,7 +20,7 @@
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
-            <a href="/consultations/liste-attente" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+            <a href="/Pôle-medical/{{ \App\Models\Consultation::SocialType() }}/Consultations" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
                 <p>Liste d'attente médecin</p>
             </a>
         </li>
@@ -42,16 +42,19 @@
     <a href="#" class="nav-link ">
     <i class="fa-solid fa-hospital-user"></i>
         <p class="pl-2">
-        Medcine générale
+            {{ \App\Models\Consultation::OrientationType() }}
         </p>
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
-            <a href="/consultations/MedecinGeneral" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+
+            <a href="{{ route('consultations.list' , \App\Models\Consultation::OrientationType()) }}" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
+
                 <p>Consultation </p>
             </a>
         </li>
     </ul>
+    
 
     </li>   
 
