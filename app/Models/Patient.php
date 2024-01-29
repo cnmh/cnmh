@@ -18,7 +18,9 @@ class Patient extends Model
         'email',
         'image',
         'adresse',
-        'remarques'
+        'remarques',
+        'date_naissance',
+        'sexe',
     ];
 
     protected $casts = [
@@ -29,7 +31,9 @@ class Patient extends Model
         'email' => 'string',
         'image' => 'string',
         'adresse' => 'string',
-        'remarques' => 'string'
+        'remarques' => 'string',
+        'date_naissance' => 'date',
+        'sexe' => 'string',
     ];
 
     public static array $rules = [
@@ -44,7 +48,9 @@ class Patient extends Model
         'adresse' => 'nullable|string|max:255',
         'remarques' => 'nullable|string|max:65535',
         'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'updated_at' => 'nullable',
+        'date_naissance' => 'nullable',
+        'sexe' => 'nullable',
     ];
 
     public function niveauScolaire(): \Illuminate\Database\Eloquent\Relations\BelongsTo
