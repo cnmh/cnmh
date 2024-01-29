@@ -66,10 +66,10 @@
 
 <!-- Sexe Field -->
 @php
-    $sexe = ['homme', 'femme'];
+    $sexe = ['Homme', 'Femme'];
 @endphp
 
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('Sexe', __('models/tuteurs.fields.sexe') . ':') !!} <span class="required-field">*</span>
     {!! Form::select('sexe', array_combine($sexe, $sexe), old('sexe'), ['class' => 'form-control', 'required']) !!}
 </div>
