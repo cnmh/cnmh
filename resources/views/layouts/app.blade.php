@@ -44,7 +44,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
 
-                        </form>
+                            </form>
                         </li>
                     </ul>
                 </li>
@@ -58,9 +58,7 @@
         <div class="content-wrapper">
             @yield('content')
         </div>
-@env ('staging')
 
-@endenv
         <!-- Main Footer -->
         <footer class="main-footer">
             <strong>
@@ -73,52 +71,26 @@
     <script src="{{ asset('assets/summernote/summernote-lite.min.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/rstxdbg3rllarurra768zcwtwphhxqlxqvnhebaxc017ot19/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/in1ymb8opnzm71imuxq58hv4i699ihhovjpugtacxnoqbdsy/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        tinymce.init({
-            selector: 'textarea#remarques',
-            plugins: 'autoresize',
-            autoresize_bottom_margin: 16,
-            menubar: false,
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
+        // tinymce.init({
+        //     selector: 'textarea',
+        //     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+        //     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        // });
+
+       
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var editLink = document.getElementById('editLink');
+            var beneficiaireSelect = document.getElementById('beneficiaire_select');
+            beneficiaireSelect.addEventListener('change', function() {
+                var selectedId = beneficiaireSelect.value;
+                var editUrl = '/patients/' + selectedId + '/edit';
+
+                console.log(editUrl);
+                editLink.href = editUrl;
+            });
         });
-        tinymce.init({
-            selector: 'textarea#observation',
-            plugins: 'autoresize',
-            autoresize_bottom_margin: 16,
-            menubar: false,
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
-        });
-        tinymce.init({
-            selector: 'textarea#diagnostic',
-            plugins: 'autoresize',
-            autoresize_bottom_margin: 16,
-            menubar: false,
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
-        });
-        tinymce.init({
-            selector: 'textarea#bilan',
-            plugins: 'autoresize',
-            autoresize_bottom_margin: 16,
-            menubar: false,
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat'
-        });
-    });
     </script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var editLink = document.getElementById('editLink');
-        var beneficiaireSelect = document.getElementById('beneficiaire_select');
-        beneficiaireSelect.addEventListener('change', function() {
-            var selectedId = beneficiaireSelect.value;
-            var editUrl = '/patients/' + selectedId + '/edit';
-
-            console.log(editUrl);
-            editLink.href = editUrl;
-        });
-    });
-    </script>
-
 @endpush
