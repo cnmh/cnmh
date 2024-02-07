@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateEmployeRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Imports\ImportEmployes;
 use App\Models\Fonction;
-use App\Repositories\EmployeRepository;
+use App\Repositories\Parametres\EmployeRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Maatwebsite\Excel\Facades\Excel;

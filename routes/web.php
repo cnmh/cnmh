@@ -3,14 +3,14 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ConsultationController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployeController;
-use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\Parametres\EmployeController;
+use App\Http\Controllers\Parametres\ServiceController;
 use App\Http\Controllers\EtatCivilController;
 use App\Http\Controllers\Root\RootController;
-use App\Http\Controllers\TypeHandicapController;
+use App\Http\Controllers\Parametres\TypeHandicapController;
 use App\Http\Controllers\DossierPatientController;
-use App\Http\Controllers\NiveauScolaireController;
-use App\Http\Controllers\CouvertureMedicalController;
+use App\Http\Controllers\Parametres\NiveauScolaireController;
+use App\Http\Controllers\Parametres\CouvertureMedicalController;
 use App\Http\Controllers\RendezVousController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RolePermissionController;
@@ -42,32 +42,32 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 // couvertureMedicals
 
 
-    Route::resource('couvertureMedicals', App\Http\Controllers\CouvertureMedicalController::class);
+    Route::resource('couvertureMedicals', App\Http\Controllers\Parametres\CouvertureMedicalController::class);
     Route::get('/export_couvertureMedicals', [CouvertureMedicalController::class, 'export'])->name('couvertureMedicals.export');
     Route::post('/import_couvertureMedicals', [CouvertureMedicalController::class, 'import'])->name('couvertureMedicals.import');
 
-        Route::resource('typeHandicaps', App\Http\Controllers\TypeHandicapController::class);
+        Route::resource('typeHandicaps', App\Http\Controllers\Parametres\TypeHandicapController::class);
     
-        Route::resource('services', App\Http\Controllers\ServiceController::class);
-        Route::get('/export_service', [App\Http\Controllers\ServiceController::class, 'export'])->name('services.export');
-        Route::post('/import_service', [App\Http\Controllers\ServiceController::class, 'import'])->name('services.import');
+        Route::resource('services', App\Http\Controllers\Parametres\ServiceController::class);
+        Route::get('/export_service', [App\Http\Controllers\Parametres\ServiceController::class, 'export'])->name('services.export');
+        Route::post('/import_service', [App\Http\Controllers\Parametres\ServiceController::class, 'import'])->name('services.import');
     
         // Employees routes
-        Route::resource('employes', App\Http\Controllers\EmployeController::class);
-        Route::get('/export_employes', [App\Http\Controllers\EmployeController::class, 'export'])->name('employes.export');
-        Route::post('/import_employes', [App\Http\Controllers\EmployeController::class, 'import'])->name('employes.import');
+        Route::resource('employes', App\Http\Controllers\Parametres\EmployeController::class);
+        Route::get('/export_employes', [App\Http\Controllers\Parametres\EmployeController::class, 'export'])->name('employes.export');
+        Route::post('/import_employes', [App\Http\Controllers\Parametres\EmployeController::class, 'import'])->name('employes.import');
     
-        Route::get('/export_typehandicap', [App\Http\Controllers\TypeHandicapController::class, 'export'])->name('typehandicap.export');
-        Route::post('/import_typehandicap', [App\Http\Controllers\TypeHandicapController::class, 'import'])->name('typehandicap.import');
+        Route::get('/export_typehandicap', [App\Http\Controllers\Parametres\TypeHandicapController::class, 'export'])->name('typehandicap.export');
+        Route::post('/import_typehandicap', [App\Http\Controllers\Parametres\TypeHandicapController::class, 'import'])->name('typehandicap.import');
     
-        Route::resource('niveauScolaires', App\Http\Controllers\NiveauScolaireController::class);
-        Route::get('/export_niveauScolaires', [App\Http\Controllers\NiveauScolaireController::class, 'export'])->name('niveauScolaires.export');
-        Route::post('/import_niveauScolaires', [App\Http\Controllers\NiveauScolaireController::class, 'import'])->name('niveauScolaires.import');
+        Route::resource('niveauScolaires', App\Http\Controllers\Parametres\NiveauScolaireController::class);
+        Route::get('/export_niveauScolaires', [App\Http\Controllers\Parametres\NiveauScolaireController::class, 'export'])->name('niveauScolaires.export');
+        Route::post('/import_niveauScolaires', [App\Http\Controllers\Parametres\NiveauScolaireController::class, 'import'])->name('niveauScolaires.import');
     
-        Route::resource('etatCivils', App\Http\Controllers\EtatCivilController::class);
+        Route::resource('etatCivils', App\Http\Controllers\Parametres\EtatCivilController::class);
         // EtatCivil export and import
-        Route::get('/export_etatCivils', [App\Http\Controllers\EtatCivilController::class, 'export'])->name('etatCivils.export');
-        Route::post('/import_etatCivils', [App\Http\Controllers\EtatCivilController::class, 'import'])->name('etatCivils.import');
+        Route::get('/export_etatCivils', [App\Http\Controllers\Parametres\EtatCivilController::class, 'export'])->name('etatCivils.export');
+        Route::post('/import_etatCivils', [App\Http\Controllers\Parametres\EtatCivilController::class, 'import'])->name('etatCivils.import');
    
 
 

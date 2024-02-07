@@ -7,7 +7,7 @@ use App\Http\Requests\CreateTypeHandicapRequest;
 use App\Http\Requests\UpdateTypeHandicapRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Imports\importTypehandicap;
-use App\Repositories\TypeHandicapRepository;
+use App\Repositories\Parametres\TypeHandicapRepository;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Flash;

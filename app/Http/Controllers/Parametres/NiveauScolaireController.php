@@ -7,7 +7,7 @@ use App\Http\Requests\CreateNiveauScolaireRequest;
 use App\Http\Requests\UpdateNiveauScolaireRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Imports\NiveauScolaireImport;
-use App\Repositories\NiveauScolaireRepository;
+use App\Repositories\Parametres\NiveauScolaireRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Maatwebsite\Excel\Facades\Excel;
