@@ -43,6 +43,7 @@ class CouvertureMedicalController extends AppBaseController
             ->with('couvertureMedicals', $couvertureMedicals);
     }
 
+    
     /**
      * Show the form for creating a new CouvertureMedical.
      */
