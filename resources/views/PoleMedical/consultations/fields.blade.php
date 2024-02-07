@@ -69,3 +69,5 @@
 </div>
 
     {!! Form::hidden('dossier_patients',$dossierPatientConsultation->dossier_patient_id , ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+
+    
