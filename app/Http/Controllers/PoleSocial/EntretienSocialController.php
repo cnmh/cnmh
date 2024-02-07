@@ -316,9 +316,7 @@ class EntretienSocialController extends AppBaseController
                     
                         $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientID);
                         $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($dossierPatientID);
-                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID);
-                        $this->dossierPatientRepository->deleteDossierFromListAttente($consultation);
-                        
+                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID); 
                     } 
 
                     $this->dossierPatientRepository->delete($dossierPatientID);
