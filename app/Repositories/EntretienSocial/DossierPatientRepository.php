@@ -191,12 +191,11 @@ class DossierPatientRepository extends BaseRepository
         $id = $input;
         $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
 
+
         foreach ($findDossierPatientConsultation as $dossierPatientConsultation) {
             $dossierPatientConsultation->delete();
             $consultation = Consultation::find($dossierPatientConsultation->consultation_id);
-            if ($consultation) {
-                $consultation->delete();
-            }
+            $consultation->delete();
         }
         return true; 
     }
