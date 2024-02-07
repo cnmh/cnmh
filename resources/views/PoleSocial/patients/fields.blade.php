@@ -60,8 +60,14 @@
 
 <!-- data de naissance Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('Date de naissance', __('models/patients.fields.dataNaissance')) !!} <span class="required-field">*</span>
-    {!! Form::date('date_naissance', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535, 'required']) !!}
+    <div>
+        {!! Form::label('Date de naissance', __('models/patients.fields.dataNaissance')) !!} <span class="required-field">*</span>
+        {!! Form::date('date_naissance', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535, 'required']) !!}
+    </div>
+    <div>
+       
+    </div>
+    
 </div>
 
 <!-- Sexe Field -->
