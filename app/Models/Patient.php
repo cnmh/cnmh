@@ -37,7 +37,7 @@ class Patient extends Model
     ];
 
     public static array $rules = [
-        'tuteur_id' => 'required',
+        'tuteur_id' => 'nullable',
         'niveau_scolaire_id' => 'nullable',
         'nom' => 'required|string|max:255',
         'prenom' => 'required|string|max:255',

@@ -29,7 +29,9 @@
                     </div>
 
                     <div class="card-body">
-                        @if(urldecode(request()->url()) == url('/pôle-social/entretien-social/tuteur/'.$tuteur->id.'/bénéficiaire/ajouter'))
+                        @if(urldecode(request()->url()) == url('/pôle-social/entretien-social/tuteur/'.$tuteur->id. '/bénéficiaire/ajouter'))
+                          {!! Form::open(['route' => 'Ajoute.bénéficiaires', 'enctype' => 'multipart/form-data']) !!}
+                        @elseif(urldecode(request()->url()) == url('/pôle-social/entretien-social/tuteur/self/bénéficiaire/ajouter'))
                           {!! Form::open(['route' => 'Ajoute.bénéficiaires', 'enctype' => 'multipart/form-data']) !!}
                         @else
                           {!! Form::open(['route' => 'patients.store', 'enctype' => 'multipart/form-data']) !!}

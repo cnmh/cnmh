@@ -179,6 +179,8 @@ Route::get('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers
 Route::post('/pôle-social/entretien-social/tuteur/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjouteTuteur'])->name('Ajoute.tuteurs');
 // Routage entretien social phase de bénéficiaire
 Route::get('/pôle-social/entretien-social/tuteur/{tuteur_id}/bénéficiaire',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectPatient'])->name('FormSelect.bénéficiaires');
+Route::get('/pôle-social/entretien-social/tuteur/bénéficiaire',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormSelectPatient'])->name('FormSelect.bénéficiaires-self');
+
 Route::get('/pôle-social/entretien-social/bénéficiaire/selected',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'SelectPatient'])->name('Select.bénéficiaires');
 Route::get('/pôle-social/entretien-social/tuteur/{tuteurID}/bénéficiaire/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'FormAjoutePatient'])->name('FormAjoute.bénéficiaires');
 Route::post('/pôle-social/entretien-social/bénéficiaire/ajouter',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'AjoutePatient'])->name('Ajoute.bénéficiaires');

@@ -75,7 +75,7 @@ class EntretienSocialController extends AppBaseController
     // pass tuteur a patient
     public function SelectTuteur(Request $request){
         if(empty($request->tuteurID)){
-            return back();
+            return redirect()->route('FormSelect.bénéficiaires','self')->with('tuteur_id','self');
         }
         return redirect()->route('FormSelect.bénéficiaires', $request->tuteurID)->with('tuteur_id',$request->tuteurID);
     }
@@ -122,8 +122,12 @@ class EntretienSocialController extends AppBaseController
     }
 
     public function FormAjoutePatient($tuteurID){
-        $tuteurs = new TuteurRepository;
-        $tuteur = $tuteurs->find($tuteurID);
+        if($tuteurID !== 'self'){
+            $tuteurs = new TuteurRepository;
+            $tuteur = $tuteurs->find($tuteurID);
+        }else{
+            $tuteur = "";
+        }       
         $niveauScolaire = new NiveauScolaireRepository;
         $niveau_s = $niveauScolaire->get();
         return view('PoleSocial.patients.create',compact("tuteur","niveau_s"));
@@ -202,7 +206,11 @@ class EntretienSocialController extends AppBaseController
         $NiveauScolairePatient = $niveauScolaireRepo->find($NiveauScolaireID);
         $parent  = $patient->parent;
         $EtatCivilRepo = new EtatCivilRepository;
-        $situationFamilial =$EtatCivilRepo->where(EtatCivil::class,'id',$parent->etat_civil_id)->first();
+        if(!empty($parent)){
+            $situationFamilial =$EtatCivilRepo->where(EtatCivil::class,'id',$parent->etat_civil_id)->first();
+        }else{
+            $situationFamilial = "";
+        }
         $couvertureMedicalRepo = new CouvertureMedicalRepository;
         $couvertureMedical = $couvertureMedicalRepo->find($dossierPatient->couverture_medical_id);
         $type_handicap = $this->dossierPatientRepository->DossierPatient_typeHandycapFIND($dossierPatient->id);
@@ -245,7 +253,11 @@ class EntretienSocialController extends AppBaseController
         $editMode = true; 
         $patientRepository = new PatientRepository;
         $beneficiaires_tuteur = $patientRepository->where(Patient::class,'id', $patient_id)->first();
-        $patients_tuteur = $patientRepository->where(Patient::class,'tuteur_id',$beneficiaires_tuteur->tuteur_id)->get();
+        if($beneficiaires_tuteur->tuteur_id === null){
+            $patients_tuteur = $patientRepository->find($beneficiaires_tuteur->id);
+        }else{
+            $patients_tuteur = $patientRepository->where(Patient::class,'tuteur_id',$beneficiaires_tuteur->tuteur_id)->get();
+        }
         $tuteurRepo = new TuteurRepository;
         $tuteur = $tuteurRepo->where(Tuteur::class,'id', $beneficiaires_tuteur->tuteur_id)->first();
         $typeHandicap = new TypeHandicapRepository;

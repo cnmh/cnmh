@@ -38,6 +38,7 @@
 
 <!-- Tuteur field -->
 
+@if(!empty($tuteur))
 <div class="form-group col-sm-6">
     {!! Form::label("Tuteur", __('Tuteur')) !!}
     <br>
@@ -51,20 +52,35 @@
        <a href="/tuteurs/{{$tuteur->id}}/edit" class="btn btn-primary ml-2">Edit</a>
     </div>
 </div>
+@endif
 
 
 <!-- Patient field -->
-<div class="form-group col-sm-6">
-    <label for="beneficiaire_select">Bénéficiaire</label>
-    <div class="d-flex">
-        <select name="patient_id" class="form-control" id="beneficiaire_select">
-            @foreach($patients_tuteur as $patienID)
-            <option value="{{ $patienID->id }}">{{ $patienID->nom }} {{ $patienID->prenom }}</option>
+@if($patients_tuteur instanceof \Illuminate\Support\Collection && $patients_tuteur->count() >= 1)
+    <div class="form-group col-sm-6">
+        <label for="beneficiaire_select">Bénéficiaire</label>
+        <div class="d-flex">
+            <select name="patient_id" class="form-control" id="beneficiaire_select">
+                @foreach($patients_tuteur as $patient)
+                    <option value="{{ $patient->id }}">{{ $patient->nom }} {{ $patient->prenom }}</option>
+                @endforeach
+            </select>
+            @foreach($patients_tuteur as $patient)
+                <a href="/patients/{{$patient->id}}/edit" class="btn btn-primary ml-2" id="editLink{{$patient->id}}">Edit</a>
             @endforeach
-        </select>
-        <a href="/patients/{{$patienID->id}}/edit" class="btn btn-primary ml-2" id="editLink">Edit</a>
+        </div>
     </div>
-</div>
+@elseif($patients_tuteur instanceof \App\Models\Patient)
+    <div class="form-group col-sm-6">
+        <label for="beneficiaire_select">Bénéficiaire</label>
+        <div class="d-flex">
+            <select name="patient_id" class="form-control" id="beneficiaire_select">
+                <option value="{{ $patients_tuteur->id }}">{{ $patients_tuteur->nom }} {{ $patients_tuteur->prenom }}</option>
+            </select>
+            <a href="/patients/{{$patients_tuteur->id}}/edit" class="btn btn-primary ml-2" id="editLink{{$patients_tuteur->id}}">Edit</a>
+        </div>
+    </div>
+@endif
 
 
 @endif
