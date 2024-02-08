@@ -1,7 +1,7 @@
 # parametre-admin
 
-## description
+## Description de bug
 
 - Parametre le path ne marche pas
 
-## Livrable
+## Solution

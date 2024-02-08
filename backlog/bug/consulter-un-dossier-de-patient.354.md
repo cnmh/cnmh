@@ -1,7 +1,9 @@
 # affichage-entretien-social
 
-## description
+## Description de bug
 
 - Patient doit avoir ses informations avec les information d'entretien social
 
-## Livrable
+## Solution
+
+- app/
