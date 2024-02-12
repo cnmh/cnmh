@@ -9,7 +9,7 @@ use App\Exports\ExportEtatCivil;
 use App\Http\Requests\CreateEtatCivilRequest;
 use App\Http\Requests\UpdateEtatCivilRequest;
 use App\Http\Controllers\AppBaseController;
-use App\Repositories\EtatCivilRepository;
+use App\Repositories\Parametres\EtatCivilRepository;
 use Illuminate\Http\Request;
 use Flash;
 

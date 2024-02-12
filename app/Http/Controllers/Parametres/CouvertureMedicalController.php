@@ -7,7 +7,7 @@ use App\Http\Requests\CreateCouvertureMedicalRequest;
 use App\Http\Requests\UpdateCouvertureMedicalRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Imports\ImportCouvertureMedical;
-use App\Repositories\CouvertureMedicalRepository;
+use App\Repositories\Parametres\CouvertureMedicalRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -43,6 +43,7 @@ class CouvertureMedicalController extends AppBaseController
             ->with('couvertureMedicals', $couvertureMedicals);
     }
 
+    
     /**
      * Show the form for creating a new CouvertureMedical.
      */
