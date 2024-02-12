@@ -166,12 +166,16 @@ class PatientController extends AppBaseController
 
             return redirect(route('patients.index'));
         }
-        if($patient){
+        else{
             $reclamation = Reclamation::where('patient_id',$patient->id)->first();
-            $reclamation->delete();
+            if($reclamation){
+                $reclamation->delete();
+            }
+
+            $this->patientRepository->delete($id);
+            Flash::success(__('messages.deleted', ['model' => __('models/patients.singular')]));
+            return back();
         }
-        $this->patientRepository->delete($id);
-        Flash::success(__('messages.deleted', ['model' => __('models/patients.singular')]));
-        return redirect(route('patients.index'));
+        
     }
 }
