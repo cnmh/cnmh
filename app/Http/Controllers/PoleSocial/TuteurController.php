@@ -153,7 +153,7 @@ class TuteurController extends AppBaseController
 
             return redirect(route('tuteurs.index'));
         }
-        if($tuteur){
+        else{
 
             $patientRepo = new PatientRepository;
             $patient = $patientRepo->where(Patient::class,'tuteur_id',$id)->first();
@@ -162,10 +162,12 @@ class TuteurController extends AppBaseController
                 Flash::error(__("Le tuteur a des patients associés. Supprimez d'abord le patient"));
                 return redirect(route('tuteurs.index'));
             }
-            
+
+            $this->tuteurRepository->delete($id);
+            Flash::success(__('messages.deleted', ['model' => __('models/tuteurs.singular')]));
+            return back();
         }
-        $this->tuteurRepository->delete($id);
-        Flash::success(__('messages.deleted', ['model' => __('models/tuteurs.singular')]));
-        return redirect(route('tuteurs.index'));
+            
     }
+        
 }
