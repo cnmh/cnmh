@@ -18,8 +18,7 @@
 
 <!-- Niveau Scolaire Id Field -->
 <div class="form-group col-sm-6">
-    <label for="niveau_scolaire_id">{!! __('models/patients.fields.niveau_scolaire_id') !!} <span
-            class="required-field">*</span></label>
+    <label for="niveau_scolaire_id">{!! __('models/patients.fields.niveau_scolaire_id') !!} <span class="required-field">*</span></label>
     {{ Form::select(
         'niveau_scolaire_id',
         ['' => '-- Sélectionner le niveau scolaire --'] + $niveau_s->pluck('nom', 'id')->toArray(),
@@ -59,10 +58,27 @@
 </div>
 
 <!-- data de naissance Field -->
-<div class="form-group col-sm-12 col-lg-12">
+<div class="form-group col-sm-6">
     {!! Form::label('Date de naissance', __('models/patients.fields.dataNaissance')) !!} <span class="required-field">*</span>
-    {!! Form::date('date_naissance', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535, 'required']) !!}
+    {!! Form::date('date_naissance', null, [
+        'id' => 'date_naissance_input',
+        'class' => 'form-control',
+        'maxlength' => 65535,
+        'maxlength' => 65535,
+        'required',
+    ]) !!}
 </div>
+<div class="form-group col-sm-6">
+    {!! Form::label('Age', __('models/patients.fields.age')) !!}
+    {!! Form::text('age', null, [
+        'id' => 'age',
+        'class' => 'form-control',
+        'maxlength' => 65535,
+        'maxlength' => 65535,
+        'readonly',
+    ]) !!}
+</div>
+
 
 <!-- Sexe Field -->
 @php
