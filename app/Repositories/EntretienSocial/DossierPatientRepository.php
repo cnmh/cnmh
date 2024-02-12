@@ -186,12 +186,20 @@ class DossierPatientRepository extends BaseRepository
         return Consultation::find($consultation);
     }
 
-    public function deleteDossierPatientConsultation($input){
+    public function deleteDossierPatientConsultation($input)
+    {
         $id = $input;
-        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id',$id)->first();
-        $delete =  $findDossierPatientConsultation->delete();
-        return $delete;
+        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
+
+
+        foreach ($findDossierPatientConsultation as $dossierPatientConsultation) {
+            $dossierPatientConsultation->delete();
+            $consultation = Consultation::find($dossierPatientConsultation->consultation_id);
+            $consultation->delete();
+        }
+        return true; 
     }
+
 
     public function deleteDossierPatient_typeHandycape($input){
         $id = $input;

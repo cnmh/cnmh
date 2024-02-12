@@ -294,6 +294,7 @@ class EntretienSocialController extends AppBaseController
     public function destroy($id)
     {
         $dossierPatient = $this->dossierPatientRepository->where(DossierPatient::class,'numero_dossier',$id)->first();
+
         $dossierPatientID = $dossierPatient->id;
 
         if ($dossierPatient) {
@@ -313,12 +314,9 @@ class EntretienSocialController extends AppBaseController
                         return back();
                     }
                     else {
-                    
                         $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientID);
                         $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($dossierPatientID);
-                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID);
-                        $this->dossierPatientRepository->deleteDossierFromListAttente($consultation);
-                        
+                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID); 
                     } 
 
                     $this->dossierPatientRepository->delete($dossierPatientID);
