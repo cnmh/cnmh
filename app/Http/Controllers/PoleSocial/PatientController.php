@@ -110,7 +110,7 @@ class PatientController extends AppBaseController
     public function edit($id , Request $request)
     {
         $patient = $this->patientRepository->find($id);
-        $previousUrl = $request->input('previous_url', route('dossier-patients.index'));
+        $previousUrl = $request->input('previous_url', route('dossier-patients.list'));
         $tuteurs = new TuteurRepository;
         $tuteur = $tuteurs->find($patient->tuteur_id);
         $niveauScolaire = new NiveauScolaireRepository;
@@ -147,7 +147,7 @@ class PatientController extends AppBaseController
         $numeroDossier = $dossier_patient->numero_dossier;
         Flash::success(__('messages.updated', ['model' => __('models/patients.singular')]));
         if (strpos($previousUrl, 'entretien-social') !== false) {
-            $redirectUrl = $previousUrl . '/'. $numeroDossier .'/edit';
+            $redirectUrl = $previousUrl . '/dossier-bénéficiaire/'. $numeroDossier .'/editer';
             return redirect($redirectUrl);
         }
         return redirect(route('patients.index'));

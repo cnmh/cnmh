@@ -102,7 +102,7 @@ class TuteurController extends AppBaseController
     public function edit($id , Request $request)
     {
         $tuteur = $this->tuteurRepository->find($id);
-        $previousUrl = $request->input('previous_url', route('dossier-patients.index')); 
+        $previousUrl = $request->input('previous_url', route('dossier-patients.list')); 
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
             return redirect(route('tuteurs.index'));
@@ -117,7 +117,6 @@ class TuteurController extends AppBaseController
      */
     public function update($id, Request $request)
     {
-        dd($id);
         $tuteur = $this->tuteurRepository->find($id);
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
@@ -134,7 +133,7 @@ class TuteurController extends AppBaseController
         Flash::success(__('messages.updated', ['model' => __('models/tuteurs.singular')]));
 
         if (strpos($previousUrl, 'entretien-social') !== false) {
-            $redirectUrl = $previousUrl . '/'. $numeroDossier .'/edit';
+            $redirectUrl = $previousUrl . '/dossier-bénéficiaire/'. $numeroDossier .'/editer';
             return redirect($redirectUrl);
         }
 
