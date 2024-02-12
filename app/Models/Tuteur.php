@@ -17,7 +17,11 @@ class Tuteur extends Model
         'email',
         'adresse',
         'cin',
-        'remarques'
+        'remarques',
+        'professionPere',
+        'professionMere',
+        'nombreDesEnfants',
+        'lienParente'
     ];
 
     protected $casts = [
@@ -41,6 +45,10 @@ class Tuteur extends Model
         'adresse' => 'required|string|max:255',
         'cin' => 'required|string|max:255',
         'remarques' => 'nullable|string|max:65535',
+        'professionPere'=> 'nullable|string|max:255',
+        'professionMere' => 'nullable|string|max:255',
+        'nombreDesEnfants' => 'nullable',
+        'lienParente' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];
