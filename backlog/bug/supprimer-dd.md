@@ -7,6 +7,7 @@ Lors de la modification d'un Tuteur dans la modification de dossier   :
 
 
 ## Production de l'erreur 
+- modifier  Tuteur 
 
 
 ## Solution
