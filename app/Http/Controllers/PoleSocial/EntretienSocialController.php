@@ -300,6 +300,7 @@ class EntretienSocialController extends AppBaseController
         if ($dossierPatient) {
             $OrientationExterne = $this->dossierPatientRepository->OrientationExterneFIND($dossierPatientID);
             $dossierPatientConsultation = $this->dossierPatientRepository->DossierPatient_consultationFIND($dossierPatientID);
+
             $DossierPatient_typeHandycape = $this->dossierPatientRepository->DossierPatient_typeHandycapFIND($dossierPatientID);
 
             if ($OrientationExterne) {

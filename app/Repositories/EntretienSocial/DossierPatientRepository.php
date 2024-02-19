@@ -16,6 +16,8 @@ use App\Models\DossierPatient_typeHandycape;
 use App\Models\Dossier_patient_service;
 use App\Models\DossierPatientConsultation;
 use App\Models\Consultation;
+use App\Models\Consultation_service;
+use App\Models\Consultation_type_handicap;
 use App\Models\OrientationExterne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -192,12 +194,30 @@ class DossierPatientRepository extends BaseRepository
         $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
 
 
+        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
+
         foreach ($findDossierPatientConsultation as $dossierPatientConsultation) {
-            $dossierPatientConsultation->delete();
+
+            $consultation_service = Consultation_service::find($dossierPatientConsultation->consultation_id);
+            if($consultation_service) {
+                $consultation_service->delete();
+            }
+            
+            $handicap_consultation = Consultation_type_handicap::find($dossierPatientConsultation->consultation_id);
+            if($handicap_consultation) {
+                $handicap_consultation->delete();
+            }
+
+            $dossierPatientConsultation->delete();            
             $consultation = Consultation::find($dossierPatientConsultation->consultation_id);
-            $consultation->delete();
+            if($consultation) {
+                $consultation->delete();
+            }
+        
         }
-        return true; 
+        
+        return true;
+        
     }
 
 
