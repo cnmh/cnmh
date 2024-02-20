@@ -32,11 +32,11 @@
         <!-- /.col -->
         <br>
         @include('PoleSocial.dossier_patients.show_partials.Patient_Tuteurs')
-    @include('PoleSocial.dossier_patients.show_partials.Entretien_Social')
     @include('PoleSocial.dossier_patients.show_partials.rendez_vous')
     @include('PoleSocial.dossier_patients.show_partials.liste_attente')
     @include('PoleSocial.dossier_patients.show_partials.inférmiere_medcine_général')
    {{-- @include('dossier_patients.show_partials.psychomotricite')
+    @include('PoleSocial.dossier_patients.show_partials.Entretien_Social')
     @include('PoleSocial.dossier_patients.show_partials.kinésithérapeute')
     @include('PoleSocial.dossier_patients.show_partials.orthophoniste')
     @include('PoleSocial.dossier_patients.show_partials.orthoptiste')

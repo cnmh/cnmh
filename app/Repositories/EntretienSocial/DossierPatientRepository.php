@@ -16,6 +16,8 @@ use App\Models\DossierPatient_typeHandycape;
 use App\Models\Dossier_patient_service;
 use App\Models\DossierPatientConsultation;
 use App\Models\Consultation;
+use App\Models\Consultation_service;
+use App\Models\Consultation_type_handicap;
 use App\Models\OrientationExterne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -186,12 +188,38 @@ class DossierPatientRepository extends BaseRepository
         return Consultation::find($consultation);
     }
 
-    public function deleteDossierPatientConsultation($input){
+    public function deleteDossierPatientConsultation($input)
+    {
         $id = $input;
-        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id',$id)->first();
-        $delete =  $findDossierPatientConsultation->delete();
-        return $delete;
+        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
+
+
+        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
+
+        foreach ($findDossierPatientConsultation as $dossierPatientConsultation) {
+
+            $consultation_service = Consultation_service::find($dossierPatientConsultation->consultation_id);
+            if($consultation_service) {
+                $consultation_service->delete();
+            }
+            
+            $handicap_consultation = Consultation_type_handicap::find($dossierPatientConsultation->consultation_id);
+            if($handicap_consultation) {
+                $handicap_consultation->delete();
+            }
+
+            $dossierPatientConsultation->delete();            
+            $consultation = Consultation::find($dossierPatientConsultation->consultation_id);
+            if($consultation) {
+                $consultation->delete();
+            }
+        
+        }
+        
+        return true;
+        
     }
+
 
     public function deleteDossierPatient_typeHandycape($input){
         $id = $input;

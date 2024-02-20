@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Parametres;
 use App\Exports\ServiceExport;
 use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
-use App\Repositories\ServiceRepository;
+use App\Repositories\Parametres\ServiceRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
