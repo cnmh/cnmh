@@ -125,7 +125,7 @@ class DossierPatientRepository extends BaseRepository
     }
 
     public function DossierPatient_consultationFIND($dossierPatientID){
-        return DossierPatientConsultation::where('dossier_patient_id',$dossierPatientID)->first();
+        return DossierPatientConsultation::where('dossier_patient_id',$dossierPatientID)->get();
     }
 
     public function ListAttenteFIND($id){
@@ -192,54 +192,34 @@ class DossierPatientRepository extends BaseRepository
     {
         $id = $input;
         $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
-
-
-        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
-
         foreach ($findDossierPatientConsultation as $dossierPatientConsultation) {
-
-            $consultation_service = Consultation_service::find($dossierPatientConsultation->consultation_id);
-            if($consultation_service) {
-                $consultation_service->delete();
-            }
-            
-            $handicap_consultation = Consultation_type_handicap::find($dossierPatientConsultation->consultation_id);
-            if($handicap_consultation) {
-                $handicap_consultation->delete();
-            }
-
-            $dossierPatientConsultation->delete();            
-            $consultation = Consultation::find($dossierPatientConsultation->consultation_id);
-            if($consultation) {
-                $consultation->delete();
-            }
-        
+            $dossierPatientConsultation->delete(); 
+            $consultation = Consultation::find($dossierPatientConsultation->consultation_id)->delete();           
         }
-        
-        return true;
-        
     }
 
 
     public function deleteDossierPatient_typeHandycape($input){
         $id = $input;
-        $findDossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id',$id)->first();
-        $delete =  $findDossierPatient_typeHandycape->delete();
-        return $delete;
+        $findDossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id',$id)->get();
+        foreach ($findDossierPatient_typeHandycape as $item) {
+            $item->delete();
+        }
     }
+    
 
     public function deleteDossierFromListAttente($input){
         $id = $input;
         $findConsultation = Consultation::find($id);
-        $delete =  $findConsultation->delete();
-        return $delete;
+        $findConsultation->delete();
     }
 
     public function deleteDossierPatient_service($input){
         $id = $input;
-        $findDossier_patient_service = Dossier_patient_service::where('dossier_patient_id',$id)->first();
-        $delete =  $findDossier_patient_service->delete();
-        return $delete;
+        $findDossier_patient_service = Dossier_patient_service::where('dossier_patient_id',$id)->get();
+        foreach ($findDossier_patient_service as $item) {
+            $item->delete();
+        }
     }
 
 
