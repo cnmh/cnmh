@@ -8,6 +8,7 @@
                     <th>Prénom</th>
                     <th>Date d'enregistrement</th>
                     <th>État</th>
+                    <th>Orientation</th>
                     <th colspan="3">Action</th>
                 </tr>
             </thead>
