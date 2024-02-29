@@ -32,6 +32,7 @@
                         En consultation
                         @endif
                     </td>
+                    <td>{{ $consultation->type }}</td>
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['consultations.supprimer', 'type' => App\Models\Consultation::OrientationType(), 'consultationID' => $consultation->id], 'method' => 'delete'])
                         !!}
