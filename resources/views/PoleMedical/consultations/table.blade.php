@@ -8,7 +8,6 @@
                     <th>Prénom</th>
                     <th>Date d'enregistrement</th>
                     <th>État</th>
-                    <th>Orientation</th>
                     <th colspan="3">Action</th>
                 </tr>
             </thead>
@@ -33,7 +32,6 @@
                         En consultation
                         @endif
                     </td>
-                    <td>{{ $consultation->type }}</td>
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['consultations.supprimer', 'type' => App\Models\Consultation::OrientationType(), 'consultationID' => $consultation->id], 'method' => 'delete'])
                         !!}
