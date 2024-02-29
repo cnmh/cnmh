@@ -112,8 +112,8 @@ class DossierPatientRepository extends BaseRepository
                 ->select('patients.id as patientID', 'patients.*', 'dossier_patients.numero_dossier as dossier_id');
         })
         ->where('patients.nom', 'like', '%' . $search . '%')
-        ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')->orderBy('dossier_patients.numero_dossier')
-        ->paginate();
+        ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')->orderBy('dossier_patients.numero_dossier','DESC')
+        ->paginate(10);
     }
 
     public function DossierPatient_typeHandycapFIND($dossierPatientID){

@@ -55,7 +55,10 @@ class EntretienSocialController extends AppBaseController
      * Phase 1 : Choix ou création du tuteur
     */
     public function FormSelectTuteur(Request $request){
-
+        $query = $request->input('query');
+        $tuteurRepository = new TuteurRepository;
+        $tuteurs = $tuteurRepository->paginate($query);
+        
         if ($request->ajax()) {
             $search = $request->get('query');
             if($search != ""){
@@ -66,16 +69,17 @@ class EntretienSocialController extends AppBaseController
             }
             
         }
-        $query = $request->input('query');
-        $tuteurRepository = new TuteurRepository;
-        $tuteurs = $tuteurRepository->paginate($query);
+       
         return view('PoleSocial.dossier_patients.parent', compact("tuteurs"));
     }
 
     // pass tuteur a patient
     public function SelectTuteur(Request $request){
         if(empty($request->tuteurID)){
-            return back();
+            return redirect()->route('FormSelect.bénéficiaires', $request->parentRadio)->with('tuteur_id',$request->parentRadio);
+            if(empty($request->parentRadio)){
+                return back();
+            }
         }
         return redirect()->route('FormSelect.bénéficiaires', $request->tuteurID)->with('tuteur_id',$request->tuteurID);
     }
