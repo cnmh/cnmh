@@ -197,6 +197,7 @@
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
                                                 <th>Téléphone</th>
+                                                <th>Orientation</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -217,6 +218,7 @@
                                                     <td>{{ $dossier_patient->nom }}</td>
                                                     <td>{{ $dossier_patient->prenom }}</td>
                                                     <td>{{ $dossier_patient->telephone }}</td>
+                                                    <td>{{ $dossier_patient->type }}</td>
                                                 </tr>
                                                 {{-- <input type="hidden" name="consultation_id" value="{{$dossier_patient->consultation_id}}" > --}}
 

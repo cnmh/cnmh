@@ -196,10 +196,7 @@ class ConsultationMedecinRepository extends BaseRepository
                 $consultations = Consultation::find($item->consultation_id)->delete();
             }
         }
-
         
-    
-        return true; 
     }
     
 

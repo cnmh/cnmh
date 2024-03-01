@@ -304,27 +304,63 @@ class EntretienSocialController extends AppBaseController
         if ($dossierPatient) {
             $OrientationExterne = $this->dossierPatientRepository->OrientationExterneFIND($dossierPatientID);
             $dossierPatientConsultation = $this->dossierPatientRepository->DossierPatient_consultationFIND($dossierPatientID);
-
             $DossierPatient_typeHandycape = $this->dossierPatientRepository->DossierPatient_typeHandycapFIND($dossierPatientID);
 
             if ($OrientationExterne) {
                 Flash::error(__('messages.cannotDeleted', ['model' => __('models/dossierPatients.OrientationExterne')]));
             } else {
+                   
+                   $consultationsDossier = [];
+                   foreach ($dossierPatientConsultation as $item) {
+                       $consultationsDossier[] = $item->consultation_id;
+                   }
 
-                    $consultation = $dossierPatientConsultation->consultation_id;
-                    $consultations = $this->dossierPatientRepository->ConsultationFIND($consultation);
-                    $consultationEtat = $consultations->etat;
-                    if($consultationEtat === 'enRendezVous' || $consultationEtat === 'enConsultation'){
-                        Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                   $consultations = [];
+                   
+                   foreach ($consultationsDossier as $items) {
+                      $consultations[] = $this->dossierPatientRepository->ConsultationFIND($items);
+                   }
+
+
+                    foreach ($consultations as $item) {
+                        $consultationEtat = $item->etat;
+                        if($consultationEtat === 'enRendezVous' || $consultationEtat === 'enConsultation'){
+                            Flash::error(__('messages.cannotDeletedEnCounsultation', ['model' => __('models/dossierPatients.enconsultation')]));
+                            return back();
+                        }
+                        else {
+                           $findDossier_patient_service = $this->dossierPatientRepository->DossierPatient_serviceFIND($dossierPatientID);
+                           $findDossier_patient_handicap = $this->dossierPatientRepository->DossierPatient_typeHandycapFIND($dossierPatientID);
+
+                           if(!empty($findDossier_patient_service) || !empty($findDossier_patient_handicap)){
+                                $Dossier_patient_service = $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID);
+                                $Dossier_patient_handicape = $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($dossierPatientID);
+                                $Dossier_patient_consultation = $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientID);
+                            }
+
+                        
+                        } 
+
+                    }
+
+                    $Dossier_patient = $this->dossierPatientRepository->delete($dossierPatientID);
+
+                    if (empty($dossierPatient)) {
+                        Flash::error(__('models/dossierPatients.singular') . ' ' . __('messages.not_found'));
                         return back();
                     }
-                    else {
-                        $this->dossierPatientRepository->deleteDossierPatientConsultation($dossierPatientID);
-                        $this->dossierPatientRepository->deleteDossierPatient_typeHandycape($dossierPatientID);
-                        $this->dossierPatientRepository->deleteDossierPatient_service($dossierPatientID); 
-                    } 
 
-                    $this->dossierPatientRepository->delete($dossierPatientID);
+                    Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
+                    return redirect(route('dossier-patients.list'));
+
+
+                   
+
+
+
+
+                   
+
                     Flash::success(__('messages.deleted', ['model' => __('models/dossierPatients.singular')]));
             }
         }
