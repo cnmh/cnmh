@@ -80,10 +80,17 @@ class ConsultationMedecinRepository extends BaseRepository
     public function ConsultationAjouter($input, $dossier_patient_id, $type)
     {
         $now = Carbon::now();
-        $orientations = Service::where('id', $input)->get();
+        $services = $input;
+        $orientations_list = [];
+
+        foreach($services as $item){
+            $orientations = Service::find($item);
+            $orientations_list[] = $orientations;
+        }
+
         $consultations = [];
 
-        foreach ($orientations as $orientation) {
+        foreach ($orientations_list as $orientation) {
             $consultation = $this->model->create([
                 'date_enregistrement' => $now,
                 'date_consultation' => null,
@@ -153,13 +160,45 @@ class ConsultationMedecinRepository extends BaseRepository
 
     public function ConsultationTypeHandicapDelete($id){
 
-        return Consultation_type_handicap::where('consultation_id',$id)->first()->delete();
+        $dossierPatient = DossierPatientConsultation::where('consultation_id',$id)->first();
+        $allConsultation = Consultation_type_handicap::where('consultation_id',$dossierPatient->consultation_id)->get();
+        foreach($allConsultation as $consultationHandicap){
+            $consultationHandicap->delete();
+        }
+        return true;
         
     }
 
-    public function ConsultationServiceDelete($id){
-        return Consultation_service::where('consultation_id',$id)->first()->delete();
+    public function ConsultationServiceDelete($id) {
+        $dossierPatient = DossierPatientConsultation::where('consultation_id', $id)->first();
+
+        $dossierPatient_id = $dossierPatient->dossier_patient_id;
+        if (!$dossierPatient) {
+        
+            return false; 
+        }
+    
+       
+        $allConsultation = Consultation_service::where('consultation_id',$dossierPatient->consultation_id)->get();
+    
+        foreach ($allConsultation as $consultationService) {
+            $consultationService->delete();
+        }
+
+      
+        if ($dossierPatient) {            
+            $dossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $dossierPatient_id)
+                ->where('id', '!=', $dossierPatient->id) 
+                ->get();
+            
+            foreach ($dossierPatientConsultation as $item) {
+                $item->delete();
+                $consultations = Consultation::find($item->consultation_id)->delete();
+            }
+        }
+        
     }
+    
 
     
 

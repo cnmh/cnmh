@@ -16,6 +16,8 @@ use App\Models\DossierPatient_typeHandycape;
 use App\Models\Dossier_patient_service;
 use App\Models\DossierPatientConsultation;
 use App\Models\Consultation;
+use App\Models\Consultation_service;
+use App\Models\Consultation_type_handicap;
 use App\Models\OrientationExterne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -110,8 +112,8 @@ class DossierPatientRepository extends BaseRepository
                 ->select('patients.id as patientID', 'patients.*', 'dossier_patients.numero_dossier as dossier_id');
         })
         ->where('patients.nom', 'like', '%' . $search . '%')
-        ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')->orderBy('dossier_patients.numero_dossier')
-        ->paginate();
+        ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%')->orderBy('dossier_patients.numero_dossier','DESC')
+        ->paginate(10);
     }
 
     public function DossierPatient_typeHandycapFIND($dossierPatientID){
@@ -123,7 +125,7 @@ class DossierPatientRepository extends BaseRepository
     }
 
     public function DossierPatient_consultationFIND($dossierPatientID){
-        return DossierPatientConsultation::where('dossier_patient_id',$dossierPatientID)->first();
+        return DossierPatientConsultation::where('dossier_patient_id',$dossierPatientID)->get();
     }
 
     public function ListAttenteFIND($id){
@@ -186,32 +188,38 @@ class DossierPatientRepository extends BaseRepository
         return Consultation::find($consultation);
     }
 
-    public function deleteDossierPatientConsultation($input){
+    public function deleteDossierPatientConsultation($input)
+    {
         $id = $input;
-        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id',$id)->first();
-        $delete =  $findDossierPatientConsultation->delete();
-        return $delete;
+        $findDossierPatientConsultation = DossierPatientConsultation::where('dossier_patient_id', $id)->get();
+        foreach ($findDossierPatientConsultation as $dossierPatientConsultation) {
+            $dossierPatientConsultation->delete(); 
+            $consultation = Consultation::find($dossierPatientConsultation->consultation_id)->delete();           
+        }
     }
+
 
     public function deleteDossierPatient_typeHandycape($input){
         $id = $input;
-        $findDossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id',$id)->first();
-        $delete =  $findDossierPatient_typeHandycape->delete();
-        return $delete;
+        $findDossierPatient_typeHandycape = DossierPatient_typeHandycape::where('dossier_patient_id',$id)->get();
+        foreach ($findDossierPatient_typeHandycape as $item) {
+            $item->delete();
+        }
     }
+    
 
     public function deleteDossierFromListAttente($input){
         $id = $input;
         $findConsultation = Consultation::find($id);
-        $delete =  $findConsultation->delete();
-        return $delete;
+        $findConsultation->delete();
     }
 
     public function deleteDossierPatient_service($input){
         $id = $input;
-        $findDossier_patient_service = Dossier_patient_service::where('dossier_patient_id',$id)->first();
-        $delete =  $findDossier_patient_service->delete();
-        return $delete;
+        $findDossier_patient_service = Dossier_patient_service::where('dossier_patient_id',$id)->get();
+        foreach ($findDossier_patient_service as $item) {
+            $item->delete();
+        }
     }
 
 

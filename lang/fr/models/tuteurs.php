@@ -17,6 +17,10 @@ return [
     'remarques' => 'Remarque',
     'created_at' => 'Créé le',
     'updated_at' => 'Mis à jour le',
+    'enfants' => 'Nombre des enfants',
+    'professionMere' => 'Profession de mére',
+    'professionPere'=> 'Profession de pére',
+    'lienParente'=> 'Lien de parenté',
     ],
 
 

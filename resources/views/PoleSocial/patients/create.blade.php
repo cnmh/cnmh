@@ -72,4 +72,23 @@ $(document).ready(function() {
     $('.dropdown-toggle').dropdown();
 });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var date_naissance = document.getElementById('date_naissance_input');
+        date_naissance.addEventListener('change', function() {
+            var dateNaissance = new Date(date_naissance.value);
+            var now = new Date();
+            var age = now.getFullYear() - dateNaissance.getFullYear();
+            var ageCalcule = now.getMonth() - dateNaissance.getMonth();
+            if (age < 0) {
+                age = "La date de naissance n\est pas compatible"
+            }else if(age === 0 && now.getDate() > dateNaissance.getDate()){
+                age = ageCalcule +" "+"Mois";
+            }else{
+                age = age +" "+"Ans";
+            }
+            document.getElementById('age').value = age;
+        });
+    });
+</script>
 @endpush

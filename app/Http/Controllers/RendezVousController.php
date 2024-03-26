@@ -187,22 +187,19 @@ class RendezVousController extends AppBaseController
             if($user->name === 'Medecin générale'){
 
                 $consultation = Consultation::where('id', $id)->first();
-    
-                $consultation->update([
-                    'etat' => 'enAttente'
-                ]);
-        
-                $rendezVous_consultation = $this->rendezVousRepository->where(RendezVous::class,'consultation_id',$consultation->id)->first();
+                if(!empty($consultation)){
 
-                if(empty($rendezVous_consultation)){
-                    Flash::error(__('models/rendezVouses.singular').' '.__('messages.not_found'));
+                    $consultation->update([
+                        'etat' => 'enAttente'
+                    ]);
+                    $rendezVous_consultation = $this->rendezVousRepository->where(RendezVous::class,'consultation_id',$consultation->id)->first();
+                    if(empty($rendezVous_consultation)){
+                        Flash::error(__('models/rendezVouses.singular').' '.__('messages.not_found'));
+                        return back();
+                    }
+                    $this->rendezVousRepository->delete($rendezVous_consultation->id);
                     return back();
                 }
-    
-                $this->rendezVousRepository->delete($rendezVous_consultation->id);
-    
-                return back();
-    
             }
 
             Flash::error(__('models/rendezVouses.singular').' '.__('messages.not_found'));

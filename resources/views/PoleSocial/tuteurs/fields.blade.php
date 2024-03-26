@@ -42,7 +42,7 @@
     {!! Form::label('etat_civil_id', __('models/tuteurs.fields.etat_civil_id') . ':') !!}<span class="required-field">*</span></label>
     {{ Form::select(
         'etat_civil_id',
-        ['' => "-- Sélectionner l'état civil  --"] + ($etat_civil ? $etat_civil->pluck('nom', 'id')->toArray() : []),
+        ['' => "Sélectionner l'état civil"] + ($etat_civil ? $etat_civil->pluck('nom', 'id')->toArray() : []),
         old('etat_civil_id'),
         ['class' => 'form-control', 'required'],
     ) }}
@@ -91,6 +91,47 @@
     ]) !!}
 </div>
 
+<!-- Profession Fields -->
+
+<div class="form-group col-sm-6">
+    {!! Form::label('professionPere', __('models/tuteurs.fields.professionPere') . ':') !!}
+    {!! Form::text('professionPere', old('professionPere'), [
+        'class' => 'form-control',
+        'maxlength' => 255,
+    ]) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('professionMere', __('models/tuteurs.fields.professionMere') . ':') !!}
+    {!! Form::text('professionMere', old('professionMere'), [
+        'class' => 'form-control',
+        'maxlength' => 255,
+    ]) !!}
+</div>
+
+<!-- Nombre des enfants Field -->
+
+<div class="form-group col-sm-6">
+    {!! Form::label('nombreDesEnfants', __('models/tuteurs.fields.enfants') . ':') !!}
+    {!! Form::number('nombreDesEnfants', old('nombreDesEnfants'), [
+        'class' => 'form-control',
+        'maxlength' => 255,
+    ]) !!}
+</div>
+
+<!-- Lien de parente Field -->
+
+<div class="form-group col-sm-6">
+    {!! Form::label('lienParente', __('models/tuteurs.fields.lienParente') . ':') !!}
+    {{ Form::select(
+        'lienParente',
+        ['' => "Sélectionner le lien de parenté", "Mère" => "Mère","Père" => "Père", "Frère" => "Frère", "Sœur" => "Sœur"],
+        old('lienParente'),
+        ['class' => 'form-control']
+    ) }}
+</div>
+
+
 <!-- Remarques Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('remarques', __('models/tuteurs.fields.remarques') . ':') !!}
@@ -101,3 +142,4 @@
         'maxlength' => 65535,
     ]) !!}
 </div>
+
