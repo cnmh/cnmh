@@ -11,4 +11,5 @@ return [
     'updated_at' => 'Mis à jour le',
     ],
     'summerNote-placeholder' => 'Saisir une description du service.',
+    'typehandicap_already_existe' => 'Ce typehandicap existe déjà'
 ];

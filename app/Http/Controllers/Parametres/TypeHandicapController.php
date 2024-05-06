@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Flash;
 use Illuminate\Support\Facades\Gate;
+use App\Exceptions\Parametres\TypeHandicapAlreadyExisteException;
+
 
 
 /**
@@ -74,13 +76,17 @@ class TypeHandicapController extends AppBaseController
     public function store(CreateTypeHandicapRequest $request)
     {
 
-        $input = $request->all();
+        try {
 
-        $typeHandicap = $this->typeHandicapRepository->create($input);
-
-        Flash::success(__('messages.saved', ['model' => __('models/typeHandicaps.singular')]));
-
-        return redirect(route('typeHandicaps.index'));
+            $input = $request->all();
+            $typeHandicap = $this->typeHandicapRepository->create($input);
+            Flash::success(__('messages.saved', ['model' => __('models/typeHandicaps.singular')]));
+            return redirect(route('typeHandicaps.index'));
+        } catch (TypeHandicapAlreadyExisteException $e) {
+            return back()->withInput()->withErrors(['error' => __('models/models/typeHandicaps.typehandicap_already_existe')]);
+        } catch (\Exception $e) {
+            return abort(500);
+        }
     }
 
     /**
