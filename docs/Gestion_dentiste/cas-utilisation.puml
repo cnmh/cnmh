@@ -1,0 +1,17 @@
+@startuml Gestion_dentiste
+
+left to right direction
+
+actor Dentiste as dentiste
+
+package "Gestion_dentiste" {
+
+  dentiste -- (Authentification)
+  dentiste -- (Consulter des statistiques)
+
+  (Gestion des consultations) <|-- (Gestion Séance) : extends
+  (Gestion des consultations) -- (Authentification) : include
+  (Consulter des statistiques) -- (Authentification) : include
+}
+
+@enduml
