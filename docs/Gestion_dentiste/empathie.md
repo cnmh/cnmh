@@ -8,9 +8,9 @@ order: 3
 ---
 
 
-# Empathie
+## Empathie
 
-![alt text](/cnmh/Gestion_dentiste/images/empathie.svg)
+![alt text](/cnmh/Gestion_dentiste/images/empathie.svg){:width="50%"}*figure: Empathie*
 
 
 <!-- note -->
