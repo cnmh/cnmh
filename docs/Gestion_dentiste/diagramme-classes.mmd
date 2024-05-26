@@ -1,0 +1,30 @@
+classDiagram 
+
+namespace Gestion_dentiste {
+  class Consultation {
+    id : int
+    date_enregistrement : dateTime
+    date_consultation : dateTime
+    observation : text
+    diagnostic : text
+    bilan : text
+    type : text
+    etat : text
+  }
+  class Rendez-vous {
+    id : intj
+    date_rendez_vous : dateTime
+    etat : string
+    remarques : text
+  }
+
+  class Seance {
+    id : int
+    etat : string
+  }
+}
+
+Consultation "1" --> "*" Rendez-vous
+Consultation "1" --> "*" Seance
+
+ 
