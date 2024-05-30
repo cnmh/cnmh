@@ -6,7 +6,7 @@ actor Dentiste as dentiste
 
 package "Gestion_dentiste" {
 
-  dentiste -- (Authentification)
+  dentiste -- (Gestion des consultations)
   dentiste -- (Consulter des statistiques)
 
   (Gestion des consultations) <|-- (Gestion Séance) : extends
