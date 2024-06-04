@@ -8,7 +8,7 @@
                     <h5>
                         @lang('crud.details')
                         @if (app()->getLocale() == 'fr')
-                           de la {{ strtolower(__('models/consultations.singular')) }} {{ App\Models\Consultation::OrientationType()}}
+                           de la {{ strtolower(__('models/consultations.singular')) }} {{ App\Models\Consultation\Consultation::OrientationType()}}
                         @else
                             {{ strtolower(__('models/consultations.singular')) }}
                         @endif
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('consultations.list',  App\Models\Consultation::OrientationType()) }}">
+                       href="{{ route('consultations.list',  App\Models\Consultation\Consultation::OrientationType()) }}">
                                                     @lang('crud.back')
                                             </a>
                 </div>
@@ -28,7 +28,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('PoleMedical.consultations.show_fields')
+                    @include('Consultations.show_fields')
                 </div>
             </div>
         </div>

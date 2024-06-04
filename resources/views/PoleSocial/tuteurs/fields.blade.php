@@ -97,6 +97,7 @@
     {!! Form::label('professionPere', __('models/tuteurs.fields.professionPere') . ':') !!}
     {!! Form::text('professionPere', old('professionPere'), [
         'class' => 'form-control',
+        'required' => true,
         'maxlength' => 255,
     ]) !!}
 </div>
@@ -105,6 +106,7 @@
     {!! Form::label('professionMere', __('models/tuteurs.fields.professionMere') . ':') !!}
     {!! Form::text('professionMere', old('professionMere'), [
         'class' => 'form-control',
+        'required' => true,
         'maxlength' => 255,
     ]) !!}
 </div>
@@ -115,6 +117,7 @@
     {!! Form::label('nombreDesEnfants', __('models/tuteurs.fields.enfants') . ':') !!}
     {!! Form::number('nombreDesEnfants', old('nombreDesEnfants'), [
         'class' => 'form-control',
+        'required' => true,
         'maxlength' => 255,
     ]) !!}
 </div>

@@ -20,7 +20,7 @@
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
-            <a href="/Pôle-medical/{{ \App\Models\Consultation::SocialType() }}/Consultations" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
+            <a href="/Pôle-medical/{{ \App\Models\Consultation\Consultation::SocialType() }}/Consultations" class="nav-link {{ Route::is('consultations.index' . '*') ? 'active' : '' }}">
                 <p>Liste d'attente médecin</p>
             </a>
         </li>
@@ -42,16 +42,28 @@
     <a href="#" class="nav-link ">
     <i class="fa-solid fa-hospital-user"></i>
         <p class="pl-2">
-            {{ \App\Models\Consultation::OrientationType() }}
+            {{ \App\Models\Consultation\Consultation::OrientationType() }}
         </p>
     </a>
     <ul class="nav nav-treeview" style="">
         <li class="nav-item">
+            @if(\App\Models\Consultation\Consultation::OrientationType()==="Médecin-général")
+                <a href="{{ route('consultations.list') }}" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
+                    <p>Consultation </p>
+                </a>
+            @else
 
-            <a href="{{ route('consultations.list' , \App\Models\Consultation::OrientationType()) }}" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
-
+            <a href="{{ route(\App\Models\Consultation\Consultation::OrientationType().'.list') }}" class="nav-link {{ Route::is('consultations.list' . '*') ? 'active' : '' }}">
                 <p>Consultation </p>
             </a>
+            @endif
+        </li>
+        <li class="nav-item">
+            @if(\App\Models\Consultation\Consultation::OrientationType() !== "Médecin-général")
+                <a href="{{ route(\App\Models\Consultation\Consultation::OrientationType().'.seance') }}" class="nav-link {{ Route::is(route(\App\Models\Consultation\Consultation::OrientationType().'.seance') . '*') ? 'active' : '' }}">
+                    <p>Suiver seance </p>
+                </a>
+            @endif
         </li>
     </ul>
     

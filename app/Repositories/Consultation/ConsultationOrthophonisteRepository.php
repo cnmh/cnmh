@@ -2,14 +2,11 @@
 
 namespace App\Repositories\Consultation;
 
-use App\Models\ConsultationOrthophoniste;
-use App\Models\Consultation;
+use App\Models\Consultation\ConsultationOrthophoniste;
+use App\Models\Consultation\Consultation;
 use App\Repositories\BaseRepository;
 use App\Models\DossierPatientConsultation;
-use App\Models\Service;
-use App\Models\Consultation_service;
-use App\Models\Consultation_type_handicap;
-use Carbon\Carbon;
+use App\Models\Consultation\Seance;
 
 
 class ConsultationOrthophonisteRepository extends BaseRepository
@@ -67,7 +64,9 @@ class ConsultationOrthophonisteRepository extends BaseRepository
     public function ConsultationUpdate($input)
     {
         $consultationID = $input['consultation_id'];
-        return ConsultationOrthophoniste::find($consultationID)->update([
+    
+        $consultation = Consultation::find($consultationID);
+        $consultation->update([
             "date_enregistrement" => $input['date_enregistrement'],
             "date_consultation" => $input['date_consultation'],
             "observation" => $input['observation'],
@@ -75,95 +74,75 @@ class ConsultationOrthophonisteRepository extends BaseRepository
             "bilan" => $input['bilan'],
             "etat" => Consultation::ETAT_CONSULTATION
         ]);
-    }
-
-    public function ConsultationAjouter($input, $dossier_patient_id, $type)
-    {
-        $now = Carbon::now();
-        $orientations = Service::where('id', $input)->get();
-        $consultations = [];
-
-        foreach ($orientations as $orientation) {
-            $consultation = $this->model->create([
-                'date_enregistrement' => $now,
-                'date_consultation' => null,
-                'observation' => null,
-                'diagnostic' => null,
-                'bilan' => null,
-                'type' => $orientation->nom,
-                'etat' => Consultation::ETAT_EN_ATTENTE,
-            ]);
-
-            $consultationID = $consultation->id;
-            $this->ajouterDossier_patient_consultation($consultationID, $dossier_patient_id);
-            $consultations[] = $consultation;
-        }
-
-        return $consultations;
-    }
-
-    public function ajouterDossier_patient_consultation($consultationID,$dossier_patient_id){
-        return DossierPatientConsultation::create([
-            'dossier_patient_id' => $dossier_patient_id,
-            'consultation_id' => $consultationID,
-        ]);
-    }
-
-    public function AjouterConsultationService($consultationID, $input)
-    {
-        $service_ids = $input;
-        
-        foreach ($service_ids as $service_id) {
-            $service = new Consultation_service;
-            $service->service_id = $service_id;
-            $service->consultation_id = $consultationID;
-            $service->save();
-        }
     
-        return $consultationID; 
-    }
+        for ($i = 1; $i <= $input['nombre_seance']; $i++) {
+            $dateSeanceKey = 'date_seance' . $i;
+            if (isset($input[$dateSeanceKey])) {
+                $dateSeance = $input[$dateSeanceKey];
+                $rendezVous = new RendezVous();
+                $rendezVous->date_rendez_vous = $dateSeance;
+                $rendezVous->consultation_id = $consultationID;
+                $rendezVous->etat = 'Planifier';
+                $rendezVous->save();
 
-    public function AjouterConsultationHandicap($consultationID, $input)
-    {
-        $typeHandicapIDs = $input;
-        
-        foreach ($typeHandicapIDs as $typeHandycapeID) {
-            $consultation_typeHandycape = new Consultation_type_handicap;
-            $consultation_typeHandycape->type_handicap_id = $typeHandycapeID;
-            $consultation_typeHandycape->consultation_id = $consultationID;
-            $consultation_typeHandycape->save();
+                $seance = new Seance();
+                $seance->consultation_id = $consultationID;
+                $seance->rendezVous_id = $rendezVous->id;
+                $seance->etat = "";
+                $seance->save();
+            }
         }
-
-        return $consultationID;
     }
 
-    public function ConsultationModifier($type,$id)
+    public function seance($input) {
+        $orientation = $input;
+        return Seance::join('consultations', 'seances.consultation_id', '=', 'consultations.id')
+        ->join('rendez_vous', 'seances.rendezVous_id', '=', 'rendez_vous.id')
+        ->join('dossier_patient_consultation', 'consultations.id', '=', 'dossier_patient_consultation.consultation_id')
+        ->join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+        ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+        ->where('consultations.type', $orientation)
+        ->select('patients.nom', 'patients.prenom', 'dossier_patients.numero_dossier', 'rendez_vous.date_rendez_vous', 'seances.rendezVous_id', 'seances.etat')
+        ->paginate();
+    }
+
+    public function searchData($search, $type)
     {
-        return ConsultationOrthophoniste::find($id)->update([
-            "date_consultation" => null,
-            "observation" => null,
-            "diagnostic" => null,
-            "bilan" => null,
-            'type' => $type,
-            "etat" => Consultation::ETAT_EN_RENDEZVOUS
+        return Seance::join('consultations', 'seances.consultation_id', '=', 'consultations.id')
+            ->join('rendez_vous', 'seances.rendezVous_id', '=', 'rendez_vous.id')
+            ->join('dossier_patient_consultation', 'consultations.id', '=', 'dossier_patient_consultation.consultation_id')
+            ->join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
+            ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
+            ->where('consultations.type', $type)
+            ->where(function ($query) use ($search) {
+                $query->where('patients.nom', 'like', '%' . $search . '%')
+                    ->orWhere('patients.prenom', 'like', '%' . $search . '%')
+                    ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%');
+            })
+            ->select('patients.nom', 'patients.prenom', 'dossier_patients.numero_dossier', 'rendez_vous.date_rendez_vous', 'seances.rendezVous_id', 'seances.etat')
+            ->paginate();
+    }
+
+    public function seanceUpdate($etat,$id){
+        $seance = Seance::find($id);
+        return $seance->update([
+            'etat' => $etat
         ]);
-
     }
 
-    public function ConsultationTypeHandicapDelete($id){
-        return Consultation_type_handicap::where('consultation_id',$id)->first()->delete();
+    public function seanceEdit($id)
+    {
+        $seances = Seance::where('consultation_id', $id)->get();
+        $rendezVous = [];
+        foreach ($seances as $seance) {
+            $rendezVous[] = RendezVous::find($seance->rendezVous_id);
+        }
+        return $rendezVous;
     }
-
-    public function ConsultationServiceDelete($id){
-        return Consultation_service::where('consultation_id',$id)->first()->delete();
-    }
-
-   
-
 
 
     public function model(): string
     {
-        return Consultation::class;
+        return ConsultationOrthophoniste::class;
     }
 }

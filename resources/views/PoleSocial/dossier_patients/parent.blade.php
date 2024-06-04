@@ -202,8 +202,6 @@
                         var row = '<tr>';
                         var rowData = data[i];
 
-                        var tuteurID = rowData.id;
-
                         row += '<td><input type="radio" name="parentRadio" value="' + rowData.id + '" ' + (rowData.id == tuteurId ? 'checked' : '') + '></td>';
                         row += '<td>' + rowData.tuteur_nom + '</td>';
                         row += '<td>' + rowData.prenom + '</td>';
@@ -216,13 +214,13 @@
                         row += '<div class="btn-group">';
 
                         row += '@can("show-Tuteur")';
-                        row += '<a href="{{ route("tuteurs.show", ["tuteur" => ' + tuteurID + ']) }}" class="btn btn-default btn-sm">';
+                        row += '<a href="{{ route("tuteurs.show", ["tuteur" => ' + rowData.id + ']) }}" class="btn btn-default btn-sm">';
                         row += '<i class="far fa-eye"></i>';
                         row += '</a>';
                         row += '@endcan';
 
                         row += '@can("edit-Tuteur")';
-                        row += '<a href="/tuteurs/' + tuteurID + '/edit" class="btn btn-default btn-sm">';
+                        row += '<a href="{{ route("tuteurs.edit", ["tuteur" => ' + rowData.id + ']) }}" class="btn btn-default btn-sm">';
                         row += '<i class="far fa-edit"></i>';
                         row += '</a>';
                         row += '@endcan';
@@ -252,14 +250,19 @@
 
         $('body').on('click', '.pagination li', function(event) {
             event.preventDefault();
-            var page = $(this).find('.page-link').attr('page-number');
-            var search = $('#search').val();
-            fetch_data(page, search);
+            var pageButton = $(this).find('.page-link');
+            if (pageButton.length) {
+                var page = pageButton.attr('page-number');
+                var search = $('#searchTuteur').val();
+                fetch_data(page, search);
+            }
         });
 
         $('body').on('keyup', '#searchTuteur', function() {
             var search = $('#searchTuteur').val();
             var page = 1;
+
+            console.log(search);
             fetch_data(page, search);
         });
 

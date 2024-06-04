@@ -7,22 +7,26 @@
         <div class="row mb-2">
             <div class="col-sm-6">
 
-            @if (App\Models\Consultation::SocialType() == "Liste-d'attente")
+            @if (App\Models\Consultation\Consultation::SocialType() == "Liste-d'attente")
                 <h1>List d'attente</h1>
             @else
-                <h1>Consultations {{ App\Models\Consultation::OrientationType() }}</h1>
+                <h1>Consultations {{ App\Models\Consultation\Consultation::OrientationType() }}</h1>
             @endif
 
                
             </div>
-            @if ( App\Models\Consultation::SocialType() == "Liste-d'attente")
-
+            @if(\App\Models\Consultation\Consultation::OrientationType()==="Médecin-général")
+                <div class="col-sm-6">
+                    <a class="btn btn-primary float-right" href="{{ route('consultations.rendezvous') }}">
+                        @lang('crud.add_new') Consultation
+                    </a>
+                </div>
             @else
-            <div class="col-sm-6">
-                <a class="btn btn-primary float-right" href="{{ route('consultations.rendezvous', App\Models\Consultation::OrientationType() ) }}">
-                    @lang('crud.add_new') Consultation
-                </a>
-            </div>
+                <div class="col-sm-6">
+                    <a class="btn btn-primary float-right" href="{{ route(\App\Models\Consultation\Consultation::OrientationType().'.rendezvous') }}">
+                        @lang('crud.add_new') Consultation
+                    </a>
+                </div>
             @endif
         </div>
     </div>
@@ -68,7 +72,7 @@
     </div>
 
     <div class="card" id="table-container">
-        @include('PoleMedical.consultations.table')
+        @include('Consultations.table')
     </div>
 </div>
 
@@ -76,16 +80,16 @@
 $(document).ready(function() {
     function fetch_data(page, search) {
     var modelName = "liste-d'attente"; 
-    var typeSocial = "<?php echo App\Models\Consultation::SocialType(); ?>";
+    var typeSocial = "<?php echo App\Models\Consultation\Consultation::SocialType(); ?>";
 
     if (typeSocial != "") {
-        var type = "<?php echo App\Models\Consultation::SocialType(); ?>";
+        var type = "<?php echo App\Models\Consultation\Consultation::SocialType(); ?>";
     } else {
-        var type = "<?php echo App\Models\Consultation::OrientationType(); ?>";
+        var type = "<?php echo App\Models\Consultation\Consultation::OrientationType(); ?>";
     }
 
     $.ajax({
-        url: "/Pôle-medical/" + type + "/Consultations?page=" + page + "&query=" + search.trim(),
+        url: "/" + type + "/Consultations?page=" + page + "&query=" + search.trim(),
         success: function(data) {
             console.log(data);
             var newData = $(data);

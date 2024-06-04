@@ -2,15 +2,15 @@
 
 namespace App\Repositories\Consultation;
 
-use App\Models\Consultation\ConsultationDentiste;
+use App\Models\Consultation\ConsultationOrthoptiste;
 use App\Models\Consultation\Consultation;
 use App\Repositories\BaseRepository;
 use App\Models\DossierPatientConsultation;
-use App\Models\RendezVous;
 use App\Models\Consultation\Seance;
 
 
-class ConsultationDentisteRepository extends BaseRepository
+
+class ConsultationOrthoptisteRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'date_enregistrement',
@@ -103,8 +103,8 @@ class ConsultationDentisteRepository extends BaseRepository
         ->join('dossier_patients', 'dossier_patient_consultation.dossier_patient_id', '=', 'dossier_patients.id')
         ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
         ->where('consultations.type', $orientation)
-        ->select('patients.nom', 'patients.prenom', 'dossier_patients.numero_dossier', 'rendez_vous.date_rendez_vous', 'seances.rendezVous_id', 'seances.etat','seances.id')
-        ->paginate(2);
+        ->select('patients.nom', 'patients.prenom', 'dossier_patients.numero_dossier', 'rendez_vous.date_rendez_vous', 'seances.rendezVous_id', 'seances.etat')
+        ->paginate();
     }
 
     public function searchData($search, $type)
@@ -120,8 +120,8 @@ class ConsultationDentisteRepository extends BaseRepository
                     ->orWhere('patients.prenom', 'like', '%' . $search . '%')
                     ->orWhere('dossier_patients.numero_dossier', 'like', '%' . $search . '%');
             })
-            ->select('patients.nom', 'patients.prenom', 'dossier_patients.numero_dossier', 'rendez_vous.date_rendez_vous', 'seances.rendezVous_id', 'seances.etat','seances.id')
-            ->paginate(2);
+            ->select('patients.nom', 'patients.prenom', 'dossier_patients.numero_dossier', 'rendez_vous.date_rendez_vous', 'seances.rendezVous_id', 'seances.etat')
+            ->paginate();
     }
 
     public function seanceUpdate($etat,$id){
@@ -141,8 +141,9 @@ class ConsultationDentisteRepository extends BaseRepository
         return $rendezVous;
     }
 
+
     public function model(): string
     {
-        return ConsultationDentiste::class;
+        return ConsultationOrthoptiste::class;
     }
 }

@@ -10,6 +10,7 @@
     </script>
 @endpush
 
+@if(\App\Models\Consultation\Consultation::OrientationType()==="Médecin-général")
 <!-- TypeHandicap Field -->
 <div class="form-group col-sm-6">
     {!! Form::label("type d'handycapé", __('models/dossierPatients.fields.type_handicap_id')) !!}
@@ -33,6 +34,7 @@
         ['class' => 'form-control', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>
+@endif
 
 
 
@@ -66,6 +68,23 @@
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('bilan', __('models/consultations.fields.bilan').':') !!}
     {!! Form::textarea('bilan', null, ['class' => 'form-control', 'id' => 'bilan', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+</div>
+
+<div class="form-group col-12">
+    <label>Nombre de séances</label>
+    <input type="number" class="form-control" name="nombre_seance"
+        id="nombre_seance" value="{{ $nombreSeance }}"
+        data-existing-seance-dates="{{ json_encode($existingSeanceDates) }}">
+</div>
+
+<div class="d-flex flex-wrap mt-3" id="seance_dates_container">
+    @for ($i = 1; $i <= $nombreSeance; $i++)
+        <div class="form-group col-md-6">
+            <label>Date Séance {{ $i }}</label>
+            <input type="date" class="form-control" name="date_seance{{ $i }}"
+                value="{{ $existingSeanceDates[$i - 1] ?? '' }}">
+        </div>
+    @endfor
 </div>
 
     {!! Form::hidden('dossier_patients',$dossierPatientConsultation->dossier_patient_id , ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535]) !!}

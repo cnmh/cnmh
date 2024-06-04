@@ -33,17 +33,17 @@
                         @endif
                     </td>
                     <td style="width: 120px">
-                        {!! Form::open(['route' => ['consultations.supprimer', 'type' => App\Models\Consultation::OrientationType(), 'consultationID' => $consultation->id], 'method' => 'delete'])
+                        {!! Form::open(['route' => [\App\Models\Consultation\Consultation::OrientationType() . '.supprimer', 'consultationID' => $consultation->id], 'method' => 'delete'])
                         !!}
                         <div class='btn-group'>
                             @can('show-Consultation')
-                            <a href="{{ route('consultations.consulter', ['type' => App\Models\Consultation::OrientationType(),'consultationID' => $consultation->consultation_id]) }}"
+                            <a href="{{ route(\App\Models\Consultation\Consultation::OrientationType() . '.consulter', ['consultationID' => $consultation->consultation_id]) }}"
                                 class='btn btn-default btn-sm'>
                                 <i class="far fa-eye"></i>
                             </a>
                             @endcan
                             @can('edit-Consultation')
-                           <a href="{{ route('consultations.formEdit', ['type' => App\Models\Consultation::OrientationType(),'consultationID' => $consultation->consultation_id]) }}"
+                           <a href="{{ route(\App\Models\Consultation\Consultation::OrientationType() . '.formEdit', ['consultationID' => $consultation->consultation_id]) }}"
                                class='btn btn-default btn-sm'>
                                 <i class="far fa-edit"></i>
                             </a>

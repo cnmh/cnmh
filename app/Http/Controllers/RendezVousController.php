@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateRendezVousRequest;
 use App\Http\Requests\UpdateRendezVousRequest;
 use App\Http\Controllers\AppBaseController;
-use App\Models\Consultation;
+use App\Models\Consultation\Consultation;
 use App\Models\DossierPatientConsultation;
 use App\Models\RendezVous;
 use App\Models\DossierPatient;

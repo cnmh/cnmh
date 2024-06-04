@@ -2,15 +2,16 @@
 
 namespace App\Repositories\Consultation;
 
-use App\Models\Consultation;
+use App\Models\Consultation\Consultation;
 use App\Repositories\BaseRepository;
 use App\Models\DossierPatient;
 use App\Models\DossierPatientConsultation;
 use App\Models\DossierPatient_typeHandycape;
 use App\Models\Dossier_patient_service;
-use App\Models\Consultation_type_handicap;
-use App\Models\Consultation_service;
-
+use App\Models\Consultation\Consultation_type_handicap;
+use App\Models\Consultation\Consultation_service;
+use App\Models\RendezVous;
+use App\Models\Consultation\Seance;
 
 
 class ConsultationRepository extends BaseRepository
@@ -35,13 +36,27 @@ class ConsultationRepository extends BaseRepository
 
     public function DossierPatientConsultationFind($id, $type)
     {
-        return DossierPatientConsultation::where('dossier_patient_id', $id)
-            ->orWhere('consultation_id', $id)
+
+        return DossierPatientConsultation::where('consultation_id', $id)
             ->whereHas('consultation', function ($query) use ($type) {
                 $query->where('type', $type);
             })
             ->first();
     }
+
+    public function DossierPatientInfoFind($id, $type)
+    {
+
+        return DossierPatientConsultation::where('dossier_patient_id', $id)
+            ->whereHas('consultation', function ($query) use ($type) {
+                $query->where('type', $type);
+            })
+            ->first();
+    }
+
+
+
+    
     
 
     public function DossierPatient_typeHandycapeFind($id){
@@ -141,6 +156,51 @@ class ConsultationRepository extends BaseRepository
             'dossier_patients.numero_dossier'
         )
         ->paginate();
+    }
+
+
+    public function updateSeance($data, $id)
+    {
+        $consultationID = $id;
+        for ($i = 1; $i <= $data['nombre_seance']; $i++) {
+            $dateSeanceKey = 'date_seance' . $i;
+            if (isset($data[$dateSeanceKey])) {
+                $dateSeance = $data[$dateSeanceKey];
+    
+                $rendezVous = RendezVous::where('consultation_id', $consultationID)
+                    ->where('date_rendez_vous', $dateSeance)
+                    ->first();
+    
+                if ($rendezVous) {
+                    $seance = Seance::where('rendezVous_id', $rendezVous->id)
+                        ->where('consultation_id', $consultationID)
+                        ->first();
+    
+                    if ($seance) {
+                        $seance->etat = '';
+                        $seance->save();
+                    } else {
+                        $seance = new Seance();
+                        $seance->consultation_id = $consultationID;
+                        $seance->rendezVous_id = $rendezVous->id;
+                        $seance->etat = '';
+                        $seance->save();
+                    }
+                } else {
+                    $rendezVous = new RendezVous();
+                    $rendezVous->date_rendez_vous = $dateSeance;
+                    $rendezVous->consultation_id = $consultationID;
+                    $rendezVous->etat = 'Planifier';
+                    $rendezVous->save();
+    
+                    $seance = new Seance();
+                    $seance->consultation_id = $consultationID;
+                    $seance->rendezVous_id = $rendezVous->id;
+                    $seance->etat = '';
+                    $seance->save();
+                }
+            }
+        }
     }
 
 

@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-12">
                 <h1>
-                    @lang('crud.create') @lang('models/consultations.singular') {{ App\Models\Consultation::OrientationType() }} 
+                    @lang('crud.create') @lang('models/consultations.singular') {{ App\Models\Consultation\Consultation::OrientationType() }} 
                 </h1>
             </div>
         </div>
@@ -50,21 +50,18 @@
                 <div class="col-md-12">
                     <div class="card card-primary card-create ">
                         <div class="card-header">
-                            <h3 class="card-title"> @lang('models/rendezVouses.schedule')
-                                @if (app()->getLocale() == 'fr')
-                                {{ is_male_localisation('models/rendezVouses.isMale') }}
-                                @lang(strtolower(__('models/rendezVouses.singular')))
-                                @else
-                                @lang(strtolower(__('models/rendezVouses.singular')))
-                                @endif
-
+                            <h3 class="card-title">Consultation
                             </h3>
                         </div>
                         <div class="card-body ">
-                            {!! Form::open(['route' => ['consultations.AjouterConsultation', 'type' => App\Models\Consultation::OrientationType(), 'dossier_patient_id' => $dossierPatientConsultation->dossier_patient_id]]) !!}
+                            @if(\App\Models\Consultation\Consultation::OrientationType()==="Médecin-général")
+                            {!! Form::open(['route' => ['consultations.AjouterConsultation', ['dossier_patient_id' => $dossierPatientConsultation->dossier_patient_id]]]) !!}
+                            @else
+                              {!! Form::open(['route' => [\App\Models\Consultation\Consultation::OrientationType().'.AjouterConsultation', ['dossier_patient_id' => $dossierPatientConsultation->dossier_patient_id]]]) !!}
+                            @endif
 
                             <div class="row">
-                                @include('PoleMedical.consultations.fields')
+                                @include('Consultations.fields')
                             </div>
                         </div>
 
@@ -77,7 +74,7 @@
                                     {{-- <a href="{{ route('consultations.patient', request()->model)) }}" class="btn
                                     btn-secondary"> @lang('crud.cancel') --}}
                                     </a>
-                                    <a href="{{ route('consultations.patientInformation', ['type' => App\Models\Consultation::OrientationType(), 'dossier_patient_id' => $dossierPatientConsultation->dossier_patient_id]) }}" class="btn btn-secondary">@lang('crud.cancel')</a>
+                                    <a href="{{ route('consultations.patientInformation', ['dossier_patient_id' => $dossierPatientConsultation->dossier_patient_id]) }}" class="btn btn-secondary">@lang('crud.cancel')</a>
 
                                 </div>
                             </div>

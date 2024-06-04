@@ -19,7 +19,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Consultation {{ App\Models\Consultation::OrientationType() }}</h1>
+                        <h1>Consultation {{ App\Models\Consultation\Consultation::OrientationType() }}</h1>
                     </div>
 
                 </div>
@@ -145,10 +145,15 @@
                         <input type="hidden" name="dossier_patient_id" value="{{ $dossier_patient->id }}">
                         <input type="hidden" name="consultation_id" value="{{ $consultation_id }}">
                         <div class="ml-4 mb-3">
-                            <a href="{{ route('consultations.rendezvous',  App\Models\Consultation::OrientationType()) }} "
+                            <a href="{{ route('consultations.rendezvous') }} "
                                 class="btn btn-primary">@lang('crud.previous')</a>
-                                <a href="{{ route('consultations.FormAjouterConsultation', ['type' => App\Models\Consultation::OrientationType(), 'dossier_patient_id' => $dossier_patient->id]) }}"
-                                    class="btn btn-primary">@lang('crud.next')</a>                                 
+                                @if(\App\Models\Consultation\Consultation::OrientationType()==="Médecin-général")
+                                <a href="{{ route('consultations.FormAjouterConsultation', ['dossier_patient_id' => $dossier_patient->id]) }}"
+                                    class="btn btn-primary">@lang('crud.next')</a>    
+                                @else    
+                                <a href="{{ route(\App\Models\Consultation\Consultation::OrientationType().'.FormAjouterConsultation', ['dossier_patient_id' => $dossier_patient->id]) }}"
+                                    class="btn btn-primary">@lang('crud.next')</a> 
+                                    @endif                         
                         </div>
                     </div>
 

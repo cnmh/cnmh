@@ -18,17 +18,17 @@ class AppBaseController extends Controller
 {
 
 
-    public function callAction($method, $parameters)
-    {
+    // public function callAction($method, $parameters)
+    // {
 
-        $controller = class_basename(get_class($this));
-        $action = $method;
-        $changeName = str_replace(['Controller', '@'], ['', '-'], $controller);
-        $permissions = $action . '-' . $changeName; 
-        // dd($permissions);
-        $this->authorize($permissions);  
-        return parent::callAction($method, $parameters);
-    }
+    //     $controller = class_basename(get_class($this));
+    //     $action = $method;
+    //     $changeName = str_replace(['Controller', '@'], ['', '-'], $controller);
+    //     $permissions = $action . '-' . $changeName; 
+    //     // dd($permissions);
+    //     $this->authorize($permissions);  
+    //     return parent::callAction($method, $parameters);
+    // }
 
     
    

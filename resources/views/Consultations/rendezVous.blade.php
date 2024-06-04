@@ -19,7 +19,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Consultation {{ \App\Models\Consultation::OrientationType() }}</h1>
+                        <h1>Consultation {{ \App\Models\Consultation\Consultation::OrientationType() }}</h1>
                     </div>
 
                 </div>
@@ -72,7 +72,7 @@
                     <div class="card-body p-0 mt-2">
                         <div class="table-responsive" id="#rendezVous-table">
 
-                            <form action="{{ route('consultations.rendezvous-select', App\Models\Consultation::OrientationType() ) }}" method="get">
+                            <form action="{{ route('consultations.rendezvous-select' ) }}" method="get">
 
                                 <table class="table table-striped" id="tuteurs-table">
                                     <thead>
@@ -180,10 +180,10 @@ $(document).ready(function() {
     console.log('hello');
 
         function fetch_data(page, search) {
-            var type = "<?php echo App\Models\Consultation::OrientationType(); ?>";
+            var type = "<?php echo App\Models\Consultation\Consultation::OrientationType(); ?>";
 
             $.ajax({
-                url: "/Pôle-medical/" + type + "/Consultations/Rendez-Vous?page=" + page + "&query=" + search.trim(),
+                url: "/" + type + "/Consultations/consultation\Rendez-Vous?page=" + page + "&query=" + search.trim(),
                 dataType: 'json', 
                 success: function(response) {
                     $('#RendezVousTable').html('');

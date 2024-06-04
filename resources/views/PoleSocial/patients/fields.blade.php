@@ -60,7 +60,8 @@
 <!-- data de naissance Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('Date de naissance', __('models/patients.fields.dataNaissance')) !!} <span class="required-field">*</span>
-    {!! Form::date('date_naissance', isset($patient) ? $patient->date_naissance : null, [        'id' => 'date_naissance_input',
+    {!! Form::date('date_naissance', null, [
+        'id' => 'date_naissance_input',
         'class' => 'form-control',
         'maxlength' => 65535,
         'maxlength' => 65535,
@@ -69,7 +70,7 @@
 </div>
 <div class="form-group col-sm-6">
     {!! Form::label('Age', __('models/patients.fields.age')) !!}
-    {!! Form::text('age', isset($patient) ? \Carbon\Carbon::parse($patient->date_naissance)->diff(\Carbon\Carbon::now())->format('%y ans') : null, [
+    {!! Form::text('age', null, [
         'id' => 'age',
         'class' => 'form-control',
         'maxlength' => 65535,
