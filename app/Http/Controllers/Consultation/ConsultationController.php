@@ -177,13 +177,16 @@ class ConsultationController extends AppBaseController
         $services = $services_repo->get();
         $GetRepository = $this->getRepositorie($request->url());
         $consultationPath = $GetRepository;
-        $seance = $consultationPath->seanceEdit($consultationID);
-        $nombreSeance = count($seance);
-        $existingSeanceDates = array_map(function ($item) {
-            return $item->date_rendez_vous->format('Y-m-d');
-        }, $seance);
 
-        return view('Consultations.edit', compact('consultation', 'type_handicap_ids', 'type_handicap', 'services', 'service_patient', 'services_ids', 'dossierPatientConsultation', 'type_handicap_patients', 'seance', 'nombreSeance', 'existingSeanceDates'));
+        if($type !== "Médecin-général"){
+            $seance = $consultationPath->seanceEdit($consultationID);
+            $nombreSeance = count($seance);
+            $existingSeanceDates = array_map(function ($item) {
+                return $item->date_rendez_vous->format('Y-m-d');
+            }, $seance);
+            return view('Consultations.edit', compact('consultation', 'type_handicap_ids', 'type_handicap', 'services', 'service_patient', 'services_ids', 'dossierPatientConsultation', 'type_handicap_patients', 'seance', 'nombreSeance', 'existingSeanceDates'));
+        }
+        return view('Consultations.edit', compact('consultation', 'type_handicap_ids', 'type_handicap', 'services', 'service_patient', 'services_ids', 'dossierPatientConsultation', 'type_handicap_patients'));
     }
 
     // update consultation
@@ -205,7 +208,6 @@ class ConsultationController extends AppBaseController
             $type_handicap_patients = $this->consultationRepository->Consultation_type_handicapUpdate($id,$typeHandicapIDs); 
             $services_patients = $this->consultationRepository->Consultation_serviceUpdate($id,$service_ids);  
         }
-
         $data = [
             "date_enregistrement" => $request->date_enregistrement,
             "date_consultation" => $request->date_consultation,
@@ -217,7 +219,10 @@ class ConsultationController extends AppBaseController
         ];
 
         $consultation = $this->consultationRepository->update($data, $id);
-        $seance = $this->consultationRepository->updateSeance($request->all(), $id); 
+
+        if($type !== "Médecin-général"){
+            $seance = $this->consultationRepository->updateSeance($request->all(), $id); 
+        }
 
         Flash::success(__('messages.updated', ['model' => __('models/consultations.singular')]));
         

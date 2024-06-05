@@ -24,71 +24,66 @@ $(document).ready(function() {
 });
 
 $(document).ready(function () {
-    // Function to update parameters in the URL
-    function updateURLParameters(params) {
-        var url = new URL(window.location.href);
-        Object.keys(params).forEach(param => {
-            if (params[param] && params[param] !== "") {
-                url.searchParams.set(param, params[param]);
-            } else {
-                url.searchParams.delete(param);
-            }
-        });
-        window.history.replaceState(null, "", url);
-    }
-  
-    // Function to fetch data with AJAX
-    function fetchData(page, searchValue) {
-        var neededUrl = window.location.pathname;
-        $.ajax({
-            url: neededUrl,
-            data: { page: page, searchValue: searchValue },
-            success: function (data) {
-                var newData = $(data);
-                $("tbody").html(newData.find("tbody").html());
-                $("#card-footer").html(newData.find("#card-footer").html());
-                $(".pagination").html(newData.find(".pagination").html() || "");
-  
-                updateURLParameters({ page: page, searchValue: searchValue });
-            }
-        });
-    }
-  
-    // Function to get URL parameter value by name
-    function getUrlParameter(name) {
-        return new URLSearchParams(window.location.search).get(name) || "";
-    }
-  
-    // Initial fetch if URL has parameters
-    var searchValueFromUrl = getUrlParameter("searchValue");
-    var pageFromUrl = getUrlParameter("page") || 1;
-    if (searchValueFromUrl) {
-        $("#table_search").val(searchValueFromUrl);
-    }
-    fetchData(pageFromUrl, searchValueFromUrl);
-  
-    // Pagination click event
-    $("body").on("click", ".pagination button", function (event) {
-        event.preventDefault();
-        var page = $(this).attr("page-number");
-        var searchValue = $("#table_search").val();
-        fetchData(page, searchValue);
-    });
-  
-    // Search input keyup event
-    $("body").on("keyup", "#table_search", function () {
-        var searchValue = $(this).val();
-        if (searchValue === "") {
-            console.log("here");
-            updateURLParameters({ page: undefined, searchValue: undefined });
-            fetchData(1, searchValue);
-        } else {
-            fetchData(1, searchValue);
-        }
-    });
-});
+  function updateURLParameters(params) {
+      var url = new URL(window.location.href);
+      Object.keys(params).forEach(param => {
+          if (params[param] && params[param] !== "") {
+              url.searchParams.set(param, params[param]);
+          } else {
+              url.searchParams.delete(param);
+          }
+      });
+      window.history.replaceState(null, "", url);
+  }
 
-  
+  function fetchData(page, searchValue) {
+      var neededUrl = window.location.pathname;
+      $("tbody").html('<tr><td colspan="100%"><div class="loading-spinner"></div></td></tr>');
+      $.ajax({
+          url: neededUrl,
+          data: { page: page, searchValue: searchValue },
+          success: function (data) {
+              setTimeout(function() {
+                  var newData = $(data);
+                  $("tbody").html(newData.find("tbody").html());
+                  $("#card-footer").html(newData.find("#card-footer").html());
+                  $(".pagination").html(newData.find(".pagination").html() || "");
+    
+                  updateURLParameters({ page: page, searchValue: searchValue });
+              }, 3000);
+          }
+      });
+  }
+
+  function getUrlParameter(name) {
+      return new URLSearchParams(window.location.search).get(name) || "";
+  }
+
+  var searchValueFromUrl = getUrlParameter("searchValue");
+  var pageFromUrl = getUrlParameter("page") || 1;
+  if (searchValueFromUrl) {
+      $("#table_search").val(searchValueFromUrl);
+  }
+  fetchData(pageFromUrl, searchValueFromUrl);
+
+  $("body").on("click", ".pagination button", function (event) {
+      event.preventDefault();
+      var page = $(this).attr("page-number");
+      var searchValue = $("#table_search").val();
+      fetchData(page, searchValue);
+  });
+
+  $("body").on("keyup", "#table_search", function () {
+      var searchValue = $(this).val();
+      if (searchValue === "") {
+          console.log("here");
+          updateURLParameters({ page: undefined, searchValue: undefined });
+          fetchData(1, searchValue);
+      } else {
+          fetchData(1, searchValue);
+      }
+  });
+});
 
 
 const searchNumber = document.getElementById("nombre_seance");
@@ -100,12 +95,10 @@ if(searchNumber){
         var nombreSeance = parseInt(this.value);
         var numExistingSeances = existingSeanceDates.length;
       
-        // Remove any extra inputs
         while (container.children.length > nombreSeance) {
           container.removeChild(container.lastChild);
         }
       
-        // Update or add new inputs
         for (var i = 1; i <= nombreSeance; i++) {
           var inputGroup = container.children[i - 1] || document.createElement("div");
           inputGroup.classList.add("form-group", "col-md-6");

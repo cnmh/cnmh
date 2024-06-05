@@ -1,4 +1,7 @@
 <div class="card-body p-0">
+    <div id="spinner" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -78,7 +81,6 @@
                         @endif
                     </td>
                 </tr>
-
                 @endforeach
                 @endif
                
@@ -86,6 +88,7 @@
         </table>
     </div>
 </div>
+
 <div class="card-footer clearfix">
     <div class="float-left d-flex">
         @can('export-Consultation')

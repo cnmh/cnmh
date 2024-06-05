@@ -33,6 +33,9 @@
                         </div>
 
                         <div class="card-body table-responsive p-0">
+                            <div id="spinner" style="display: none;">
+                                <div class="loading-spinner"></div>
+                            </div>
 
                             <table class="table table-striped text-nowrap">
                                 <thead>
@@ -78,9 +81,7 @@
                                                         <i class="fas fa-times"></i>
                                                         @lang('crud.absence')
                                                     </button>
-                                                </form>
-                                                
-                                                
+                                                </form> 
                                             </td>
                                         </tr>
                                         @endforeach
