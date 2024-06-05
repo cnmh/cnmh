@@ -92,10 +92,14 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="card-footer clearfix">
+                            <div class="float-right">
+                                @include('adminlte-templates::common.paginate', ['records' => $seance])
+                            </div>
+                             
+                        </div>
 
-                        <ul class="pagination  m-0 float-right">
-                            {{ $seance->onEachSide(1)->links() }}
-                        </ul>
+                       
 
                        
                     </div>

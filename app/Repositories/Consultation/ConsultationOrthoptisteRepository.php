@@ -141,6 +141,22 @@ class ConsultationOrthoptisteRepository extends BaseRepository
         return $rendezVous;
     }
 
+    public function ConsultationModifier($input)
+    {
+        $consultation = Consultation::where('type',$input)->first();
+    
+        if ($consultation) {
+            Seance::where('consultation_id', $consultation->id)->delete();
+    
+            $rendezVousIds = Seance::where('consultation_id', $consultation->id)->pluck('rendezVous_id')->toArray();
+            RendezVous::whereIn('id', $rendezVousIds)->delete();
+    
+            $consultation->update([
+                'etat' => Consultation::ETAT_EN_RENDEZVOUS
+            ]);
+        }
+    }
+
 
     public function model(): string
     {

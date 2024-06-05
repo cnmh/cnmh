@@ -8,6 +8,7 @@
                 <th>Date du rendez-vous</th>
                 <th>État</th>
                 <th>Remarques</th>
+                <th>Orientation</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -23,6 +24,7 @@
                     <td>{{ $rendezVous->date_rendez_vous }}</td>
                     <td><span class="badge bg-info">{{  $rendezVous->etat  }}</span></td>
                     <td>{!! $rendezVous->remarques !!}</td>
+                    <td>{{ $rendezVous->type }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['rendez-vous.destroy', $rendezVous->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

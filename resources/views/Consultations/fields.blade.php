@@ -19,7 +19,7 @@
         'type_handicap_id[]',
         $type_handicap->pluck('nom', 'id')->toArray(),
         isset($type_handicap_patients) ? $type_handicap_patients->pluck('type_handicap_id')->toArray() : [],
-        ['class' => 'form-control', 'id'=> 'type_handicap_selectTwo', 'required', 'multiple' => 'multiple']
+        ['class' => 'form-control type_handicap_select', 'id'=> 'type_handicap_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>
 
@@ -31,7 +31,7 @@
         'services_id[]',
         $services->pluck('nom', 'id')->toArray(),
         isset($service_patient) ? $service_patient->pluck('service_id')->toArray() : [],
-        ['class' => 'form-control', 'id'=> 'services_selectTwo', 'required', 'multiple' => 'multiple']
+        ['class' => 'form-control services_select', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>
 @endif
@@ -55,39 +55,41 @@
 <!-- Your 'observation' textarea -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('observation', __('models/consultations.fields.observation').':') !!}
-    {!! Form::textarea('observation', null, ['class' => 'form-control', 'id' => 'observation', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+    {!! Form::textarea('observation', null, ['class' => 'form-control editorObservation', 'id' => 'observation', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 </div>
 
 <!-- Your 'diagnostic' textarea -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('diagnostic', __('models/consultations.fields.diagnostic').':') !!}
-    {!! Form::textarea('diagnostic', null, ['class' => 'form-control', 'id' => 'diagnostic', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+    {!! Form::textarea('diagnostic', null, ['class' => 'form-control editorDiagnostic', 'id' => 'diagnostic', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 </div>
 
 <!-- Your 'bilan' textarea -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('bilan', __('models/consultations.fields.bilan').':') !!}
-    {!! Form::textarea('bilan', null, ['class' => 'form-control', 'id' => 'bilan', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+    {!! Form::textarea('bilan', null, ['class' => 'form-control editorBilan', 'id' => 'bilan', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 </div>
 
-@if(\App\Models\Consultation\Consultation::OrientationType() !=="Médecin-général")
-<div class="form-group col-12">
-    <label>Nombre de séances</label>
-    <input type="number" class="form-control" name="nombre_seance"
-        id="nombre_seance" value="{{ $nombreSeance }}"
-        data-existing-seance-dates="{{ json_encode($existingSeanceDates) }}">
-</div>
+@if(\App\Models\Consultation\Consultation::OrientationType() !== "Médecin-général")
+    <div class="form-group col-12">
+        <label>Nombre de séances</label>
+        <input type="number" class="form-control" name="nombre_seance"
+            id="nombre_seance" value="{{ $nombreSeance ?? '' }}"
+            data-existing-seance-dates="{{ json_encode($existingSeanceDates ?? []) }}">
+    </div>
 
-<div class="d-flex flex-wrap mt-3" id="seance_dates_container">
-    @for ($i = 1; $i <= $nombreSeance; $i++)
-        <div class="form-group col-md-6">
-            <label>Date Séance {{ $i }}</label>
-            <input type="date" class="form-control" name="date_seance{{ $i }}"
-                value="{{ $existingSeanceDates[$i - 1] ?? '' }}">
-        </div>
-    @endfor
-</div>
+    <div class="d-flex flex-wrap mt-3" id="seance_dates_container">
+        @for ($i = 1; $i <= ($nombreSeance ?? 0); $i++)
+            <div class="form-group col-md-6">
+                <label>Date Séance {{ $i }}</label>
+                <input type="date" class="form-control" name="date_seance{{ $i }}"
+                    value="{{ $existingSeanceDates[$i - 1] ?? '' }}">
+            </div>
+        @endfor
+    </div>
 @endif
+
+
 
     {!! Form::hidden('dossier_patients',$dossierPatientConsultation->dossier_patient_id , ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 

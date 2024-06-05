@@ -1,6 +1,6 @@
 <div class="card-body p-0">
     <div class="table-responsive">
-        <table class="table table-striped" id="consultations-table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Numéro dossier</th>

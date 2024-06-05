@@ -104,7 +104,7 @@ class ConsultationDentisteRepository extends BaseRepository
         ->join('patients', 'dossier_patients.patient_id', '=', 'patients.id')
         ->where('consultations.type', $orientation)
         ->select('patients.nom', 'patients.prenom', 'dossier_patients.numero_dossier', 'rendez_vous.date_rendez_vous', 'seances.rendezVous_id', 'seances.etat','seances.id')
-        ->paginate();
+        ->paginate(1);
     }
 
     public function searchData($search, $type)
@@ -140,6 +140,23 @@ class ConsultationDentisteRepository extends BaseRepository
         }
         return $rendezVous;
     }
+
+    public function ConsultationModifier($input)
+    {
+        $consultation = Consultation::where('type',$input)->first();
+    
+        if ($consultation) {
+            Seance::where('consultation_id', $consultation->id)->delete();
+    
+            $rendezVousIds = Seance::where('consultation_id', $consultation->id)->pluck('rendezVous_id')->toArray();
+            RendezVous::whereIn('id', $rendezVousIds)->delete();
+    
+            $consultation->update([
+                'etat' => Consultation::ETAT_EN_RENDEZVOUS
+            ]);
+        }
+    }
+    
 
     public function model(): string
     {

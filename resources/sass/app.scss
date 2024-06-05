@@ -4,6 +4,8 @@
 // Bootstrap
 @import '~admin-lte/build/scss/adminlte';
 
+@import "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css";
+
 
 .scrollable-dropdown {
     max-height: 200px;
@@ -23,6 +25,7 @@
 .select2-selection__choice {
     background:#9BADBF !important;
     color:#000 !important;
+    width: fit-content;
 }
 
 .select2-selection__choice__remove{

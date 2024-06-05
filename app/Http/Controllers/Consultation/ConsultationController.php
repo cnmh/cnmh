@@ -55,9 +55,10 @@ class ConsultationController extends AppBaseController
         $type = Consultation::OrientationType();
         $consultationPath = $GetRepository;
         $consultations = $consultationPath->Consultation($type);
+        $SocialType = Consultation::SocialType();
 
         if ($request->ajax()) {
-            $search = $request->get('query');
+            $search = $request->get('searchValue');
             if($search != ""){
                 $search = str_replace(" ", "%", $search);
                 if($SocialType != ''){
@@ -82,7 +83,7 @@ class ConsultationController extends AppBaseController
         $dossier_patients = $consultationPath->ConsultationRendezVous($type);
 
         if($request->ajax()){
-            $search = $request->get('query');
+            $search = $request->get('searchValue');
             $search = str_replace(" ", "%", $search);
             if($search !=""){
                 $rendez_vous = $this->consultationRepository->searchRendezVous($search, $type);
@@ -150,7 +151,12 @@ class ConsultationController extends AppBaseController
         }
         $consultations = $consultationPath->ConsultationUpdate($input);
         Flash::success(__('messages.saved', ['model' => __('models/consultations.singular')]));
-        return redirect(route('consultations.list', $type));
+
+        if($type === 'Médecin-général'){
+            return redirect(route('consultations.list'));
+        }else{
+            return redirect(route($type.'.list'));
+        }
     }
 
     // Form pour editer la consultation
@@ -214,7 +220,12 @@ class ConsultationController extends AppBaseController
         $seance = $this->consultationRepository->updateSeance($request->all(), $id); 
 
         Flash::success(__('messages.updated', ['model' => __('models/consultations.singular')]));
-        return redirect()->route('consultations.list');
+        
+        if($type === 'Médecin-général'){
+            return redirect(route('consultations.list'));
+        }else{
+            return redirect(route($type.'.list'));
+        }
 
     }
 
@@ -240,7 +251,11 @@ class ConsultationController extends AppBaseController
 
         if (empty($consultation)) {
             Flash::error(__('models/consultations.singular') . ' ' . __('messages.not_found'));
-            return redirect(route('consultations.list'));
+            if($type === 'Médecin-général'){
+                return redirect(route('consultations.list'));
+            }else{
+                return redirect(route($type.'.list'));
+            }
         }
 
         if(empty($consultation_handicap_patient) || empty($consultation_service_patient)){
@@ -256,7 +271,7 @@ class ConsultationController extends AppBaseController
         $type = Consultation::OrientationType();
         $consultationPath = $GetRepository;
 
-        if($request->ajax()){
+        if($request->get('searchValue')){
             $search = $request->get('searchValue');
             if($search != ""){
                 $search = str_replace(" ", "%", $search);
@@ -280,7 +295,6 @@ class ConsultationController extends AppBaseController
         if($type === "Médecin-général"){
             $consultations_typeHandicap = $consultationPath->ConsultationTypeHandicapDelete($id);
             $consultations_services = $consultationPath->ConsultationServiceDelete($id); 
-
         }
                  
         Flash::success(__('messages.reporter', ['model' => __('models/consultations.singular')]));

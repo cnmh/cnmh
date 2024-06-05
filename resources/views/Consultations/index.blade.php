@@ -59,7 +59,7 @@
             <!-- SEARCH FORM -->
             <form class="form-inline ml-3">
                 <div class="input-group input-group-sm">
-                    <input type="search" class="form-control form-control-lg" id="searchConsultation"
+                    <input type="search" class="form-control form-control-lg" id="table_search"
                         placeholder="Recherche">
                     <div class="input-group-append">
                         <button type="button" class="btn btn-lg btn-default">
@@ -76,63 +76,7 @@
     </div>
 </div>
 
-<script>
-$(document).ready(function() {
-    function fetch_data(page, search) {
-    var modelName = "liste-d'attente"; 
-    var typeSocial = "<?php echo App\Models\Consultation\Consultation::SocialType(); ?>";
 
-    if (typeSocial != "") {
-        var type = "<?php echo App\Models\Consultation\Consultation::SocialType(); ?>";
-    } else {
-        var type = "<?php echo App\Models\Consultation\Consultation::OrientationType(); ?>";
-    }
-
-    $.ajax({
-        url: "/" + type + "/Consultations?page=" + page + "&query=" + search.trim(),
-        success: function(data) {
-            console.log(data);
-            var newData = $(data);
-            $('#consultations-table').html(newData.find('#consultations-table').html());
-            $('.card-footer').html(newData.find('.card-footer').html());
-            var paginationHtml = newData.find('.pagination').html();
-            if (paginationHtml) {
-                $('.pagination').html(paginationHtml);
-            } else {
-                $('.pagination').html('');
-            }
-        }
-    });
-}
-
-
-    $('body').on('click', '.pagination li', function(event) {
-        event.preventDefault();
-        var pageButton = $(this).find('.page-link');
-        if (pageButton.length) {
-            var page = pageButton.attr('page-number');
-            var search = $('#searchConsultation').val();
-            fetch_data(page, search);
-        }
-    });
-
-    $('body').on('keyup', '#searchConsultation', function() {
-        var search = $('#searchConsultation').val();
-        var page = 1;
-        fetch_data(page, search);
-    });
-
-    $('body').on('change', '#selectSearch', function() {
-        var search = $('#selectSearch').val();
-        var page = 1;
-        fetch_data(page, search);
-    });
-
-
-
-    fetch_data(1, '');
-});
-</script>
 
 @endsection
 @push('page_scripts')

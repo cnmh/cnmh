@@ -62,30 +62,24 @@ class Consultation extends Model
         return $this->hasMany(\App\Models\TypeHandicapConsultation::class, 'consultation_id');
     }
 
+  
+
     public static function OrientationType()
     {
-        $user = Auth()->user()->email;
+        $userEmail = Auth()->user()->email;
 
-        if($user === 'medecin@gmail.com'){
-            return $type = 'Médecin-général';
-        }elseif($user === 'dentiste@gmail.com'){
-            return $type = 'Dentiste';
-        }elseif($user === 'orthophoniste@gmail.com'){
-            return $type = 'Orthophoniste';
-        }
-        elseif($user === 'orthoptiste@gmail.com'){
-            return $type = 'Orthoptiste';
-        }
-        elseif($user === 'psychomotricien@gmail.com'){
-            return $type = 'Psychomotricien';
-        }
-        elseif($user === 'kinesitherapeute@gmail.com'){
-            return $type = 'Kinesitherapeute';
-        }
-        elseif($user === 'social@gmail.com'){
-            return $type = 'Médecin-général';
-        }
+        $type = [
+            'medecin@gmail.com' => 'Médecin-général',
+            'dentiste@gmail.com' => 'Dentiste',
+            'orthophoniste@gmail.com' => 'Orthophoniste',
+            'orthoptiste@gmail.com' => 'Orthoptiste',
+            'psychomotricien@gmail.com' => 'Psychomotricien',
+            'kinesitherapeute@gmail.com' => 'Kinesitherapeute',
+            'social@gmail.com' => 'Médecin-général'
+        ];
+        return $type[$userEmail] ?? null;
     }
+
 
     public static function SocialType(){
         $user = Auth()->user()->email;

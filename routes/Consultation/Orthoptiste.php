@@ -22,6 +22,8 @@ Route::get('/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_
 Route::get('/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation', [ConsultationController::class, 'FormAjouterConsultation'])->name('Orthoptiste.FormAjouterConsultation');
 Route::post('/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation/ajouter', [ConsultationController::class, 'AjouterConsultation'])->name('Orthoptiste.AjouterConsultation');
 Route::get('/suiver-seance',[ConsultationController::class, 'seance'])->name('Orthoptiste.seance');
+Route::post('/suiver-seance/{id}/update-present',[ConsultationController::class, 'presentSeance'])->name('Orthoptiste.seancePresent');
+Route::post('/suiver-seance/{id}/update-absent',[ConsultationController::class, 'absentSeance'])->name('Orthoptiste.seanceAbsent');
 Route::get('/dossiers-patients',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'list_dossier'])->name('dossier-patients.Orthoptiste');
 
 
