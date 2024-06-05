@@ -69,7 +69,6 @@
 
 @push('third_party_scripts')
     <script src="{{ asset('assets/summernote/summernote-lite.min.js') }}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/in1ymb8opnzm71imuxq58hv4i699ihhovjpugtacxnoqbdsy/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
@@ -92,5 +91,7 @@
                 editLink.href = editUrl;
             });
         });
+
+        
     </script>
 @endpush

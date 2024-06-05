@@ -30,6 +30,22 @@
         $(document).ready(() => {
             // $('.menu-open').click()
         })
+
+         $(document).ready(function() {
+                $('#type_handicap_select').select2({
+                    tags: true,
+                    tokenSeparators: [',', ' '],
+                    multiple: true
+                });
+
+                $('#services_select').select2({
+                    tags: true,
+                    tokenSeparators: [',', ' '],
+                    multiple: true
+                });
+
+               
+            });
     </script>
 </body>
 

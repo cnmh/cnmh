@@ -11,7 +11,8 @@ trait MorphType
             if($class === "ConsultationMedecin" || $class === "Consultation"){
                 $model->type = "Médecin-général";
             }else{
-                $model->type = $class;
+                $classNameWithoutPrefix = str_replace("Consultation", "", $class);
+                $model->type = $classNameWithoutPrefix;
             }
         });
     }

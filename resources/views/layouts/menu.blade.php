@@ -1,12 +1,20 @@
 @can('index-DossierPatient')
 <li class="nav-item">
-    <a href="{{ route('dossier-patients.list') }}"
-        class="nav-link {{ Route::is('dossier-patients.list' . '*') ? 'active' : '' }}">
-        <i class="fa-solid fa-hospital-user"></i>
-        <p>Dossier bénéficiaires</p>
-    </a>
-
+    @if(\App\Models\Consultation\Consultation::SocialType() === "Liste-d'attente")
+        <a href="{{ route('dossier-patients.list') }}"
+            class="nav-link {{ Route::is('dossier-patients.list' . '*') ? 'active' : '' }}">
+            <i class="fa-solid fa-hospital-user"></i>
+            <p>Dossier bénéficiaires</p>
+        </a>
+    @else
+        <a href="{{ route('dossier-patients.' . \App\Models\Consultation\Consultation::OrientationType()) }}"
+            class="nav-link {{ Route::is('dossier-patients.' . \App\Models\Consultation\Consultation::OrientationType() . '*') ? 'active' : '' }}">
+            <i class="fa-solid fa-hospital-user"></i>
+            <p>Dossier bénéficiaires</p>
+        </a>
+    @endif
 </li>
+
 @endcan
 
 @can('index-RendezVous')
@@ -32,7 +40,7 @@
         </li>
     </ul>
 
-    </li>   
+</li>   
 
 @endcan
 

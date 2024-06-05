@@ -78,32 +78,37 @@ class ConsultationMedecinRepository extends BaseRepository
 
 
     public function ConsultationAjouter($input, $dossier_patient_id, $type)
-    {
-        $now = Carbon::now();
-        $consultations = [];
-    
-        foreach ($input as $serviceId) {
-            $orientations = Service::where('id', $serviceId)->get();
-    
-            foreach ($orientations as $orientation) {
-                $consultation = $this->model->create([
+{
+    $now = Carbon::now();
+    $consultations = [];
+
+    foreach ($input as $serviceId) {
+        $orientations = Service::where('id', $serviceId)->get();
+
+        foreach ($orientations as $orientation) {
+            $modelClass = 'App\\Models\\Consultation\\Consultation' . $orientation->nom;
+
+            if (class_exists($modelClass)) {
+                $model = new $modelClass();
+                $consultation = $model->create([
                     'date_enregistrement' => $now,
                     'date_consultation' => null,
                     'observation' => null,
                     'diagnostic' => null,
                     'bilan' => null,
-                    'type' => $orientation->nom,
                     'etat' => Consultation::ETAT_EN_ATTENTE,
                 ]);
-    
+
                 $consultationID = $consultation->id;
                 $this->ajouterDossier_patient_consultation($consultationID, $dossier_patient_id);
                 $consultations[] = $consultation;
             }
         }
-    
-        return $consultations;
     }
+
+    return $consultations;
+}
+
     
 
     public function ajouterDossier_patient_consultation($consultationID, $dossier_patient_id)

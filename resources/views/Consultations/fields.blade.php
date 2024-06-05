@@ -19,7 +19,7 @@
         'type_handicap_id[]',
         $type_handicap->pluck('nom', 'id')->toArray(),
         isset($type_handicap_patients) ? $type_handicap_patients->pluck('type_handicap_id')->toArray() : [],
-        ['class' => 'form-control', 'id'=> 'type_handicap_select', 'required', 'multiple' => 'multiple']
+        ['class' => 'form-control', 'id'=> 'type_handicap_selectTwo', 'required', 'multiple' => 'multiple']
     ) }}
 </div>
 
@@ -31,7 +31,7 @@
         'services_id[]',
         $services->pluck('nom', 'id')->toArray(),
         isset($service_patient) ? $service_patient->pluck('service_id')->toArray() : [],
-        ['class' => 'form-control', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
+        ['class' => 'form-control', 'id'=> 'services_selectTwo', 'required', 'multiple' => 'multiple']
     ) }}
 </div>
 @endif
@@ -70,6 +70,7 @@
     {!! Form::textarea('bilan', null, ['class' => 'form-control', 'id' => 'bilan', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 </div>
 
+@if(\App\Models\Consultation\Consultation::OrientationType() !=="Médecin-général")
 <div class="form-group col-12">
     <label>Nombre de séances</label>
     <input type="number" class="form-control" name="nombre_seance"
@@ -86,6 +87,7 @@
         </div>
     @endfor
 </div>
+@endif
 
     {!! Form::hidden('dossier_patients',$dossierPatientConsultation->dossier_patient_id , ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 

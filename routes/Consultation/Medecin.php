@@ -21,5 +21,7 @@ Route::get('/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_
 // Phase 3 = Ajouter un consultation
 Route::get('/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation', [ConsultationController::class, 'FormAjouterConsultation'])->name('consultations.FormAjouterConsultation');
 Route::post('/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier_patient_id}/bénéficiaire/Form-consultation/ajouter', [ConsultationController::class, 'AjouterConsultation'])->name('consultations.AjouterConsultation');
+Route::get('/dossiers-patients',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'list_dossier'])->name('dossier-patients.Médecin-général');
+
 
 });

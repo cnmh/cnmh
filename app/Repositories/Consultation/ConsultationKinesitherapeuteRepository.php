@@ -2,15 +2,15 @@
 
 namespace App\Repositories\Consultation;
 
-use App\Models\Consultation\ConsultationDentiste;
 use App\Models\Consultation\Consultation;
+use App\Models\Consultation\ConsultationKinesitherapeute;
 use App\Repositories\BaseRepository;
 use App\Models\DossierPatientConsultation;
 use App\Models\RendezVous;
 use App\Models\Consultation\Seance;
 
 
-class ConsultationDentisteRepository extends BaseRepository
+class ConsultationKinesitherapeuteRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'date_enregistrement',
@@ -143,6 +143,6 @@ class ConsultationDentisteRepository extends BaseRepository
 
     public function model(): string
     {
-        return ConsultationDentiste::class;
+        return ConsultationKinesitherapeute::class;
     }
 }

@@ -3,10 +3,13 @@
 namespace App\Models\Consultation;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\MorphType; 
+
 class Consultation extends Model
 {
-    use HasFactory;    public $table = 'consultations';
+    use HasFactory,MorphType;   
+    public $table = 'consultations';
 
     public $fillable = [
         'date_enregistrement',
@@ -69,6 +72,15 @@ class Consultation extends Model
             return $type = 'Dentiste';
         }elseif($user === 'orthophoniste@gmail.com'){
             return $type = 'Orthophoniste';
+        }
+        elseif($user === 'orthoptiste@gmail.com'){
+            return $type = 'Orthoptiste';
+        }
+        elseif($user === 'psychomotricien@gmail.com'){
+            return $type = 'Psychomotricien';
+        }
+        elseif($user === 'kinesitherapeute@gmail.com'){
+            return $type = 'Kinesitherapeute';
         }
         elseif($user === 'social@gmail.com'){
             return $type = 'Médecin-général';

@@ -33,7 +33,29 @@
                         @endif
                     </td>
                     <td style="width: 120px">
-                        {!! Form::open(['route' => [\App\Models\Consultation\Consultation::OrientationType() . '.supprimer', 'consultationID' => $consultation->id], 'method' => 'delete'])
+                        @if(\App\Models\Consultation\Consultation::OrientationType() === 'Médecin-général')
+                        {!! Form::open(['route' => ['consultations.supprimer', 'consultationID' => $consultation->consultation_id], 'method' => 'delete'])
+                        !!}
+                        <div class='btn-group'>
+                            @can('show-Consultation')
+                            <a href="{{ route('consultations.consulter', ['consultationID' => $consultation->consultation_id]) }}"
+                                class='btn btn-default btn-sm'>
+                                <i class="far fa-eye"></i>
+                            </a>
+                            @endcan
+                            @can('edit-Consultation')
+                           <a href="{{ route('consultations.formEdit', ['consultationID' => $consultation->consultation_id]) }}"
+                               class='btn btn-default btn-sm'>
+                                <i class="far fa-edit"></i>
+                            </a>
+                            @endcan
+                            @can('destroy-Consultation')
+                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            @endcan
+                        </div>
+                        {!! Form::close() !!}
+                        @else
+                        {!! Form::open(['route' => [\App\Models\Consultation\Consultation::OrientationType() . '.supprimer', 'consultationID' => $consultation->consultation_id], 'method' => 'delete'])
                         !!}
                         <div class='btn-group'>
                             @can('show-Consultation')
@@ -53,6 +75,7 @@
                             @endcan
                         </div>
                         {!! Form::close() !!}
+                        @endif
                     </td>
                 </tr>
 

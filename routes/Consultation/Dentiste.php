@@ -25,6 +25,8 @@ Route::post('/Consultations/Choix-Rendez-Vous/dossier-bénéficiaire-id/{dossier
 Route::get('/suiver-seance',[ConsultationController::class, 'seance'])->name('Dentiste.seance');
 Route::post('/suiver-seance/{id}/update-present',[ConsultationController::class, 'presentSeance'])->name('Dentiste.seancePresent');
 Route::post('/suiver-seance/{id}/update-absent',[ConsultationController::class, 'absentSeance'])->name('Dentiste.seanceAbsent');
+Route::get('/dossiers-patients',[App\Http\Controllers\PoleSocial\EntretienSocialController::class, 'list_dossier'])->name('dossier-patients.Dentiste');
+
 
 
 
