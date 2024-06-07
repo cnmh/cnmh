@@ -37,23 +37,28 @@ $(document).ready(function () {
   }
 
   function fetchData(page, searchValue) {
-      var neededUrl = window.location.pathname;
-      $("tbody").html('<tr><td colspan="100%"><div class="loading-spinner"></div></td></tr>');
-      $.ajax({
-          url: neededUrl,
-          data: { page: page, searchValue: searchValue },
-          success: function (data) {
-              setTimeout(function() {
-                  var newData = $(data);
-                  $("tbody").html(newData.find("tbody").html());
-                  $("#card-footer").html(newData.find("#card-footer").html());
-                  $(".pagination").html(newData.find(".pagination").html() || "");
+    var neededUrl = window.location.pathname;
+
+    if (searchValue.trim() !== "") {
+        $("tbody").html('<tr><td colspan="100%"><div class="loading-spinner"></div></td></tr>');
+    }
+
+    $.ajax({
+        url: neededUrl,
+        data: { page: page, searchValue: searchValue },
+        success: function (data) {
+            setTimeout(function() {
+                var newData = $(data);
+                $("tbody").html(newData.find("tbody").html());
+                $("#card-footer").html(newData.find("#card-footer").html());
+                $(".pagination").html(newData.find(".pagination").html() || "");
     
-                  updateURLParameters({ page: page, searchValue: searchValue });
-              }, 3000);
-          }
-      });
-  }
+                updateURLParameters({ page: page, searchValue: searchValue });
+            }, 3000);
+        }
+    });
+}
+
 
   function getUrlParameter(name) {
       return new URLSearchParams(window.location.search).get(name) || "";

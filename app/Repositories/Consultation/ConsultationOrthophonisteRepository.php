@@ -140,16 +140,18 @@ class ConsultationOrthophonisteRepository extends BaseRepository
         return $rendezVous;
     }
 
-    public function ConsultationModifier($input)
+    public function ConsultationModifier($input,$id)
     {
-        $consultation = Consultation::where('type',$input)->first();
-    
+        $consultation = Consultation::where('type', $input)->where('id', $id)->first();
+
         if ($consultation) {
-            Seance::where('consultation_id', $consultation->id)->delete();
-    
-            $rendezVousIds = Seance::where('consultation_id', $consultation->id)->pluck('rendezVous_id')->toArray();
-            RendezVous::whereIn('id', $rendezVousIds)->delete();
-    
+            $deletedSeances = Seance::where('consultation_id', $consultation->id)->delete();
+            
+            if ($deletedSeances === 0) {
+                $rendezVousIds = Seance::where('consultation_id', $consultation->id)->pluck('rendezVous_id')->toArray();
+                RendezVous::whereIn('id', $rendezVousIds)->delete();
+            }
+
             $consultation->update([
                 'etat' => Consultation::ETAT_EN_RENDEZVOUS
             ]);
