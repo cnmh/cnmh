@@ -1,0 +1,26 @@
+@startuml Pôle médical
+
+left to right direction
+
+actor Dentiste as dentiste
+actor Orthoptiste as orthoptiste
+actor Orthophoniste as orthophoniste
+actor Psychomotrice as psychomotrice
+actor Kinésithérapeute as kinésithérapeute
+
+package "Pôle médical" {
+
+  dentiste --> (Gestion des consultations)
+  dentiste --> (Consulter des statistiques)
+  
+  orthoptiste -- dentiste
+  orthophoniste -- dentiste
+  psychomotrice -- dentiste
+  kinésithérapeute -- dentiste
+
+  (Gestion des consultations) <|-- (Gestion Séance) : extends
+  (Gestion des consultations) -- (Authentification) : include
+  (Consulter des statistiques) -- (Authentification) : include
+}
+
+@enduml

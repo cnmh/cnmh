@@ -4,7 +4,7 @@ chapitre: Idéation
 presentation: Gestion_dentiste
 package: Gestion_dentiste
 presentationPackage: Gestion_dentiste
-order: 5
+order: 9
 ---
 
 <!-- new slide -->

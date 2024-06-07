@@ -1,6 +1,6 @@
 classDiagram 
 
-namespace Gestion_dentiste {
+namespace Pôle médical {
   class Consultation {
     id : int
     date_enregistrement : dateTime
@@ -26,5 +26,7 @@ namespace Gestion_dentiste {
 
 Consultation "1" --> "*" Rendez-vous
 Consultation "1" --> "*" Seance
+Rendez-vous "1" --> "*" Seance
+
 
  

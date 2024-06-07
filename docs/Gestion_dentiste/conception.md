@@ -1,17 +1,29 @@
 ---
 layout: default
-chapitre: Diagramme de classes
+chapitre: Conception
 presentation: Gestion_dentiste
 package: Gestion_dentiste
 presentationPackage: Gestion_dentiste
-order: 6
+order: 11
 ---
 
 <!-- new slide -->
 
-# Diagramme de classes
+# Conception
 
-![Diagramme de classes](./images/diagramme-classes.svg){:width="65%"}*figure: Diagramme de classes*
+![Conception](./images/conception.avif){:width="35%"}*figure: Conception*
+
+<!-- new slide -->
+
+## Diagramme de classe global
+
+![Diagramme de classe global](./images/diagramme-classes-global.svg){:width="65%" .dgGlobal}*figure: Diagramme de classe global*
+
+<!-- new slide -->
+
+## Diagramme de classe Pôle médical
+
+![Diagramme de classe Pôle médical](./images/diagramme-classes.svg){:width="65%"}*figure: Diagramme de classes Pôle médical*
 
 <!-- new slide -->
 
@@ -49,7 +61,6 @@ order: 6
 
 ![Suiver des seances](./images/dentiste6.png){:width="65%"}*figure: Suiver des seances*
 
-<!-- new slide -->
 
 
 

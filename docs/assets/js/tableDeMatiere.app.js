@@ -1,39 +1,55 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const tableDeMatiere = document.getElementById('table-de-matiere');
+    const h1AndH2Elements = document.querySelectorAll('h1, h2');
 
-/**
- * table de matiere
- */
-const tableDeMatiere = document.getElementById('table-de-matiere');
-const h1AndH2Elements = document.querySelectorAll('h1, h2');
+    const ul = document.createElement('ul');
 
-// Create a new unordered list element
-const ul = document.createElement('ul');
+    let pageNumber = 1;
 
-h1AndH2Elements.forEach(function (element) {
-
-    // Create a new list item element
-    const li = document.createElement('li');
-    console.log(element)
-
-    // Create a new anchor element, set its href attribute to the corresponding element's id, set its text content to the element's text content, and insert the new anchor into the list item
-    const newAnchor = document.createElement('a');
-    newAnchor.href = "#" + element.id;
-    newAnchor.textContent = element.textContent;
-    newAnchor.style.fontWeight = "bold"; // Adding bold font style
-
-    // Append the anchor element to the list item
-    li.appendChild(newAnchor);
-    if (element.tagName === 'H2') {
-        newAnchor.style.fontSize = "15px";
-        const innerUl = document.createElement('ul');
-        innerUl.appendChild(li);
-        ul.appendChild(innerUl);
-
-    } else {
-        newAnchor.style.fontSize = "18px";
-        ul.appendChild(li);
+    // Function to calculate page number based on element's position
+    function calculatePageNumber(element) {
+        const elementRect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const scrollPosition = window.scrollY;
+        const elementTop = elementRect.top + scrollPosition;
+        const relativePosition = elementTop / windowHeight;
+        return Math.ceil(relativePosition);
     }
 
-});
+    h1AndH2Elements.forEach(function (element) {
+        // Check if the element is hidden
+        const elementStyle = window.getComputedStyle(element);
+        if (elementStyle.display === 'none') {
+            return; // Skip hidden elements
+        }
 
-// Insert the unordered list after the table-de-matiere element
-tableDeMatiere.insertAdjacentElement('afterend', ul);
+        const li = document.createElement('li');
+
+        const newAnchor = document.createElement('a');
+        newAnchor.href = "#" + element.id;
+        newAnchor.textContent = element.textContent;
+        newAnchor.style.fontWeight = "bold"; 
+
+        li.appendChild(newAnchor);
+
+        // Calculate page number dynamically
+        const currentPageNumber = calculatePageNumber(element);
+
+        const pageNumberSpan = document.createElement('span');
+        pageNumberSpan.textContent = ' - Page ' + currentPageNumber;
+        pageNumberSpan.style.marginLeft = '5px';
+        li.appendChild(pageNumberSpan);
+
+        if (element.tagName === 'H2') {
+            newAnchor.style.fontSize = "15px";
+            const innerUl = document.createElement('ul');
+            innerUl.appendChild(li);
+            ul.appendChild(innerUl);
+        } else {
+            newAnchor.style.fontSize = "18px";
+            ul.appendChild(li);
+        }
+    });
+
+    tableDeMatiere.insertAdjacentElement('afterend', ul);
+});

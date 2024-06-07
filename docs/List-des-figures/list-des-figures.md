@@ -1,12 +1,12 @@
 ---
 layout: default
-chapitre: table de matiere
-order: 2
+chapitre: List des figures
+order: 3
 ---
 
 
 <!-- Ce document est vide car il contient un code JavaScript qui génère dynamiquement le contenu et l'affiche ici  -->
 
-# Table de matiere
+# List des figures
 
 <!-- new slide -->
