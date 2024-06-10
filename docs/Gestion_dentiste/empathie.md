@@ -9,7 +9,7 @@ order: 7
 
 ## Empathie Dentiste
 
-![alt text](/cnmh/Gestion_dentiste/images/empathie.svg){:width="50%" .empathie}*figure: Empathie Dentiste*
+![alt text](/app/Gestion_dentiste/images/empathie.svg){:width="50%" .empathie}*figure: Empathie Dentiste*
 
 
 <!-- note -->
@@ -36,7 +36,7 @@ Une séance d’empathie a été réalisée avec SAMIA KABBAJ, orthophoniste de 
 
 ## Empathie Orthoptiste
 
-![alt text](/cnmh/Gestion_dentiste/images/empathieOrthoptiste.svg){:width="40%" .empathieOrthoptiste}*figure: Empathie Orthoptiste*
+![alt text](/app/Gestion_dentiste/images/empathieOrthoptiste.svg){:width="40%" .empathieOrthoptiste}*figure: Empathie Orthoptiste*
 
 
 <!-- note -->
@@ -55,7 +55,7 @@ Une séance d’empathie a été réalisée avec SAMIA KABBAJ, orthophoniste de 
 
 ## Empathie Psychomotrice
 
-![alt text](/cnmh/Gestion_dentiste/images/empathiePsychomotrice.svg){:width="50%" .empathie}*figure: Empathie Psychomotrice*
+![alt text](/app/Gestion_dentiste/images/empathiePsychomotrice.svg){:width="50%" .empathie}*figure: Empathie Psychomotrice*
 
 
 <!-- note -->
@@ -83,7 +83,7 @@ Une séance d’empathie a été réalisée avec SALMA LIKRAM, psychomotrice de 
 
 ## Empathie Orthophoniste
 
-![alt text](/cnmh/Gestion_dentiste/images/empathieOrthophoniste.svg){:width="50%" .empathieOrthophoniste}*figure: Empathie Orthophoniste*
+![alt text](/app/Gestion_dentiste/images/empathieOrthophoniste.svg){:width="50%" .empathieOrthophoniste}*figure: Empathie Orthophoniste*
 
 
 <!-- note -->
@@ -112,7 +112,7 @@ Une séance d’empathie a été réalisée avec SAMIA KABBAJ, orthoptiste de se
 
 ## Empathie Kinésithérapeute
 
-![alt text](/cnmh/Gestion_dentiste/images/empathieKinésithérapeute.svg){:width="50%" .empathieKinésithérapeute}*figure: Empathie Kinésithérapeute*
+![alt text](/app/Gestion_dentiste/images/empathieKinésithérapeute.svg){:width="50%" .empathieKinésithérapeute}*figure: Empathie Kinésithérapeute*
 
 
 <!-- note -->

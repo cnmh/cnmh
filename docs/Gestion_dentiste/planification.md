@@ -10,7 +10,7 @@ order: 6
 
 ## Planification
 
-![alt Planification](/cnmh/Gestion_dentiste/images/planification.png){:width="80%" .planification}*figure: Planification*
+![alt Planification](/app/Gestion_dentiste/images/planification.png){:width="80%" .planification}*figure: Planification*
 
 <!-- note -->
 
