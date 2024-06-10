@@ -25,11 +25,15 @@
     @vite('resources/js/app.js')
     @stack('third_party_scripts')
     @stack('page_scripts')
-    <script src="https://cnmh2-production.up.railway.app/build/assets/app-e421d829.js"></script>
+
     <script>
         $(document).ready(() => {
             // $('.menu-open').click()
         })
+
+         
+
+        
     </script>
 </body>
 

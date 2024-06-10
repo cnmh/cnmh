@@ -16,7 +16,7 @@
         'type_handicap_id[]',
         $type_handicap->pluck('nom', 'id')->toArray(),
         isset($type_handicap_patient) ? $type_handicap_patient->pluck('id')->toArray() : [],
-        ['class' => 'form-control', 'id'=> 'type_handicap_select' ,'required', 'multiple' => 'multiple']
+        ['class' => 'form-control type_handicap_select', 'id'=> 'type_handicap_select' ,'required', 'multiple' => 'multiple']
     ) }}
 </div>
 
@@ -30,7 +30,7 @@
         'services_id[]',
         $services->pluck('nom', 'id')->toArray(),
         isset($service_patient) ? $service_patient : [],
-        ['class' => 'form-control', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
+        ['class' => 'form-control services_select', 'id'=> 'services_select', 'required', 'multiple' => 'multiple']
     ) }}
 </div>
 
@@ -109,6 +109,6 @@
 
 @push('page_scripts')
 <script type="text/javascript">
-$('#date_enregsitrement').datepicker()
+$('#date_enregsitrement').datepicker();
 </script>
 @endpush

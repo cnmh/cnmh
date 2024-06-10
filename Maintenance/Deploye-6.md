@@ -7,8 +7,4 @@ php artisan migrate
 
 php artisan db:seed --class=Database\Seeders\Autorizations\Maintenance_1_2_3
 
-## Update type dans le consultation en utilisent sql
-
-UPDATE `consultations` SET type = "Médecin-général" WHERE type = "medecinGeneral"
-
 ```

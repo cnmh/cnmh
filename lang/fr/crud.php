@@ -30,6 +30,14 @@ return [
 'selectRole' => 'Sélectionnez un rôle',
 'selectPermissions' => 'Sélectionnez des permissions',
 'requiredFields' => 'Les champs indiqués par * sont obligatoires.',
-'selectActions' => 'Sélectionnez des actions'
+'selectActions' => 'Sélectionnez des actions',
+'suiver' => 'Suiver',
+'presence' => 'Présent',
+'absence' => 'Absent',
+'etat' => 'Etat',
+'Date' => 'Date de seance',
+'nom' => 'Nom',
+'prenom' => 'Prenom',
+'numero' => 'N° dossier',
 
 ];

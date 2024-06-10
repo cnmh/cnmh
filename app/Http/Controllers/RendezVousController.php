@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateRendezVousRequest;
 use App\Http\Requests\UpdateRendezVousRequest;
 use App\Http\Controllers\AppBaseController;
-use App\Models\Consultation;
+use App\Models\Consultation\Consultation;
 use App\Models\DossierPatientConsultation;
 use App\Models\RendezVous;
 use App\Models\DossierPatient;
@@ -35,6 +35,8 @@ class RendezVousController extends AppBaseController
         foreach ($rendezVouses as $rendezVous) {
             $consultation_id = $rendezVous->consultation_id;
             $dossierConsultation = DossierPatientConsultation::where('consultation_id', $consultation_id)->first();
+
+            $consultation = Consultation::find($consultation_id);
             
             if ($dossierConsultation) {
                 $dossier_patient_id = $dossierConsultation->dossier_patient_id;
@@ -42,6 +44,7 @@ class RendezVousController extends AppBaseController
                 if ($dossierPatient) {
                     $dossier_numero = $dossierPatient->numero_dossier;
                     $rendezVous->numero_dossier = $dossier_numero;
+                    $rendezVous->type = $consultation->type;
                 }
             }
         }

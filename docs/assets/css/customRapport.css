@@ -1,0 +1,12 @@
+.hiddenRapport {
+    display: none !important;
+}
+
+.planification{
+    height: 180px !important;
+    width: 98% !important;
+}
+
+.sectionHeaderPresentation{
+    display: none !important;
+}

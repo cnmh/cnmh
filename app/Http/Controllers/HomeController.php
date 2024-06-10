@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Tuteur;
 use App\Models\Patient;
 use App\Models\DossierPatient;
-use App\Models\Consultation;
+use App\Models\Consultation\Consultation;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
 

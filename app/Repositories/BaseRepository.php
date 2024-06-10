@@ -68,14 +68,14 @@ abstract class BaseRepository
      * @author CodeCampers/boukhar Soufiane
     */
 
-    public function paginate($search = [], $perPage = 10, array $columns = ['*']): LengthAwarePaginator
+    public function paginate($search = [], $perPage = null, array $columns = ['*']): LengthAwarePaginator
     {
         $query = $this->allQuery($search);
 
         if (is_null($perPage)) {
             $perPage = $this->paginationLimit;
         }
-        return $query->orderBy('created_at', 'DESC')->paginate($perPage, $columns);
+        return $query->paginate($perPage, $columns);
     }
 
     /**

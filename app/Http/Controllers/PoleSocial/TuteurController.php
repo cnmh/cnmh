@@ -102,7 +102,7 @@ class TuteurController extends AppBaseController
     public function edit($id , Request $request)
     {
         $tuteur = $this->tuteurRepository->find($id);
-        $previousUrl = $request->input('previous_url', route('dossier-patients.list')); 
+        $previousUrl = $request->input('previous_url', route('dossier-patients.index')); 
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
             return redirect(route('tuteurs.index'));
@@ -117,6 +117,7 @@ class TuteurController extends AppBaseController
      */
     public function update($id, Request $request)
     {
+        dd($id);
         $tuteur = $this->tuteurRepository->find($id);
         if (empty($tuteur)) {
             Flash::error(__('models/tuteurs.singular') . ' ' . __('messages.not_found'));
@@ -133,7 +134,7 @@ class TuteurController extends AppBaseController
         Flash::success(__('messages.updated', ['model' => __('models/tuteurs.singular')]));
 
         if (strpos($previousUrl, 'entretien-social') !== false) {
-            $redirectUrl = $previousUrl . '/dossier-bénéficiaire/'. $numeroDossier .'/editer';
+            $redirectUrl = $previousUrl . '/'. $numeroDossier .'/edit';
             return redirect($redirectUrl);
         }
 
@@ -153,7 +154,7 @@ class TuteurController extends AppBaseController
 
             return redirect(route('tuteurs.index'));
         }
-        else{
+        if($tuteur){
 
             $patientRepo = new PatientRepository;
             $patient = $patientRepo->where(Patient::class,'tuteur_id',$id)->first();
@@ -162,12 +163,10 @@ class TuteurController extends AppBaseController
                 Flash::error(__("Le tuteur a des patients associés. Supprimez d'abord le patient"));
                 return redirect(route('tuteurs.index'));
             }
-
-            $this->tuteurRepository->delete($id);
-            Flash::success(__('messages.deleted', ['model' => __('models/tuteurs.singular')]));
-            return back();
-        }
             
+        }
+        $this->tuteurRepository->delete($id);
+        Flash::success(__('messages.deleted', ['model' => __('models/tuteurs.singular')]));
+        return redirect(route('tuteurs.index'));
     }
-        
 }

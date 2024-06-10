@@ -34,6 +34,17 @@ php artisan db:seed
   - Password : social
 - Email : medecin@gmail.com
   - Password : medecin
+- Email : dentiste@gmail.com
+  - Password : dentiste
+- Email : orthophoniste@gmail.com
+  - Password : orthophoniste
+- Email : orthoptiste@gmail.com
+  - Password : orthoptiste
+- Email : psychomotricien@gmail.com
+  - Password : psychomotricien
+- Email : kinesitherapeute@gmail.com
+  - Password : kinesitherapeute
+
 
 ## Mise à ajour de l'application
 

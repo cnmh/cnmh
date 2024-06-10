@@ -1,0 +1,43 @@
+.sectionHeader {
+    margin: 20% 0 !important;
+}
+
+.hiddenPresentation {
+    display: none !important;
+}
+
+.introduction{
+    display: none;
+}
+
+.empathie{
+    width: 30% !important;
+}
+
+.empathieOrthoptiste, .empathieOrthophoniste{
+    width: 20% !important;
+}
+
+
+.empathieOrthophoniste{
+    width: 15% !important;
+}
+
+
+.empathieKinésithérapeute{
+    width: 15% !important;
+}
+
+
+.dgGlobal{
+    width: 25% !important;
+}
+
+.sectionHeader{
+    display: none !important;
+}
+
+
+.sectionHeaderPresentation{
+    margin: 20% 0 !important;
+}

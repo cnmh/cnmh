@@ -1,0 +1,115 @@
+classDiagram
+    class USERS {
+        id: bigint(20) UNSIGNED
+        name: varchar(191)
+        email: varchar(191)
+        email_verified_at: timestamp
+        password: varchar(191)
+        remember_token: varchar(100)
+        created_at: timestamp
+        updated_at: timestamp
+    }
+
+    class PATIENTS {
+        id: bigint(20) UNSIGNED
+        tuteur_id: bigint(20) UNSIGNED
+        niveau_scolaire_id: bigint(20) UNSIGNED
+        nom: varchar(191)
+        prenom: varchar(191)
+        telephone: varchar(191)
+        cin: varchar(191)
+        email: varchar(191)
+        image: varchar(191)
+        adresse: varchar(191)
+        remarques: text
+        created_at: timestamp
+        updated_at: timestamp
+        date_naissance: date
+        sexe: varchar(191)
+    }
+
+    class TUTEURS {
+        id: bigint(20) UNSIGNED
+        etat_civil_id: bigint(20) UNSIGNED
+        nom: varchar(191)
+        prenom: varchar(191)
+        sexe: varchar(191)
+        telephone: varchar(191)
+        email: varchar(191)
+        adresse: varchar(191)
+        cin: varchar(191)
+        remarques: text
+        created_at: timestamp
+        updated_at: timestamp
+        professionPere: varchar(191)
+        professionMere: varchar(191)
+        nombreDesEnfants: int(11)
+        lienParente: varchar(191)
+    }
+
+    class DOSSIER_PATIENTS {
+        id: bigint(20) UNSIGNED
+        patient_id: bigint(20) UNSIGNED
+        couverture_medical_id: bigint(20) UNSIGNED
+        numero_dossier: varchar(191)
+        etat: varchar(191)
+        date_enregsitrement: date
+        romarque: varchar(191)
+        user_id: bigint(20) UNSIGNED
+        created_at: timestamp
+        updated_at: timestamp
+    }
+
+    class COUVERTURE_MEDICALS {
+        id: bigint(20) UNSIGNED
+        nom: varchar(191)
+        description: text
+        created_at: timestamp
+        updated_at: timestamp
+    }
+
+    class CONSULTATIONS {
+        id: bigint(20) UNSIGNED
+        date_enregistrement: datetime
+        date_consultation: datetime
+        observation: text
+        diagnostic: text
+        bilan: text
+        type: varchar(191)
+        etat: varchar(191)
+        created_at: timestamp
+        updated_at: timestamp
+    }
+
+    class RENDEZ_VOUS {
+        id: bigint(20) UNSIGNED
+        consultation_id: bigint(20) UNSIGNED
+        date_rendez_vous: datetime
+        etat: varchar(191)
+        remarques: text
+        created_at: timestamp
+        updated_at: timestamp
+    }
+
+    USERS "1" --> "*" DOSSIER_PATIENTS
+    USERS "1" --> "*" EMPLOYES
+    PATIENTS "1" --> "*" DOSSIER_PATIENTS
+    PATIENTS "1" --> "*" RECLAMATIONS
+    PATIENTS "1" --> "*" RENDEZ_VOUS
+    PATIENTS "1" --> "*" ORIENTATION_EXTERNES
+    TUTEURS "1" --> "*" PATIENTS
+    TUTEURS "1" --> "*" DOSSIER_PATIENTS
+    DOSSIER_PATIENTS "1" --> "*" CONSULTATIONS
+    DOSSIER_PATIENTS "1" --> "*" ORIENTATION_EXTERNES
+    DOSSIER_PATIENTS "1" --> "*" RENDEZ_VOUS
+    COUVERTURE_MEDICALS "1" --> "*" DOSSIER_PATIENTS
+    CONSULTATIONS "1" --> "*" RENDEZ_VOUS
+    CONSULTATIONS "1" --> "*" SEANCES
+    CONSULTATIONS "1" --> "*" ORIENTATION_EXTERNES
+    CONSULTATIONS "1" --> "*" EMPLOYES
+    RENDEZ_VOUS "1" --> "*" SEANCES
+    RENDEZ_VOUS "1" --> "*" ORIENTATION_EXTERNES
+    RENDEZ_VOUS "1" --> "*" EMPLOYES
+    EMPLOYES "1" --> "*" FONCTIONS
+    TUTEURS "1" --> "*" ETAT_CIVILS
+    PATIENTS "1" --> "*" NIVEAU_SCOLAIRES
