@@ -5,5 +5,5 @@ order: 1
 
 
 
-[Gestion dentiste rapport](https://cnmh.github.io/cnmh/documentation/Gestion_dentiste/)
-[Gestion dentiste presentation](https://cnmh.github.io/cnmh/documentation/Gestion_dentiste/presentation#/)
+[Gestion dentiste rapport](https://cnmh.github.io/app/documentation/Gestion_dentiste/)
+[Gestion dentiste presentation](https://cnmh.github.io/app/documentation/Gestion_dentiste/presentation#/)
