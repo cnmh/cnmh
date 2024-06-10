@@ -46,7 +46,7 @@ class ConsultationDentisteRepository extends BaseRepository
         'patients.id as patient_id',
         'dossier_patients.numero_dossier'
     )
-    ->paginate();
+    ->paginate(2);
 
     }
     

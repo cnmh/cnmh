@@ -79,7 +79,7 @@ class ConsultationRepository extends BaseRepository
             })
             ->where('consultations.etat', '=', 'enConsultation')
             ->where('consultations.type', '=', $type)
-            ->paginate();
+            ->paginate(2);
     }
 
     public function searchRendezVous($search,$type)
