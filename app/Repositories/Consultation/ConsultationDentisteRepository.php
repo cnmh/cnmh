@@ -66,7 +66,7 @@ class ConsultationDentisteRepository extends BaseRepository
     {
         $consultationID = $input['consultation_id'];
     
-        $consultation = Consultation::find($consultationID);
+        $consultation = $this->model->find($consultationID);
         $consultation->update([
             "date_enregistrement" => $input['date_enregistrement'],
             "date_consultation" => $input['date_consultation'],
